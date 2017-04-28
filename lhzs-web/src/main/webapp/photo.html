@@ -1,0 +1,193 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>相册</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link href="css/base.css" rel="stylesheet">
+    <link href="css/index.css" rel="stylesheet">
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/sliders.js"></script>
+    <!--[if lt IE 9]>
+    <script src="js/modernizr.js"></script>
+    <![endif]-->
+    <!-- 返回顶部调用 begin -->
+    <script type="text/javascript" src="js/up/jquery.js"></script>
+    <script type="text/javascript" src="js/up/js.js"></script>
+    <!-- 返回顶部调用 end-->
+
+    <style>
+        .l_box {
+            width: 100%;
+        }
+        .article-zone{
+            font-size: 17px;
+            margin-top: 43px;
+            border-bottom: 1px dotted #444;
+            color: black;
+        }
+        .article-zone-title{
+            width: 90px;
+            text-align: center;
+            padding: 10px 0px;
+            background-color: #48AE15;
+        }
+        .blogs figure img {
+            width: 55%;
+            margin: auto;
+            -moz-transition: all 0.5s;
+            -webkit-transition: all 0.5s;
+            -o-transition: all 0.5s;
+            transition: all 0.5s;
+        }
+        .blogs figure img {
+            width: 100%;
+        }
+        .blogs figure {
+            float: left;
+            width: 17%;
+            overflow: hidden;
+        }
+        .blogs {
+            padding: 25px 0;
+            position: relative;
+            border-bottom: #CCC 1px solid;
+            overflow: hidden;
+        }
+        .topnews {
+            margin: 10px 0;
+        }
+        .blogs ul {
+            float: right;
+            line-height: 22px;
+            width: 81%;
+            color: #756F71;
+        }
+        .photo{
+            padding: 20px 10px 10px 10px;
+            float: left;
+        }
+        .photo img{
+            width: 180px;
+            height: 250px;
+        }
+        .photo-title{
+            text-align: center;
+            padding: 10px 0px;
+            font-size: 15px;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="logo f_l">
+        <a href="index.html"><img src="images/blog_logo.jpg" style="margin-left: 20px"></a>
+    </div>
+    <nav id="topnav" class="f_r">
+        <ul>
+            <a href="index.html">首页</a>
+            <a href="article.html">文章</a>
+            <a href="photo.html">我的相册</a>
+            <a href="mood.html">心灵物语</a>
+        </ul>
+        <script src="js/nav.js"></script>
+    </nav>
+</header>
+<article>
+    <div class="article-zone">
+        <div class="article-zone-title">我的相册</div>
+    </div>
+    <div class="photo">
+        <img src="images/1.jpg">
+        <div class="photo-title">1</div>
+    </div>
+    <div class="photo">
+        <img src="images/2.jpg">
+        <div class="photo-title">2</div>
+    </div>
+    <div class="photo">
+        <img src="images/3.jpg">
+        <div class="photo-title">3</div>
+    </div>
+    <div class="photo">
+        <img src="images/4.jpg">
+        <div class="photo-title">4</div>
+    </div>
+    <div class="photo">
+        <img src="images/11.jpg">
+        <div class="photo-title">11</div>
+    </div>
+    <div class="photo">
+        <img src="images/12.jpg">
+        <div class="photo-title">12</div>
+    </div>
+    <div class="photo">
+        <img src="images/13.jpg">
+        <div class="photo-title">13</div>
+    </div>
+
+</article>
+<footer>
+    <div style="width:420px;margin:0 auto; padding:20px 0;">
+        <span class="bottom-blog">哔唛个人博客</span>
+        <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44030702000389"
+           style="display:inline-block;text-decoration:none;height:20px;line-height:20px;">
+            <img src="images/recordIcon.png" style="float:left;"/>
+            <p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">
+                粤公网安备44030702000389号
+            </p>
+        </a>
+        <span class="bottom-icp">粤ICP备17022674号</span>
+    </div>
+</footer>
+
+<script>
+    window.onload = function ()
+    {
+        var oLi = document.getElementById("tab").getElementsByTagName("li");
+        var oUl = document.getElementById("ms-main").getElementsByTagName("div");
+
+        for(var i = 0; i < oLi.length; i++)
+        {
+            oLi[i].index = i;
+            oLi[i].onmouseover = function ()
+            {
+                for(var n = 0; n < oLi.length; n++) oLi[n].className="";
+                this.className = "cur";
+                for(var n = 0; n < oUl.length; n++) oUl[n].style.display = "none";
+                oUl[this.index].style.display = "block"
+            }
+        }
+    }
+
+    if(!window.slider) {
+        var slider={};
+    }
+
+    slider.data= [
+        {
+            "id":"slide-img-1", // 与slide-runner中的img标签id对应
+            "client":"",
+            "desc":"" //这里修改描述
+        },
+        {
+            "id":"slide-img-2",
+            "client":"",
+            "desc":""
+        },
+        {
+            "id":"slide-img-3",
+            "client":"",
+            "desc":""
+        },
+        {
+            "id":"slide-img-4",
+            "client":"",
+            "desc":""
+        }
+    ];
+
+</script>
+</body>
+</html>

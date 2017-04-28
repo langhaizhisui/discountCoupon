@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" style="font-size: 40px;">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no,emain=no">
+    <title>精美礼品免费领</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/prize.css">
+    <script>
+        (function (doc, win) {
+            var docEl = doc.documentElement,
+                resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+                recalc = function () {
+                    var clientWidth = docEl.clientWidth;
+                    if (!clientWidth) return;
+
+                    if (clientWidth > 640) {
+                        docEl.style.fontSize = 20 * (640 / 320) + 'px';
+                    }
+                    else {
+                        docEl.style.fontSize = 20 * (clientWidth / 320) + 'px';
+                    }
+                };
+            if (!doc.addEventListener) return;
+            win.addEventListener(resizeEvt, recalc, false);
+            doc.addEventListener('DOMContentLoaded', recalc, false);
+        })(document, window);
+    </script>
+</head>
+<body>
+<!-- 弹框遮罩背景 -->
+<div class="pop-light"></div>
+
+<!-- loading begin -->
+<div id="loading" style="display: none;">
+    <div class="spinner">
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+    </div>
+</div>
+<!-- loading end -->
+
+<!-- 弹框页面 -->
+<div class="prize-page">
+    <div class="prize-banner">
+        <img src="./images/prize-box.png">
+        <div class="prize-box-title">
+            <p>“吃出好气色，恭喜你获得气血美容精品礼盒1份，</p>
+            <p>
+                <font style="color: red">*</font> 赶快填写资料坐等拆快递吧”<font style="color: red">*</font>
+            </p>
+        </div>
+        <img src="./images/box.png" class="prize-box-img">
+        <div class="submit-btn">马上填写</div>
+    </div>
+</div>
+</body>
+</html>

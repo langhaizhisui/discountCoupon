@@ -1,0 +1,341 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>优惠券</title>
+    <meta name="description" content="优惠券">
+    <meta name="Keywords" content="优惠券">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <style>
+        body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, textarea, p, blockquote, th, td, input, select, textarea, button {
+            margin: 0;
+            padding: 0
+        }
+
+        /* 初始化标签在所有浏览器中的margin、padding值 */
+        fieldset, img {
+            border: 0 none
+        }
+
+        /* 重置fieldset（表单分组）、图片的边框为0*/
+        dl, ul, ol, menu, li {
+            list-style: none
+        }
+
+        /* 重置类表前导符号为onne,menu在HTML5中有效 */
+        blockquote, q {
+            quotes: none
+        }
+
+        /* 重置嵌套引用的引号类型 */
+        blockquote:before, blockquote:after, q:before, q:after {
+            content: '';
+            content: none
+        }
+
+        /* 重置嵌套引用*/
+        input, select, textarea, button {
+            vertical-align: middle
+        }
+
+        /* 重置表单控件垂直居中*/
+        button {
+            border: 0 none;
+            background-color: transparent;
+            cursor: pointer
+        }
+
+        /* 重置表单button按钮效果 */
+        body {
+            background: #fff
+        }
+
+        /* 重置body 页面背景为白色 */
+        body, th, td, input, select, textarea, button {
+            font-size: 12px;
+            line-height: 1;
+            font-family: "微软雅黑", "黑体", "宋体";
+            color: #666
+        }
+
+        /* 重置页面文字属性 */
+        a {
+            color: #666;
+            text-decoration: none
+        }
+
+        /* 重置链接a标签 */
+        a:active, a:hover {
+            text-decoration: none
+        }
+
+        /* 重置链接a标签的鼠标滑动效果 */
+        address, caption, cite, code, dfn, em, var {
+            font-style: normal;
+            font-weight: normal
+        }
+
+        /* 重置样式标签的样式 */
+        caption {
+            display: none;
+        }
+
+        /* 重置表格标题为隐藏 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+            table-layout: fixed;
+        }
+
+        /* 重置table属性 */
+        img {
+            vertical-align: top
+        }
+
+        /* 图片在当前行内的垂直位置 */
+        /* 取消a标签点击后的虚线框 */
+        a {
+            outline: none;
+        }
+
+        a:active {
+            star: expression(this.onFocus=this.blur());
+        }
+
+        /*清除浮动*/
+        .clear {
+            clear: both;
+        }
+
+        .clearfix:before, .clearfix:after {
+            content: '';
+            display: table;
+        }
+
+        .clearfix:after {
+            clear: both;
+        }
+
+        .logo{
+            float: left;
+            height: 88px;
+            line-height: 88px;
+        }
+        .logo a{
+            font-size: 30px;
+            padding: 10px 20px;
+            color: #ff5e54;
+            font-weight: bold;
+        }
+
+        .search-box {
+            float: right;
+            padding: 25px 10% 15px;
+        }
+
+        .search-box input {
+            float: left;
+            border: 2px solid #ff5e54;
+            padding: 5px 10px;
+        }
+
+        .search-btn {
+            float: left;
+            background-color: #ff5e54;
+            color: white;
+            height: 30px;
+            line-height: 30px;
+            padding: 0px 15px;
+        }
+
+        .top-nav {
+            background-color: #ff5e54;
+            color: white;
+            padding-left: 20px;
+        }
+
+        .top-nav ul li {
+            float: left;
+            font-size: 16px;
+            text-align: center;
+            padding: 0.9% 1%;
+        }
+
+        .new-shop, .flash-img, .adv {
+            float: left;
+            font-size: 15px;
+            text-align: center;
+            padding: 10px 0px;
+        }
+
+        .new-shop {
+            width: 20%;
+            background-color: #eeeeee;
+            height: 200px;
+        }
+
+        .flash-img {
+            width: 60%;
+        }
+
+        .adv {
+            width: 20%;
+            background-color: #eeeeee;
+            height: 200px;
+        }
+
+        .adv ul li {
+            padding-top: 10px;
+        }
+
+        .new-shop ul li {
+            padding-top: 10px;
+        }
+
+        .transverse-line {
+            width: 100%;
+            border: 1px solid #bbbbbb;
+        }
+
+        .hot-brand {
+            font-size: 15px;
+            padding: 10px 20px;
+        }
+
+        .hot-brand ul li {
+            float: left;
+            padding: 10px 20px;
+            color: #ff5e54;
+        }
+
+        .moldbaby {
+            font-size: 15px;
+            padding: 10px 20px;
+        }
+
+        .moldbaby-more {
+            float: right;
+            text-decoration: underline;
+            color: #ff5e54;
+        }
+
+        .moldbaby-subject {
+            float: left;
+            margin: 2% 20px;
+            border: 1px solid #666666;
+            padding: 1%;
+        }
+
+        .moldbaby-subject img {
+            width: 100%;
+        }
+
+        .moldbaby-subject-img {
+            text-align: center;
+        }
+
+        .moldbaby-subject-title {
+            font-size: 18px;
+            text-align: center;
+            padding: 15px 0px;
+        }
+
+        .curr-price, .other-price {
+            float: left;
+        }
+
+        .curr-price {
+            height: 30px;
+            line-height: 30px;
+            padding: 0px 10px;
+        }
+
+        .go-shop {
+            height: 30px;
+            line-height: 30px;
+            padding: 0px 10px;
+            border: 1px solid #ff5e54;
+            color: #ff5e54;
+            text-align: center;
+            margin: 10px 0px 0px;
+        }
+
+        .copyright {
+            font-size: 15px;
+            padding: 10px 0px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .search-box ul li {
+            float: left;
+            padding: 7px 10px;
+            color: #ff5e54;
+            font-size: 14px;
+            text-decoration:underline;
+        }
+
+        .bottom-icp{
+            position: relative;
+            top: -6px;
+            color: #939393;
+            left: 5px;
+        }
+
+        .prod-title{
+            border-top: 2px solid #e0e0e0;
+            height: 34px;
+            line-height: 34px;
+            color: #666;
+            font-weight: bold;
+            background-color: #eee;
+        }
+        .prod-title ul li,.prod-content ul li{
+            float: left;
+            font-size: 14px;
+            text-align: center;
+            width: 10%;
+        }
+        .prod-content ul li{
+            padding: 5px 0px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <div class="prod-title">
+        <ul>
+            <li>商品Id</li>
+            <li>商品标题</li>
+            <li>所属类目</li>
+            <li>价格</li>
+            <li>优惠价格</li>
+            <li>描述</li>
+            <li>平台</li>
+            <li>浏览量</li>
+            <li>创建时间</li>
+            <li>操作</li>
+        </ul>
+    </div>
+    <div class="prod-content">
+        <ul>
+            <li>7jl98dki980d7</li>
+            <li>国仕邦液体鞋油黑色真皮保养油海绵无色闪亮快擦棕色皮鞋油鞋乳</li>
+            <li>洗护清洁剂/卫生巾/纸/香薰</li>
+            <li>¥12.8</li>
+            <li>¥7.8</li>
+            <li>满9元减5元</li>
+            <li>天猫</li>
+            <li>0</li>
+            <li>2017-04-26 23:59:29</li>
+            <li>
+                <span>编辑</span>
+                <span>删除</span>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

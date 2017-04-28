@@ -1,0 +1,442 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>优惠券</title>
+    <meta name="description" content="优惠券">
+    <meta name="Keywords" content="优惠券">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <style>
+        body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, textarea, p, blockquote, th, td, input, select, textarea, button {
+            margin: 0;
+            padding: 0
+        }
+
+        /* 初始化标签在所有浏览器中的margin、padding值 */
+        fieldset, img {
+            border: 0 none
+        }
+
+        /* 重置fieldset（表单分组）、图片的边框为0*/
+        dl, ul, ol, menu, li {
+            list-style: none
+        }
+
+        /* 重置类表前导符号为onne,menu在HTML5中有效 */
+        blockquote, q {
+            quotes: none
+        }
+
+        /* 重置嵌套引用的引号类型 */
+        blockquote:before, blockquote:after, q:before, q:after {
+            content: '';
+            content: none
+        }
+
+        /* 重置嵌套引用*/
+        input, select, textarea, button {
+            vertical-align: middle
+        }
+
+        /* 重置表单控件垂直居中*/
+        button {
+            border: 0 none;
+            background-color: transparent;
+            cursor: pointer
+        }
+
+        /* 重置表单button按钮效果 */
+        body {
+            background: #fff
+        }
+
+        /* 重置body 页面背景为白色 */
+        body, th, td, input, select, textarea, button {
+            font-size: 12px;
+            line-height: 1;
+            font-family: "微软雅黑", "黑体", "宋体";
+            color: #666
+        }
+
+        /* 重置页面文字属性 */
+        a {
+            color: #666;
+            text-decoration: none
+        }
+
+        /* 重置链接a标签 */
+        a:active, a:hover {
+            text-decoration: none
+        }
+
+        /* 重置链接a标签的鼠标滑动效果 */
+        address, caption, cite, code, dfn, em, var {
+            font-style: normal;
+            font-weight: normal
+        }
+
+        /* 重置样式标签的样式 */
+        caption {
+            display: none;
+        }
+
+        /* 重置表格标题为隐藏 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+            table-layout: fixed;
+        }
+
+        /* 重置table属性 */
+        img {
+            vertical-align: top
+        }
+
+        /* 图片在当前行内的垂直位置 */
+        /* 取消a标签点击后的虚线框 */
+        a {
+            outline: none;
+        }
+
+        a:active {
+            star: expression(this.onFocus=this.blur());
+        }
+
+        /*清除浮动*/
+        .clear {
+            clear: both;
+        }
+
+        .clearfix:before, .clearfix:after {
+            content: '';
+            display: table;
+        }
+
+        .clearfix:after {
+            clear: both;
+        }
+
+        .logo{
+            float: left;
+            height: 88px;
+            line-height: 88px;
+        }
+        .logo a{
+            font-size: 30px;
+            padding: 10px 20px;
+            color: #ff5e54;
+            font-weight: bold;
+        }
+
+        .search-box {
+            float: right;
+            padding: 25px 10% 15px;
+        }
+
+        .search-box input {
+            float: left;
+            border: 2px solid #ff5e54;
+            padding: 5px 10px;
+        }
+
+        .search-btn {
+            float: left;
+            background-color: #ff5e54;
+            color: white;
+            height: 30px;
+            line-height: 30px;
+            padding: 0px 15px;
+        }
+
+        .top-nav {
+            background-color: #ff5e54;
+            color: white;
+            padding-left: 20px;
+        }
+
+        .top-nav ul li {
+            float: left;
+            font-size: 16px;
+            text-align: center;
+            padding: 0.9% 1%;
+        }
+
+        .new-shop, .flash-img, .adv {
+            float: left;
+            font-size: 15px;
+            text-align: center;
+            padding: 10px 0px;
+        }
+
+        .new-shop {
+            width: 20%;
+            background-color: #eeeeee;
+            height: 200px;
+        }
+
+        .flash-img {
+            width: 60%;
+        }
+
+        .adv {
+            width: 20%;
+            background-color: #eeeeee;
+            height: 200px;
+        }
+
+        .adv ul li {
+            padding-top: 10px;
+        }
+
+        .new-shop ul li {
+            padding-top: 10px;
+        }
+
+        .transverse-line {
+            width: 100%;
+            border: 1px solid #bbbbbb;
+        }
+
+        .hot-brand {
+            font-size: 15px;
+            padding: 10px 20px;
+        }
+
+        .hot-brand ul li {
+            float: left;
+            padding: 10px 20px;
+            color: #ff5e54;
+        }
+
+        .moldbaby {
+            font-size: 15px;
+            padding: 10px 20px;
+        }
+
+        .moldbaby-more {
+            float: right;
+            text-decoration: underline;
+            color: #ff5e54;
+        }
+
+        .moldbaby-subject {
+            float: left;
+            margin: 2% 20px;
+            border: 1px solid #666666;
+            padding: 1%;
+        }
+
+        .moldbaby-subject img {
+            width: 100%;
+        }
+
+        .moldbaby-subject-img {
+            text-align: center;
+        }
+
+        .moldbaby-subject-title {
+            font-size: 18px;
+            text-align: center;
+            padding: 15px 0px;
+        }
+
+        .curr-price, .other-price {
+            float: left;
+        }
+
+        .curr-price {
+            height: 30px;
+            line-height: 30px;
+            padding: 0px 10px;
+        }
+
+        .go-shop {
+            height: 30px;
+            line-height: 30px;
+            padding: 0px 10px;
+            border: 1px solid #ff5e54;
+            color: #ff5e54;
+            text-align: center;
+            margin: 10px 0px 0px;
+        }
+
+        .copyright {
+            font-size: 15px;
+            padding: 10px 0px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .search-box ul li {
+            float: left;
+            padding: 7px 10px;
+            color: #ff5e54;
+            font-size: 14px;
+            text-decoration:underline;
+        }
+
+        .bottom-icp{
+            position: relative;
+            top: -6px;
+            color: #939393;
+            left: 5px;
+        }
+    </style>
+</head>
+<body>
+<header class="clearfix">
+    <div class="logo">
+        <a href="./index.html">优惠券</a>
+    </div>
+    <div class="search-box">
+        <div>
+            <input placeholder="关键字/店铺名"/>
+            <span class="search-btn">搜索</span>
+        </div>
+        <ul>
+            <li>华为</li>
+            <li>美的</li>
+            <li>森马</li>
+            <li>安踏</li>
+        </ul>
+    </div>
+</header>
+<section>
+    <div class="top-nav clearfix">
+        <ul>
+            <li>商城</li>
+            <li>|</li>
+            <li>旗舰店</li>
+            <li>|</li>
+            <li>专卖店</li>
+            <li>|</li>
+            <li>自营店</li>
+            <li>|</li>
+            <li>内部优惠券</li>
+        </ul>
+    </div>
+    <div class="clearfix">
+        <div class="new-shop">
+            <div>新的店铺</div>
+            <ul>
+                <li>店铺名称1</li>
+                <li>店铺名称2</li>
+                <li>店铺名称3</li>
+                <li>店铺名称4</li>
+            </ul>
+        </div>
+        <div class="flash-img">轮播图</div>
+        <div class="adv">
+            <div>文字广告</div>
+            <ul>
+                <li>广告1</li>
+                <li>广告2</li>
+                <li>广告3</li>
+                <li>广告4</li>
+            </ul>
+        </div>
+    </div>
+    <div class="transverse-line"></div>
+    <div class="hot-brand clearfix">
+        <div>热门品牌</div>
+        <ul>
+            <li>手机</li>
+            <li>厨具</li>
+            <li>衣服</li>
+            <li>鞋子</li>
+        </ul>
+    </div>
+    <div class="transverse-line"></div>
+    <div class="moldbaby clearfix">
+        <div>
+
+            <span class="moldbaby-more">换一批</span>
+        </div>
+        <div class="moldbaby-subject">
+            <div class="moldbaby-subject-img">
+                <img src="./images/1.png">
+            </div>
+            <div class="moldbaby-subject-title">标题名称</div>
+            <div class="clearfix">
+                <div class="curr-price">现价:¥20</div>
+                <div class="other-price">
+                    <div>原价:¥20</div>
+                    <div>立省:¥10</div>
+                </div>
+            </div>
+            <div class="go-shop">去购物</div>
+        </div>
+        <div class="moldbaby-subject">
+            <div class="moldbaby-subject-img">
+                <img src="./images/1.png">
+            </div>
+            <div class="moldbaby-subject-title">标题名称</div>
+            <div class="clearfix">
+                <div class="curr-price">现价:¥20</div>
+                <div class="other-price">
+                    <div>原价:¥20</div>
+                    <div>立省:¥10</div>
+                </div>
+            </div>
+            <div class="go-shop">去购物</div>
+        </div>
+        <div class="moldbaby-subject">
+            <div class="moldbaby-subject-img">
+                <img src="./images/1.png">
+            </div>
+            <div class="moldbaby-subject-title">标题名称</div>
+            <div class="clearfix">
+                <div class="curr-price">现价:¥20</div>
+                <div class="other-price">
+                    <div>原价:¥20</div>
+                    <div>立省:¥10</div>
+                </div>
+            </div>
+            <div class="go-shop">去购物</div>
+        </div>
+        <div class="moldbaby-subject">
+            <div class="moldbaby-subject-img">
+                <img src="./images/1.png">
+            </div>
+            <div class="moldbaby-subject-title">标题名称</div>
+            <div class="clearfix">
+                <div class="curr-price">现价:¥20</div>
+                <div class="other-price">
+                    <div>原价:¥20</div>
+                    <div>立省:¥10</div>
+                </div>
+            </div>
+            <div class="go-shop">去购物</div>
+        </div>
+        <div class="moldbaby-subject">
+            <div class="moldbaby-subject-img">
+                <img src="./images/1.png">
+            </div>
+            <div class="moldbaby-subject-title">标题名称</div>
+            <div class="clearfix">
+                <div class="curr-price">现价:¥20</div>
+                <div class="other-price">
+                    <div>原价:¥20</div>
+                    <div>立省:¥10</div>
+                </div>
+            </div>
+            <div class="go-shop">去购物</div>
+        </div>
+    </div>
+</section>
+<footer>
+    <div style="width:420px;margin:0 auto; padding:20px 0;">
+        <!--<span class="bottom-blog">哔唛个人博客</span>-->
+        <a style="display:inline-block;text-decoration:none;height:20px;line-height:20px;">
+            <img src="images/recordIcon.png" style="float:left;"/>
+            <p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">
+                粤公网安备44030702000389号
+            </p>
+        </a>
+        <span class="bottom-icp">粤ICP备17022674号</span>
+    </div>
+</footer>
+</body>
+</html>

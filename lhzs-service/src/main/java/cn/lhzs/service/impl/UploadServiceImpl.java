@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
 
 /**
  * Created by ZHX on 2017/4/26.
@@ -44,23 +45,64 @@ public class UploadServiceImpl implements UploadService {
             int lastRowNum = sheet.getLastRowNum();
 
             if("1".equals(type)){
-                for (int i = 1; i < lastRowNum; i++) {
+                for (int i = 1; i <= lastRowNum; i++) {
                     Row row = sheet.getRow(i);
                     Product product=new Product();
-                    product.setProdId(row.getCell(0).toString());
-                    product.setName(row.getCell(1).toString());
+                    product.setProdId("3dt58dje"+i);
+                    product.setName(row.getCell(0).toString());
+                    product.setBanner(row.getCell(1).toString());
                     product.setDetail(row.getCell(2).toString());
                     product.setCategory(row.getCell(3).toString());
                     product.setPrice(Double.parseDouble(row.getCell(4).toString()));
-                    product.setBanner(row.getCell(5).toString());
-                    product.setBanner(row.getCell(6).toString());
-//                    for (int j = row.getFirstCellNum(); j < row.getLastCellNum(); j++) {
-//                        Cell  cell = row.getCell(j);
-//                    }
+                    product.setDiscountPrice(Double.parseDouble(row.getCell(5).toString()));
+                    product.setDiscountDesc(row.getCell(7).toString());
+                    product.setPlatform(row.getCell(6).toString());
+                    product.setProdGeneralize(row.getCell(8).toString());
+                    product.setScanNum(0);
+                    product.setCreateTime(new Date());
+                    product.setUpdateTime(new Date());
+                    String operation=row.getCell(11).toString();
+                    if("1".equals(operation)){
+                        productMapper.insert(product);
+                    }else if("2".equals(operation)){
+                        productMapper.deleteByPrimaryKey(row.getCell(0).toString());
+                    }else if("3".equals(operation)){
+                        productMapper.updateByPrimaryKey(product);
+                    }
+
+                }
+            }else if("2".equals(type)){
+                for (int i = 1; i <= lastRowNum; i++) {
+                    Row row = sheet.getRow(i);
+                    Shop shop=new Shop();
+                    shop.setId("shopId=="+i);
+                    shop.setWebShop(row.getCell(0).toString());
+                    System.out.println(row.getCell(1).toString());
+                    shop.setSize((int)Double.parseDouble(row.getCell(1).toString()));
+                    shop.setType(row.getCell(2).toString());
+                    shop.setSellName(row.getCell(3).toString());
+                    shop.setBrandName(row.getCell(4).toString());
+                    shop.setSellProd(row.getCell(5).toString());
+                    shop.setWebUrl(row.getCell(6).toString());
+                    shop.setWebGeneralize(row.getCell(7).toString());
+                    shop.setMobileUrl(row.getCell(8).toString());
+                    shop.setMobileGeneralize(row.getCell(9).toString());
+                    shop.setShopAddr(row.getCell(10).toString());
+                    shop.setBanner(row.getCell(11).toString());
+                    shop.setCreatTime(new Date());
+                    shop.setUpdateTime(new Date());
+                    String operation=row.getCell(11).toString();
+                    if("1".equals(operation)){
+                        shopMapper.insert(shop);
+                    }else if("2".equals(operation)){
+                        shopMapper.deleteByPrimaryKey(row.getCell(0).toString());
+                    }else if("3".equals(operation)){
+                        shopMapper.updateByPrimaryKey(shop);
+                    }
                 }
             }
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;

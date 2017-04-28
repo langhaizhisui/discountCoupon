@@ -315,11 +315,12 @@
 <div class="prod-upload">
     <div class="upload-title">批量导入</div>
     <form action="/upload/excel" method="post" enctype="multipart/form-data" target="tmp" id="sendFile">
+        <input class="type-input" style="display: none" name="type" value="0">
         <input type="file" accept="application/vnd.ms-excel,x-excel,.xlsx,.xls" id="innerFile" name="file">
     </form>
     <div class="select-type">
         <div style="padding: 10px 0px">选择类型：</div>
-        <select>
+        <select id="select-type">
             <option value="0">请选择</option>
             <option value="1">商品导入</option>
             <option value="2">店铺导入</option>
@@ -331,15 +332,22 @@
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery.form.js"></script>
 <script>
-    $(".sendOrder-upload").bind("click", function () {
+    $(function () {
 
-        var opt = {
-            success: function (data) {
-                alert(data);
-            }
-        };
+        $("#select-type").change(function () {
+            var vs = $('select option:selected').val()
+            $(".type-input").attr("value",vs);
+        });
 
-        $("#sendFile").ajaxSubmit(opt);
+        $(".sendOrder-upload").click(function () {
+            var opt = {
+                success: function (data) {
+                    alert(data);
+                }
+            };
+
+            $("#sendFile").ajaxSubmit(opt);
+        });
     });
 </script>
 </html>

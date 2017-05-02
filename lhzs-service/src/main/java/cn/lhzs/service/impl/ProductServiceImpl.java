@@ -23,7 +23,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> getProdList(String data) {
         if (data != null) {
-            JSONObject jsonObject = JSONObject.parseObject(data);
+            JSONObject jsonObject = JSONObject.parseObject(data).getJSONObject("reqData");
             Integer page = jsonObject.getInteger("page");
             Integer size = jsonObject.getInteger("pageSize");
 

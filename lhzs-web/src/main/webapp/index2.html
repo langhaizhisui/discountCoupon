@@ -118,12 +118,13 @@
             clear: both;
         }
 
-        .logo{
+        .logo {
             float: left;
             height: 88px;
             line-height: 88px;
         }
-        .logo a{
+
+        .logo a {
             font-size: 30px;
             padding: 10px 20px;
             color: #ff5e54;
@@ -161,6 +162,10 @@
             font-size: 16px;
             text-align: center;
             padding: 0.9% 1%;
+        }
+
+        .top-nav ul li a {
+            color: white;
         }
 
         .new-shop, .flash-img, .adv {
@@ -226,6 +231,7 @@
             margin: 2% 20px;
             border: 1px solid #666666;
             padding: 1%;
+            width: 200px;
         }
 
         .moldbaby-subject img {
@@ -274,10 +280,10 @@
             padding: 7px 10px;
             color: #ff5e54;
             font-size: 14px;
-            text-decoration:underline;
+            text-decoration: underline;
         }
 
-        .bottom-icp{
+        .bottom-icp {
             position: relative;
             top: -6px;
             color: #939393;
@@ -295,7 +301,7 @@
             <input placeholder="关键字/店铺名"/>
             <span class="search-btn">搜索</span>
         </div>
-        <ul>
+        <ul style="display: none">
             <li>华为</li>
             <li>美的</li>
             <li>森马</li>
@@ -306,25 +312,21 @@
 <section>
     <div class="top-nav clearfix">
         <ul>
-            <li>商城</li>
+            <li><a href="index2.html">商城</a></li>
             <li>|</li>
-            <li>旗舰店</li>
+            <li><a href="shop.html?id=1">旗舰店</a></li>
             <li>|</li>
-            <li>专卖店</li>
+            <li><a href="shop.html?id=2">专卖店</a></li>
             <li>|</li>
-            <li>自营店</li>
+            <li><a href="shop.html?id=3">自营店</a></li>
             <li>|</li>
-            <li>内部优惠券</li>
+            <li><a href="discountCoupon.html">内部优惠券</a></li>
         </ul>
     </div>
     <div class="clearfix">
         <div class="new-shop">
             <div>新的店铺</div>
-            <ul>
-                <li>店铺名称1</li>
-                <li>店铺名称2</li>
-                <li>店铺名称3</li>
-                <li>店铺名称4</li>
+            <ul class="shop-item">
             </ul>
         </div>
         <div class="flash-img">轮播图</div>
@@ -339,7 +341,7 @@
         </div>
     </div>
     <div class="transverse-line"></div>
-    <div class="hot-brand clearfix">
+    <div class="hot-brand clearfix" style="display: none">
         <div>热门品牌</div>
         <ul>
             <li>手机</li>
@@ -350,80 +352,7 @@
     </div>
     <div class="transverse-line"></div>
     <div class="moldbaby clearfix">
-        <div>
 
-            <span class="moldbaby-more">换一批</span>
-        </div>
-        <div class="moldbaby-subject">
-            <div class="moldbaby-subject-img">
-                <img src="./images/1.png">
-            </div>
-            <div class="moldbaby-subject-title">标题名称</div>
-            <div class="clearfix">
-                <div class="curr-price">现价:¥20</div>
-                <div class="other-price">
-                    <div>原价:¥20</div>
-                    <div>立省:¥10</div>
-                </div>
-            </div>
-            <div class="go-shop">去购物</div>
-        </div>
-        <div class="moldbaby-subject">
-            <div class="moldbaby-subject-img">
-                <img src="./images/1.png">
-            </div>
-            <div class="moldbaby-subject-title">标题名称</div>
-            <div class="clearfix">
-                <div class="curr-price">现价:¥20</div>
-                <div class="other-price">
-                    <div>原价:¥20</div>
-                    <div>立省:¥10</div>
-                </div>
-            </div>
-            <div class="go-shop">去购物</div>
-        </div>
-        <div class="moldbaby-subject">
-            <div class="moldbaby-subject-img">
-                <img src="./images/1.png">
-            </div>
-            <div class="moldbaby-subject-title">标题名称</div>
-            <div class="clearfix">
-                <div class="curr-price">现价:¥20</div>
-                <div class="other-price">
-                    <div>原价:¥20</div>
-                    <div>立省:¥10</div>
-                </div>
-            </div>
-            <div class="go-shop">去购物</div>
-        </div>
-        <div class="moldbaby-subject">
-            <div class="moldbaby-subject-img">
-                <img src="./images/1.png">
-            </div>
-            <div class="moldbaby-subject-title">标题名称</div>
-            <div class="clearfix">
-                <div class="curr-price">现价:¥20</div>
-                <div class="other-price">
-                    <div>原价:¥20</div>
-                    <div>立省:¥10</div>
-                </div>
-            </div>
-            <div class="go-shop">去购物</div>
-        </div>
-        <div class="moldbaby-subject">
-            <div class="moldbaby-subject-img">
-                <img src="./images/1.png">
-            </div>
-            <div class="moldbaby-subject-title">标题名称</div>
-            <div class="clearfix">
-                <div class="curr-price">现价:¥20</div>
-                <div class="other-price">
-                    <div>原价:¥20</div>
-                    <div>立省:¥10</div>
-                </div>
-            </div>
-            <div class="go-shop">去购物</div>
-        </div>
     </div>
 </section>
 <footer>
@@ -439,4 +368,86 @@
     </div>
 </footer>
 </body>
+<script src="js/jquery.min.js"></script>
+<script>
+    $(function () {
+        getShop();
+        getProduct();
+    });
+    var prodData;
+    function getShop() {
+        var reqData = {};
+        var param = {};
+        param.page = 1;
+        param.pageSize = 5;
+        reqData.reqData = param;
+
+        $.ajax({
+            type: 'post',
+            url: "shop/getList",
+            dataType: 'json',
+            contentType: "application/json",
+            data: JSON.stringify(reqData),
+            success: function (result) {
+                if (result.code == 200) {
+                    var html = "";
+                    var data = result.data;
+                    for (var i = 0; i < data.length; i++) {
+                        var shop = data[i];
+                        html += '<li><a href="' + shop.webUrl + '">' + shop.webShop + '</a></li>';
+                    }
+                    $(".shop-item").html(html);
+                }
+            }
+        });
+    }
+    function getProduct() {
+        var reqData = {};
+        var param = {};
+        param.page = 1;
+        param.pageSize = 20;
+        reqData.reqData = param;
+
+        $.ajax({
+            type: 'post',
+            url: "prod/getList",
+            dataType: 'json',
+            contentType: "application/json",
+            data: JSON.stringify(reqData),
+            success: function (result) {
+                if (result.code == 200) {
+                    var html = '<div>' +
+                        '<span class="moldbaby-more">换一批</span>' +
+                        '</div>';
+                    var data = result.data;
+                    prodData = data;
+                    for (var i = 0; i < data.length; i++) {
+                        var product = data[i];
+                        html += '<div class="moldbaby-subject" index="'+i+'">' +
+                            '<div class="moldbaby-subject-img">' +
+                            '<img src="' + product.banner + '">' +
+                            '</div>' +
+                            '<div class="moldbaby-subject-title">' + product.name + '</div>' +
+                            '<div class="clearfix">' +
+                            '<div class="curr-price">现价:¥' + product.price + '</div>' +
+                            '<div class="other-price">' +
+                            '<div>原价:¥' + product.discountPrice + '</div>' +
+                            '<div>立省:¥' + (product.price - product.discountPrice) + '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '<div class="go-shop">去购物</div>' +
+                            '</div>';
+                    }
+                    $(".moldbaby").html(html);
+
+                    $(".moldbaby-subject").click(function () {
+                        var index=$(this).attr("index");
+                        location.href=prodData[index].prodGeneralize;
+                    });
+                }
+            }
+        });
+    }
+
+</script>
 </html>

@@ -30,6 +30,51 @@
     id, web_shop, site, type, sell_name, brand_name, sell_prod, web_url, web_generalize, 
     mobile_url, mobile_generalize, shop_addr, banner, creat_time, update_time
   </sql>
+  <sql id="Select_Where_Sql">
+    <if test="webShop != null">
+      and web_shop = #{webShop}
+    </if>
+    <if test="site != null">
+      and site = #{site}
+    </if>
+    <if test="type != null">
+      and type = #{type}
+    </if>
+    <if test="sellName != null">
+      and sell_name = #{sellName}
+    </if>
+    <if test="brandName != null">
+      and brand_name = #{brandName}
+    </if>
+    <if test="sellProd != null">
+      and sell_prod = #{sellProd}
+    </if>
+    <if test="webUrl != null">
+      and web_url = #{webUrl}
+    </if>
+    <if test="webGeneralize != null">
+      and web_generalize = #{webGeneralize}
+    </if>
+    <if test="mobileUrl != null">
+      and mobile_url = #{mobileUrl}
+    </if>
+    <if test="mobileGeneralize != null">
+      and mobile_generalize = #{mobileGeneralize}
+    </if>
+    <if test="shopAddr != null">
+      and shop_addr = #{shopAddr}
+    </if>
+    <if test="banner != null">
+      and banner = #{banner}
+    </if>
+    <if test="creatTime != null">
+      and creat_time = #{creatTime}
+    </if>
+    <if test="updateTime != null">
+      and update_time = #{updateTime}
+    </if>
+  </sql>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     <!--
       WARNING - @mbggenerated
@@ -241,4 +286,17 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+
+  <select id="selectShop" parameterType="cn.lhzs.data.bean.Shop" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from shop where 1=1
+    <include refid="Select_Where_Sql" />
+    <if test="index != null and size !=null">
+      limit #{index,jdbcType=INTEGER}, #{size,jdbcType=INTEGER}
+    </if>
+    <if test="lock != null">
+      for update
+    </if>
+  </select>
 </mapper>

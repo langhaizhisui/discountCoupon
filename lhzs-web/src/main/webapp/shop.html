@@ -118,12 +118,13 @@
             clear: both;
         }
 
-        .logo{
+        .logo {
             float: left;
             height: 88px;
             line-height: 88px;
         }
-        .logo a{
+
+        .logo a {
             font-size: 30px;
             padding: 10px 20px;
             color: #ff5e54;
@@ -154,6 +155,10 @@
             background-color: #ff5e54;
             color: white;
             padding-left: 20px;
+        }
+
+        .top-nav ul li a {
+            color: white;
         }
 
         .top-nav ul li {
@@ -274,43 +279,43 @@
             padding: 7px 10px;
             color: #ff5e54;
             font-size: 14px;
-            text-decoration:underline;
+            text-decoration: underline;
         }
 
-        .bottom-icp{
+        .bottom-icp {
             position: relative;
             top: -6px;
             color: #939393;
             left: 5px;
         }
 
-
-
-
-
-
-        .shop{
+        .shop {
             width: 280px;
             border: 1px dotted #ddd;
             margin: 10px 20px;
             border-radius: 5px;
             float: left;
         }
-        .shop-logo{
+
+        .shop-logo {
             float: left;
             margin: 10px 20px;
         }
+
         .shop-desc {
             padding: 20px;
         }
+
         .shop-name {
             font-size: 15px;
             font-weight: bold;
         }
+
         .shop-type {
             margin-top: 10px;
             font-size: 14px;
         }
+
         .shop-addr {
             margin-top: 5px;
         }
@@ -328,7 +333,7 @@
             <input placeholder="关键字/店铺名"/>
             <span class="search-btn">搜索</span>
         </div>
-        <ul>
+        <ul style="display: none">
             <li>华为</li>
             <li>美的</li>
             <li>森马</li>
@@ -339,163 +344,21 @@
 <section>
     <div class="top-nav clearfix">
         <ul>
-            <li>商城</li>
+            <li><a href="index2.html">商城</a></li>
             <li>|</li>
-            <li>旗舰店</li>
+            <li><a href="shop.html?id=1">旗舰店</a></li>
             <li>|</li>
-            <li>专卖店</li>
+            <li><a href="shop.html?id=2">专卖店</a></li>
             <li>|</li>
-            <li>自营店</li>
+            <li><a href="shop.html?id=3">自营店</a></li>
             <li>|</li>
-            <li>内部优惠券</li>
+            <li><a href="discountCoupon.html">内部优惠券</a></li>
         </ul>
     </div>
 
-    <div class="shop clearfix">
-        <div class="shop-logo ">
-            <img src="./images/1.png">
-        </div>
-        <div class="shop-desc">
-            <div class="shop-name">浪海之遂</div>
-            <div class="shop-type">
-                <span>商城：</span>
-                <span>天猫</span>
-            </div>
-            <div class="shop-addr">
-                <span>地区：</span>
-                <span>广东广州</span>
-            </div>
-        </div>
-    </div>
-    <div class="shop clearfix">
-        <div class="shop-logo ">
-            <img src="./images/1.png">
-        </div>
-        <div class="shop-desc">
-            <div class="shop-name">浪海之遂</div>
-            <div class="shop-type">
-                <span>商城：</span>
-                <span>天猫</span>
-            </div>
-            <div class="shop-addr">
-                <span>地区：</span>
-                <span>广东广州</span>
-            </div>
-        </div>
-    </div>
-    <div class="shop clearfix">
-        <div class="shop-logo ">
-            <img src="./images/1.png">
-        </div>
-        <div class="shop-desc">
-            <div class="shop-name">浪海之遂</div>
-            <div class="shop-type">
-                <span>商城：</span>
-                <span>天猫</span>
-            </div>
-            <div class="shop-addr">
-                <span>地区：</span>
-                <span>广东广州</span>
-            </div>
-        </div>
-    </div>
-    <div class="shop clearfix">
-        <div class="shop-logo ">
-            <img src="./images/1.png">
-        </div>
-        <div class="shop-desc">
-            <div class="shop-name">浪海之遂</div>
-            <div class="shop-type">
-                <span>商城：</span>
-                <span>天猫</span>
-            </div>
-            <div class="shop-addr">
-                <span>地区：</span>
-                <span>广东广州</span>
-            </div>
-        </div>
-    </div>
-    <div class="shop clearfix">
-        <div class="shop-logo ">
-            <img src="./images/1.png">
-        </div>
-        <div class="shop-desc">
-            <div class="shop-name">浪海之遂</div>
-            <div class="shop-type">
-                <span>商城：</span>
-                <span>天猫</span>
-            </div>
-            <div class="shop-addr">
-                <span>地区：</span>
-                <span>广东广州</span>
-            </div>
-        </div>
-    </div>
-    <div class="shop clearfix">
-        <div class="shop-logo ">
-            <img src="./images/1.png">
-        </div>
-        <div class="shop-desc">
-            <div class="shop-name">浪海之遂</div>
-            <div class="shop-type">
-                <span>商城：</span>
-                <span>天猫</span>
-            </div>
-            <div class="shop-addr">
-                <span>地区：</span>
-                <span>广东广州</span>
-            </div>
-        </div>
-    </div>
-    <div class="shop clearfix">
-        <div class="shop-logo ">
-            <img src="./images/1.png">
-        </div>
-        <div class="shop-desc">
-            <div class="shop-name">浪海之遂</div>
-            <div class="shop-type">
-                <span>商城：</span>
-                <span>天猫</span>
-            </div>
-            <div class="shop-addr">
-                <span>地区：</span>
-                <span>广东广州</span>
-            </div>
-        </div>
-    </div>
-    <div class="shop clearfix">
-        <div class="shop-logo ">
-            <img src="./images/1.png">
-        </div>
-        <div class="shop-desc">
-            <div class="shop-name">浪海之遂</div>
-            <div class="shop-type">
-                <span>商城：</span>
-                <span>天猫</span>
-            </div>
-            <div class="shop-addr">
-                <span>地区：</span>
-                <span>广东广州</span>
-            </div>
-        </div>
-    </div>
-    <div class="shop clearfix">
-        <div class="shop-logo ">
-            <img src="./images/1.png">
-        </div>
-        <div class="shop-desc">
-            <div class="shop-name">浪海之遂</div>
-            <div class="shop-type">
-                <span>商城：</span>
-                <span>天猫</span>
-            </div>
-            <div class="shop-addr">
-                <span>地区：</span>
-                <span>广东广州</span>
-            </div>
-        </div>
-    </div>
+    <div class="shop-list">
 
+    </div>
 </section>
 <footer>
     <div style="width:420px;margin:0 auto; padding:20px 0;">
@@ -510,4 +373,103 @@
     </div>
 </footer>
 </body>
+<script src="js/jquery.min.js"></script>
+<script>
+    function getParameter(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null)return unescape(r[2]);
+        return null;
+    }
+
+    var id;
+    var shopData;
+    $(function () {
+        id = getParameter("id");
+        getShop();
+    });
+    function getShop() {
+        var reqData = {};
+        var param = {};
+        if (id == "1") {
+            param.type = "G";
+        } else if (id == "2") {
+            param.type = "T";
+        } else if (id == "3") {
+            param.type = "W";
+        }
+        param.page = 1;
+        param.pageSize = 20;
+        reqData.reqData = param;
+
+        $.ajax({
+            type: 'post',
+            url: "shop/getList",
+            dataType: 'json',
+            contentType: "application/json",
+            data: JSON.stringify(reqData),
+            success: function (result) {
+                if (result.code == 200) {
+                    var html = "";
+                    var data = result.data;
+                    shopData = data;
+                    for (var i = 0; i < data.length; i++) {
+                        var shop = data[i];
+                        html += '<div class="shop clearfix" index="' + i + '">' +
+                            '<div class="shop-logo ">' +
+                            '<img src="./images/1.png">' +
+                            '</div>' +
+                            '<div class="shop-desc">' +
+                            '<div class="shop-name">' + shop.webShop + '</div>' +
+                            '<div class="shop-type">' +
+                            '<span>商城：</span>' +
+                            '<span>' + getShopType(shop.site) + '</span>' +
+                            '</div>' +
+                            '<div class="shop-addr">' +
+                            '<span>地区：</span>' +
+                            '<span>' + shop.shopAddr + '</span>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>'
+                    }
+                    $(".shop-list").html(html);
+
+                    $(".shop").click(function () {
+                        var index = $(this).attr("index");
+                        location.href = shopData[index].webUrl;
+                    });
+                }
+            }
+        });
+    }
+
+    function getShopType(type) {
+        switch (type) {
+            case "1":
+                return "天猫";
+                break;
+            case "2":
+                return "京东";
+                break;
+            case "3":
+                return "苏宁易购";
+                break;
+            case "4":
+                return "一号店";
+                break;
+            case "5":
+                return "当当网";
+                break;
+            case "6":
+                return "国美";
+                break;
+            case "7":
+                return "淘宝店";
+                break;
+            default:
+                return "";
+                break;
+        }
+    }
+</script>
 </html>

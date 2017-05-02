@@ -3,6 +3,8 @@ package cn.lhzs.data.dao;
 import cn.lhzs.data.bean.Shop;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface ShopMapper {
     /**
@@ -52,4 +54,11 @@ public interface ShopMapper {
      * @mbggenerated
      */
     int updateByPrimaryKey(Shop record);
+
+    /**
+     * 获取商店列表
+     * @param shop 商店对象
+     * @return 商店列表
+     */
+    List<Shop> selectShop(Shop shop);
 }

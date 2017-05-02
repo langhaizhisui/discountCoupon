@@ -32,9 +32,9 @@ public class ProductController {
         return result;
     }
 
-    @RequestMapping("/getList")
+    @RequestMapping(value = "/getList")
     @ResponseBody
-    public RequestResult getProductList(@RequestParam(value = "reqData") String reqData) {
+    public RequestResult getProductList(@RequestBody String reqData) {
         List<Product> productList = productService.getProdList(reqData);
 
         RequestResult result = new RequestResult();

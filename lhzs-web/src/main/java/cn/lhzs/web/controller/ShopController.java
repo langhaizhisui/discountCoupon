@@ -7,7 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 /**
  * Created by ZHX on 2017/4/27.
@@ -18,6 +21,18 @@ public class ShopController {
 
     @Autowired
     public ShopService shopService;
+
+    @RequestMapping("/getList")
+    @ResponseBody
+    public RequestResult getShopList(@RequestBody String reqData) {
+        List<Shop> shopList = shopService.getShopList(reqData);
+
+        RequestResult result = new RequestResult();
+        result.setCode(200);
+        result.setMsg("获取网店成功");
+        result.setData(shopList);
+        return result;
+    }
 
     @RequestMapping("/getShop")
     @ResponseBody

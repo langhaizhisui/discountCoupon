@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by ZHX on 2017/4/27.
@@ -37,6 +39,19 @@ public class ShopServiceImpl implements ShopService {
                 }
                 return shopMapper.selectShop(shop);
             }
+        }
+        return null;
+    }
+
+    public List<Shop> searchShop(String data){
+        if (data != null) {
+            JSONObject jsonObject = JSONObject.parseObject(data).getJSONObject("reqData");
+            String key=jsonObject.getString("key");
+            key="%"+key+"%";
+
+            Map keyMap = new HashMap();
+            keyMap.put("key",key);
+            return shopMapper.searchShop(keyMap);
         }
         return null;
     }

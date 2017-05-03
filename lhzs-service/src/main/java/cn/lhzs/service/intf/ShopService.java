@@ -18,4 +18,6 @@ public interface ShopService {
     void deleteShopByProdId(String shopId);
 
     void updateShop(Shop shop);
+
+    List<Shop> searchShop(String data);
 }

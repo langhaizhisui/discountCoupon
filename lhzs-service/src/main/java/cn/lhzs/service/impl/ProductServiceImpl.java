@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by ZHX on 2017/4/27.
@@ -58,5 +60,19 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void updateProd(Product product) {
         productMapper.updateByPrimaryKey(product);
+    }
+
+    @Override
+    public List<Product> searchProduct(String data) {
+        if (data != null) {
+            JSONObject jsonObject = JSONObject.parseObject(data).getJSONObject("reqData");
+            String key = jsonObject.getString("key");
+            key = "%" + key + "%";
+            Map searchKey = new HashMap();
+            searchKey.put("key", key);
+            return productMapper.searchProduct(searchKey);
+        }
+        return null;
+
     }
 }

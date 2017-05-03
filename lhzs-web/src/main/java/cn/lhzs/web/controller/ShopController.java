@@ -79,4 +79,17 @@ public class ShopController {
         result.setMsg("修改网店成功");
         return result;
     }
+
+    @RequestMapping("/search")
+    @ResponseBody
+    public RequestResult searchShop(@RequestBody String reqData) {
+        List<Shop> shopList=shopService.searchShop(reqData);
+
+        RequestResult result = new RequestResult();
+        result.setCode(200);
+        result.setMsg("搜索成功");
+        result.setData(shopList);
+        return result;
+    }
+
 }

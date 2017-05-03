@@ -4,6 +4,7 @@ import cn.lhzs.data.bean.Shop;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface ShopMapper {
@@ -61,4 +62,11 @@ public interface ShopMapper {
      * @return 商店列表
      */
     List<Shop> selectShop(Shop shop);
+
+    /**
+     * 搜索商店
+     * @param map 参数对象
+     * @return 店铺列表
+     */
+    List<Shop> searchShop(Map map);
 }

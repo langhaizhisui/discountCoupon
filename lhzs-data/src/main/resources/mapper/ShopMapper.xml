@@ -299,4 +299,10 @@
       for update
     </if>
   </select>
+
+  <select id="searchShop" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from shop where web_shop LIKE #{key}
+  </select>
 </mapper>

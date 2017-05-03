@@ -383,7 +383,6 @@
     }
 
     var id;
-    var shopData;
     $(function () {
         id = getParameter("id");
         getShop();
@@ -412,7 +411,6 @@
                 if (result.code == 200) {
                     var html = "";
                     var data = result.data;
-                    shopData = data;
                     for (var i = 0; i < data.length; i++) {
                         var shop = data[i];
                         html += '<div class="shop clearfix" index="' + i + '">' +
@@ -436,7 +434,7 @@
 
                     $(".shop").click(function () {
                         var index = $(this).attr("index");
-                        location.href = shopData[index].webUrl;
+                        location.href = data[index].webUrl;
                     });
                 }
             }

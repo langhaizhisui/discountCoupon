@@ -3,7 +3,9 @@ package cn.lhzs.data.dao;
 import cn.lhzs.data.bean.Product;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface ProductMapper {
@@ -61,4 +63,11 @@ public interface ProductMapper {
      * @return 商品列表
      */
     List<Product> selectProduct(Product product);
+
+    /**
+     * 搜索关键字
+     * @param map 参数对象
+     * @return 商品列表
+     */
+    List<Product> searchProduct(Map map);
 }

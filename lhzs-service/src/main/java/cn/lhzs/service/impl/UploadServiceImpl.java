@@ -48,7 +48,7 @@ public class UploadServiceImpl implements UploadService {
                 for (int i = 1; i <= lastRowNum; i++) {
                     Row row = sheet.getRow(i);
                     Product product=new Product();
-                    product.setProdId("3dt58dje"+i);
+                    product.setProdId("4dt58dje"+i);
                     product.setName(row.getCell(0).toString());
                     product.setBanner(row.getCell(1).toString());
                     product.setDetail(row.getCell(2).toString());
@@ -61,12 +61,12 @@ public class UploadServiceImpl implements UploadService {
                     product.setScanNum(0);
                     product.setCreateTime(new Date());
                     product.setUpdateTime(new Date());
-                    String operation=row.getCell(11).toString();
-                    if("1".equals(operation)){
+                    String operation=row.getCell(9).toString();
+                    if("1".equals(operation)||"1.0".equals(operation)){
                         productMapper.insert(product);
-                    }else if("2".equals(operation)){
+                    }else if("2".equals(operation)||"2.0".equals(operation)){
                         productMapper.deleteByPrimaryKey(row.getCell(0).toString());
-                    }else if("3".equals(operation)){
+                    }else if("3".equals(operation)||"3.0".equals(operation)){
                         productMapper.updateByPrimaryKey(product);
                     }
 
@@ -75,7 +75,7 @@ public class UploadServiceImpl implements UploadService {
                 for (int i = 1; i <= lastRowNum; i++) {
                     Row row = sheet.getRow(i);
                     Shop shop=new Shop();
-                    shop.setId("shopId=="+i);
+                    shop.setId("shopId2=="+i);
                     shop.setWebShop(row.getCell(0).toString());
                     System.out.println(row.getCell(1).toString());
                     shop.setSize((int)Double.parseDouble(row.getCell(1).toString()));
@@ -91,12 +91,12 @@ public class UploadServiceImpl implements UploadService {
                     shop.setBanner(row.getCell(11).toString());
                     shop.setCreatTime(new Date());
                     shop.setUpdateTime(new Date());
-                    String operation=row.getCell(11).toString();
-                    if("1".equals(operation)){
+                    String operation=row.getCell(12).toString();
+                    if("1".equals(operation)||"1.0".equals(operation)){
                         shopMapper.insert(shop);
-                    }else if("2".equals(operation)){
+                    }else if("2".equals(operation)||"2.0".equals(operation)){
                         shopMapper.deleteByPrimaryKey(row.getCell(0).toString());
-                    }else if("3".equals(operation)){
+                    }else if("3".equals(operation)||"3.0".equals(operation)){
                         shopMapper.updateByPrimaryKey(shop);
                     }
                 }

@@ -5,7 +5,6 @@
     <title>店铺</title>
     <meta name="description" content="店铺">
     <meta name="Keywords" content="店铺">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
     <style>
         body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, textarea, p, blockquote, th, td, input, select, textarea, button {
@@ -333,12 +332,6 @@
             <input placeholder="关键字/店铺名"/>
             <span class="search-btn">搜索</span>
         </div>
-        <ul style="display: none">
-            <li>华为</li>
-            <li>美的</li>
-            <li>森马</li>
-            <li>安踏</li>
-        </ul>
     </div>
 </header>
 <section>
@@ -413,7 +406,7 @@
                     var data = result.data;
                     for (var i = 0; i < data.length; i++) {
                         var shop = data[i];
-                        html += '<div class="shop clearfix" index="' + i + '">' +
+                        html += '<div class="shop" index="' + i + '">' +
                             '<div class="shop-logo ">' +
                             '<img src="./images/1.png">' +
                             '</div>' +

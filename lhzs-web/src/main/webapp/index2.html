@@ -332,10 +332,10 @@
             <!-- Swiper -->
             <div class="swiper-container">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide"><img src="images/lunbo.png"/></div>
-                    <div class="swiper-slide"><img src="images/lunbo.png"/></div>
-                    <div class="swiper-slide"><img src="images/lunbo.png"/></div>
-                    <div class="swiper-slide"><img src="images/lunbo.png"/></div>
+                    <div class="swiper-slide" id="lunbo1"><img src="images/lunbo1.jpg"/></div>
+                    <div class="swiper-slide" id="lunbo2"><img src="images/lunbo2.jpg"/></div>
+                    <div class="swiper-slide" id="lunbo3"><img src="images/lunbo3.jpg"/></div>
+                    <div class="swiper-slide" id="lunbo4"><img src="images/lunbo4.jpg"/></div>
                 </div>
                 <!-- Add Pagination -->
                 <div class="swiper-pagination"></div>
@@ -400,6 +400,18 @@
     $(function () {
         getShop();
         getProduct();
+        $("#lunbo1").click(function () {
+            location.href="https://pages.tmall.com/wow/tmall-3c/17246/tcjz51?spm=a2156.1676643.0008.7.AkLK1h&trackInfo=201608163100101;5405191172;66248;20862671307;0;66248_20862671307;1007.13728.68661.100200300000000;dffcbd71-d6f5-4d72-a492-c7f135a46edc;1;863609748&item_id=20862671307&pvid=dffcbd71-d6f5-4d72-a492-c7f135a46edc&pos=1&activity_id=66248&acm=07057.1003.1.1489930&scm=1003.1.07057.OTHER_66248_1489930";
+        });
+        $("#lunbo2").click(function () {
+            location.href="https://pages.tmall.com/wow/act/17229/jkmqj?spm=a2156.1676643.0008.10.AkLK1h&wh_weex=true&trackInfo=201608163100101;5375346742;66010;36007901952;0;66010_36007901952;1007.13728.68661.100200300000000;dffcbd71-d6f5-4d72-a492-c7f135a46edc;3;863609748&item_id=36007901952&pvid=dffcbd71-d6f5-4d72-a492-c7f135a46edc&pos=3&activity_id=66010&acm=07057.1003.1.1489930&scm=1003.1.07057.OTHER_66010_1489930";
+        });
+        $("#lunbo3").click(function () {
+            location.href="https://sale.jd.com/act/60NWaC1YKX.html";
+        });
+        $("#lunbo4").click(function () {
+            location.href="https://sale.jd.com/act/0fSMAEFVZk5oOje.html";
+        });
     });
     function getShop() {
         var reqData = {};

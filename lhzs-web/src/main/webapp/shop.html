@@ -413,7 +413,7 @@
                         var shop = data[i];
                         html += '<div class="shop" index="' + i + '">' +
                             '<div class="shop-logo ">' +
-                            '<img src="./images/1.png">' +
+                            '<img src="'+getShopImage(shop.site)+'">' +
                             '</div>' +
                             '<div class="shop-desc">' +
                             '<div class="shop-name">' + shop.webShop + '</div>' +
@@ -464,6 +464,35 @@
                 break;
             default:
                 return "";
+                break;
+        }
+    }
+
+    function getShopImage(type) {
+        switch (type) {
+            case "1":
+                return "./images/tm.jpg";
+                break;
+            case "2":
+                return "./images/jd.jpg";
+                break;
+            case "3":
+                return "./images/sn.jpg";
+                break;
+            case "4":
+                return "./images/yhd.jpg";
+                break;
+            case "5":
+                return "./images/dd.jpg";
+                break;
+            case "6":
+                return "./images/gm.jpg";
+                break;
+            case "7":
+                return "./images/tb.jpg";
+                break;
+            default:
+                return "./images/qt.jpg";
                 break;
         }
     }

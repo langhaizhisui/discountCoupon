@@ -78,5 +78,16 @@
 
         </table>-->
 
+        <!--<table tableName="catalog" domainObjectName="Catalog"
+               enableCountByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false">
+
+        </table>
+
+        <table tableName="config" domainObjectName="Config"
+               enableCountByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false">
+
+        </table>-->
     </context>
 </generatorConfiguration>

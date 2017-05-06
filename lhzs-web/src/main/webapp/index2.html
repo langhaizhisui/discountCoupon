@@ -247,7 +247,7 @@
         }
 
         .moldbaby-subject-title {
-            font-size: 18px;
+            font-size: 15px;
             text-align: center;
             padding: 15px 0px;
         }
@@ -324,7 +324,6 @@
     </div>
     <div class="ad clearfix">
         <div class="new-shop">
-            <div>新的店铺</div>
             <ul class="shop-item">
             </ul>
         </div>
@@ -415,14 +414,10 @@
     });
     function getShop() {
         var reqData = {};
-        var param = {};
-        param.page = 1;
-        param.pageSize = 5;
-        reqData.reqData = param;
 
         $.ajax({
             type: 'post',
-            url: "shop/getList",
+            url: "catalog/cataList",
             dataType: 'json',
             contentType: "application/json",
             data: JSON.stringify(reqData),
@@ -431,8 +426,8 @@
                     var html = "";
                     var data = result.data;
                     for (var i = 0; i < data.length; i++) {
-                        var shop = data[i];
-                        html += '<li><a href="' + shop.webUrl + '">' + shop.webShop + '</a></li>';
+                        var catalog = data[i];
+                        html += '<li><a href="">' + catalog.name + '</a></li>';
                     }
                     $(".shop-item").html(html);
                 }
@@ -462,7 +457,7 @@
                             '<div class="moldbaby-subject-img">' +
                             '<img src="' + product.banner + '">' +
                             '</div>' +
-                            '<div class="moldbaby-subject-title">' + product.name + '</div>' +
+                            '<div class="moldbaby-subject-title">' + getProductName(product.name) + '</div>' +
                             '<div class="clearfix">' +
                             '<div class="curr-price">现价:¥' + product.price + '</div>' +
                             '<div class="other-price">' +
@@ -509,12 +504,12 @@
                                             '<div class="moldbaby-subject-img">' +
                                             '<img src="' + product.banner + '">' +
                                             '</div>' +
-                                            '<div class="moldbaby-subject-title">' + product.name + '</div>' +
+                                            '<div class="moldbaby-subject-title">' + getProductName(product.name) + '</div>' +
                                             '<div class="clearfix">' +
                                             '<div class="curr-price">现价:¥' + product.price + '</div>' +
                                             '<div class="other-price">' +
                                             '<div>原价:¥' + product.discountPrice + '</div>' +
-                                            '<div>立省:¥' + (product.price - product.discountPrice) + '</div>' +
+                                            '<div>立省:¥' + (product.price - product.discountPrice).toFixed(2) + '</div>' +
                                             '</div>' +
                                             '</div>' +
                                             '<div class="go-shop">去购物</div>' +
@@ -638,6 +633,12 @@
                 return "";
                 break;
         }
+    }
+    function getProductName(productName) {
+        if(productName.length>30){
+            productName=productName.substr(0,28)+"...";
+        }
+        return productName;
     }
 </script>
 </html>

@@ -242,7 +242,7 @@
         }
 
         .moldbaby-subject-title {
-            font-size: 18px;
+            font-size: 15px;
             text-align: center;
             padding: 15px 0px;
         }
@@ -364,12 +364,12 @@
                             '<div class="moldbaby-subject-img">' +
                             '<img src="' + product.banner + '">' +
                             '</div>' +
-                            '<div class="moldbaby-subject-title">' + product.name + '</div>' +
+                            '<div class="moldbaby-subject-title">' + getProductName(product.name) + '</div>' +
                             '<div class="clearfix">' +
                             '<div class="curr-price">现价:¥' + product.price + '</div>' +
                             '<div class="other-price">' +
                             '<div>原价:¥' + product.discountPrice + '</div>' +
-                            '<div>立省:¥' + (product.price - product.discountPrice) + '</div>' +
+                            '<div>立省:¥' + (product.price - product.discountPrice).toFixed(2) + '</div>' +
                             '</div>' +
                             '</div>' +
                             '<div class="go-shop">去购物</div>' +
@@ -384,6 +384,12 @@
                 }
             }
         });
+    }
+    function getProductName(productName) {
+        if(productName.length>30){
+            productName=productName.substr(0,28)+"...";
+        }
+        return productName;
     }
 </script>
 </html>

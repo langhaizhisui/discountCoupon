@@ -293,13 +293,50 @@
             color: #939393;
             left: 5px;
         }
+
+        .shop {
+            width: 250px;
+            border: 1px dotted #ddd;
+            margin: 10px 20px;
+            border-radius: 5px;
+            float: left;
+        }
+
+        .shop-logo {
+            margin: 10px 20px;
+        }
+
+        .shop-logo img {
+            float: left;
+            margin-bottom: 10px;
+            width: 46%;
+        }
+
+        .shop-desc {
+            padding-top: 9px;
+            padding-left: 50%;
+        }
+
+        .shop-name {
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .shop-type {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .shop-addr {
+            margin-top: 5px;
+        }
     </style>
     <link rel="stylesheet" href="/css/swiper.min.css">
 </head>
 <body>
 <header class="clearfix">
     <div class="logo">
-        <a href="./index.html">优惠券</a>
+        <a href="./index2.html">优惠券</a>
     </div>
     <div class="search-box">
         <div>
@@ -341,24 +378,51 @@
             </div>
         </div>
         <div class="adv">
-            <div>文字广告</div>
             <ul>
-                <li>广告1</li>
-                <li>广告2</li>
-                <li>广告3</li>
-                <li>广告4</li>
+                <li><a href="computer.html">电脑</a></li>
+                <li><a href="article.html">文章</a></li>
+                <li><a href="game.html">游戏</a></li>
+                <li><a href="education.html">教育</a></li>
             </ul>
         </div>
     </div>
     <div class="transverse-line"></div>
-    <div class="hot-brand clearfix" style="display: none">
-        <div>热门品牌</div>
-        <ul>
-            <li>手机</li>
-            <li>厨具</li>
-            <li>衣服</li>
-            <li>鞋子</li>
-        </ul>
+    <div class="hot-brand clearfix">
+        <div>热门店铺</div>
+        <div class="shop-list">
+            <div class="shop" index="0">
+                <div class="shop-logo "><img src="./images/tm.jpg"></div>
+                <div class="shop-desc">
+                    <div class="shop-name">澳门航空旗舰店</div>
+                    <div class="shop-type"><span>商城：</span><span>天猫</span></div>
+                    <div class="shop-addr"><span>地区：</span><span>上海市</span></div>
+                </div>
+            </div>
+            <div class="shop" index="0">
+                <div class="shop-logo "><img src="./images/tm.jpg"></div>
+                <div class="shop-desc">
+                    <div class="shop-name">澳门航空旗舰店</div>
+                    <div class="shop-type"><span>商城：</span><span>天猫</span></div>
+                    <div class="shop-addr"><span>地区：</span><span>上海市</span></div>
+                </div>
+            </div>
+            <div class="shop" index="0">
+                <div class="shop-logo "><img src="./images/tm.jpg"></div>
+                <div class="shop-desc">
+                    <div class="shop-name">澳门航空旗舰店</div>
+                    <div class="shop-type"><span>商城：</span><span>天猫</span></div>
+                    <div class="shop-addr"><span>地区：</span><span>上海市</span></div>
+                </div>
+            </div>
+            <div class="shop" index="0">
+                <div class="shop-logo "><img src="./images/tm.jpg"></div>
+                <div class="shop-desc">
+                    <div class="shop-name">澳门航空旗舰店</div>
+                    <div class="shop-type"><span>商城：</span><span>天猫</span></div>
+                    <div class="shop-addr"><span>地区：</span><span>上海市</span></div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="transverse-line"></div>
     <div>
@@ -397,22 +461,23 @@
 </script>
 <script>
     $(function () {
-        getShop();
+        getCatalog();
+        getHotShop();
         getProduct();
         $("#lunbo1").click(function () {
-            location.href="https://pages.tmall.com/wow/tmall-3c/17246/tcjz51?spm=a2156.1676643.0008.7.AkLK1h&trackInfo=201608163100101;5405191172;66248;20862671307;0;66248_20862671307;1007.13728.68661.100200300000000;dffcbd71-d6f5-4d72-a492-c7f135a46edc;1;863609748&item_id=20862671307&pvid=dffcbd71-d6f5-4d72-a492-c7f135a46edc&pos=1&activity_id=66248&acm=07057.1003.1.1489930&scm=1003.1.07057.OTHER_66248_1489930";
+            location.href = "https://pages.tmall.com/wow/tmall-3c/17246/tcjz51?spm=a2156.1676643.0008.7.AkLK1h&trackInfo=201608163100101;5405191172;66248;20862671307;0;66248_20862671307;1007.13728.68661.100200300000000;dffcbd71-d6f5-4d72-a492-c7f135a46edc;1;863609748&item_id=20862671307&pvid=dffcbd71-d6f5-4d72-a492-c7f135a46edc&pos=1&activity_id=66248&acm=07057.1003.1.1489930&scm=1003.1.07057.OTHER_66248_1489930";
         });
         $("#lunbo2").click(function () {
-            location.href="https://pages.tmall.com/wow/act/17229/jkmqj?spm=a2156.1676643.0008.10.AkLK1h&wh_weex=true&trackInfo=201608163100101;5375346742;66010;36007901952;0;66010_36007901952;1007.13728.68661.100200300000000;dffcbd71-d6f5-4d72-a492-c7f135a46edc;3;863609748&item_id=36007901952&pvid=dffcbd71-d6f5-4d72-a492-c7f135a46edc&pos=3&activity_id=66010&acm=07057.1003.1.1489930&scm=1003.1.07057.OTHER_66010_1489930";
+            location.href = "https://pages.tmall.com/wow/act/17229/jkmqj?spm=a2156.1676643.0008.10.AkLK1h&wh_weex=true&trackInfo=201608163100101;5375346742;66010;36007901952;0;66010_36007901952;1007.13728.68661.100200300000000;dffcbd71-d6f5-4d72-a492-c7f135a46edc;3;863609748&item_id=36007901952&pvid=dffcbd71-d6f5-4d72-a492-c7f135a46edc&pos=3&activity_id=66010&acm=07057.1003.1.1489930&scm=1003.1.07057.OTHER_66010_1489930";
         });
         $("#lunbo3").click(function () {
-            location.href="https://sale.jd.com/act/60NWaC1YKX.html";
+            location.href = "https://sale.jd.com/act/60NWaC1YKX.html";
         });
         $("#lunbo4").click(function () {
-            location.href="https://sale.jd.com/act/0fSMAEFVZk5oOje.html";
+            location.href = "https://sale.jd.com/act/0fSMAEFVZk5oOje.html";
         });
     });
-    function getShop() {
+    function getCatalog() {
         var reqData = {};
 
         $.ajax({
@@ -427,7 +492,7 @@
                     var data = result.data;
                     for (var i = 0; i < data.length; i++) {
                         var catalog = data[i];
-                        html += '<li><a href="">' + catalog.name + '</a></li>';
+                        html += '<li><a href="discountCoupon.html?cataId=' + catalog.cataId + '">' + catalog.name + '</a></li>';
                     }
                     $(".shop-item").html(html);
                 }
@@ -472,7 +537,9 @@
 
                     $(".moldbaby-subject").click(function () {
                         var index = $(this).attr("index");
-                        location.href = data[index].prodGeneralize;
+                        location.href = "productDetail.html?prodId=" + data[index].prodId;
+                        ;
+//                        location.href = data[index].prodGeneralize;
                     });
 
                     var more = 2;
@@ -552,9 +619,10 @@
                         $(".ad").css("display", "none");
                         for (var i = 0; i < list.length; i++) {
                             var shop = list[i];
+                            $(".shop-list").css("display", "none");
                             html += '<div class="shop clearfix" index="' + i + '">' +
                                 '<div class="shop-logo ">' +
-                                '<img src="./images/1.png">' +
+                                '<img src="' + getShopImage(shop.site) + '">' +
                                 '</div>' +
                                 '<div class="shop-desc">' +
                                 '<div class="shop-name">' + shop.webShop + '</div>' +
@@ -573,10 +641,11 @@
 
                         $(".shop").click(function () {
                             var index = $(this).attr("index");
-                            location.href = list[index].webUrl;
+                            location.href = "shopDetail.html?shopId=" + list[index].id + "&shopImg=" + getShopId(list[index].type);
                         });
                     } else if (type == "2") {
                         $(".ad").css("display", "none");
+                        $(".shop-list").css("display", "none");
                         for (var i = 0; i < list.length; i++) {
                             var product = list[i];
                             html += '<div class="moldbaby-subject" index="' + i + '">' +
@@ -605,6 +674,10 @@
             }
         });
     });
+    
+    function getHotShop() {
+        
+    }
 
     function getShopType(type) {
         switch (type) {
@@ -635,10 +708,48 @@
         }
     }
     function getProductName(productName) {
-        if(productName.length>30){
-            productName=productName.substr(0,28)+"...";
+        if (productName.length > 30) {
+            productName = productName.substr(0, 28) + "...";
         }
         return productName;
     }
+    function getShopImage(type) {
+        switch (type) {
+            case "1":
+                return "./images/tm.jpg";
+                break;
+            case "2":
+                return "./images/jd.jpg";
+                break;
+            case "3":
+                return "./images/sn.jpg";
+                break;
+            case "4":
+                return "./images/yhd.jpg";
+                break;
+            case "5":
+                return "./images/dd.jpg";
+                break;
+            case "6":
+                return "./images/gm.jpg";
+                break;
+            case "7":
+                return "./images/tb.jpg";
+                break;
+            default:
+                return "./images/qt.jpg";
+                break;
+        }
+    }
+    function getShopId(type) {
+        if (type == "G") {
+            return "1";
+        } else if (type == "W") {
+            return "2";
+        } else if (type == "T") {
+            return "3";
+        }
+    }
+
 </script>
 </html>

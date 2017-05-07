@@ -28,7 +28,7 @@ public class ProductServiceImpl implements ProductService {
             JSONObject jsonObject = JSONObject.parseObject(data).getJSONObject("reqData");
             Integer page = jsonObject.getInteger("page");
             Integer size = jsonObject.getInteger("pageSize");
-
+            String category=jsonObject.getString("category");
             Product product = new Product();
             if (page == null || size == null) {
                 product.setIndex(0);
@@ -36,6 +36,9 @@ public class ProductServiceImpl implements ProductService {
             } else {
                 product.setIndex((page - 1) * size);
                 product.setSize(size);
+            }
+            if(category!=null && !"".equals(category)){
+                product.setCategory(category);
             }
             return productMapper.selectProduct(product);
         }

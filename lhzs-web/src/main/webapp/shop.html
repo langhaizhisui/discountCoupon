@@ -433,7 +433,7 @@
 
                     $(".shop").click(function () {
                         var index = $(this).attr("index");
-                        location.href = data[index].webUrl;
+                        location.href = "shopDetail.html?shopId="+data[index].id+"&shopImg="+id;
                     });
                 }
             }

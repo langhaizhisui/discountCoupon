@@ -1,11 +1,9 @@
-<!doctype html>
 <html>
 <head>
     <meta charset="utf-8">
-    <title>店铺详情</title>
-    <meta name="description" content="店铺详情">
-    <meta name="Keywords" content="店铺详情">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>优惠券</title>
+    <meta name="description" content="优惠券">
+    <meta name="Keywords" content="优惠券">
 
     <style>
         body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, textarea, p, blockquote, th, td, input, select, textarea, button {
@@ -133,7 +131,7 @@
 
         .search-box {
             float: right;
-            padding: 25px 10% 15px;
+            padding: 30px 10% 15px;
         }
 
         .search-box input {
@@ -155,6 +153,10 @@
             background-color: #ff5e54;
             color: white;
             padding-left: 20px;
+        }
+
+        .top-nav ul li a {
+            color: white;
         }
 
         .top-nav ul li {
@@ -227,6 +229,7 @@
             margin: 2% 20px;
             border: 1px solid #666666;
             padding: 1%;
+            width: 18%;
         }
 
         .moldbaby-subject img {
@@ -238,7 +241,7 @@
         }
 
         .moldbaby-subject-title {
-            font-size: 18px;
+            font-size: 15px;
             text-align: center;
             padding: 15px 0px;
         }
@@ -285,42 +288,84 @@
             left: 5px;
         }
 
-        .shop {
-            padding: 30px 20px;
+        .prod {
+            min-width: 1300px;
         }
 
-        .shop-logo {
-            float: left;
-            margin: 10px 20px;
-        }
-
-        .shop-desc {
-            padding: 20px;
+        .prod-detail {
+            margin: 20px 7%;
             float: left;
         }
 
-        .shop-name {
+        .prod-detail-img {
+            width: 350px;
+            float: left;
+        }
+
+        .prod-desc {
+            float: left;
+            margin-left: 20px;
             font-size: 15px;
-            font-weight: bold;
+            width: 400px;
         }
 
-        .shop-type {
-            margin-top: 10px;
-            font-size: 14px;
+        .prod-desc-title {
+            padding-top: 60px;
         }
 
-        .shop-addr {
-            margin-top: 5px;
+        .prod-desc-price {
+            margin-top: 60px;
+            background-color: #eee;
+            padding: 20px;
         }
 
-        .shop-detail {
-            margin-top: 10px;
-            font-size: 13px;
-            padding-left: 30%;
+        .prod-desc-discount {
+            margin-top: 60px;
         }
 
-        .shop-scan {
-            margin-top: 20px;
+        .prod-desc-discount-coupon {
+            float: left;
+            background-color: #ff5e54;
+            padding: 10px;
+            border-right: 2px dotted #333;
+        }
+
+        .prod-desc-discount-go {
+            float: left;
+            padding: 18px 20px 17px 20px;
+            background-color: #eee;
+        }
+
+        .prod-generalize {
+            float: left;
+            width: 300px;
+            font-size: 15px;
+        }
+
+        .prod-generalize-text {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .prod-generalize-item {
+            text-align: center;
+        }
+
+        .prod-generalize-item-img img {
+            width: 143px;
+        }
+
+        .prod-generalize-item-price {
+            position: relative;
+            top: -35px;
+            background: white;
+            padding: 10px 0px;
+            opacity: 0.8;
+        }
+
+        .boutique {
+            font-size: 18px;
+            margin-left: 40px;
         }
     </style>
 </head>
@@ -337,22 +382,22 @@
     </div>
 </header>
 <section>
-    <div class="top-nav clearfix">
-        <ul>
-            <li>商城</li>
-            <li>|</li>
-            <li>旗舰店</li>
-            <li>|</li>
-            <li>专卖店</li>
-            <li>|</li>
-            <li>自营店</li>
-            <li>|</li>
-            <li>内部优惠券</li>
-        </ul>
+    <div class="prod clearfix">
+        <div class="prod-detail">
+
+        </div>
+        <div class="prod-generalize">
+            <div class="prod-generalize-text">- 大家都在抢 -</div>
+            <div class="prod-generalize-list">
+
+            </div>
+        </div>
     </div>
+    <div>
+        <div class="boutique">精品推荐</div>
+        <div class=" moldbaby clearfix">
 
-    <div class="shop clearfix">
-
+        </div>
     </div>
 </section>
 <footer>
@@ -378,103 +423,132 @@
     }
 
     $(function () {
-        getShopDetail();
-    })
+        getProductDetail();
+        getGeneralizeProduct();
+        getProduct();
+    });
+    function getProductDetail() {
+        var prodId = getParameter("prodId");
 
-    function getShopDetail() {
-
-        var shopId = getParameter("shopId");
-        var shopImg = getParameter("shopImg");
-        var html = "";
         $.ajax({
             type: 'get',
-            url: "shop/getShop?shopId=" + shopId,
+            url: "prod/getProduct?prodId=" + prodId,
             success: function (result) {
                 if (result.code == 200) {
                     var data = result.data;
 
-                    html = '<div class="shop-logo ">' +
-                        '<img src="'+getShopImage(shopImg)+'">' +
+                    var html = '<img src="' + data.banner + '" class="prod-detail-img">' +
+                        '<div class="prod-desc">' +
+                        '<div class="prod-desc-title">' + data.name + '</div>' +
+                        '<div class="prod-desc-price">' +
+                        '<span class="prod-desc-price-dx">(独享)</span>' +
+                        '<span>卷后价</span>' +
+                        '<span class="prod-desc-price-now">¥' + data.discountPrice + '</span>' +
+                        '<span>在售价</span>' +
+                        '<span class="prod-desc-price-old">¥' + data.price + '</span>' +
                         '</div>' +
-                        '<div class="shop-desc">' +
-                        '<div class="shop-name">'+data.webShop+'</div>' +
-                        '<div class="shop-type">' +
-                        '<span>商城：</span>' +
-                        '<span>'+getShopType(data.site)+'</span>' +
+                        '<div class="prod-desc-discount">' +
+                        '<div class="prod-desc-discount-coupon">' +
+                        '<div>优惠券</div>' +
+                        '<div>¥' + (data.price - data.discountPrice).toFixed(2) + '</div>' +
                         '</div>' +
-                        '<div class="shop-addr">' +
-                        '<span>地区：</span>' +
-                        '<span>'+data.shopAddr+'</span>' +
+                        '<div class="prod-desc-discount-go">领券购买</div>' +
                         '</div>' +
-                        '</div>' +
-                        '<div class="shop-detail">' +
-                        '<div>法律可视对讲垃圾都是福利卡的看来大家是否否二姐姐离得近法律两点开始发力空间的考虑及福利大看电视列里ad李开复来多少返利阿萨德</div>' +
-                        '<div class="shop-scan">浏览店铺</div>' +
-                        '</div>'
+                        '</div>';
                 }
-                $(".shop").html(html);
-                $(".shop-scan").click(function () {
-                    location.href = data.webUrl;
+                $(".prod-detail").html(html);
+                $(".prod-desc-discount-go").click(function () {
+                    location.href = data.prodGeneralize;
                 })
             }
         });
     }
+    function getGeneralizeProduct() {
+        var reqData = {};
+        var param = {};
+        param.page = 1;
+        param.pageSize = 2;
+        reqData.reqData = param;
 
-    function getShopType(type) {
-        switch (type) {
-            case "1":
-                return "天猫";
-                break;
-            case "2":
-                return "京东";
-                break;
-            case "3":
-                return "苏宁易购";
-                break;
-            case "4":
-                return "一号店";
-                break;
-            case "5":
-                return "当当网";
-                break;
-            case "6":
-                return "国美";
-                break;
-            case "7":
-                return "淘宝店";
-                break;
-            default:
-                return "";
-                break;
-        }
+        $.ajax({
+            type: 'post',
+            url: "prod/getList",
+            dataType: 'json',
+            contentType: "application/json",
+            data: JSON.stringify(reqData),
+            success: function (result) {
+                if (result.code == 200) {
+                    var html = '';
+                    var data = result.data;
+                    for (var i = 0; i < data.length; i++) {
+                        var product = data[i];
+                        html += '<div class="prod-generalize-item" index="'+i+'">' +
+                            '<div class="prod-generalize-item-img">' +
+                            '<img src="' + product.banner + '">' +
+                            '</div>' +
+                            '<div class="prod-generalize-item-price">券后¥'+(product.price - product.discountPrice).toFixed(2)+'</div>' +
+                            '</div>'
+                    }
+                    $(".prod-generalize-list").html(html);
+
+                    $(".prod-generalize-item").click(function () {
+                        var index = $(this).attr("index");
+                        location.href = data[index].prodGeneralize;
+                    });
+                }
+            }
+        });
     }
-    function getShopImage(type) {
-        switch (type) {
-            case "1":
-                return "./images/tm.jpg";
-                break;
-            case "2":
-                return "./images/jd.jpg";
-                break;
-            case "3":
-                return "./images/sn.jpg";
-                break;
-            case "4":
-                return "./images/yhd.jpg";
-                break;
-            case "5":
-                return "./images/dd.jpg";
-                break;
-            case "6":
-                return "./images/gm.jpg";
-                break;
-            case "7":
-                return "./images/tb.jpg";
-                break;
-            default:
-                return "./images/qt.jpg";
-                break;
+    function getProduct() {
+        var reqData = {};
+        var param = {};
+        param.page = 1;
+        param.pageSize = 20;
+        reqData.reqData = param;
+
+        $.ajax({
+            type: 'post',
+            url: "prod/getList",
+            dataType: 'json',
+            contentType: "application/json",
+            data: JSON.stringify(reqData),
+            success: function (result) {
+                if (result.code == 200) {
+                    var html = '';
+                    var data = result.data;
+                    prodData = data;
+                    for (var i = 0; i < data.length; i++) {
+                        var product = data[i];
+                        html += '<div class="moldbaby-subject" index="' + i + '">' +
+                            '<div class="moldbaby-subject-img">' +
+                            '<img src="' + product.banner + '">' +
+                            '</div>' +
+                            '<div class="moldbaby-subject-title">' + getProductName(product.name) + '</div>' +
+                            '<div class="clearfix">' +
+                            '<div class="curr-price">现价:¥' + product.price + '</div>' +
+                            '<div class="other-price">' +
+                            '<div>原价:¥' + product.discountPrice + '</div>' +
+                            '<div>立省:¥' + (product.price - product.discountPrice).toFixed(2) + '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '<div class="go-shop">去购物</div>' +
+                            '</div>';
+                    }
+                    $(".moldbaby").html(html);
+
+                    $(".moldbaby-subject").click(function () {
+                        var index = $(this).attr("index");
+                        location.href = prodData[index].prodGeneralize;
+                    });
+                }
+            }
+        });
+    }
+    function getProductName(productName) {
+        if (productName.length > 30) {
+            productName = productName.substr(0, 28) + "...";
         }
+        return productName;
     }
 </script>
 </html>

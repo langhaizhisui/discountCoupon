@@ -336,15 +336,49 @@
 </body>
 <script src="js/jquery.min.js"></script>
 <script>
+    function getParameter(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null)return unescape(r[2]);
+        return null;
+    }
+
     $(function () {
         getProduct();
     });
 
     function getProduct() {
+        var cataId = getParameter("cataId");
+
         var reqData = {};
         var param = {};
         param.page = 1;
         param.pageSize = 20;
+
+        if (cataId == "1") {
+            param.category = "洗护清洁剂/卫生巾/纸/香薰";
+        }else if (cataId == "2") {
+            param.category = "数码电器";
+        }else if (cataId == "3") {
+            param.category = "鞋包/配饰";
+        }else if (cataId == "4") {
+            param.category = "居家日用";
+        }else if (cataId == "5") {
+            param.category = "女装"
+        }else if (cataId == "6") {
+            param.category = "洗沐护肤"
+        }else if (cataId == "7") {
+            param.category = "母婴";
+        }else if (cataId == "8") {
+            param.category = "食品/冲调";
+        }else if (cataId == "9") {
+            param.category = "宠物";
+        }else if (cataId == "10") {
+            param.category = "文体/车品";
+        }else if (cataId == "11") {
+            param.category = "其他"
+        }
+
         reqData.reqData = param;
 
         $.ajax({
@@ -384,10 +418,11 @@
                 }
             }
         });
+
     }
     function getProductName(productName) {
-        if(productName.length>30){
-            productName=productName.substr(0,28)+"...";
+        if (productName.length > 30) {
+            productName = productName.substr(0, 28) + "...";
         }
         return productName;
     }

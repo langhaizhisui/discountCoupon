@@ -118,13 +118,12 @@
             clear: both;
         }
 
-        .logo {
+        .logo{
             float: left;
             height: 88px;
             line-height: 88px;
         }
-
-        .logo a {
+        .logo a{
             font-size: 30px;
             padding: 10px 20px;
             color: #ff5e54;
@@ -275,51 +274,49 @@
             padding: 7px 10px;
             color: #ff5e54;
             font-size: 14px;
-            text-decoration: underline;
+            text-decoration:underline;
         }
 
-        .bottom-icp {
+        .bottom-icp{
             position: relative;
             top: -6px;
             color: #939393;
             left: 5px;
         }
 
-        .shop {
+
+
+
+
+
+        .shop{
             padding: 30px 20px;
         }
-
-        .shop-logo {
+        .shop-logo{
             float: left;
             margin: 10px 20px;
         }
-
         .shop-desc {
             padding: 20px;
             float: left;
         }
-
         .shop-name {
             font-size: 15px;
             font-weight: bold;
         }
-
         .shop-type {
             margin-top: 10px;
             font-size: 14px;
         }
-
         .shop-addr {
             margin-top: 5px;
         }
-
-        .shop-detail {
+        .shop-detail{
             margin-top: 10px;
             font-size: 13px;
-            padding-left: 30%;
+            padding-left:30%;
         }
-
-        .shop-scan {
+        .shop-scan{
             margin-top: 20px;
         }
     </style>
@@ -334,6 +331,12 @@
             <input placeholder="关键字/店铺名"/>
             <span class="search-btn">搜索</span>
         </div>
+        <ul>
+            <li>华为</li>
+            <li>美的</li>
+            <li>森马</li>
+            <li>安踏</li>
+        </ul>
     </div>
 </header>
 <section>
@@ -352,7 +355,24 @@
     </div>
 
     <div class="shop clearfix">
-
+        <div class="shop-logo ">
+            <img src="./images/1.png">
+        </div>
+        <div class="shop-desc">
+            <div class="shop-name">浪海之遂</div>
+            <div class="shop-type">
+                <span>商城：</span>
+                <span>天猫</span>
+            </div>
+            <div class="shop-addr">
+                <span>地区：</span>
+                <span>广东广州</span>
+            </div>
+        </div>
+        <div class="shop-detail">
+            <div>帛宝官方旗舰店是帛宝品牌厂家在淘宝天猫商城的唯一一家帛宝旗舰店。自帛宝官方旗舰店开店至今，受到用户的一致好评，帛宝将继续努力提高服务和产品质量，让您在网上也能买到帛宝实体店同款产品。为保证您能购买到帛宝正品，请点击下面的【浏览店铺】按钮，进入帛宝官方旗舰店购买。</div>
+            <div class="shop-scan">浏览店铺</div>
+        </div>
     </div>
 </section>
 <footer>
@@ -368,113 +388,4 @@
     </div>
 </footer>
 </body>
-<script src="js/jquery.min.js"></script>
-<script>
-    function getParameter(name) {
-        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-        var r = window.location.search.substr(1).match(reg);
-        if (r != null)return unescape(r[2]);
-        return null;
-    }
-
-    $(function () {
-        getShopDetail();
-    })
-
-    function getShopDetail() {
-
-        var shopId = getParameter("shopId");
-        var shopImg = getParameter("shopImg");
-        var html = "";
-        $.ajax({
-            type: 'get',
-            url: "shop/getShop?shopId=" + shopId,
-            success: function (result) {
-                if (result.code == 200) {
-                    var data = result.data;
-
-                    html = '<div class="shop-logo ">' +
-                        '<img src="'+getShopImage(shopImg)+'">' +
-                        '</div>' +
-                        '<div class="shop-desc">' +
-                        '<div class="shop-name">'+data.webShop+'</div>' +
-                        '<div class="shop-type">' +
-                        '<span>商城：</span>' +
-                        '<span>'+getShopType(data.site)+'</span>' +
-                        '</div>' +
-                        '<div class="shop-addr">' +
-                        '<span>地区：</span>' +
-                        '<span>'+data.shopAddr+'</span>' +
-                        '</div>' +
-                        '</div>' +
-                        '<div class="shop-detail">' +
-                        '<div>法律可视对讲垃圾都是福利卡的看来大家是否否二姐姐离得近法律两点开始发力空间的考虑及福利大看电视列里ad李开复来多少返利阿萨德</div>' +
-                        '<div class="shop-scan">浏览店铺</div>' +
-                        '</div>'
-                }
-                $(".shop").html(html);
-                $(".shop-scan").click(function () {
-                    location.href = data.webUrl;
-                })
-            }
-        });
-    }
-
-    function getShopType(type) {
-        switch (type) {
-            case "1":
-                return "天猫";
-                break;
-            case "2":
-                return "京东";
-                break;
-            case "3":
-                return "苏宁易购";
-                break;
-            case "4":
-                return "一号店";
-                break;
-            case "5":
-                return "当当网";
-                break;
-            case "6":
-                return "国美";
-                break;
-            case "7":
-                return "淘宝店";
-                break;
-            default:
-                return "";
-                break;
-        }
-    }
-    function getShopImage(type) {
-        switch (type) {
-            case "1":
-                return "./images/tm.jpg";
-                break;
-            case "2":
-                return "./images/jd.jpg";
-                break;
-            case "3":
-                return "./images/sn.jpg";
-                break;
-            case "4":
-                return "./images/yhd.jpg";
-                break;
-            case "5":
-                return "./images/dd.jpg";
-                break;
-            case "6":
-                return "./images/gm.jpg";
-                break;
-            case "7":
-                return "./images/tb.jpg";
-                break;
-            default:
-                return "./images/qt.jpg";
-                break;
-        }
-    }
-</script>
 </html>

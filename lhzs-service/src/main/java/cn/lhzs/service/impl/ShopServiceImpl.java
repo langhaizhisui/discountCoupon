@@ -23,37 +23,64 @@ public class ShopServiceImpl implements ShopService {
     public ShopMapper shopMapper;
 
     @Override
-    public List<Shop> getShopList(String data) {
-        if (data != null) {
-            JSONObject jsonObject = JSONObject.parseObject(data).getJSONObject("reqData");
-            String type=jsonObject.getString("type");
-            Integer page = jsonObject.getInteger("page");
-            Integer size = jsonObject.getInteger("pageSize");
-
-            Shop shop = new Shop();
-            if (page != null && size != null) {
-                shop.setIndex((page - 1) * size);
-                shop.setSize(size);
-                if(type!=null){
-                    shop.setType(type);
-                }
-                return shopMapper.selectShop(shop);
+    public List<Shop> getShopList(Shop shop) {
+        Integer page=shop.getPage();
+        Integer size=shop.getSize();
+        String type=shop.getType();
+        if (page != null && size != null) {
+            shop.setIndex((page - 1) * size);
+            shop.setSize(size);
+            if (type != null) {
+                shop.setType(type);
             }
+            return shopMapper.selectShop(shop);
         }
         return null;
     }
 
-    public List<Shop> searchShop(String data){
+    public List<Shop> searchShop(String data) {
         if (data != null) {
             JSONObject jsonObject = JSONObject.parseObject(data).getJSONObject("reqData");
-            String key=jsonObject.getString("key");
-            key="%"+key+"%";
+            String key = jsonObject.getString("key");
+            key = "%" + key + "%";
 
             Map keyMap = new HashMap();
-            keyMap.put("key",key);
+            keyMap.put("key", key);
             return shopMapper.searchShop(keyMap);
         }
         return null;
+    }
+
+    @Override
+    public Integer selectCount() {
+        return shopMapper.selectCount();
+    }
+
+    @Override
+    public JSONObject getShops(String data) {
+        JSONObject jsonObject = JSONObject.parseObject(data).getJSONObject("reqData");
+        String type = jsonObject.getString("type");
+        Integer page = jsonObject.getInteger("page");
+        Integer size = jsonObject.getInteger("pageSize");
+
+        Shop shop=new Shop();
+        shop.setPage(page);
+        shop.setSize(size);
+        shop.setType(type);
+        List<Shop> shopList=getShopList(shop);
+
+        Integer count=selectCount();
+        Integer totalPage=count/size;
+        if(count%size!=0){
+            totalPage+=1;
+        }
+
+        JSONObject shopJson=new JSONObject();
+        shopJson.put("shopList",shopList);
+        shopJson.put("totalPage",totalPage);
+        shopJson.put("page",page);
+
+        return shopJson;
     }
 
     @Override
@@ -75,4 +102,6 @@ public class ShopServiceImpl implements ShopService {
     public void updateShop(Shop shop) {
         shopMapper.updateByPrimaryKey(shop);
     }
+
+
 }

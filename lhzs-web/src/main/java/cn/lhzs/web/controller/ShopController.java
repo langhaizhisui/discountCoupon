@@ -3,6 +3,7 @@ package cn.lhzs.web.controller;
 import cn.lhzs.data.bean.Shop;
 import cn.lhzs.service.intf.ShopService;
 import cn.lhzs.web.result.RequestResult;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,7 +26,7 @@ public class ShopController {
     @RequestMapping("/getList")
     @ResponseBody
     public RequestResult getShopList(@RequestBody String reqData) {
-        List<Shop> shopList = shopService.getShopList(reqData);
+        JSONObject shopList = shopService.getShops(reqData);
 
         RequestResult result = new RequestResult();
         result.setCode(200);

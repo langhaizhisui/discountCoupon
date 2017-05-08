@@ -148,6 +148,7 @@
             height: 30px;
             line-height: 30px;
             padding: 0px 15px;
+            cursor: pointer;
         }
 
         .top-nav {
@@ -207,7 +208,7 @@
         }
 
         .hot-brand {
-            font-size: 15px;
+            font-size: 10px;
             padding: 10px 20px;
         }
 
@@ -218,7 +219,7 @@
         }
 
         .moldbaby {
-            font-size: 15px;
+            font-size: 10px;
             padding: 10px 20px;
         }
 
@@ -236,6 +237,7 @@
             border: 1px solid #666666;
             padding: 1%;
             width: 18%;
+            cursor: pointer;
         }
 
         .moldbaby-subject img {
@@ -300,6 +302,7 @@
             margin: 10px 20px;
             border-radius: 5px;
             float: left;
+            cursor: pointer;
         }
 
         .shop-logo {
@@ -318,7 +321,7 @@
         }
 
         .shop-name {
-            font-size: 15px;
+            font-size: 10px;
             font-weight: bold;
         }
 
@@ -329,6 +332,19 @@
 
         .shop-addr {
             margin-top: 5px;
+        }
+
+
+        .back-to-top{
+            position: fixed;
+            bottom: 100px;
+            right: 100px;
+            background: #ff5e54;
+            color: white;
+            font-size: 17px;
+            display:none;
+            padding: 23px 18px;
+            border-radius: 100%;
         }
     </style>
     <link rel="stylesheet" href="/css/swiper.min.css">
@@ -341,7 +357,7 @@
     <div class="search-box">
         <div>
             <input class="search-input" placeholder="关键字/店铺名"/>
-            <span class="search-btn">搜索</span>
+            <span class="search-btn" id="search-btn">搜索</span>
         </div>
     </div>
 </header>
@@ -390,38 +406,7 @@
     <div class="hot-brand clearfix">
         <div>热门店铺</div>
         <div class="shop-list">
-            <div class="shop" index="0">
-                <div class="shop-logo "><img src="./images/tm.jpg"></div>
-                <div class="shop-desc">
-                    <div class="shop-name">澳门航空旗舰店</div>
-                    <div class="shop-type"><span>商城：</span><span>天猫</span></div>
-                    <div class="shop-addr"><span>地区：</span><span>上海市</span></div>
-                </div>
-            </div>
-            <div class="shop" index="0">
-                <div class="shop-logo "><img src="./images/tm.jpg"></div>
-                <div class="shop-desc">
-                    <div class="shop-name">澳门航空旗舰店</div>
-                    <div class="shop-type"><span>商城：</span><span>天猫</span></div>
-                    <div class="shop-addr"><span>地区：</span><span>上海市</span></div>
-                </div>
-            </div>
-            <div class="shop" index="0">
-                <div class="shop-logo "><img src="./images/tm.jpg"></div>
-                <div class="shop-desc">
-                    <div class="shop-name">澳门航空旗舰店</div>
-                    <div class="shop-type"><span>商城：</span><span>天猫</span></div>
-                    <div class="shop-addr"><span>地区：</span><span>上海市</span></div>
-                </div>
-            </div>
-            <div class="shop" index="0">
-                <div class="shop-logo "><img src="./images/tm.jpg"></div>
-                <div class="shop-desc">
-                    <div class="shop-name">澳门航空旗舰店</div>
-                    <div class="shop-type"><span>商城：</span><span>天猫</span></div>
-                    <div class="shop-addr"><span>地区：</span><span>上海市</span></div>
-                </div>
-            </div>
+
         </div>
     </div>
     <div class="transverse-line"></div>
@@ -443,6 +428,7 @@
         <span class="bottom-icp">粤ICP备17022674号</span>
     </div>
 </footer>
+<div class="back-to-top">top</div>
 </body>
 <script src="js/jquery.min.js"></script>
 <script src="js/swiper.jquery.min.js"></script>
@@ -515,7 +501,7 @@
             success: function (result) {
                 if (result.code == 200) {
                     var html = '';
-                    var data = result.data;
+                    var data = result.data.prodList;
                     for (var i = 0; i < data.length; i++) {
                         var product = data[i];
                         html += '<div class="moldbaby-subject" index="' + i + '">' +
@@ -537,9 +523,7 @@
 
                     $(".moldbaby-subject").click(function () {
                         var index = $(this).attr("index");
-                        location.href = "productDetail.html?prodId=" + data[index].prodId;
-                        ;
-//                        location.href = data[index].prodGeneralize;
+                        location.href = "productDetail.html?prodId=" + data[index].prodId;;
                     });
 
                     var more = 2;
@@ -564,7 +548,7 @@
                                     }
 
                                     var html = '';
-                                    var data = result.data;
+                                    var data = result.data.prodList;
                                     for (var i = 0; i < data.length; i++) {
                                         var product = data[i];
                                         html += '<div class="moldbaby-subject" index="' + i + '">' +
@@ -586,7 +570,7 @@
 
                                     $(".moldbaby-subject").click(function () {
                                         var index = $(this).attr("index");
-                                        location.href = data[index].prodGeneralize;
+                                        location.href = "productDetail.html?prodId=" + data[index].prodId;;
                                     });
                                 }
                             }
@@ -597,7 +581,18 @@
         });
     }
 
+    $('#search-btn').keydown(function(e){
+        if(e.keyCode==13){
+            alert("aaaa");
+            searchProduct();
+        }
+    });
+
     $(".search-btn").click(function () {
+        searchProduct();
+    });
+
+    function searchProduct() {
         var key = $(".search-input").val();
 
         var reqData = {};
@@ -617,9 +612,10 @@
                     var list = result.data.list;
                     if (type == "1") {
                         $(".ad").css("display", "none");
+                        $(".hot-brand").css("display", "none");
+                        $(".moldbaby-more").css("display", "none");
                         for (var i = 0; i < list.length; i++) {
                             var shop = list[i];
-                            $(".shop-list").css("display", "none");
                             html += '<div class="shop clearfix" index="' + i + '">' +
                                 '<div class="shop-logo ">' +
                                 '<img src="' + getShopImage(shop.site) + '">' +
@@ -645,7 +641,8 @@
                         });
                     } else if (type == "2") {
                         $(".ad").css("display", "none");
-                        $(".shop-list").css("display", "none");
+                        $(".hot-brand").css("display", "none");
+                        $(".moldbaby-more").css("display", "none");
                         for (var i = 0; i < list.length; i++) {
                             var product = list[i];
                             html += '<div class="moldbaby-subject" index="' + i + '">' +
@@ -667,16 +664,59 @@
 
                         $(".moldbaby-subject").click(function () {
                             var index = $(this).attr("index");
-                            location.href = list[index].prodGeneralize;
+                            location.href = "productDetail.html?prodId=" + list[index].prodId;;
                         });
                     }
                 }
             }
         });
-    });
-    
+    }
+
     function getHotShop() {
-        
+        var reqData = {};
+        var param = {};
+        param.page = 1;
+        param.pageSize = 8;
+        reqData.reqData = param;
+
+        $.ajax({
+            type: 'post',
+            url: "shop/getList",
+            dataType: 'json',
+            contentType: "application/json",
+            data: JSON.stringify(reqData),
+            success: function (result) {
+                if (result.code == 200) {
+                    var html = "";
+                    var data = result.data.shopList;
+                    for (var i = 0; i < data.length; i++) {
+                        var shop = data[i];
+                        html += '<div class="shop" index="' + i + '">' +
+                            '<div class="shop-logo ">' +
+                            '<img src="' + getShopImage(shop.site) + '">' +
+                            '</div>' +
+                            '<div class="shop-desc">' +
+                            '<div class="shop-name">' + shop.webShop + '</div>' +
+                            '<div class="shop-type">' +
+                            '<span>商城：</span>' +
+                            '<span>' + getShopType(shop.site) + '</span>' +
+                            '</div>' +
+                            '<div class="shop-addr">' +
+                            '<span>地区：</span>' +
+                            '<span>' + shop.shopAddr + '</span>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>'
+                    }
+                    $(".shop-list").html(html);
+
+                    $(".shop").click(function () {
+                        var index = $(this).attr("index");
+                        location.href = "shopDetail.html?shopId=" + data[index].id + "&shopImg=" + getShopId(data[index].type);
+                    });
+                }
+            }
+        });
     }
 
     function getShopType(type) {
@@ -750,6 +790,23 @@
             return "3";
         }
     }
+
+    $(window).on('scroll', function () {
+        if ($(window).scrollTop() > 100) {
+            $('.back-to-top').css("display",'block');
+        } else {
+            $('.back-to-top').css("display",'none');
+        }
+    });
+
+    $('.back-to-top').on('click', function (e) {
+        // html,body 都写是为了兼容浏览器
+        $('html,body').animate({
+            scrollTop: 0
+        }, 700);
+
+        return false;
+    });
 
 </script>
 </html>

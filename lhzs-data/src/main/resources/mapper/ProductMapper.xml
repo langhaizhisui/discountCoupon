@@ -279,4 +279,8 @@
     <include refid="Base_Column_List" />
     from product where `name` LIKE #{key}
   </select>
+
+  <select id="selectCount" resultType="java.lang.Integer">
+    select count(*) from product
+  </select>
 </mapper>

@@ -69,4 +69,6 @@ public interface ShopMapper {
      * @return 店铺列表
      */
     List<Shop> searchShop(Map map);
+
+    Integer selectCount();
 }

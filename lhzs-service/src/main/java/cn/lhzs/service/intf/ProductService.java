@@ -1,6 +1,7 @@
 package cn.lhzs.service.intf;
 
 import cn.lhzs.data.bean.Product;
+import com.alibaba.fastjson.JSONObject;
 
 import java.util.List;
 
@@ -8,7 +9,7 @@ import java.util.List;
  * Created by ZHX on 2017/4/27.
  */
 public interface ProductService {
-    List<Product> getProdList(String data);
+    List<Product> getProdList(Product product);
 
     Product getProductByProdId(String prodId);
 
@@ -19,4 +20,8 @@ public interface ProductService {
     void updateProd(Product product);
 
     List<Product> searchProduct(String key);
+
+    Integer getCount();
+
+    JSONObject getProds(String data);
 }

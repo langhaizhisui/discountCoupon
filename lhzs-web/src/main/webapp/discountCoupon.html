@@ -288,6 +288,45 @@
             color: #939393;
             left: 5px;
         }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 100px;
+            right: 100px;
+            background: #ff5e54;
+            color: white;
+            font-size: 17px;
+            display: none;
+            padding: 23px 18px;
+            border-radius: 100%;
+        }
+
+        .prod-catalog {
+            text-align: center;
+            font-size: 15px;
+            margin-top: 20px;
+        }
+
+        .prod-catalog span {
+            padding: 10px;
+            border: 1px solid #eeeeee;
+        }
+
+        .page-num {
+            text-align: center;
+            font-size: 15px;
+            margin: 20px;
+        }
+
+        .page-num span {
+            padding: 10px;
+            background: #eee;
+            margin: 5px;
+        }
+
+        #curr-page {
+            background-color: #ff5e54;
+        }
     </style>
 </head>
 <body>
@@ -317,7 +356,27 @@
         </ul>
     </div>
 
+    <div class="prod-catalog">
+        <span style="background-color:#eeeeee;" index="">商品分类</span>
+        <span index="0">全部优惠</span>
+        <span index="1">数码电器</span>
+        <span index="2">鞋包/配饰</span>
+        <span index="3">居家日用</span>
+        <span index="4">女装</span>
+        <span index="5">洗沐护肤</span>
+        <span index="6">母婴</span>
+        <span index="7">食用/冲调</span>
+        <span index="8">宠物</span>
+        <span index="9">文体/车品</span>
+        <span index="10">男装</span>
+        <span index="11">其他</span>
+    </div>
+
     <div class=" moldbaby clearfix">
+
+    </div>
+
+    <div class="page-num">
 
     </div>
 </section>
@@ -333,6 +392,8 @@
         <span class="bottom-icp">粤ICP备17022674号</span>
     </div>
 </footer>
+<!-- 返回顶部 -->
+<div class="back-to-top">top</div>
 </body>
 <script src="js/jquery.min.js"></script>
 <script>
@@ -343,39 +404,49 @@
         return null;
     }
 
+    var cataId;
     $(function () {
-        getProduct();
+        cataId = getParameter("cataId");
+        getProduct(1);
     });
 
-    function getProduct() {
-        var cataId = getParameter("cataId");
+    $(".prod-catalog span").click(function () {
+        var index = $(this).attr("index");
+        if (index == "" || index == "0") {
+            cataId = "0";
+        } else {
+            cataId = index;
+        }
+        getProduct(1);
+    });
 
+    function getProduct(page) {
         var reqData = {};
         var param = {};
-        param.page = 1;
+        param.page = page;
         param.pageSize = 20;
 
         if (cataId == "1") {
-            param.category = "洗护清洁剂/卫生巾/纸/香薰";
-        }else if (cataId == "2") {
             param.category = "数码电器";
-        }else if (cataId == "3") {
+        } else if (cataId == "2") {
             param.category = "鞋包/配饰";
-        }else if (cataId == "4") {
+        } else if (cataId == "3") {
             param.category = "居家日用";
-        }else if (cataId == "5") {
+        } else if (cataId == "4") {
             param.category = "女装"
-        }else if (cataId == "6") {
+        } else if (cataId == "5") {
             param.category = "洗沐护肤"
-        }else if (cataId == "7") {
+        } else if (cataId == "6") {
             param.category = "母婴";
-        }else if (cataId == "8") {
+        } else if (cataId == "7") {
             param.category = "食品/冲调";
-        }else if (cataId == "9") {
+        } else if (cataId == "8") {
             param.category = "宠物";
-        }else if (cataId == "10") {
+        } else if (cataId == "9") {
             param.category = "文体/车品";
-        }else if (cataId == "11") {
+        } else if (cataId == "10") {
+            param.category = "男装";
+        } else if (cataId == "11") {
             param.category = "其他"
         }
 
@@ -390,8 +461,7 @@
             success: function (result) {
                 if (result.code == 200) {
                     var html = '';
-                    var data = result.data;
-                    prodData = data;
+                    var data = result.data.prodList;
                     for (var i = 0; i < data.length; i++) {
                         var product = data[i];
                         html += '<div class="moldbaby-subject" index="' + i + '">' +
@@ -411,9 +481,54 @@
                     }
                     $(".moldbaby").html(html);
 
+                    var totalPage = result.data.totalPage;
+                    var currPage = result.data.page;
+                    var pageNum = "";
+                    if (totalPage < 10) {
+                        pageNum += '<span>上一页</span>';
+                        for (var i = 0; i < totalPage; i++) {
+                            if ((i+1) == currPage) {
+                                pageNum += '<span id="curr-page" index="'+(i+1)+'">' + (i + 1) + '</span>';
+                            } else {
+                                pageNum += '<span index="'+(i+1)+'">' + (i + 1) + '</span>';
+                            }
+                        }
+                        pageNum += '<span>下一页</span>';
+                    } else if (totalPage > 10) {
+                        if (currPage <= 5) {
+                            pageNum += '<span>上一页</span>';
+                            for (var i = 0; i < 5; i++) {
+                                if ((i+1) == currPage) {
+                                    pageNum += '<span id="curr-page" index="'+(i+1)+'">' + (i + 1) + '</span>';
+                                } else {
+                                    pageNum += '<span index="'+(i+1)+'">' + (i + 1) + '</span>';
+                                }
+                            }
+                            pageNum += '<span>...</span>' +
+                                '<span index="'+totalPage+'">' + totalPage + '</span>' +
+                                '<span>下一页</span>';
+                        } else {
+                            pageNum += '<span>上一页</span><span index="1">上一页</span><span>...</span>';
+                            for (var i = totalPage - 5; i < totalPage; i++) {
+                                if ((i+1) == currPage) {
+                                    pageNum += '<span id="curr-page" index="'+(i+1)+'">' + (i + 1) + '</span>';
+                                } else {
+                                    pageNum += '<span index="'+(i+1)+'">' + (i + 1) + '</span>';
+                                }
+                            }
+                            pageNum += '<span>下一页</span>';
+                        }
+
+                    }
+                    $(".page-num").html(pageNum);
+                    $(".page-num span").click(function () {
+                        var index=$(this).attr("index");
+                        getProduct(index);
+                    });
+
                     $(".moldbaby-subject").click(function () {
                         var index = $(this).attr("index");
-                        location.href = prodData[index].prodGeneralize;
+                        location.href = "productDetail.html?prodId=" + data[index].prodId;
                     });
                 }
             }
@@ -426,5 +541,21 @@
         }
         return productName;
     }
+    $(window).on('scroll', function () {
+        if ($(window).scrollTop() > 100) {
+            $('.back-to-top').css("display", 'block');
+        } else {
+            $('.back-to-top').css("display", 'none');
+        }
+    });
+
+    $('.back-to-top').on('click', function (e) {
+        // html,body 都写是为了兼容浏览器
+        $('html,body').animate({
+            scrollTop: 0
+        }, 700);
+
+        return false;
+    });
 </script>
 </html>

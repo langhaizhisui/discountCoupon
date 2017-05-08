@@ -305,4 +305,8 @@
     <include refid="Base_Column_List" />
     from shop where web_shop LIKE #{key}
   </select>
+
+  <select id="selectCount" resultType="java.lang.Integer">
+    select count(*) from shop
+  </select>
 </mapper>

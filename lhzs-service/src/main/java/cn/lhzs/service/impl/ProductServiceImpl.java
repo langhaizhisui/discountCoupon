@@ -23,26 +23,21 @@ public class ProductServiceImpl implements ProductService {
     public ProductMapper productMapper;
 
     @Override
-    public List<Product> getProdList(String data) {
-        if (data != null) {
-            JSONObject jsonObject = JSONObject.parseObject(data).getJSONObject("reqData");
-            Integer page = jsonObject.getInteger("page");
-            Integer size = jsonObject.getInteger("pageSize");
-            String category=jsonObject.getString("category");
-            Product product = new Product();
-            if (page == null || size == null) {
-                product.setIndex(0);
-                product.setSize(20);
-            } else {
-                product.setIndex((page - 1) * size);
-                product.setSize(size);
-            }
-            if(category!=null && !"".equals(category)){
-                product.setCategory(category);
-            }
-            return productMapper.selectProduct(product);
+    public List<Product> getProdList(Product product) {
+        Integer page = product.getPage();
+        Integer size = product.getSize();
+        String category = product.getCategory();
+        if (page == null || size == null) {
+            product.setIndex(0);
+            product.setSize(20);
+        } else {
+            product.setIndex((page - 1) * size);
+            product.setSize(size);
         }
-        return null;
+        if (category != null && !"".equals(category)) {
+            product.setCategory(category);
+        }
+        return productMapper.selectProduct(product);
     }
 
     @Override
@@ -77,5 +72,36 @@ public class ProductServiceImpl implements ProductService {
         }
         return null;
 
+    }
+
+    @Override
+    public Integer getCount() {
+        return productMapper.selectCount();
+    }
+
+    public JSONObject getProds(String data) {
+        JSONObject jsonObject = JSONObject.parseObject(data).getJSONObject("reqData");
+        Integer page = jsonObject.getInteger("page");
+        Integer size = jsonObject.getInteger("pageSize");
+        String category = jsonObject.getString("category");
+
+        Product product = new Product();
+        product.setPage(page);
+        product.setSize(size);
+        product.setCategory(category);
+        List<Product> productList = getProdList(product);
+
+        Integer count = getCount();
+        Integer totalPage = count / size;
+        if (count % size != 0) {
+            totalPage = totalPage + 1;
+        }
+
+        JSONObject prodJson = new JSONObject();
+        prodJson.put("prodList", productList);
+        prodJson.put("totalPage", totalPage);
+        prodJson.put("page", page);
+
+        return prodJson;
     }
 }

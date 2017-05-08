@@ -322,6 +322,17 @@
         .shop-scan {
             margin-top: 20px;
         }
+        .back-to-top{
+            position: fixed;
+            bottom: 100px;
+            right: 100px;
+            background: #ff5e54;
+            color: white;
+            font-size: 17px;
+            display:none;
+            padding: 23px 18px;
+            border-radius: 100%;
+        }
     </style>
 </head>
 <body>
@@ -367,6 +378,8 @@
         <span class="bottom-icp">粤ICP备17022674号</span>
     </div>
 </footer>
+<!-- 返回顶部 -->
+<div class="back-to-top">top</div>
 </body>
 <script src="js/jquery.min.js"></script>
 <script>
@@ -414,7 +427,7 @@
                 }
                 $(".shop").html(html);
                 $(".shop-scan").click(function () {
-                    location.href = data.webUrl;
+                    window.open(data.webUrl);
                 })
             }
         });
@@ -476,5 +489,21 @@
                 break;
         }
     }
+    $(window).on('scroll', function () {
+        if ($(window).scrollTop() > 100) {
+            $('.back-to-top').css("display",'block');
+        } else {
+            $('.back-to-top').css("display",'none');
+        }
+    });
+
+    $('.back-to-top').on('click', function (e) {
+        // html,body 都写是为了兼容浏览器
+        $('html,body').animate({
+            scrollTop: 0
+        }, 700);
+
+        return false;
+    });
 </script>
 </html>

@@ -1,6 +1,7 @@
 package cn.lhzs.service.intf;
 
 import cn.lhzs.data.bean.Shop;
+import com.alibaba.fastjson.JSONObject;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  */
 public interface ShopService {
 
-    List<Shop> getShopList(String data);
+    List<Shop> getShopList(Shop shop);
 
     Shop getShopByShopId(String shopId);
 
@@ -20,4 +21,8 @@ public interface ShopService {
     void updateShop(Shop shop);
 
     List<Shop> searchShop(String data);
+
+    Integer selectCount();
+
+    JSONObject getShops(String data);
 }

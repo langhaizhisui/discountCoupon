@@ -70,4 +70,6 @@ public interface ProductMapper {
      * @return 商品列表
      */
     List<Product> searchProduct(Map map);
+
+    Integer selectCount();
 }

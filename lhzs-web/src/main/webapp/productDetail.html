@@ -321,6 +321,7 @@
 
         .prod-desc-discount {
             margin-top: 60px;
+            cursor: pointer;
         }
 
         .prod-desc-discount-coupon {
@@ -349,6 +350,7 @@
 
         .prod-generalize-item {
             text-align: center;
+            cursor: pointer;
         }
 
         .prod-generalize-item-img img {
@@ -366,6 +368,18 @@
         .boutique {
             font-size: 18px;
             margin-left: 40px;
+        }
+
+        .back-to-top{
+            position: fixed;
+            bottom: 100px;
+            right: 100px;
+            background: #ff5e54;
+            color: white;
+            font-size: 17px;
+            display:none;
+            padding: 23px 18px;
+            border-radius: 100%;
         }
     </style>
 </head>
@@ -412,6 +426,8 @@
         <span class="bottom-icp">粤ICP备17022674号</span>
     </div>
 </footer>
+<!-- 返回顶部 -->
+<div class="back-to-top">top</div>
 </body>
 <script src="js/jquery.min.js"></script>
 <script>
@@ -442,9 +458,9 @@
                         '<div class="prod-desc-title">' + data.name + '</div>' +
                         '<div class="prod-desc-price">' +
                         '<span class="prod-desc-price-dx">(独享)</span>' +
-                        '<span>卷后价</span>' +
+                        '<span>券后价 </span>' +
                         '<span class="prod-desc-price-now">¥' + data.discountPrice + '</span>' +
-                        '<span>在售价</span>' +
+                        '<span> 在售价</span>' +
                         '<span class="prod-desc-price-old">¥' + data.price + '</span>' +
                         '</div>' +
                         '<div class="prod-desc-discount">' +
@@ -458,7 +474,7 @@
                 }
                 $(".prod-detail").html(html);
                 $(".prod-desc-discount-go").click(function () {
-                    location.href = data.prodGeneralize;
+                    window.open(data.prodGeneralize);
                 })
             }
         });
@@ -550,5 +566,22 @@
         }
         return productName;
     }
+
+    $(window).on('scroll', function () {
+        if ($(window).scrollTop() > 100) {
+            $('.back-to-top').css("display",'block');
+        } else {
+            $('.back-to-top').css("display",'none');
+        }
+    });
+
+    $('.back-to-top').on('click', function (e) {
+        // html,body 都写是为了兼容浏览器
+        $('html,body').animate({
+            scrollTop: 0
+        }, 700);
+
+        return false;
+    });
 </script>
 </html>

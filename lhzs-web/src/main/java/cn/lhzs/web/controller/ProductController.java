@@ -40,7 +40,7 @@ public class ProductController {
     @RequestMapping(value = "/getList")
     @ResponseBody
     public RequestResult getProductList(@RequestBody String reqData) {
-        List<Product> productList = productService.getProdList(reqData);
+        JSONObject productList = productService.getProds(reqData);
 
         RequestResult result = new RequestResult();
         result.setCode(200);

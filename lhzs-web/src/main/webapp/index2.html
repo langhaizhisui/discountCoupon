@@ -2,9 +2,9 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>优惠券</title>
-    <meta name="description" content="优惠券">
-    <meta name="Keywords" content="优惠券">
+    <title>哔唛网-汇聚全网品牌网店，海量优惠券，下单更优惠！-必买网</title>
+    <meta name="Keywords" content="网购，领券购物，网店，粉丝福利购，省钱购物，必买网">
+    <meta name="Description" content="哔唛网是一家专注收录知名品牌网店的网站，涵盖行业各大购物网站品牌旗舰店，专卖店等，每日汇聚大量商家内部优惠券，特价团购福利，提供当季全网最具性价比的包邮产品,提供最全的超低好货，让您随时体验便捷实惠的网上购物乐趣！">
 
     <style>
         body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, textarea, p, blockquote, th, td, input, select, textarea, button {
@@ -119,8 +119,6 @@
 
         .logo {
             float: left;
-            height: 88px;
-            line-height: 88px;
         }
 
         .logo a {
@@ -128,6 +126,10 @@
             padding: 10px 20px;
             color: #ff5e54;
             font-weight: bold;
+        }
+
+        .logo a img{
+            width: 200px;
         }
 
         .search-box {
@@ -352,7 +354,7 @@
 <body>
 <header class="clearfix">
     <div class="logo">
-        <a href="./index2.html">优惠券</a>
+        <a href="./index2.html"><img src="images/logo2.jpg"></a>
     </div>
     <div class="search-box">
         <div>
@@ -395,10 +397,14 @@
         </div>
         <div class="adv">
             <ul>
-                <li><a href="computer.html">电脑</a></li>
-                <li><a href="article.html">文章</a></li>
-                <li><a href="game.html">游戏</a></li>
-                <li><a href="education.html">教育</a></li>
+                <li><a href="http://www.chinaz.com/news/2015/0326/393596.shtml">怎么开淘宝网店 淘宝开店最新图解教程 开网店需要多少钱</a></li>
+                <li><a href="http://www.cr173.com/apple/112356_1.html?_t_t_t=0.1211917503568185">苹果的双重验证有什么用</a></li>
+                <li><a href="http://product.pconline.com.cn/itbk/software/dnwt/1501/6062836.html">电脑开不了机怎么办？笔记本电脑开不了机的原因？</a></li>
+                <li><a href="http://mt.sohu.com/20151007/n422661011.shtml">全球十大顶级旅行箱品牌排行榜 旅行者必须知道</a></li>
+                <li><a href="http://www.tuijianshu.net/article-364-1.html">全推荐国内外值得一看的好书（国内国外各10本）</a></li>
+                <li><a href="http://www.qqtn.com/health/167037_1.html">30万左右买什么车好 30万性价比最高的车排行榜</a></li>
+                <li><a href="http://www.lusongsong.com/reed/664.html">一个网站完整详细的SEO优化方案</a></li>
+                <li><a href="http://www.chinaz.com/web/2014/0804/362374.shtml">该如何巧妙运用网站内容中的关键词？</a></li>
             </ul>
         </div>
     </div>
@@ -478,7 +484,7 @@
                     var data = result.data;
                     for (var i = 0; i < data.length; i++) {
                         var catalog = data[i];
-                        html += '<li><a href="discountCoupon.html?cataId=' + catalog.cataId + '">' + catalog.name + '</a></li>';
+                        html += '<li><a href="discountCoupon.html?id=' + (parseInt(catalog.cataId)+5) + '">' + catalog.name + '</a></li>';
                     }
                     $(".shop-item").html(html);
                 }

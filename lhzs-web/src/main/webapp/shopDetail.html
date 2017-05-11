@@ -2,10 +2,9 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>店铺详情</title>
-    <meta name="description" content="店铺详情">
-    <meta name="Keywords" content="店铺详情">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title id="metaTitle">店铺详情</title>
+    <meta id="metaKeywords" name="Keywords" content="领券购物,领券网,领券网">
+    <meta id="metaDescription" name="Description" content="领券购物专注全网商家内部优惠券活动,每日送出大量商家内部优惠券，特价团购福利，提供当季全网最具性价比的包邮产品,精选万人团商品超值好货,超低价好货享疯狂特价促销,让你全面安心享受网上购物乐趣!">
 
     <style>
         body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, textarea, p, blockquote, th, td, input, select, textarea, button {
@@ -421,11 +420,14 @@
                         '</div>' +
                         '</div>' +
                         '<div class="shop-detail">' +
-                        '<div>法律可视对讲垃圾都是福利卡的看来大家是否否二姐姐离得近法律两点开始发力空间的考虑及福利大看电视列里ad李开复来多少返利阿萨德</div>' +
+                        '<div>'+getDescription(data.site,data.webShop,data.sellName,data.sellProd)+'</div>' +
                         '<div class="shop-scan">浏览店铺</div>' +
                         '</div>'
                 }
                 $(".shop").html(html);
+                $("#metaTitle").text(data.webShop);
+                $("#metaKeywords").attr("content",data.webShop+"网店，"+data.webShop+"网购，"+data.webShop+"店铺，"+data.webShop+"品牌店，"+data.webShop+"官方店");
+                $("#metaDescription").attr("content",getDescription(data.site,data.webShop,data.sellName,data.sellProd));
                 $(".shop-scan").click(function () {
                     window.open(data.webUrl);
                 })
@@ -433,6 +435,34 @@
         });
     }
 
+    function getDescription(site,webShop,sellName,sellProd) {
+        switch (site) {
+            case "1":
+                return webShop+"是由"+sellName+"开设运营的在线店铺，主要销售"+sellProd+"等产品的网上销售，款式多样，品种齐全，一切如用户所需；店内商品分区明确，所展示商品均与实物相符，并且不定期举行活动，保证以实惠的价格让用户买到心仪的产品，同时提供高效的物流和优质售后服务，让消费者享受畅快的网上购物体验。";
+                break;
+            case "2":
+                return webShop+"由"+sellName+"运营管理，专业提供"+sellProd+"等产品网上销售，品种多样，物美价廉，质量有保证，通过便捷快速的物流送到用户手中；{品牌}一贯秉承提升顾客体验的承诺，用户可通过客服获取产品咨询、使用建议、库存情况、配送信息以及退换指引等一系列专业服务，只为让消费者买的放心，用的舒心。";
+                break;
+            case "3":
+                return webShop+"是开设在知名购物网站【苏宁易购】的在线网店，主要销售"+sellProd+"等系列产品，本店时刻以顾客为中心，诚信经营为宗旨，保证商品质量，以朴实的价格回馈给消费者，提供优质的物流和售后服务，让用户享受无微不至的购物体验。苏宁易购网上商城销售传统家电、通讯数码、电脑、家居百货、服装、母婴、食品等数万类商品和服务，物美价廉,由本地配送,让您省钱又放心。";
+                break;
+            case "4":
+                return webShop+"在线为您提供"+sellName+"的优良产品，涵盖"+sellProd+"等产品，种类多，性价比高，并且不定期举行优惠活动，以真挚实惠的价格，完善的售后服务，让用户购买到心仪的产品；作为国内大型购物平台，【1号店】以商品的多样性、管理的现代化、经营的规模化，为广大消费者日常购物提供方便所需。";
+                break;
+            case "5":
+                return webShop+"主要经营"+sellName+"的"+sellProd+"等产品，种类多样齐全，且价格朴实亲民，在线为您提供优质的购物咨询服务，以高效的物流和完整的售后服务，让消费者轻松选购心仪的产品。【当当网】作为知名综合性网上购物中心，其产品类目丰富多样，优惠活动时时有，提供机打发票，先行赔付保障及三包服务，为您提供愉悦的网上商城购物体验!";
+                break;
+            case "6":
+                return webShop+"是"+sellName+"在国美网上商城的网上销售店铺，主要销售"+sellProd+"等系列产品，款式别致多样，品质有保证，一直都以优惠的价格，让每一位顾客享受物美价廉的购物体验。【国美在线网上商城】时刻为您提供便捷、诚信的售前售后服务，以更低的价格，更快的物流，让你全面安心的享受网上购物带来的乐趣。";
+                break;
+            case "7":
+                return webShop+"是由"+sellName+"开设运营的在线店铺，主要销售"+sellProd+"等产品的网上销售，款式多样，品种齐全，一切如用户所需；店内商品分区明确，所展示商品均与实物相符，并且不定期举行活动，保证以实惠的价格让用户买到心仪的产品，同时提供高效的物流和优质售后服务，让消费者享受畅快的网上购物体验。";
+                break;
+            default:
+                return webShop+"是"+sellName+"自主开设的网上商城，主要销售"+sellProd+"等系列产品，款式别致多样，品质有保证，厂家直售，一直都以优惠的价格，让每一位顾客享受物美价廉的购物体验。并且{名称}时刻为您提供便捷、诚信的售前售后服务，以更低的价格，更快的物流，让你全面安心的享受网上购物带来的乐趣。";
+                break;
+        }
+    }
     function getShopType(type) {
         switch (type) {
             case "1":

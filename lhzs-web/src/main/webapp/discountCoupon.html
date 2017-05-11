@@ -2,9 +2,9 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>优惠券</title>
-    <meta name="description" content="优惠券">
-    <meta name="Keywords" content="优惠券">
+    <title id="metaTitle">【内部优惠券，领券购物】→哔唛网</title>
+    <meta id="metaKeywords" name="Keywords" content="领券购物，领券网，内部优惠，省钱购物，正品网购">
+    <meta id="metaDescription" name="Description" content="哔唛网领券购物专区，专注全网商家内部优惠券活动,每日送出大量商家内部优惠券，特价团购福利，提供当季全网最具性价比的包邮产品,精选万人团商品超值好货,超低价好货享疯狂特价促销,让你全面安心享受网上购物乐趣!">
 
     <style>
         body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, textarea, p, blockquote, th, td, input, select, textarea, button {
@@ -406,10 +406,67 @@
 
     var cataId;
     $(function () {
-        cataId = getParameter("cataId");
+        cataId = getParameter("id");
         getProduct(1);
+        getMeta();
     });
 
+    function getMeta() {
+        var id=getMetaId();
+        $.ajax({
+            type: 'get',
+            url: "meta/getMeta?id=" + id,
+            success: function (result) {
+                if (result.code == 200) {
+                    var data = result.data;
+                    $("#metaTitle").text(data.title);
+                    $("#metaKeywords").attr("content",data.keywords);
+                    $("#metaDescription").attr("content",data.description);
+                }
+            }
+        });
+    }
+
+    function getMetaId() {
+        switch (cataId){
+            case "5":
+                return "5";
+                break;
+            case "6":
+                return "11";
+                break;
+            case "7":
+                return "9";
+                break;
+            case "8":
+                return "14";
+                break;
+            case "9":
+                return "7";
+                break;
+            case "10":
+                return "10";
+                break;
+            case "11":
+                return "6";
+                break;
+            case "12":
+                return "12";
+                break;
+            case "13":
+                return "13";
+                break;
+            case "14":
+                return "16";
+                break;
+            case "15":
+                return "8";
+                break;
+            case "16":
+                return "17";
+                break;
+        }
+    }
     $(".prod-catalog span").click(function () {
         var index = $(this).attr("index");
         if (index == "" || index == "0") {
@@ -485,45 +542,68 @@
                     var currPage = result.data.page;
                     var pageNum = "";
                     if (totalPage < 10) {
-                        pageNum += '<span>上一页</span>';
+                        pageNum += '<span class="pre-page">上一页</span>';
                         for (var i = 0; i < totalPage; i++) {
-                            if ((i+1) == currPage) {
-                                pageNum += '<span id="curr-page" index="'+(i+1)+'">' + (i + 1) + '</span>';
+                            if ((i + 1) == currPage) {
+                                pageNum += '<span id="curr-page" index="' + (i + 1) + '">' + (i + 1) + '</span>';
                             } else {
-                                pageNum += '<span index="'+(i+1)+'">' + (i + 1) + '</span>';
+                                pageNum += '<span index="' + (i + 1) + '">' + (i + 1) + '</span>';
                             }
                         }
-                        pageNum += '<span>下一页</span>';
+                        pageNum += '<span class="next-page">下一页</span>';
                     } else if (totalPage > 10) {
-                        if (currPage <= 5) {
-                            pageNum += '<span>上一页</span>';
+                        if (currPage < 5) {
+                            pageNum += '<span class="pre-page">上一页</span>';
                             for (var i = 0; i < 5; i++) {
-                                if ((i+1) == currPage) {
-                                    pageNum += '<span id="curr-page" index="'+(i+1)+'">' + (i + 1) + '</span>';
+                                if ((i + 1) == currPage) {
+                                    pageNum += '<span id="curr-page" index="' + (i + 1) + '">' + (i + 1) + '</span>';
                                 } else {
-                                    pageNum += '<span index="'+(i+1)+'">' + (i + 1) + '</span>';
+                                    pageNum += '<span index="' + (i + 1) + '">' + (i + 1) + '</span>';
                                 }
                             }
                             pageNum += '<span>...</span>' +
-                                '<span index="'+totalPage+'">' + totalPage + '</span>' +
-                                '<span>下一页</span>';
-                        } else {
-                            pageNum += '<span>上一页</span><span index="1">上一页</span><span>...</span>';
+                                '<span index="' + totalPage + '">' + totalPage + '</span>' +
+                                '<span class="next-page">下一页</span>';
+                        } else if (currPage > totalPage - 5) {
+                            pageNum += '<span class="pre-page">上一页</span><span index="1">1</span><span>...</span>';
                             for (var i = totalPage - 5; i < totalPage; i++) {
-                                if ((i+1) == currPage) {
-                                    pageNum += '<span id="curr-page" index="'+(i+1)+'">' + (i + 1) + '</span>';
+                                if ((i + 1) == currPage) {
+                                    pageNum += '<span id="curr-page" index="' + (i + 1) + '">' + (i + 1) + '</span>';
                                 } else {
-                                    pageNum += '<span index="'+(i+1)+'">' + (i + 1) + '</span>';
+                                    pageNum += '<span index="' + (i + 1) + '">' + (i + 1) + '</span>';
                                 }
                             }
-                            pageNum += '<span>下一页</span>';
+                            pageNum += '<span class="next-page">下一页</span>';
+                        } else {
+                            pageNum += '<span class="pre-page">上一页</span>' +
+                                '<span index="1">1</span>' +
+                                '<span>...</span>' +
+                                '<span index="' + (currPage - 1) + '">' + (currPage - 1) + '</span>' +
+                                '<span id="curr-page" index="' + currPage + '">' + currPage + '</span>' +
+                                '<span index="' + (currPage + 1) + '">' + (currPage + 1) + '</span>' +
+                                '<span index="' + (currPage + 2) + '">' + (currPage + 2) + '</span>' +
+                                '<span>...</span>' +
+                                '<span index="' + totalPage + '">' + totalPage + '</span>' +
+                                '<span class="next-page">下一页</span>';
                         }
-
                     }
                     $(".page-num").html(pageNum);
                     $(".page-num span").click(function () {
-                        var index=$(this).attr("index");
+                        var index = $(this).attr("index");
                         getProduct(index);
+                    });
+                    $(".pre-page").click(function () {
+                        var currPageIndex = $("#curr-page").attr("index");
+                        if (currPageIndex != 1) {
+                            getProduct(currPageIndex - 1);
+                        }
+                    })
+                    $(".next-page").click(function () {
+                        var currPageIndex = $("#curr-page").attr("index");
+                        currPageIndex = parseInt(currPageIndex);
+                        if (currPageIndex != totalPage) {
+                            getProduct(currPageIndex + 1);
+                        }
                     });
 
                     $(".moldbaby-subject").click(function () {

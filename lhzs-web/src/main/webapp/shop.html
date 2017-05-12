@@ -2,9 +2,9 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>店铺</title>
-    <meta name="description" content="店铺">
-    <meta name="Keywords" content="店铺">
+    <title id="metaTitle">【热卖旗舰店，品牌旗舰店】→哔唛网</title>
+    <meta id="metaKeywords" name="Keywords" content="网店,品牌网店,精选网购,精选旗舰店">
+    <meta id="metaDescription" name="Description" content="精选品牌网店大全，为您推荐精选网店、精选旗舰店、精选品牌网店、精选全面优惠网购等信息。">
 
     <style>
         body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, textarea, p, blockquote, th, td, input, select, textarea, button {
@@ -301,8 +301,8 @@
             margin: 10px 20px;
         }
 
-        .shop-logo  img{
-            float:left;
+        .shop-logo img {
+            float: left;
             margin-bottom: 10px;
             width: 46%;
         }
@@ -326,29 +326,30 @@
             margin-top: 5px;
         }
 
-        .back-to-top{
+        .back-to-top {
             position: fixed;
             bottom: 100px;
             right: 100px;
             background: #ff5e54;
             color: white;
             font-size: 17px;
-            display:none;
+            display: none;
             padding: 23px 18px;
             border-radius: 100%;
         }
 
-        .page-num{
+        .page-num {
             text-align: center;
             font-size: 15px;
             margin: 20px;
         }
 
-        .page-num span{
+        .page-num span {
             padding: 10px;
             background: #eee;
             margin: 5px;
         }
+
         #curr-page {
             background-color: #ff5e54;
         }
@@ -417,7 +418,22 @@
     $(function () {
         id = getParameter("id");
         getShop(1);
+        getMeta();
     });
+    function getMeta() {
+        $.ajax({
+            type: 'get',
+            url: "meta/getMeta?id=" + (parseInt(id)+1),
+            success: function (result) {
+                if (result.code == 200) {
+                    var data = result.data;
+                    $("#metaTitle").text(data.title);
+                    $("#metaKeywords").attr("content",data.keywords);
+                    $("#metaDescription").attr("content",data.description);
+                }
+            }
+        });
+    }
     function getShop(page) {
         var reqData = {};
         var param = {};
@@ -446,7 +462,7 @@
                         var shop = data[i];
                         html += '<div class="shop" index="' + i + '">' +
                             '<div class="shop-logo ">' +
-                            '<img src="'+getShopImage(shop.site)+'">' +
+                            '<img src="' + getShopImage(shop.site) + '">' +
                             '</div>' +
                             '<div class="shop-desc">' +
                             '<div class="shop-name">' + shop.webShop + '</div>' +
@@ -467,55 +483,79 @@
                     var currPage = result.data.page;
                     var pageNum = "";
                     if (totalPage < 10) {
-                        pageNum += '<span>上一页</span>';
+                        pageNum += '<span class="pre-page">上一页</span>';
                         for (var i = 0; i < totalPage; i++) {
-                            if ((i+1) == currPage) {
-                                pageNum += '<span id="curr-page" index="'+(i+1)+'">' + (i + 1) + '</span>';
+                            if ((i + 1) == currPage) {
+                                pageNum += '<span id="curr-page" index="' + (i + 1) + '">' + (i + 1) + '</span>';
                             } else {
-                                pageNum += '<span index="'+(i+1)+'">' + (i + 1) + '</span>';
+                                pageNum += '<span index="' + (i + 1) + '">' + (i + 1) + '</span>';
                             }
                         }
-                        pageNum += '<span>下一页</span>';
+                        pageNum += '<span class="next-page">下一页</span>';
                     } else if (totalPage > 10) {
-                        if (currPage <= 5) {
-                            pageNum += '<span>上一页</span>';
+                        if (currPage < 5) {
+                            pageNum += '<span class="pre-page">上一页</span>';
                             for (var i = 0; i < 5; i++) {
-                                if ((i+1) == currPage) {
-                                    pageNum += '<span id="curr-page" index="'+(i+1)+'">' + (i + 1) + '</span>';
+                                if ((i + 1) == currPage) {
+                                    pageNum += '<span id="curr-page" index="' + (i + 1) + '">' + (i + 1) + '</span>';
                                 } else {
-                                    pageNum += '<span index="'+(i+1)+'">' + (i + 1) + '</span>';
+                                    pageNum += '<span index="' + (i + 1) + '">' + (i + 1) + '</span>';
                                 }
                             }
                             pageNum += '<span>...</span>' +
-                                '<span index="'+totalPage+'">' + totalPage + '</span>' +
-                                '<span>下一页</span>';
-                        } else {
-                            pageNum += '<span>上一页</span><span index="1">上一页</span><span>...</span>';
+                                '<span index="' + totalPage + '">' + totalPage + '</span>' +
+                                '<span class="next-page">下一页</span>';
+                        } else if (currPage > totalPage - 5) {
+                            pageNum += '<span class="pre-page">上一页</span><span index="1">1</span><span>...</span>';
                             for (var i = totalPage - 5; i < totalPage; i++) {
-                                if ((i+1) == currPage) {
-                                    pageNum += '<span id="curr-page" index="'+(i+1)+'">' + (i + 1) + '</span>';
+                                if ((i + 1) == currPage) {
+                                    pageNum += '<span id="curr-page" index="' + (i + 1) + '">' + (i + 1) + '</span>';
                                 } else {
-                                    pageNum += '<span index="'+(i+1)+'">' + (i + 1) + '</span>';
+                                    pageNum += '<span index="' + (i + 1) + '">' + (i + 1) + '</span>';
                                 }
                             }
-                            pageNum += '<span>下一页</span>';
+                            pageNum += '<span class="next-page">下一页</span>';
+                        } else {
+                            pageNum += '<span class="pre-page">上一页</span>' +
+                                '<span index="1">1</span>' +
+                                '<span>...</span>' +
+                                '<span index="' + (currPage - 1) + '">' + (currPage - 1) + '</span>' +
+                                '<span id="curr-page" index="' + currPage + '">' + currPage + '</span>' +
+                                '<span index="' + (currPage + 1) + '">' + (currPage + 1) + '</span>' +
+                                '<span index="' + (currPage + 2) + '">' + (currPage + 2) + '</span>' +
+                                '<span>...</span>' +
+                                '<span index="' + totalPage + '">' + totalPage + '</span>' +
+                                '<span class="next-page">下一页</span>';
                         }
-
                     }
-                    $(".page-num").html(pageNum);
-                    $(".page-num span").click(function () {
-                        var index=$(this).attr("index");
-                        getShop(index);
-                    });
-
-                    $(".shop").click(function () {
-                        var index = $(this).attr("index");
-                        location.href = "shopDetail.html?shopId="+data[index].id+"&shopImg="+id;
-                    });
                 }
+                $(".page-num").html(pageNum);
+                $(".page-num span").click(function () {
+                    var index = $(this).attr("index");
+                    getShop(index);
+                });
+                $(".pre-page").click(function () {
+                    var currPageIndex = $("#curr-page").attr("index");
+                    if (currPageIndex != 1) {
+                        getShop(currPageIndex - 1);
+                    }
+                })
+                $(".next-page").click(function () {
+                    var currPageIndex = $("#curr-page").attr("index");
+                    currPageIndex = parseInt(currPageIndex);
+                    if (currPageIndex != totalPage) {
+                        getShop(currPageIndex + 1);
+                    }
+                });
+
+                $(".shop").click(function () {
+                    var index = $(this).attr("index");
+                    location.href = "shopDetail.html?shopId=" + data[index].id + "&shopImg=" + id;
+                });
             }
         });
     }
+
 
     function getShopType(type) {
         switch (type) {
@@ -577,9 +617,9 @@
 
     $(window).on('scroll', function () {
         if ($(window).scrollTop() > 100) {
-            $('.back-to-top').css("display",'block');
+            $('.back-to-top').css("display", 'block');
         } else {
-            $('.back-to-top').css("display",'none');
+            $('.back-to-top').css("display", 'none');
         }
     });
 

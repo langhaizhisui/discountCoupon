@@ -89,5 +89,11 @@
                enableUpdateByExample="false" enableDeleteByExample="false">
 
         </table>-->
+
+        <!--<table tableName="meta" domainObjectName="Meta"
+               enableCountByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false">
+
+        </table>-->
     </context>
 </generatorConfiguration>

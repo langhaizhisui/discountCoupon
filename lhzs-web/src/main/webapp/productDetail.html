@@ -1,9 +1,14 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>优惠券</title>
-    <meta name="description" content="优惠券">
-    <meta name="Keywords" content="优惠券">
+    <title id="metaTitle">优惠券</title>
+    <meta id="metaKeywords" name="Keywords" content="领券购物，领券网，内部优惠，省钱购物，正品网购">
+    <meta id="metaDescription" name="Description" content="哔唛网领券购物专区，专注全网商家内部优惠券活动,每日送出大量商家内部优惠券，特价团购福利，提供当季全网最具性价比的包邮产品,精选万人团商品超值好货,超低价好货享疯狂特价促销,让你全面安心享受网上购物乐趣!（固定）
+        液晶电视/智能电视产品推荐，买购网旗下名品大牌。精选液晶电视/智能电视行业十大品牌产品，液晶电视/智能电视产品报价，液晶电视/智能电视当季产品，液晶电视/智能电视新品推荐，液晶电视/智能电视产品图片等。
+        领券购物专注全网商家内部优惠券活动,每日送出大量商家内部优惠券，精选万人团商品超值好货,超低价享疯狂特价促销,让你全面安心享受网上购物乐趣!
+        裙子吧 - 领券购物_先领取优惠券再下单购物_真心省!-领券网-领券网
+        买购网行业品牌网店频道，提供具有高信誉度的行业网店大全，包括数码网店，手机网店，女装网店，服装网店，家纺网店，食品网店，化妆品网店，电器网店，母婴网店等，为您了解和购买产品提供全面信息帮助。最新最权威的品牌网店尽在买购网！
+        网商天地网是一家收录品牌旗舰店的网站，让用户能方便快捷的找到自己喜爱的旗舰店。">
 
     <style>
         body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, textarea, p, blockquote, th, td, input, select, textarea, button {
@@ -473,6 +478,7 @@
                         '</div>';
                 }
                 $(".prod-detail").html(html);
+                $("#metaTitle").text(data.name);
                 $(".prod-desc-discount-go").click(function () {
                     window.open(data.prodGeneralize);
                 })
@@ -532,7 +538,6 @@
                 if (result.code == 200) {
                     var html = '';
                     var data = result.data;
-                    prodData = data;
                     for (var i = 0; i < data.length; i++) {
                         var product = data[i];
                         html += '<div class="moldbaby-subject" index="' + i + '">' +
@@ -554,7 +559,7 @@
 
                     $(".moldbaby-subject").click(function () {
                         var index = $(this).attr("index");
-                        location.href = prodData[index].prodGeneralize;
+                        location.href = data[index].prodGeneralize;
                     });
                 }
             }

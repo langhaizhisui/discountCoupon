@@ -21,7 +21,7 @@ public interface ProductService {
 
     List<Product> searchProduct(String key);
 
-    Integer getCount();
+    Long getCount();
 
     JSONObject getProds(String data);
 }

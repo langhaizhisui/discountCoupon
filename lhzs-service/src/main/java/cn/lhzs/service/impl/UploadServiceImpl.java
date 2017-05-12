@@ -2,14 +2,13 @@ package cn.lhzs.service.impl;
 
 import cn.lhzs.data.bean.Product;
 import cn.lhzs.data.bean.Shop;
+import cn.lhzs.data.bean.Upload;
 import cn.lhzs.data.dao.ProductMapper;
 import cn.lhzs.data.dao.ShopMapper;
 import cn.lhzs.service.intf.UploadService;
+import cn.lhzs.util.PoiHelper;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 
 /**
@@ -32,6 +33,7 @@ public class UploadServiceImpl implements UploadService {
 
     @Override
     public String getExcell(String fileName, InputStream inputStream, String type) {
+
         Workbook workbook = null;
         String fileType = fileName.substring(fileName.lastIndexOf("."), fileName.length());
         try {
@@ -44,82 +46,84 @@ public class UploadServiceImpl implements UploadService {
             Sheet sheet = workbook.getSheetAt(0);
             int lastRowNum = sheet.getLastRowNum();
 
-            if("1".equals(type)){
+            String headColumn[] = getHeadColumn(type);
+            String fieldColumn[] = getFieldColumn(type);
+
+            //验证Excel模板
+            short columnSize = sheet.getRow(0).getLastCellNum();
+            String[] headRowColumn = new String[columnSize];
+            for (int i = 0; i < columnSize; i++) {
+                headRowColumn[i] = sheet.getRow(0).getCell(i).toString();
+            }
+            if (!isMatchHead(headRowColumn, headColumn)) {
+                return Upload.EXCEL_TEMPLATE_ERROR;
+            }
+
+            if (Upload.PRODUCT_ADD.equals(type)) {
                 for (int i = 1; i <= lastRowNum; i++) {
                     Row row = sheet.getRow(i);
-                    Product product=new Product();
-                    product.setProdId(i+"");
-                    product.setName(row.getCell(0)==null?"":row.getCell(0).toString());
-                    product.setBanner(row.getCell(1)==null?"":row.getCell(1).toString());
-                    product.setDetail(row.getCell(2)==null?"":row.getCell(2).toString());
-                    product.setCategory(row.getCell(3)==null?"":row.getCell(3).toString());
-                    System.out.println(row.getCell(4)==null?-1.0:Double.parseDouble(row.getCell(4).toString()));
-                    product.setPrice(row.getCell(4)==null?-1.0:Double.parseDouble(row.getCell(4).toString()));
-                    System.out.println(row.getCell(5)==null?-1.0:Double.parseDouble(row.getCell(5).toString()));
-                    product.setDiscountPrice(row.getCell(5)==null?-1.0:Double.parseDouble(row.getCell(5).toString()));
-                    System.out.println();
-                    product.setDiscountDesc(row.getCell(7)==null?"":row.getCell(6).toString());
-                    product.setPlatform(row.getCell(6)==null?"":row.getCell(7).toString());
-                    product.setProdGeneralize(row.getCell(8)==null?"":row.getCell(8).toString());
+                    Product product = new Product();
+
+                    for (int j = 0; j < fieldColumn.length; j++) {
+                        Cell cell = row.getCell(j);
+                        if (cell.getCellType() == cell.CELL_TYPE_STRING) {
+                            PoiHelper.setFieldMethod(product, fieldColumn[j], String.class, cell == null ? "" : cell.toString());
+                        } else if (cell.getCellType() == cell.CELL_TYPE_NUMERIC) {
+                            if (DateUtil.isCellDateFormatted(cell)) {
+                                Date date = cell.getDateCellValue();
+                                PoiHelper.setFieldMethod(product, fieldColumn[j], Date.class, date);
+                            } else {
+                                PoiHelper.setFieldMethod(product, fieldColumn[j], Double.class, cell == null ? -1.0 : cell.getNumericCellValue());
+                            }
+                        }
+                    }
                     product.setScanNum(0);
                     product.setCreateTime(new Date());
                     product.setUpdateTime(new Date());
-                    String operation=row.getCell(9)==null?"":row.getCell(9).toString();
-                    if("1".equals(operation)||"1.0".equals(operation)){
-                        productMapper.insert(product);
-                    }else if("2".equals(operation)||"2.0".equals(operation)){
-                        productMapper.deleteByPrimaryKey(row.getCell(0)==null?"":row.getCell(0).toString());
-                    }else if("3".equals(operation)||"3.0".equals(operation)){
-                        productMapper.updateByPrimaryKey(product);
-                    }
 
-                }
-            }else if("2".equals(type)){
-                for (int i = 1; i <= lastRowNum; i++) {
-                    Row row = sheet.getRow(i);
-                    Shop shop=new Shop();
-                    shop.setId(i+"");
-                    System.out.println(row.getCell(0)==null?"":row.getCell(0).toString());
-                    shop.setWebShop(row.getCell(0)==null?"":row.getCell(0).toString());
-                    System.out.println(row.getCell(1)==null?"":((int)Double.parseDouble(row.getCell(1).toString()))+"");
-                    shop.setSite(row.getCell(1)==null?"":((int)Double.parseDouble(row.getCell(1).toString()))+"");
-                    System.out.println(row.getCell(2)==null?"":row.getCell(2).toString());
-                    shop.setType(row.getCell(2)==null?"":row.getCell(2).toString());
-                    System.out.println(row.getCell(3)==null?"":row.getCell(3).toString());
-                    shop.setSellName(row.getCell(3)==null?"":row.getCell(3).toString());
-                    System.out.println(row.getCell(4)==null?"":row.getCell(4).toString());
-                    shop.setBrandName(row.getCell(4)==null?"":row.getCell(4).toString());
-                    System.out.println(row.getCell(5)==null?"":row.getCell(5).toString());
-                    shop.setSellProd(row.getCell(5)==null?"":row.getCell(5).toString());
-                    System.out.println(row.getCell(6)==null?"":row.getCell(6).toString());
-                    shop.setWebUrl(row.getCell(6)==null?"":row.getCell(6).toString());
-                    System.out.println(row.getCell(7)==null?"":row.getCell(7).toString());
-                    shop.setWebGeneralize(row.getCell(7)==null?"":row.getCell(7).toString());
-                    System.out.println(row.getCell(8)==null?"":row.getCell(8).toString());
-                    shop.setMobileUrl(row.getCell(8)==null?"":row.getCell(8).toString());
-                    System.out.println(row.getCell(9)==null?"":row.getCell(9).toString());
-                    shop.setMobileGeneralize(row.getCell(9)==null?"":row.getCell(9).toString());
-                    System.out.println(row.getCell(10)==null?"":row.getCell(10).toString());
-                    shop.setShopAddr(row.getCell(10)==null?"":row.getCell(10).toString());
-                    System.out.println(row.getCell(11)==null?"":row.getCell(11).toString());
-                    shop.setBanner(row.getCell(11)==null?"":row.getCell(11).toString());
-                    shop.setCreatTime(new Date());
-                    shop.setUpdateTime(new Date());
-                    System.out.println(row.getCell(12)==null?"":row.getCell(12).toString());
-                    String operation=row.getCell(12)==null?"":row.getCell(12).toString();
-                    if("1".equals(operation)||"1.0".equals(operation)){
-                        shopMapper.insert(shop);
-                    }else if("2".equals(operation)||"2.0".equals(operation)){
-                        shopMapper.deleteByPrimaryKey(row.getCell(0)==null?"":row.getCell(0).toString());
-                    }else if("3".equals(operation)||"3.0".equals(operation)){
-                        shopMapper.updateByPrimaryKey(shop);
-                    }
+                    productMapper.insert(product);
                 }
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return null;
+    }
+
+    private String[] getHeadColumn(String type) {
+        String[] headColumn = null;
+
+        if (Upload.PRODUCT_ADD.equals(type)) {
+            headColumn = new String[]{"商品名称", "商品主图", "商品详情页链接地址", "商品一级类目", "原价", "券后价",
+                    "平台类型", "优惠券面额", "商品优惠券推广链接", "优惠券结束时间"};
+        }
+        return headColumn;
+    }
+
+    private String[] getFieldColumn(String type) {
+        String[] fieldColumn = null;
+
+        if (Upload.PRODUCT_ADD.equals(type)) {
+            fieldColumn = new String[]{"name", "banner", "detail", "category", "price", "discountPrice",
+                    "platform", "savePrice", "prodGeneralize", "expiration"};
+        }
+        return fieldColumn;
+    }
+
+    private boolean isMatchHead(String[] row0, String[] column) {
+        if (row0 == null || column == null) {
+            return false;
+        }
+        if (row0.length != column.length) {
+            return false;
+        }
+        for (int i = 0; i < row0.length; i++) {
+            if (!column[i].equals(row0[i])) {
+                return false;
+            }
+        }
+        return true;
     }
 }

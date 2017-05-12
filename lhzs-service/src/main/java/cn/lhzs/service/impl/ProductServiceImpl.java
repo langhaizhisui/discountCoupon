@@ -42,7 +42,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product getProductByProdId(String prodId) {
-        return productMapper.selectByPrimaryKey(prodId);
+        return productMapper.selectByPrimaryKey(Long.parseLong(prodId));
     }
 
     @Override
@@ -52,7 +52,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void deleteProdByProdId(String prodId) {
-        productMapper.deleteByPrimaryKey(prodId);
+        productMapper.deleteByPrimaryKey(Long.parseLong(prodId));
     }
 
     @Override
@@ -75,7 +75,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Integer getCount() {
+    public Long getCount() {
         return productMapper.selectCount();
     }
 
@@ -91,8 +91,8 @@ public class ProductServiceImpl implements ProductService {
         product.setCategory(category);
         List<Product> productList = getProdList(product);
 
-        Integer count = getCount();
-        Integer totalPage = count / size;
+        Long count = getCount();
+        Long totalPage = count / size;
         if (count % size != 0) {
             totalPage = totalPage + 1;
         }

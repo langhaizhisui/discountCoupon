@@ -1,0 +1,112 @@
+<header class="header clearfix">
+    <div class="logo">
+        <a href="./index2.html"><img src="images/logo2.jpg"></a>
+    </div>
+    <div class="search-box">
+        <div>
+            <input class="search-input" placeholder="关键字/店铺名"/>
+            <span class="search-btn" id="search-btn">搜索</span>
+        </div>
+    </div>
+</header>
+<div class="top-nav clearfix">
+    <ul>
+        <li><a href="index2.html">商城</a></li>
+        <li>|</li>
+        <li><a href="shop.html?id=1">旗舰店</a></li>
+        <li>|</li>
+        <li><a href="shop.html?id=2">专卖店</a></li>
+        <li>|</li>
+        <li><a href="shop.html?id=3">自营店</a></li>
+        <li>|</li>
+        <li><a href="discountCoupon.html">内部优惠券</a></li>
+    </ul>
+</div>
+<script>
+
+    $(".search-btn").click(function () {
+        searchProduct();
+    });
+
+    function searchProduct() {
+        var key = $(".search-input").val();
+
+        var reqData = {};
+        var param = {};
+        param.key = key;
+        reqData.reqData = param;
+        $.ajax({
+            type: 'post',
+            url: "prod/search",
+            dataType: 'json',
+            contentType: "application/json",
+            data: JSON.stringify(reqData),
+            success: function (result) {
+                if (result.code == 200) {
+                    var html = '';
+                    var type = result.data.type;
+                    var list = result.data.list;
+                    if (type == "1") {
+                        $(".ad").css("display", "none");
+                        $(".hot-brand").css("display", "none");
+                        $(".moldbaby-more").css("display", "none");
+                        for (var i = 0; i < list.length; i++) {
+                            var shop = list[i];
+                            html += '<div class="shop clearfix" index="' + i + '">' +
+                                '<div class="shop-logo ">' +
+                                '<img src="' + getShopImage(shop.site) + '">' +
+                                '</div>' +
+                                '<div class="shop-desc">' +
+                                '<div class="shop-name">' + shop.webShop + '</div>' +
+                                '<div class="shop-type">' +
+                                '<span>商城：</span>' +
+                                '<span>' + getShopType(shop.site) + '</span>' +
+                                '</div>' +
+                                '<div class="shop-addr">' +
+                                '<span>地区：</span>' +
+                                '<span>' + shop.shopAddr + '</span>' +
+                                '</div>' +
+                                '</div>' +
+                                '</div>'
+                        }
+                        $(".moldbaby").html(html);
+
+                        $(".shop").click(function () {
+                            var index = $(this).attr("index");
+                            location.href = "shopDetail.html?shopId=" + list[index].id + "&shopImg=" + getShopId(list[index].type);
+                        });
+                    } else if (type == "2") {
+                        $(".ad").css("display", "none");
+                        $(".hot-brand").css("display", "none");
+                        $(".moldbaby-more").css("display", "none");
+                        for (var i = 0; i < list.length; i++) {
+                            var product = list[i];
+                            html += '<div class="moldbaby-subject" index="' + i + '">' +
+                                '<div class="moldbaby-subject-img">' +
+                                '<img src="' + product.banner + '">' +
+                                '</div>' +
+                                '<div class="moldbaby-subject-title">' + product.name + '</div>' +
+                                '<div class="clearfix">' +
+                                '<div class="curr-price">现价:¥' + product.price + '</div>' +
+                                '<div class="other-price">' +
+                                '<div>原价:¥' + product.discountPrice + '</div>' +
+                                '<div>立省:¥' + (product.price - product.discountPrice) + '</div>' +
+                                '</div>' +
+                                '</div>' +
+                                '<div class="go-shop">去购物</div>' +
+                                '</div>';
+                        }
+                        $(".moldbaby").html(html);
+
+                        $(".moldbaby-subject").click(function () {
+                            var index = $(this).attr("index");
+                            location.href = "productDetail.html?prodId=" + list[index].prodId;
+                            ;
+                        });
+                    }
+                }
+            }
+        });
+    }
+
+</script>

@@ -7,166 +7,6 @@
     <meta id="metaDescription" name="Description" content="精选品牌网店大全，为您推荐精选网店、精选旗舰店、精选品牌网店、精选全面优惠网购等信息。">
 
     <style>
-        body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, textarea, p, blockquote, th, td, input, select, textarea, button {
-            margin: 0;
-            padding: 0
-        }
-
-        /* 初始化标签在所有浏览器中的margin、padding值 */
-        fieldset, img {
-            border: 0 none
-        }
-
-        /* 重置fieldset（表单分组）、图片的边框为0*/
-        dl, ul, ol, menu, li {
-            list-style: none
-        }
-
-        /* 重置类表前导符号为onne,menu在HTML5中有效 */
-        blockquote, q {
-            quotes: none
-        }
-
-        /* 重置嵌套引用的引号类型 */
-        blockquote:before, blockquote:after, q:before, q:after {
-            content: '';
-            content: none
-        }
-
-        /* 重置嵌套引用*/
-        input, select, textarea, button {
-            vertical-align: middle
-        }
-
-        /* 重置表单控件垂直居中*/
-        button {
-            border: 0 none;
-            background-color: transparent;
-            cursor: pointer
-        }
-
-        /* 重置表单button按钮效果 */
-        body {
-            background: #fff
-        }
-
-        /* 重置body 页面背景为白色 */
-        body, th, td, input, select, textarea, button {
-            font-size: 12px;
-            line-height: 1;
-            font-family: "微软雅黑", "黑体", "宋体";
-            color: #666
-        }
-
-        /* 重置页面文字属性 */
-        a {
-            color: #666;
-            text-decoration: none
-        }
-
-        /* 重置链接a标签 */
-        a:active, a:hover {
-            text-decoration: none
-        }
-
-        /* 重置链接a标签的鼠标滑动效果 */
-        address, caption, cite, code, dfn, em, var {
-            font-style: normal;
-            font-weight: normal
-        }
-
-        /* 重置样式标签的样式 */
-        caption {
-            display: none;
-        }
-
-        /* 重置表格标题为隐藏 */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            border-spacing: 0;
-            table-layout: fixed;
-        }
-
-        /* 重置table属性 */
-        img {
-            vertical-align: top
-        }
-
-        /* 图片在当前行内的垂直位置 */
-        /* 取消a标签点击后的虚线框 */
-        a {
-            outline: none;
-        }
-
-        a:active {
-            star: expression(this.onFocus=this.blur());
-        }
-
-        /*清除浮动*/
-        .clear {
-            clear: both;
-        }
-
-        .clearfix:before, .clearfix:after {
-            content: '';
-            display: table;
-        }
-
-        .clearfix:after {
-            clear: both;
-        }
-
-        .logo {
-            float: left;
-            height: 88px;
-            line-height: 88px;
-        }
-
-        .logo a {
-            font-size: 30px;
-            padding: 10px 20px;
-            color: #ff5e54;
-            font-weight: bold;
-        }
-
-        .search-box {
-            float: right;
-            padding: 30px 10% 15px;
-        }
-
-        .search-box input {
-            float: left;
-            border: 2px solid #ff5e54;
-            padding: 5px 10px;
-        }
-
-        .search-btn {
-            float: left;
-            background-color: #ff5e54;
-            color: white;
-            height: 30px;
-            line-height: 30px;
-            padding: 0px 15px;
-        }
-
-        .top-nav {
-            background-color: #ff5e54;
-            color: white;
-            padding-left: 20px;
-        }
-
-        .top-nav ul li a {
-            color: white;
-        }
-
-        .top-nav ul li {
-            float: left;
-            font-size: 16px;
-            text-align: center;
-            padding: 0.9% 1%;
-        }
-
         .new-shop, .flash-img, .adv {
             float: left;
             font-size: 15px;
@@ -266,28 +106,6 @@
             margin: 10px 0px 0px;
         }
 
-        .copyright {
-            font-size: 15px;
-            padding: 10px 0px;
-            width: 100%;
-            text-align: center;
-        }
-
-        .search-box ul li {
-            float: left;
-            padding: 7px 10px;
-            color: #ff5e54;
-            font-size: 14px;
-            text-decoration: underline;
-        }
-
-        .bottom-icp {
-            position: relative;
-            top: -6px;
-            color: #939393;
-            left: 5px;
-        }
-
         .shop {
             width: 280px;
             border: 1px dotted #ddd;
@@ -354,83 +172,42 @@
             background-color: #ff5e54;
         }
     </style>
+    <link rel="stylesheet" href="/css/base.css">
 </head>
 <body>
-<header class="clearfix">
-    <div class="logo">
-        <a href="./index.html">优惠券</a>
-    </div>
-    <div class="search-box">
-        <div>
-            <input placeholder="关键字/店铺名"/>
-            <span class="search-btn">搜索</span>
-        </div>
-    </div>
-</header>
+<div class="header"></div>
 <section>
-    <div class="top-nav clearfix">
-        <ul>
-            <li><a href="index2.html">商城</a></li>
-            <li>|</li>
-            <li><a href="shop.html?id=1">旗舰店</a></li>
-            <li>|</li>
-            <li><a href="shop.html?id=2">专卖店</a></li>
-            <li>|</li>
-            <li><a href="shop.html?id=3">自营店</a></li>
-            <li>|</li>
-            <li><a href="discountCoupon.html">内部优惠券</a></li>
-        </ul>
-    </div>
+    <div class="shop-list"></div>
 
-    <div class="shop-list">
-
-    </div>
-
-    <div class="page-num">
-
-    </div>
+    <div class="page-num"></div>
+    <!-- 返回顶部 -->
+    <div class="back-to-top">top</div>
 </section>
-<footer>
-    <div style="width:420px;margin:0 auto; padding:20px 0;">
-        <!--<span class="bottom-blog">哔唛个人博客</span>-->
-        <a style="display:inline-block;text-decoration:none;height:20px;line-height:20px;">
-            <img src="images/recordIcon.png" style="float:left;"/>
-            <p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">
-                粤公网安备44030702000389号
-            </p>
-        </a>
-        <span class="bottom-icp">粤ICP备17022674号</span>
-    </div>
-</footer>
-<!-- 返回顶部 -->
-<div class="back-to-top">top</div>
+<footer class="footer"></footer>
 </body>
 <script src="js/jquery.min.js"></script>
+<script src="js/app.js"></script>
 <script>
-    function getParameter(name) {
-        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-        var r = window.location.search.substr(1).match(reg);
-        if (r != null)return unescape(r[2]);
-        return null;
-    }
+    var id = getParameter("id");
 
-    var id;
     $(function () {
-        id = getParameter("id");
-        getShop(1);
-        getMeta();
+        init();
     });
+
+    function init() {
+        $(".header").load("header.html");
+        $(".footer").load("footer.html");
+        getMeta();
+        getShop(1);
+    }
     function getMeta() {
-        $.ajax({
-            type: 'get',
-            url: "meta/getMeta?id=" + (parseInt(id)+1),
-            success: function (result) {
-                if (result.code == 200) {
-                    var data = result.data;
-                    $("#metaTitle").text(data.title);
-                    $("#metaKeywords").attr("content",data.keywords);
-                    $("#metaDescription").attr("content",data.description);
-                }
+        var param={"id":(parseInt(id) + 1)};
+        app.getMeta(param,function (result) {
+            if (result.code == 200) {
+                var data = result.data;
+                $("#metaTitle").text(data.title);
+                $("#metaKeywords").attr("content", data.keywords);
+                $("#metaDescription").attr("content", data.description);
             }
         });
     }
@@ -448,43 +225,60 @@
         param.pageSize = 20;
         reqData.reqData = param;
 
-        $.ajax({
-            type: 'post',
-            url: "shop/getList",
-            dataType: 'json',
-            contentType: "application/json",
-            data: JSON.stringify(reqData),
-            success: function (result) {
-                if (result.code == 200) {
-                    var html = "";
-                    var data = result.data.shopList;
-                    for (var i = 0; i < data.length; i++) {
-                        var shop = data[i];
-                        html += '<div class="shop" index="' + i + '">' +
-                            '<div class="shop-logo ">' +
-                            '<img src="' + getShopImage(shop.site) + '">' +
-                            '</div>' +
-                            '<div class="shop-desc">' +
-                            '<div class="shop-name">' + shop.webShop + '</div>' +
-                            '<div class="shop-type">' +
-                            '<span>商城：</span>' +
-                            '<span>' + getShopType(shop.site) + '</span>' +
-                            '</div>' +
-                            '<div class="shop-addr">' +
-                            '<span>地区：</span>' +
-                            '<span>' + shop.shopAddr + '</span>' +
-                            '</div>' +
-                            '</div>' +
-                            '</div>'
-                    }
-                    $(".shop-list").html(html);
+        app.getShopList(reqData,function (result) {
+            if (result.code == 200) {
+                var html = "";
+                var data = result.data.shopList;
+                for (var i = 0; i < data.length; i++) {
+                    var shop = data[i];
+                    html += '<div class="shop" index="' + i + '">' +
+                        '<div class="shop-logo ">' +
+                        '<img src="' + getShopImage(shop.site) + '">' +
+                        '</div>' +
+                        '<div class="shop-desc">' +
+                        '<div class="shop-name">' + shop.webShop + '</div>' +
+                        '<div class="shop-type">' +
+                        '<span>商城：</span>' +
+                        '<span>' + getShopType(shop.site) + '</span>' +
+                        '</div>' +
+                        '<div class="shop-addr">' +
+                        '<span>地区：</span>' +
+                        '<span>' + shop.shopAddr + '</span>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>'
+                }
+                $(".shop-list").html(html);
 
-                    var totalPage = result.data.totalPage;
-                    var currPage = result.data.page;
-                    var pageNum = "";
-                    if (totalPage < 10) {
+                var totalPage = result.data.totalPage;
+                var currPage = result.data.page;
+                var pageNum = "";
+                if (totalPage < 10) {
+                    pageNum += '<span class="pre-page">上一页</span>';
+                    for (var i = 0; i < totalPage; i++) {
+                        if ((i + 1) == currPage) {
+                            pageNum += '<span id="curr-page" index="' + (i + 1) + '">' + (i + 1) + '</span>';
+                        } else {
+                            pageNum += '<span index="' + (i + 1) + '">' + (i + 1) + '</span>';
+                        }
+                    }
+                    pageNum += '<span class="next-page">下一页</span>';
+                } else if (totalPage > 10) {
+                    if (currPage < 5) {
                         pageNum += '<span class="pre-page">上一页</span>';
-                        for (var i = 0; i < totalPage; i++) {
+                        for (var i = 0; i < 5; i++) {
+                            if ((i + 1) == currPage) {
+                                pageNum += '<span id="curr-page" index="' + (i + 1) + '">' + (i + 1) + '</span>';
+                            } else {
+                                pageNum += '<span index="' + (i + 1) + '">' + (i + 1) + '</span>';
+                            }
+                        }
+                        pageNum += '<span>...</span>' +
+                            '<span index="' + totalPage + '">' + totalPage + '</span>' +
+                            '<span class="next-page">下一页</span>';
+                    } else if (currPage > totalPage - 5) {
+                        pageNum += '<span class="pre-page">上一页</span><span index="1">1</span><span>...</span>';
+                        for (var i = totalPage - 5; i < totalPage; i++) {
                             if ((i + 1) == currPage) {
                                 pageNum += '<span id="curr-page" index="' + (i + 1) + '">' + (i + 1) + '</span>';
                             } else {
@@ -492,70 +286,45 @@
                             }
                         }
                         pageNum += '<span class="next-page">下一页</span>';
-                    } else if (totalPage > 10) {
-                        if (currPage < 5) {
-                            pageNum += '<span class="pre-page">上一页</span>';
-                            for (var i = 0; i < 5; i++) {
-                                if ((i + 1) == currPage) {
-                                    pageNum += '<span id="curr-page" index="' + (i + 1) + '">' + (i + 1) + '</span>';
-                                } else {
-                                    pageNum += '<span index="' + (i + 1) + '">' + (i + 1) + '</span>';
-                                }
-                            }
-                            pageNum += '<span>...</span>' +
-                                '<span index="' + totalPage + '">' + totalPage + '</span>' +
-                                '<span class="next-page">下一页</span>';
-                        } else if (currPage > totalPage - 5) {
-                            pageNum += '<span class="pre-page">上一页</span><span index="1">1</span><span>...</span>';
-                            for (var i = totalPage - 5; i < totalPage; i++) {
-                                if ((i + 1) == currPage) {
-                                    pageNum += '<span id="curr-page" index="' + (i + 1) + '">' + (i + 1) + '</span>';
-                                } else {
-                                    pageNum += '<span index="' + (i + 1) + '">' + (i + 1) + '</span>';
-                                }
-                            }
-                            pageNum += '<span class="next-page">下一页</span>';
-                        } else {
-                            pageNum += '<span class="pre-page">上一页</span>' +
-                                '<span index="1">1</span>' +
-                                '<span>...</span>' +
-                                '<span index="' + (currPage - 1) + '">' + (currPage - 1) + '</span>' +
-                                '<span id="curr-page" index="' + currPage + '">' + currPage + '</span>' +
-                                '<span index="' + (currPage + 1) + '">' + (currPage + 1) + '</span>' +
-                                '<span index="' + (currPage + 2) + '">' + (currPage + 2) + '</span>' +
-                                '<span>...</span>' +
-                                '<span index="' + totalPage + '">' + totalPage + '</span>' +
-                                '<span class="next-page">下一页</span>';
-                        }
+                    } else {
+                        pageNum += '<span class="pre-page">上一页</span>' +
+                            '<span index="1">1</span>' +
+                            '<span>...</span>' +
+                            '<span index="' + (currPage - 1) + '">' + (currPage - 1) + '</span>' +
+                            '<span id="curr-page" index="' + currPage + '">' + currPage + '</span>' +
+                            '<span index="' + (currPage + 1) + '">' + (currPage + 1) + '</span>' +
+                            '<span index="' + (currPage + 2) + '">' + (currPage + 2) + '</span>' +
+                            '<span>...</span>' +
+                            '<span index="' + totalPage + '">' + totalPage + '</span>' +
+                            '<span class="next-page">下一页</span>';
                     }
                 }
-                $(".page-num").html(pageNum);
-                $(".page-num span").click(function () {
-                    var index = $(this).attr("index");
-                    getShop(index);
-                });
-                $(".pre-page").click(function () {
-                    var currPageIndex = $("#curr-page").attr("index");
-                    if (currPageIndex != 1) {
-                        getShop(currPageIndex - 1);
-                    }
-                })
-                $(".next-page").click(function () {
-                    var currPageIndex = $("#curr-page").attr("index");
-                    currPageIndex = parseInt(currPageIndex);
-                    if (currPageIndex != totalPage) {
-                        getShop(currPageIndex + 1);
-                    }
-                });
-
-                $(".shop").click(function () {
-                    var index = $(this).attr("index");
-                    location.href = "shopDetail.html?shopId=" + data[index].id + "&shopImg=" + id;
-                });
             }
+            $(".page-num").html(pageNum);
+            $(".page-num span").click(function () {
+                var index = $(this).attr("index");
+                getShop(index);
+            });
+            $(".pre-page").click(function () {
+                var currPageIndex = $("#curr-page").attr("index");
+                if (currPageIndex != 1) {
+                    getShop(currPageIndex - 1);
+                }
+            })
+            $(".next-page").click(function () {
+                var currPageIndex = $("#curr-page").attr("index");
+                currPageIndex = parseInt(currPageIndex);
+                if (currPageIndex != totalPage) {
+                    getShop(currPageIndex + 1);
+                }
+            });
+
+            $(".shop").click(function () {
+                var index = $(this).attr("index");
+                location.href = "shopDetail.html?shopId=" + data[index].id + "&shopImg=" + id;
+            });
         });
     }
-
 
     function getShopType(type) {
         switch (type) {
@@ -614,22 +383,5 @@
                 break;
         }
     }
-
-    $(window).on('scroll', function () {
-        if ($(window).scrollTop() > 100) {
-            $('.back-to-top').css("display", 'block');
-        } else {
-            $('.back-to-top').css("display", 'none');
-        }
-    });
-
-    $('.back-to-top').on('click', function (e) {
-        // html,body 都写是为了兼容浏览器
-        $('html,body').animate({
-            scrollTop: 0
-        }, 700);
-
-        return false;
-    });
 </script>
 </html>

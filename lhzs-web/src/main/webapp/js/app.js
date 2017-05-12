@@ -18,7 +18,7 @@ var app = {
     },
     getProductList: function (data, callback) {
         var self = this;
-        self.ajax("post", "catalog/cataList", data, callback);
+        self.ajax("post", "prod/getList", data, callback);
     },
     getProductDetail: function (data, callback) {
         var self = this;
@@ -26,7 +26,11 @@ var app = {
     },
     getGeneralizeProduct: function (data, callback) {
         var self = this;
-        self.ajax("post", "catalog/cataList", data, callback);
+        self.ajax("post", "prod/getList", data, callback);
+    },
+    getMeta: function (data, callback) {
+        var self = this;
+        self.ajax("get", "meta/getMeta", data, callback);
     },
     "ajax": function (type, url, data, callback) {
         var self = this;
@@ -40,13 +44,14 @@ var app = {
                 param += "?";
             }
             for (var key in data) {
-                param += id + "=" + data[key] + "&";
+                param += key + "=" + data[key] + "&";
             }
             param = param.substring(0, param.length - 1);
 
             $.ajax({
                 type: 'get',
-                url: url + param
+                url: url + param,
+                success: callback
             });
         } else {
             $.ajax({
@@ -85,8 +90,6 @@ function getParameter(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
     var r = window.location.search.substr(1).match(reg);
     if (r != null)return unescape(r[2]);
-    return null;
 }
-
 
 

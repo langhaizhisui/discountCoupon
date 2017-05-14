@@ -108,6 +108,10 @@ a:active {
     clear: both;
 }
 
+.top-header{
+    width: 1200px;
+    margin: 0 auto;
+}
 
 /* ¶¥²¿µ¼º½ */
 .logo {
@@ -126,8 +130,8 @@ a:active {
 }
 
 .search-box {
-    float: right;
-    padding: 30px 10% 15px;
+    padding: 37px 10% 15px;
+    margin-left: 700px;
 }
 
 .search-box ul li {
@@ -142,29 +146,43 @@ a:active {
     float: left;
     border: 2px solid #ff5e54;
     padding: 5px 10px;
+    font-size: 15px;
 }
 
 .search-btn {
     float: left;
     background-color: #ff5e54;
     color: white;
-    height: 30px;
-    line-height: 30px;
+    height: 34px;
+    line-height: 34px;
     padding: 0px 15px;
     cursor: pointer;
+    font-size: 15px;
 }
 
 .top-nav {
     background-color: #ff5e54;
     color: white;
-    padding-left: 20px;
+    width: 100%;
+}
+
+.top-nav ul{
+    width: 1200px;
+    margin: 0 auto;
 }
 
 .top-nav ul li {
     float: left;
     font-size: 16px;
     text-align: center;
-    padding: 0.9% 1%;
+    padding: 10px 50px;
+}
+.top-nav-select{
+    background-color: #ee2d21;
+}
+
+.top-nav ul li:first-child{
+    width: 100px;
 }
 
 .top-nav ul li a {

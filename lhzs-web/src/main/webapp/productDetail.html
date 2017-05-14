@@ -11,7 +11,11 @@
         网商天地网是一家收录品牌旗舰店的网站，让用户能方便快捷的找到自己喜爱的旗舰店。">
 
     <style>
-        .new-shop, .flash-img, .adv {
+        .ad{
+            width: 1200px;
+            margin: 0 auto;
+        }
+        .new-shop, .adv {
             float: left;
             font-size: 15px;
             text-align: center;
@@ -19,19 +23,23 @@
         }
 
         .new-shop {
-            width: 20%;
-            background-color: #eeeeee;
-            height: 200px;
+            width: 200px;
+            background-color: #ffdddb;
+            height: 280px;
         }
 
         .flash-img {
-            width: 60%;
+            float: left;
+            font-size: 15px;
+            text-align: center;
+            width: 53%;
         }
 
         .adv {
-            width: 20%;
-            background-color: #eeeeee;
-            height: 200px;
+            width: 300px;
+            background-color: #ffdddb;
+            padding:10px 20px;
+            height: 280px;
         }
 
         .adv ul li {
@@ -42,14 +50,15 @@
             padding-top: 10px;
         }
 
-        .transverse-line {
-            width: 100%;
-            border: 1px solid #bbbbbb;
+        .hot-brand {
+            font-size: 10px;
+            width: 1200px;
+            margin: 0 auto;
         }
 
-        .hot-brand {
-            font-size: 15px;
-            padding: 10px 20px;
+        .hot-brand-title{
+            font-size: 18px;
+            padding: 20px 0px 0px 0px;
         }
 
         .hot-brand ul li {
@@ -59,22 +68,24 @@
         }
 
         .moldbaby {
-            font-size: 15px;
-            padding: 10px 20px;
+            font-size: 10px;
         }
 
         .moldbaby-more {
-            float: right;
             text-decoration: underline;
             color: #ff5e54;
+            padding: 30px 10% 0px 0px;
+            text-align: right;
+            font-size: 16px;
         }
 
         .moldbaby-subject {
             float: left;
-            margin: 2% 20px;
-            border: 1px solid #666666;
-            padding: 1%;
-            width: 18%;
+            margin-right: 48px;
+            border: 1px solid #ddd;
+            width: 250px;
+            cursor: pointer;
+            margin-top: 20px;
         }
 
         .moldbaby-subject img {
@@ -88,27 +99,90 @@
         .moldbaby-subject-title {
             font-size: 15px;
             text-align: center;
-            padding: 15px 0px;
+            padding: 15px 10px;
+            display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .curr-price, .other-price {
             float: left;
+            font-size: 15px;
         }
 
         .curr-price {
             height: 30px;
             line-height: 30px;
-            padding: 0px 10px;
+            padding: 0px 15% 0px 10px;
+            color: red;
         }
 
         .go-shop {
-            height: 30px;
-            line-height: 30px;
+            height: 35px;
+            line-height: 35px;
             padding: 0px 10px;
             border: 1px solid #ff5e54;
-            color: #ff5e54;
+            color: white;
             text-align: center;
             margin: 10px 0px 0px;
+            background-color: #ff5e54;
+            font-size: 15px;
+        }
+
+        .shop {
+            width: 250px;
+            border: 1px dotted #ddd;
+            margin-right: 48px;
+            margin-top: 20px;
+            border-radius: 5px;
+            float: left;
+            cursor: pointer;
+        }
+
+        .shop-logo {
+            margin: 10px 10px;
+        }
+
+        .shop-logo img {
+            float: left;
+            margin-bottom: 10px;
+            width: 55%;
+        }
+
+        .shop-desc {
+            padding-top: 9px;
+            padding-left: 58%;
+        }
+
+        .shop-name {
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .shop-type {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .shop-addr {
+            margin-top: 5px;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 100px;
+            right: 100px;
+            background: #ff5e54;
+            color: white;
+            font-size: 17px;
+            display: none;
+            padding: 23px 18px;
+            border-radius: 100%;
+        }
+        .hot-prod{
+            width: 1200px;
+            margin: 0 auto;
         }
 
         .prod {
@@ -169,6 +243,8 @@
         .prod-generalize-text {
             text-align: center;
             margin-bottom: 20px;
+            margin-top: 20px;
+            font-size: 16px;
         }
 
         .prod-generalize-item {
@@ -190,7 +266,6 @@
 
         .boutique {
             font-size: 18px;
-            margin-left: 40px;
         }
 
         .back-to-top {
@@ -218,8 +293,8 @@
             <div class="prod-generalize-list"></div>
         </div>
     </div>
-    <div>
-        <div class="boutique">精品推荐</div>
+    <div class="hot-prod">
+        <div class="boutique">热门商品精选</div>
         <div class=" moldbaby clearfix"></div>
     </div>
 
@@ -298,7 +373,7 @@
 
                 $(".prod-generalize-item").click(function () {
                     var index = $(this).attr("index");
-                    location.href = data[index].prodGeneralize;
+                    location.href = "productDetail.html?prodId=" + data[index].prodId;
                 });
             }
         });
@@ -322,9 +397,9 @@
                         '</div>' +
                         '<div class="moldbaby-subject-title">' + getProductName(product.name) + '</div>' +
                         '<div class="clearfix">' +
-                        '<div class="curr-price">现价:¥' + product.price + '</div>' +
+                        '<div class="curr-price">现价:¥' + product.discountPrice.toFixed(2) + '</div>' +
                         '<div class="other-price">' +
-                        '<div>原价:¥' + product.discountPrice + '</div>' +
+                        '<div style="margin-bottom:5px">原价:¥' + product.price.toFixed(2) + '</div>' +
                         '<div>立省:¥' + (product.price - product.discountPrice).toFixed(2) + '</div>' +
                         '</div>' +
                         '</div>' +
@@ -335,7 +410,7 @@
 
                 $(".moldbaby-subject").click(function () {
                     var index = $(this).attr("index");
-                    location.href = data[index].prodGeneralize;
+                    location.href = "productDetail.html?prodId=" + data[index].prodId;
                 });
             }
         });

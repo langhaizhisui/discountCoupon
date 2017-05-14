@@ -32,6 +32,15 @@ var app = {
         var self = this;
         self.ajax("get", "meta/getMeta", data, callback);
     },
+    getSelectedNav: function (navId) {
+        setTimeout(function () {
+            $(".top-nav ul li").removeClass("top-nav-select");
+            if(navId<=5){
+                $('.top-nav ul li:eq('+navId+')').addClass("top-nav-select");
+            }
+        },100);
+
+    },
     "ajax": function (type, url, data, callback) {
         var self = this;
         if (self.isParamEmpty(type) || self.isParamEmpty(url) || self.isParamEmpty(data)) {

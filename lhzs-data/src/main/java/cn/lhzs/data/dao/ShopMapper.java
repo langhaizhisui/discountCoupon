@@ -70,5 +70,10 @@ public interface ShopMapper {
      */
     List<Shop> searchShop(Map map);
 
-    Integer selectCount();
+    /**
+     * 根据类型获取店铺
+     * @param shop 店铺对象
+     * @return 总个数
+     */
+    Integer selectCountByType(Shop shop);
 }

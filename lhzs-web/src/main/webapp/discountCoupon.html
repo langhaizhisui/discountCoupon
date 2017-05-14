@@ -8,7 +8,12 @@
           content="哔唛网领券购物专区，专注全网商家内部优惠券活动,每日送出大量商家内部优惠券，特价团购福利，提供当季全网最具性价比的包邮产品,精选万人团商品超值好货,超低价好货享疯狂特价促销,让你全面安心享受网上购物乐趣!">
 
     <style>
-        .new-shop, .flash-img, .adv {
+        .ad {
+            width: 1200px;
+            margin: 0 auto;
+        }
+
+        .new-shop, .adv {
             float: left;
             font-size: 15px;
             text-align: center;
@@ -16,19 +21,23 @@
         }
 
         .new-shop {
-            width: 20%;
-            background-color: #eeeeee;
-            height: 200px;
+            width: 200px;
+            background-color: #ffdddb;
+            height: 280px;
         }
 
         .flash-img {
-            width: 60%;
+            float: left;
+            font-size: 15px;
+            text-align: center;
+            width: 53%;
         }
 
         .adv {
-            width: 20%;
-            background-color: #eeeeee;
-            height: 200px;
+            width: 300px;
+            background-color: #ffdddb;
+            padding: 10px 20px;
+            height: 280px;
         }
 
         .adv ul li {
@@ -39,9 +48,15 @@
             padding-top: 10px;
         }
 
-        .transverse-line {
-            width: 100%;
-            border: 1px solid #bbbbbb;
+        .hot-brand {
+            font-size: 10px;
+            width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hot-brand-title {
+            font-size: 18px;
+            padding: 20px 0px 0px 0px;
         }
 
         .hot-brand ul li {
@@ -51,22 +66,26 @@
         }
 
         .moldbaby {
-            font-size: 15px;
-            padding: 10px 20px;
+            font-size: 10px;
+            width: 1200px;
+            margin: 0 auto;
         }
 
         .moldbaby-more {
-            float: right;
             text-decoration: underline;
             color: #ff5e54;
+            padding: 30px 10% 0px 0px;
+            text-align: right;
+            font-size: 16px;
         }
 
         .moldbaby-subject {
             float: left;
-            margin: 2% 20px;
-            border: 1px solid #666666;
-            padding: 1%;
-            width: 18%;
+            margin-right: 48px;
+            border: 1px solid #ddd;
+            width: 250px;
+            cursor: pointer;
+            margin-top: 20px;
         }
 
         .moldbaby-subject img {
@@ -80,27 +99,79 @@
         .moldbaby-subject-title {
             font-size: 15px;
             text-align: center;
-            padding: 15px 0px;
+            padding: 15px 10px;
+            display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .curr-price, .other-price {
             float: left;
+            font-size: 15px;
         }
 
         .curr-price {
             height: 30px;
             line-height: 30px;
-            padding: 0px 10px;
+            padding: 0px 15% 0px 10px;
+            color: red;
         }
 
         .go-shop {
-            height: 30px;
-            line-height: 30px;
+            height: 35px;
+            line-height: 35px;
             padding: 0px 10px;
             border: 1px solid #ff5e54;
-            color: #ff5e54;
+            color: white;
             text-align: center;
             margin: 10px 0px 0px;
+            background-color: #ff5e54;
+            font-size: 15px;
+        }
+
+        .shop-list {
+            width: 1200px;
+            margin: 0 auto;
+        }
+
+        .shop {
+            width: 250px;
+            border: 1px dotted #ddd;
+            margin-right: 48px;
+            margin-top: 20px;
+            border-radius: 5px;
+            float: left;
+            cursor: pointer;
+        }
+
+        .shop-logo {
+            margin: 10px 10px;
+        }
+
+        .shop-logo img {
+            float: left;
+            margin-bottom: 10px;
+            width: 55%;
+        }
+
+        .shop-desc {
+            padding-top: 9px;
+            padding-left: 58%;
+        }
+
+        .shop-name {
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .shop-type {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .shop-addr {
+            margin-top: 5px;
         }
 
         .back-to-top {
@@ -115,21 +186,16 @@
             border-radius: 100%;
         }
 
-        .prod-catalog {
-            text-align: center;
-            font-size: 15px;
-            margin-top: 20px;
-        }
-
-        .prod-catalog span {
-            padding: 10px;
-            border: 1px solid #eeeeee;
+        .hot-prod {
+            width: 1200px;
+            margin: 0 auto;
         }
 
         .page-num {
             text-align: center;
             font-size: 15px;
-            margin: 20px;
+            width: 1200px;
+            margin: 40px 0px 10px 0px;
         }
 
         .page-num span {
@@ -141,6 +207,34 @@
         #curr-page {
             background-color: #ff5e54;
         }
+
+        .prod-catalog {
+            width: 1200px;
+            margin: 10px auto 0px auto;
+            font-size: 15px;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .prod-catalog ul{
+            margin-left: 50px;
+        }
+
+        .prod-catalog ul li{
+            float: left;
+            padding: 15px;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            margin-top: 10px;
+        }
+        .prod-catalog ul li:after{
+            border-right: 1px solid #eee;
+        }
+
+
+        .prod-nav-selected{
+            color: #ff5e54;
+        }
     </style>
     <link rel="stylesheet" href="/css/base.css">
 </head>
@@ -148,19 +242,21 @@
 <div class="header"></div>
 <section>
     <div class="prod-catalog">
-        <span style="background-color:#eeeeee;" index="">商品分类</span>
-        <span index="0">全部优惠</span>
-        <span index="1">数码电器</span>
-        <span index="2">鞋包/配饰</span>
-        <span index="3">居家日用</span>
-        <span index="4">女装</span>
-        <span index="5">洗沐护肤</span>
-        <span index="6">母婴</span>
-        <span index="7">食用/冲调</span>
-        <span index="8">宠物</span>
-        <span index="9">文体/车品</span>
-        <span index="10">男装</span>
-        <span index="11">其他</span>
+        <ul class="prod-catalog-width">
+            <li style="background-color:#eeeeee;" index="">商品分类</li>
+            <li index="0" class="prod-nav-selected">全部优惠</li>
+            <li index="1">数码电器</li>
+            <li index="2">鞋包/配饰</li>
+            <li index="3">居家日用</li>
+            <li index="4">女装</li>
+            <li index="5">洗沐护肤</li>
+            <li index="6">母婴</li>
+            <li index="7">食用/冲调</li>
+            <li index="8">宠物</li>
+            <li index="9">文体/车品</li>
+            <li index="10">男装</li>
+            <li index="11" style="border-right: 1px solid #eee">其他</li>
+        </ul>
     </div>
 
     <div class=" moldbaby clearfix"></div>
@@ -174,7 +270,7 @@
 <script src="js/jquery.min.js"></script>
 <script src="js/app.js"></script>
 <script>
-    var cataId=getParameter("id");
+    var cataId = getParameter("id");
     $(function () {
         init();
     });
@@ -182,6 +278,7 @@
     function init() {
         $(".header").load("header.html");
         $(".footer").load("footer.html");
+        app.getSelectedNav(cataId);
         getMeta();
         getProduct(1);
         app.backTop();
@@ -189,8 +286,8 @@
 
     function getMeta() {
         var id = getMetaId();
-        var param={"id":id};
-        app.getMeta(param,function (result) {
+        var param = {"id": id};
+        app.getMeta(param, function (result) {
             if (result.code == 200) {
                 var data = result.data;
                 $("#metaTitle").text(data.title);
@@ -240,8 +337,10 @@
                 break;
         }
     }
-    $(".prod-catalog span").click(function () {
+    $(".prod-catalog ul li").click(function () {
         var index = $(this).attr("index");
+        $(".prod-catalog ul li").removeClass("prod-nav-selected");
+        $(this).addClass("prod-nav-selected");
         if (index == "" || index == "0") {
             cataId = "0";
         } else {
@@ -282,7 +381,7 @@
 
         reqData.reqData = param;
 
-        app.getProductList(reqData,function (result) {
+        app.getProductList(reqData, function (result) {
             if (result.code == 200) {
                 var html = '';
                 var data = result.data.prodList;
@@ -292,11 +391,11 @@
                         '<div class="moldbaby-subject-img">' +
                         '<img src="' + product.banner + '">' +
                         '</div>' +
-                        '<div class="moldbaby-subject-title">' + getProductName(product.name) + '</div>' +
+                        '<div class="moldbaby-subject-title">' + product.name + '</div>' +
                         '<div class="clearfix">' +
-                        '<div class="curr-price">现价:¥' + product.price + '</div>' +
+                        '<div class="curr-price">现价:¥' + product.discountPrice.toFixed(2) + '</div>' +
                         '<div class="other-price">' +
-                        '<div>原价:¥' + product.discountPrice + '</div>' +
+                        '<div style="margin-bottom:5px">原价:¥' + product.price.toFixed(2) + '</div>' +
                         '<div>立省:¥' + (product.price - product.discountPrice).toFixed(2) + '</div>' +
                         '</div>' +
                         '</div>' +
@@ -375,16 +474,10 @@
 
                 $(".moldbaby-subject").click(function () {
                     var index = $(this).attr("index");
-                    location.href = "productDetail.html?prodId=" + data[index].prodId;
+                    window.open("productDetail.html?prodId=" + data[index].prodId);
                 });
             }
         });
-    }
-    function getProductName(productName) {
-        if (productName.length > 30) {
-            productName = productName.substr(0, 28) + "...";
-        }
-        return productName;
     }
 </script>
 </html>

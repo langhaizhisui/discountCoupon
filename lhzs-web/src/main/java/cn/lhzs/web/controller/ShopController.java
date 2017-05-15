@@ -30,11 +30,16 @@ public class ShopController {
         String type = jsonObject.getString("type");
         Integer page = jsonObject.getInteger("page");
         Integer size = jsonObject.getInteger("pageSize");
+        String site = jsonObject.getString("site");
 
         Shop shop = new Shop();
         shop.setSize(size);
         shop.setType(type);
+        shop.setPage(page);
         shop.setIndex((page - 1) * size);
+        if (site != null) {
+            shop.setSite(site);
+        }
 
         JSONObject shopList = shopService.getShops(shop);
 

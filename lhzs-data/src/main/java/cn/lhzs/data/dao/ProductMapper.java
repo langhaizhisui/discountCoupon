@@ -70,5 +70,5 @@ public interface ProductMapper {
      */
     List<Product> searchProduct(Map map);
 
-    Long selectCount();
+    Long selectCount(Product product);
 }

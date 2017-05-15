@@ -22,7 +22,7 @@ public interface ShopService {
 
     List<Shop> searchShop(String data);
 
-    Integer selectCountByType(String type);
+    Integer selectCountByTypeSite(String type, String site);
 
     JSONObject getShops(Shop shop);
 }

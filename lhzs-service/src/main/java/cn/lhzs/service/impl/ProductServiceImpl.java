@@ -76,7 +76,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Long getCount() {
-        return productMapper.selectCount();
+        return null;
     }
 
     public JSONObject getProds(String data) {
@@ -91,7 +91,7 @@ public class ProductServiceImpl implements ProductService {
         product.setCategory(category);
         List<Product> productList = getProdList(product);
 
-        Long count = getCount();
+        Long count = productMapper.selectCount(product);
         Long totalPage = count / size;
         if (count % size != 0) {
             totalPage = totalPage + 1;

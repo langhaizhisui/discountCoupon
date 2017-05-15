@@ -7,10 +7,11 @@
     <meta id="metaDescription" name="Description" content="精选品牌网店大全，为您推荐精选网店、精选旗舰店、精选品牌网店、精选全面优惠网购等信息。">
 
     <style>
-        .ad{
+        .ad {
             width: 1200px;
             margin: 0 auto;
         }
+
         .new-shop, .adv {
             float: left;
             font-size: 15px;
@@ -34,7 +35,7 @@
         .adv {
             width: 300px;
             background-color: #ffdddb;
-            padding:10px 20px;
+            padding: 10px 20px;
             height: 280px;
         }
 
@@ -52,7 +53,7 @@
             margin: 0 auto;
         }
 
-        .hot-brand-title{
+        .hot-brand-title {
             font-size: 18px;
             padding: 20px 0px 0px 0px;
         }
@@ -126,10 +127,11 @@
             font-size: 15px;
         }
 
-        .shop-list{
+        .shop-list {
             width: 1200px;
             margin: 0 auto;
         }
+
         .shop {
             width: 250px;
             border: 1px dotted #ddd;
@@ -180,7 +182,8 @@
             padding: 23px 18px;
             border-radius: 100%;
         }
-        .hot-prod{
+
+        .hot-prod {
             width: 1200px;
             margin: 0 auto;
         }
@@ -201,14 +204,42 @@
         #curr-page {
             background-color: #ff5e54;
         }
+
+        .prod-catalog {
+            width: 1200px;
+            margin: 10px auto 0px auto;
+            font-size: 15px;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .prod-catalog ul {
+            margin-left: 50px;
+        }
+
+        .prod-catalog ul li {
+            float: left;
+            padding: 15px;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            margin-top: 10px;
+        }
+
+        .prod-catalog ul li:after {
+            border-right: 1px solid #eee;
+        }
+
+        .prod-nav-selected {
+            color: #ff5e54;
+        }
     </style>
     <link rel="stylesheet" href="/css/base.css">
 </head>
 <body>
 <div class="header"></div>
 <section>
+    <div class="prod-catalog clearfix"></div>
     <div class="shop-list clearfix"></div>
-
     <div class="page-num"></div>
     <!-- 返回顶部 -->
     <div class="back-to-top">top</div>
@@ -219,6 +250,7 @@
 <script src="js/app.js"></script>
 <script>
     var id = getParameter("id");
+    var categoryId = null;
 
     $(function () {
         init();
@@ -229,6 +261,7 @@
         $(".footer").load("footer.html");
         app.getSelectedNav(id);
         getMeta();
+        getCatalog();
         getShop(1);
     }
     function getMeta() {
@@ -242,6 +275,57 @@
             }
         });
     }
+    function getCatalog() {
+        var html = "";
+        if (id == "1") {
+            html = '<ul class="prod-catalog-width" style="margin-left: 250px">' +
+                '<li style="background-color:#eeeeee;" index="">店铺分类</li>' +
+                '<li index="0" class="prod-nav-selected">所有旗舰店</li>' +
+                '<li index="1">天猫</li>' +
+                '<li index="2">京东</li>' +
+                '<li index="3">苏宁</li>' +
+                '<li index="4">1号店</li>' +
+                '<li index="5">当当</li>' +
+                '<li index="6">国美</li>' +
+                '<li index="8" style="border-right: 1px solid #eee">其他</li>' +
+                '</ul>';
+        } else if (id == "2") {
+            html = '<ul class="prod-catalog-width" style="margin-left: 250px">' +
+                '<li style="background-color:#eeeeee;" index="">店铺分类</li>' +
+                '<li index="0" class="prod-nav-selected">所有专卖店</li>' +
+                '<li index="1">天猫</li>' +
+                '<li index="2">京东</li>' +
+                '<li index="3">苏宁</li>' +
+                '<li index="4">1号店</li>' +
+                '<li index="5">当当</li>' +
+                '<li index="6">国美</li>' +
+                '<li index="7" style="border-right: 1px solid #eee">淘宝</li>' +
+                '</ul>';
+        } else if (id == "3") {
+            html = '<ul class="prod-catalog-width" style="margin-left: 320px">' +
+                '<li style="background-color:#eeeeee;" index="">店铺分类</li>' +
+                '<li index="0" class="prod-nav-selected">所有自营店</li>' +
+                '<li index="1">天猫</li>' +
+                '<li index="2">京东</li>' +
+                '<li index="3">苏宁</li>' +
+                '<li index="4">1号店</li>' +
+                '<li index="6" style="border-right: 1px solid #eee">国美</li>' +
+                '</ul>';
+        }
+        $(".prod-catalog").html(html);
+
+        $(".prod-catalog ul li").click(function () {
+            var index = $(this).attr("index");
+            $(".prod-catalog ul li").removeClass("prod-nav-selected");
+            $(this).addClass("prod-nav-selected");
+            if (index == "" || index == "0") {
+                categoryId = "0";
+            } else {
+                categoryId = index;
+            }
+            getShop(1);
+        });
+    }
     function getShop(page) {
         var reqData = {};
         var param = {};
@@ -252,6 +336,9 @@
         } else if (id == "3") {
             param.type = "W";
         }
+        if (categoryId != null) {
+            param.site = categoryId;
+        }
         param.page = page;
         param.pageSize = 20;
         reqData.reqData = param;
@@ -260,6 +347,11 @@
             if (result.code == 200) {
                 var html = "";
                 var data = result.data.shopList;
+                if (data.length == 0) {
+                    $(".shop-list").html("");
+                    $(".page-num").html("");
+                    return;
+                }
                 for (var i = 0; i < data.length; i++) {
                     var shop = data[i];
                     html += '<div class="shop" index="' + i + '">' +

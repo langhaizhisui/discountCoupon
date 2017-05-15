@@ -216,23 +216,23 @@
             padding: 10px;
         }
 
-        .prod-catalog ul{
+        .prod-catalog ul {
             margin-left: 50px;
         }
 
-        .prod-catalog ul li{
+        .prod-catalog ul li {
             float: left;
             padding: 15px;
             border-top: 1px solid #eee;
             border-bottom: 1px solid #eee;
             margin-top: 10px;
         }
-        .prod-catalog ul li:after{
+
+        .prod-catalog ul li:after {
             border-right: 1px solid #eee;
         }
 
-
-        .prod-nav-selected{
+        .prod-nav-selected {
             color: #ff5e54;
         }
     </style>
@@ -271,6 +271,7 @@
 <script src="js/app.js"></script>
 <script>
     var cataId = getParameter("id");
+    var categoryId = null;
     $(function () {
         init();
     });
@@ -285,6 +286,9 @@
     }
 
     function getMeta() {
+        if (cataId == "4") {
+            return;
+        }
         var id = getMetaId();
         var param = {"id": id};
         app.getMeta(param, function (result) {
@@ -342,9 +346,9 @@
         $(".prod-catalog ul li").removeClass("prod-nav-selected");
         $(this).addClass("prod-nav-selected");
         if (index == "" || index == "0") {
-            cataId = "0";
+            categoryId = "0";
         } else {
-            cataId = index;
+            categoryId = index;
         }
         getProduct(1);
     });
@@ -355,27 +359,27 @@
         param.page = page;
         param.pageSize = 20;
 
-        if (cataId == "1") {
+        if (categoryId == "1") {
             param.category = "数码电器";
-        } else if (cataId == "2") {
+        } else if (categoryId == "2") {
             param.category = "鞋包/配饰";
-        } else if (cataId == "3") {
+        } else if (categoryId == "3") {
             param.category = "居家日用";
-        } else if (cataId == "4") {
+        } else if (categoryId == "4") {
             param.category = "女装"
-        } else if (cataId == "5") {
+        } else if (categoryId == "5") {
             param.category = "洗沐护肤"
-        } else if (cataId == "6") {
+        } else if (categoryId == "6") {
             param.category = "母婴";
-        } else if (cataId == "7") {
+        } else if (categoryId == "7") {
             param.category = "食品/冲调";
-        } else if (cataId == "8") {
+        } else if (categoryId == "8") {
             param.category = "宠物";
-        } else if (cataId == "9") {
+        } else if (categoryId == "9") {
             param.category = "文体/车品";
-        } else if (cataId == "10") {
+        } else if (categoryId == "10") {
             param.category = "男装";
-        } else if (cataId == "11") {
+        } else if (categoryId == "11") {
             param.category = "其他"
         }
 

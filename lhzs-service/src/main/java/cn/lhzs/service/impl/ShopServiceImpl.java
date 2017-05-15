@@ -41,9 +41,12 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
-    public Integer selectCountByType(String type) {
+    public Integer selectCountByTypeSite(String type, String site) {
         Shop shop = new Shop();
         shop.setType(type);
+        if (site != null) {
+            shop.setSite(site);
+        }
         return shopMapper.selectCountByType(shop);
     }
 
@@ -54,7 +57,7 @@ public class ShopServiceImpl implements ShopService {
 
         Integer size = shop.getSize();
         Integer page = shop.getPage();
-        Integer count = selectCountByType(shop.getType());
+        Integer count = selectCountByTypeSite(shop.getType(), shop.getSite());
         Integer totalPage = count / size;
         if (count % size != 0) {
             totalPage += 1;

@@ -301,7 +301,9 @@
     from product where `name` LIKE #{key}
   </select>
 
-  <select id="selectCount" resultType="java.lang.Long">
+  <select id="selectCount" parameterType="cn.lhzs.data.bean.Product" resultType="java.lang.Long">
     select count(*) from product
+    where 1=1
+    <include refid="Select_Where_Sql" />
   </select>
 </mapper>

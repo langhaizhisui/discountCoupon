@@ -24,5 +24,5 @@ public interface ShopService {
 
     Integer selectCountByType(String type);
 
-    JSONObject getShops(String data);
+    JSONObject getShops(Shop shop);
 }

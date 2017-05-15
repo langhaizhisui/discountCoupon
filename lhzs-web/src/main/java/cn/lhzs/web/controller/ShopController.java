@@ -26,7 +26,17 @@ public class ShopController {
     @RequestMapping("/getList")
     @ResponseBody
     public RequestResult getShopList(@RequestBody String reqData) {
-        JSONObject shopList = shopService.getShops(reqData);
+        JSONObject jsonObject = JSONObject.parseObject(reqData).getJSONObject("reqData");
+        String type = jsonObject.getString("type");
+        Integer page = jsonObject.getInteger("page");
+        Integer size = jsonObject.getInteger("pageSize");
+
+        Shop shop = new Shop();
+        shop.setSize(size);
+        shop.setType(type);
+        shop.setIndex((page - 1) * size);
+
+        JSONObject shopList = shopService.getShops(shop);
 
         RequestResult result = new RequestResult();
         result.setCode(200);
@@ -84,11 +94,31 @@ public class ShopController {
     @RequestMapping("/search")
     @ResponseBody
     public RequestResult searchShop(@RequestBody String reqData) {
-        List<Shop> shopList=shopService.searchShop(reqData);
+        List<Shop> shopList = shopService.searchShop(reqData);
 
         RequestResult result = new RequestResult();
         result.setCode(200);
         result.setMsg("搜索成功");
+        result.setData(shopList);
+        return result;
+    }
+
+    @RequestMapping("/getSiteList")
+    @ResponseBody
+    public RequestResult getShopListBySite(@RequestBody String reqData) {
+        JSONObject jsonObject = JSONObject.parseObject(reqData).getJSONObject("reqData");
+        String site = jsonObject.getString("site");
+        String type = jsonObject.getString("type");
+
+        Shop shop = new Shop();
+        shop.setSite(site);
+        shop.setType(type);
+
+        List<Shop> shopList = shopService.getShopList(shop);
+
+        RequestResult result = new RequestResult();
+        result.setCode(200);
+        result.setMsg("获取网店成功");
         result.setData(shopList);
         return result;
     }

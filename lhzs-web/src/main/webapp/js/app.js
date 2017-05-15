@@ -8,6 +8,10 @@ var app = {
         var self = this;
         self.ajax("post", "shop/getList", data, callback);
     },
+    getSiteShopList:function (data,callback) {
+        var self = this;
+        self.ajax("post", "shop/getSiteList", data, callback);
+    },
     getHotShop: function (data, callback) {
         var self = this;
         self.ajax("post", "shop/getList", data, callback);

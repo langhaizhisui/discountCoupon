@@ -24,18 +24,7 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     public List<Shop> getShopList(Shop shop) {
-        Integer page = shop.getPage();
-        Integer size = shop.getSize();
-        String type = shop.getType();
-        if (page != null && size != null) {
-            shop.setIndex((page - 1) * size);
-            shop.setSize(size);
-            if (type != null) {
-                shop.setType(type);
-            }
-            return shopMapper.selectShop(shop);
-        }
-        return null;
+        return shopMapper.selectShop(shop);
     }
 
     public List<Shop> searchShop(String data) {
@@ -53,25 +42,19 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     public Integer selectCountByType(String type) {
-        Shop shop=new Shop();
+        Shop shop = new Shop();
         shop.setType(type);
         return shopMapper.selectCountByType(shop);
     }
 
     @Override
-    public JSONObject getShops(String data) {
-        JSONObject jsonObject = JSONObject.parseObject(data).getJSONObject("reqData");
-        String type = jsonObject.getString("type");
-        Integer page = jsonObject.getInteger("page");
-        Integer size = jsonObject.getInteger("pageSize");
+    public JSONObject getShops(Shop shop) {
 
-        Shop shop = new Shop();
-        shop.setPage(page);
-        shop.setSize(size);
-        shop.setType(type);
         List<Shop> shopList = getShopList(shop);
 
-        Integer count = selectCountByType(type);
+        Integer size = shop.getSize();
+        Integer page = shop.getPage();
+        Integer count = selectCountByType(shop.getType());
         Integer totalPage = count / size;
         if (count % size != 0) {
             totalPage += 1;

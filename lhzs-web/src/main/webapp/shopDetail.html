@@ -7,6 +7,28 @@
     <meta id="metaDescription" name="Description"
           content="领券购物专注全网商家内部优惠券活动,每日送出大量商家内部优惠券，特价团购福利，提供当季全网最具性价比的包邮产品,精选万人团商品超值好货,超低价好货享疯狂特价促销,让你全面安心享受网上购物乐趣!">
 
+
+    <script type="text/javascript">
+        (function (win, doc) {
+            var s = doc.createElement("script"), h = doc.getElementsByTagName("head")[0];
+            if (!win.alimamatk_show) {
+                s.charset = 'gbk';
+                s.async = true;
+                s.src = "http://a.alimama.cn/tkapi.js";
+                h.insertBefore(s, h.firstChild)
+            }
+            var o = {
+                pid: 'mm_51798146_5444380_16340036',
+                appkey: "",
+                unid: "",
+                evid: "",
+                type: "click",
+                plugins: [{name: 'keyword'}, {name: 'aroundbox'}]
+            };
+            win.alimamatk_onload = win.alimamatk_onload || [];
+            win.alimamatk_onload.push(o)
+        })(window, document);
+    </script>
     <style>
         .ad {
             width: 1200px;
@@ -208,7 +230,7 @@
 
         .shop-detail-content {
             float: left;
-            padding: 0px 70px 0px 50px;
+            padding: 0px 40px 0px 40px;
         }
 
         .shop-detail-desc {
@@ -238,7 +260,7 @@
 <body>
 <div class="header"></div>
 <section>
-    <div class="shop-detail clearfix"></div>
+    <div class="shop-detail clearfix" isconvert="1" data-type=1></div>
 
     <div class="hot-brand clearfix" style="display: none">
         <div class="hot-brand-title">热门店铺精选</div>
@@ -289,8 +311,17 @@
                     '</div>';
             }
             $(".shop-detail").html(html);
-            $("#metaTitle").text(data.webShop);
-            $("#metaKeywords").attr("content", data.webShop + "网店，" + data.webShop + "网购，" + data.webShop + "店铺，" + data.webShop + "品牌店，" + data.webShop + "官方店");
+
+            var title="";
+            if (data.webShop.indexOf("旗舰店") != -1) {
+                title = data.webShop.replace("旗舰店", "网店");
+            } else if (data.webShop.indexOf("专卖店") != -1) {
+                title = data.webShop.replace("专卖店", "网店");
+            } else {
+                title = data.webShop.replace("自营店", "网店");
+            }
+            $("#metaTitle").text(title);
+            $("#metaKeywords").attr("content", data.brandName + "网店，" + data.brandName + "网购，" + data.brandName + "店铺，" + data.brandName + "品牌店，" + data.brandName + "官方店");
             $("#metaDescription").attr("content", getDescription(data.site, data.type, data.webShop, data.sellName, data.sellProd));
             $(".shop-detail").click(function () {
                 window.open(data.webUrl);

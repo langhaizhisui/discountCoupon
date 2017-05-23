@@ -4,21 +4,43 @@
     <meta charset="utf-8">
     <title>哔唛网-汇聚全网品牌网店，海量优惠券，下单更优惠！-必买网</title>
     <meta name="Keywords" content="网购，领券购物，网店，粉丝福利购，省钱购物，必买网">
-    <meta name="Description" content="哔唛网是一家专注收录知名品牌网店的网站，涵盖行业各大购物网站品牌旗舰店，专卖店等，每日汇聚大量商家内部优惠券，特价团购福利，提供当季全网最具性价比的包邮产品,提供最全的超低好货，让您随时体验便捷实惠的网上购物乐趣！">
-
+    <meta name="Description"
+          content="哔唛网是一家专注收录知名品牌网店的网站，涵盖行业各大购物网站品牌旗舰店，专卖店等，每日汇聚大量商家内部优惠券，特价团购福利，提供当季全网最具性价比的包邮产品,提供最全的超低好货，让您随时体验便捷实惠的网上购物乐趣！">
+    <meta name="baidu_union_verify" content="43d0b442ebf595bc4d3a2cc15ba81d64">
     <link rel="stylesheet" href="/css/base.css">
     <link rel="stylesheet" href="/css/swiper.min.css">
+    <script type="text/javascript">
+        (function (win, doc) {
+            var s = doc.createElement("script"), h = doc.getElementsByTagName("head")[0];
+            if (!win.alimamatk_show) {
+                s.charset = "gbk";
+                s.async = true;
+                s.src = "https://alimama.alicdn.com/tkapi.js";
+                h.insertBefore(s, h.firstChild);
+            }
+            ;
+            var o = {
+                pid: "mm_112821151_22032046_93426139", /*推广单元ID，用于区分不同的推广渠道*/
+                appkey: "", /*通过TOP平台申请的appkey，设置后引导成交会关联appkey*/
+                unid: "", /*自定义统计字段*/
+                type: "click" /* click 组件的入口标志 （使用click组件必设）*/
+            };
+            win.alimamatk_onload = win.alimamatk_onload || [];
+            win.alimamatk_onload.push(o);
+        })(window, document);
+    </script>
     <style>
-        .ad{
+        .ad {
             width: 1200px;
             margin: 0 auto;
         }
+
         .new-shop, .adv {
-             float: left;
-             font-size: 15px;
-             text-align: center;
-             padding: 10px 0px;
-         }
+            float: left;
+            font-size: 15px;
+            text-align: center;
+            padding: 10px 0px;
+        }
 
         .new-shop {
             width: 200px;
@@ -36,7 +58,7 @@
         .adv {
             width: 300px;
             background-color: #ffdddb;
-            padding:10px 20px;
+            padding: 10px 20px;
             height: 280px;
         }
 
@@ -45,7 +67,7 @@
         }
 
         .new-shop ul li {
-            padding-top: 10px;
+            padding-top: 8px;
         }
 
         .hot-brand {
@@ -54,7 +76,7 @@
             margin: 0 auto;
         }
 
-        .hot-brand-title{
+        .hot-brand-title {
             font-size: 18px;
             padding: 20px 0px 0px 0px;
         }
@@ -178,12 +200,26 @@
             padding: 23px 18px;
             border-radius: 100%;
         }
-        .hot-prod{
+
+        .hot-prod {
             width: 1200px;
             margin: 0 auto;
         }
-        .swiper-pagination-bullet-active{
+
+        .swiper-pagination-bullet-active {
             background-color: #ff5e54;
+            color: #ff5e54;
+        }
+
+        .hot-shop-next {
+            margin-left: 985px;
+            text-decoration: underline;
+            color: #ff5e54;
+        }
+
+        .hot-prod-next {
+            margin-left: 985px;
+            text-decoration: underline;
             color: #ff5e54;
         }
     </style>
@@ -210,9 +246,12 @@
         </div>
         <div class="adv">
             <ul>
-                <li><a href="http://www.chinaz.com/news/2015/0326/393596.shtml" target="_blank">怎么开淘宝网店，开网店需要多少钱</a></li>
-                <li><a href="http://www.cr173.com/apple/112356_1.html?_t_t_t=0.1211917503568185" target="_blank">苹果的双重验证有什么用</a></li>
-                <li><a href="http://product.pconline.com.cn/itbk/software/dnwt/1501/6062836.html" target="_blank">电脑开不了机怎么办，笔记本开不了机原因</a></li>
+                <li><a href="http://www.chinaz.com/news/2015/0326/393596.shtml" target="_blank">怎么开淘宝网店，开网店需要多少钱</a>
+                </li>
+                <li><a href="http://www.cr173.com/apple/112356_1.html?_t_t_t=0.1211917503568185" target="_blank">苹果的双重验证有什么用</a>
+                </li>
+                <li><a href="http://product.pconline.com.cn/itbk/software/dnwt/1501/6062836.html" target="_blank">电脑开不了机怎么办，笔记本开不了机原因</a>
+                </li>
                 <li><a href="http://mt.sohu.com/20151007/n422661011.shtml" target="_blank">全球十大顶级旅行箱品牌排行榜</a></li>
                 <li><a href="http://www.tuijianshu.net/article-364-1.html" target="_blank">推荐国内外值得一看的好书</a></li>
                 <li><a href="http://www.qqtn.com/health/167037_1.html" target="_blank">30万左右买什么车好，30万性价比车排行榜</a></li>
@@ -225,12 +264,17 @@
         </div>
     </div>
     <div class="hot-brand clearfix" style="display: none">
-        <div class="hot-brand-title">热门店铺精选</div>
+        <div class="hot-brand-title">
+            <span>热门店铺精选</span>
+            <span class="hot-shop-next">换一批</span>
+        </div>
         <div class="shop-list"></div>
     </div>
     <div class="hot-prod" style="display: none">
-        <div class="hot-brand-title">热门商品精选</div>
-        <!--<div class="moldbaby-more">换一批</div>-->
+        <div class="hot-brand-title">
+            <span>热门商品精选</span>
+            <span class="hot-prod-next">换一批</span>
+        </div>
         <div class="moldbaby clearfix"></div>
     </div>
     <!-- 返回顶部 -->
@@ -269,6 +313,12 @@
         $("#lunbo4").click(function () {
             location.href = "https://sale.jd.com/act/0fSMAEFVZk5oOje.html";
         });
+        $(".hot-shop-next").click(function () {
+            getHotShop();
+        });
+        $(".hot-prod-next").click(function () {
+            getProduct();
+        });
     }
     function setCarousel() {
         var swiper = new Swiper('.swiper-container', {
@@ -295,10 +345,12 @@
             }
         });
     }
+
+    var hotProductPage = 1;
     function getProduct() {
         var reqData = {};
         var param = {};
-        param.page = 1;
+        param.page = hotProductPage;
         param.pageSize = 20;
         reqData.reqData = param;
 
@@ -324,57 +376,17 @@
                         '</div>';
                 }
                 $(".moldbaby").html(html);
-                $(".hot-prod").css("display","block");
+                $(".hot-prod").css("display", "block");
 
                 $(".moldbaby-subject").click(function () {
                     var index = $(this).attr("index");
                     window.open("productDetail.html?prodId=" + data[index].prodId);
                 });
-
-                var more = 2;
-                $(".moldbaby-more").click(function () {
-                    var reqData = {};
-                    var param = {};
-                    param.page = more;
-                    param.pageSize = 20;
-                    reqData.reqData = param;
-
-                    app.getProductList(reqData,function () {
-                        if (result.code == 200) {
-                            more++;
-                            if (result.data.length < param.pageSize) {
-                                more = 1;
-                            }
-
-                            var html = '';
-                            var data = result.data.prodList;
-                            for (var i = 0; i < data.length; i++) {
-                                var product = data[i];
-                                html += '<div class="moldbaby-subject" index="' + i + '">' +
-                                    '<div class="moldbaby-subject-img">' +
-                                    '<img src="' + product.banner + '">' +
-                                    '</div>' +
-                                    '<div class="moldbaby-subject-title">' + product.name + '</div>' +
-                                    '<div class="clearfix">' +
-                                    '<div class="curr-price">现价:¥' + product.discountPrice.toFixed(2) + '</div>' +
-                                    '<div class="other-price">' +
-                                    '<div style="margin-bottom:5px">原价:¥' + product.price.toFixed(2) + '</div>' +
-                                    '<div>立省:¥' + (product.price - product.discountPrice).toFixed(2) + '</div>' +
-                                    '</div>' +
-                                    '</div>' +
-                                    '<div class="go-shop">去购物</div>' +
-                                    '</div>';
-                            }
-                            $(".moldbaby").html(html);
-                            $(".hot-prod").css("display","block");
-
-                            $(".moldbaby-subject").click(function () {
-                                var index = $(this).attr("index");
-                                window.open("productDetail.html?prodId=" + data[index].prodId);
-                            });
-                        }
-                    });
-                });
+            }
+            if (data.length == 0 || data.length < param.pageSize) {
+                hotProductPage = 1;
+            } else {
+                hotProductPage++;
             }
         });
     }
@@ -385,17 +397,19 @@
     //        }
     //    });
 
+    var shopPage = 1;
     function getHotShop() {
         var reqData = {};
         var param = {};
-        param.page = 1;
+        param.page = shopPage;
         param.pageSize = 8;
         reqData.reqData = param;
 
-        app.getHotShop(reqData,function (result) {
+        app.getHotShop(reqData, function (result) {
             if (result.code == 200) {
                 var html = "";
                 var data = result.data.shopList;
+
                 for (var i = 0; i < data.length; i++) {
                     var shop = data[i];
                     html += '<div class="shop" index="' + i + '">' +
@@ -416,12 +430,18 @@
                         '</div>'
                 }
                 $(".shop-list").html(html);
-                $(".hot-brand").css("display","block");
+                $(".hot-brand").css("display", "block");
 
                 $(".shop").click(function () {
                     var index = $(this).attr("index");
                     window.open("shopDetail.html?shopId=" + data[index].id + "&shopImg=" + getShopId(data[index].type));
                 });
+
+                if (data.length == 0 || data.length < param.pageSize) {
+                    shopPage = 1;
+                } else {
+                    shopPage++;
+                }
             }
         });
     }

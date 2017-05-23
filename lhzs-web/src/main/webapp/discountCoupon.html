@@ -217,7 +217,7 @@
         }
 
         .prod-catalog ul {
-            margin-left: 50px;
+            margin-left: 10px;
         }
 
         .prod-catalog ul li {
@@ -255,7 +255,8 @@
             <li index="8">宠物</li>
             <li index="9">文体/车品</li>
             <li index="10">男装</li>
-            <li index="11" style="border-right: 1px solid #eee">其他</li>
+            <li index="11">家装家具</li>
+            <li index="12" style="border-right: 1px solid #eee">其他</li>
         </ul>
     </div>
 
@@ -281,8 +282,24 @@
         $(".footer").load("footer.html");
         app.getSelectedNav(cataId);
         getMeta();
+        getCatalog();
         getProduct(1);
         app.backTop();
+    }
+
+    function getCatalog() {
+        var reqData = {};
+        app.getCatalog(reqData, function (result) {
+            if (result.code == 200) {
+                var html = "";
+                var data = result.data;
+                for (var i = 0; i < data.length; i++) {
+                    var catalog = data[i];
+                    html += '<li><a href="discountCoupon.html?id=' + (parseInt(catalog.cataId) + 5) + '" target="_blank">' + catalog.name + '</a></li>';
+                }
+                $(".shop-item").html(html);
+            }
+        });
     }
 
     function getMeta() {
@@ -380,6 +397,8 @@
         } else if (categoryId == "10") {
             param.category = "男装";
         } else if (categoryId == "11") {
+            param.category = "家装家具"
+        } else if (categoryId == "12") {
             param.category = "其他"
         }
 

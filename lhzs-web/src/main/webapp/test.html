@@ -8,6 +8,26 @@
           content="领券购物专注全网商家内部优惠券活动,每日送出大量商家内部优惠券，特价团购福利，提供当季全网最具性价比的包邮产品,精选万人团商品超值好货,超低价好货享疯狂特价促销,让你全面安心享受网上购物乐趣!">
 
     <script type="text/javascript">
+        (function(win,doc){
+            var s = doc.createElement("script"), h = doc.getElementsByTagName("head")[0];
+            if (!win.alimamatk_show) {
+                s.charset = "gbk";
+                s.async = true;
+                s.src = "https://alimama.alicdn.com/tkapi.js";
+                h.insertBefore(s, h.firstChild);
+            };
+            var o = {
+                pid: "mm_112821151_22032046_93426139",/*推广单元ID，用于区分不同的推广渠道*/
+                appkey: "",/*通过TOP平台申请的appkey，设置后引导成交会关联appkey*/
+                unid: "",/*自定义统计字段*/
+                type: "click" /* click 组件的入口标志 （使用click组件必设）*/
+            };
+            win.alimamatk_onload = win.alimamatk_onload || [];
+            win.alimamatk_onload.push(o);
+        })(window,document);
+    </script>
+
+    <!--<script type="text/javascript">
         (function (win, doc) {
             var s = doc.createElement("script"), h = doc.getElementsByTagName("head")[0];
             if (!win.alimamatk_show) {
@@ -27,10 +47,11 @@
             win.alimamatk_onload = win.alimamatk_onload || [];
             win.alimamatk_onload.push(o)
         })(window, document);
-    </script>
+    </script>-->
 </head>
 <body>
-<a class="blue" isconvert="1" rel="nofollow" href="http://quanyou.tmall.com/" target="_blank">全友家居旗舰店</a>
-<a biz-sellerid="363607599" isconvert=1 rel="nofollow" href="">363607599</a>
+
+<a biz-sellerid="363607599" isconvert=1 href="">363607599</a>
+
 </body>
 </html>

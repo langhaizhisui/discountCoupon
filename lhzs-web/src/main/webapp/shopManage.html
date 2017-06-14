@@ -191,18 +191,18 @@
 
     <div class="center clearfix">
         <div class="left-nav">
-            <div class="left-nav-grade1">商品管理</div>
+            <div class="left-nav-grade1">店铺管理</div>
             <div class="left-nav-grade2">
-                <div class="left-nav-bg">商品列表</div>
+                <div class="left-nav-bg">店铺列表</div>
             </div>
         </div>
 
         <div class="prod-btn">
-            <span id="add-prod">添加商品</span>
+            <span id="add-prod">添加店铺</span>
             <span id="add-prods">批量导入</span>
             <span id="prods-form">
                 <form action="/upload/excel" method="post" enctype="multipart/form-data" target="tmp" id="sendFile">
-                    <input class="type-input" style="display: none" name="type" value="1">
+                    <input class="type-input" style="display: none" name="type" value="2">
                     <input type="file" accept="application/vnd.ms-excel,x-excel,.xlsx,.xls" id="innerFile" name="file">
                 </form>
             </span>
@@ -210,7 +210,7 @@
 
         <div class="content">
             <div class="content-title clearfix">
-                <div class="prod-id">商品ID</div>
+                <div class="prod-id">店铺ID</div>
                 <div class="prod-title">商品标题</div>
                 <div class="cata">类别</div>
                 <div class="price">原价</div>

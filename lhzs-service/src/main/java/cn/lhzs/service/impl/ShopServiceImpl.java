@@ -16,7 +16,6 @@ import java.util.Map;
  * Created by ZHX on 2017/4/27.
  */
 @Service
-@Transactional(readOnly = true)
 public class ShopServiceImpl implements ShopService {
 
     @Resource
@@ -72,7 +71,7 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
-    public Shop getShopByShopId(String shopId) {
+    public Shop getShopByShopId(Long shopId) {
         return shopMapper.selectByPrimaryKey(shopId);
     }
 
@@ -82,7 +81,7 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
-    public void deleteShopByProdId(String shopId) {
+    public void deleteShopByProdId(Long shopId) {
         shopMapper.deleteByPrimaryKey(shopId);
     }
 

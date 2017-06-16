@@ -52,7 +52,7 @@ public class ShopController {
 
     @RequestMapping("/getShop")
     @ResponseBody
-    public RequestResult getShop(String shopId) {
+    public RequestResult getShop(Long shopId) {
 
         Shop shop = shopService.getShopByShopId(shopId);
 
@@ -76,13 +76,18 @@ public class ShopController {
 
     @RequestMapping("/delete")
     @ResponseBody
-    public RequestResult deleteShop(String shopId) {
-        shopService.deleteShopByProdId(shopId);
+    public RequestResult deleteShop(Long shopId) {
+        try {
+            shopService.deleteShopByProdId(shopId);
 
-        RequestResult result = new RequestResult();
-        result.setCode(200);
-        result.setMsg("删除网店成功");
-        return result;
+            RequestResult result = new RequestResult();
+            result.setCode(200);
+            result.setMsg("删除网店成功");
+            return result;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @RequestMapping("/update")

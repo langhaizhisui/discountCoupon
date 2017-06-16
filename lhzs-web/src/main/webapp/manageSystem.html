@@ -77,7 +77,7 @@
             border: 1px solid #d5d5d5;
         }
 
-        .content-title div,.content-item div {
+        .content-title div, .content-item div {
             float: left;
             padding: 10px 10px;
             border-top: 2px solid #e0e0e0;
@@ -88,7 +88,8 @@
             text-align: center;
             overflow: hidden;
         }
-        .content-title div{
+
+        .content-title div {
             font-weight: 700;
             background-color: #f4f4f4;
         }
@@ -109,22 +110,27 @@
             width: 80px;
         }
 
-        .sale-price{
+        .sale-price {
             width: 80px;
         }
-        .save-price{
+
+        .save-price {
             width: 80px;
         }
-        .plate{
+
+        .plate {
             width: 80px;
         }
-        .expire{
+
+        .expire {
             width: 80px;
         }
+
         .operation {
             width: 80px;
         }
-        #prod-edit,#prod-delete{
+
+        #prod-edit, #prod-delete {
             text-decoration: underline;
             color: #0094d2;
         }
@@ -140,16 +146,18 @@
             background: #eee;
             margin: 5px;
         }
+
         #curr-page {
             background-color: #ea6b18;
         }
 
-        .prod-btn{
+        .prod-btn {
             margin-left: 40px;
             float: left;
             margin-top: 60px;
         }
-        #add-prod,#add-prods{
+
+        #add-prod, #add-prods {
             width: 112px;
             height: 32px;
             background-color: #333;
@@ -160,17 +168,21 @@
             cursor: pointer;
             display: inline-block;
         }
-        #add-prods{
+
+        #add-prods {
             margin-left: 20px;
         }
-        #prods-form{
+
+        #prods-form {
             display: inline-block;
             margin-left: 10px;
         }
-        .nav-bg{
+
+        .nav-bg {
             background: #157fac;
         }
-        .left-nav-bg{
+
+        .left-nav-bg {
             background: #0094d2;
             color: white;
         }
@@ -184,8 +196,8 @@
             <div>系统管理后台</div>
         </div>
         <ul>
-            <li class="nav-bg"><a>商品管理</a></li>
-            <li><a>店铺管理</a></li>
+            <li id="prod-manage" class="nav-bg"><a>商品管理</a></li>
+            <li id="shop-manage"><a>店铺管理</a></li>
         </ul>
     </div>
 
@@ -232,7 +244,9 @@
 </div>
 </body>
 <script src="js/jquery.min.js"></script>
+<script src="js/jquery.form.js"></script>
 <script src="js/app.js"></script>
+<script src="js/systemManage.js"></script>
 <script>
     $(function () {
         init();
@@ -257,20 +271,20 @@
                 var data = result.data.prodList;
                 for (var i = 0; i < data.length; i++) {
                     var product = data[i];
-                    html +='<div class="content-item">'+
-                            '<div class="prod-id">'+product.prodId+'</div>'+
-                            '<div class="prod-title">'+product.name+'</div>'+
-                            '<div class="cata">'+product.category+'</div>'+
-                            '<div class="price">'+product.price+'</div>'+
-                            '<div class="sale-price">'+product.discountPrice+'</div>'+
-                            '<div class="save-price">'+product.savePrice+'</div>'+
-                            '<div class="plate">'+product.platform+'</div>'+
-                            '<div class="expire">'+product.expiration+'</div>'+
-                            '<div class="operation">'+
-                            '<span id="prod-edit"> 编辑 </span>'+
-                            '<span id="prod-delete"> 删除 </span>'+
-                            '</div>'+
-                            '</div>';
+                    html += '<div class="content-item">' +
+                        '<div class="prod-id">' + product.prodId + '</div>' +
+                        '<div class="prod-title">' + product.name + '</div>' +
+                        '<div class="cata">' + product.category + '</div>' +
+                        '<div class="price">' + product.price + '</div>' +
+                        '<div class="sale-price">' + product.discountPrice + '</div>' +
+                        '<div class="save-price">' + product.savePrice + '</div>' +
+                        '<div class="plate">' + product.platform + '</div>' +
+                        '<div class="expire">' + product.expiration + '</div>' +
+                        '<div class="operation">' +
+                        '<span id="prod-edit"> 编辑 </span>' +
+                        '<span id="prod-delete"> 删除 </span>' +
+                        '</div>' +
+                        '</div>';
                 }
                 $(".content-list").html(html);
 
@@ -341,12 +355,24 @@
                         getProduct(currPageIndex + 1);
                     }
                 });
+                $("#prod-delete").click(function () {
+                    var prodId = $(this).parent().parent().find(".prod-id").text();
+                    var param = {};
+                    param.prodId = prodId;
+
+                    app.deleteProduct(param, function () {
+                        if (result.code == 200) {
+                            getProduct(1);
+                            alert("删除成功");
+                        }
+                    });
+                });
             }
         });
     }
 
     function bindEvent() {
-        $(".sendOrder-upload").click(function () {
+        $("#add-prods").click(function () {
             var opt = {
                 success: function (data) {
                     alert(data.msg);

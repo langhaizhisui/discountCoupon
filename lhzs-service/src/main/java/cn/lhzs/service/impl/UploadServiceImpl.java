@@ -83,6 +83,32 @@ public class UploadServiceImpl implements UploadService {
 
                     productMapper.insert(product);
                 }
+            } else if (Upload.SHOP_ADD.equals(type)) {
+                for (int i = 1; i <= lastRowNum; i++) {
+                    Row row = sheet.getRow(i);
+                    Shop shop = new Shop();
+
+                    for (int j = 0; j < fieldColumn.length; j++) {
+                        Cell cell = row.getCell(j);
+                        if (j == 1) {
+                            int site = (int) Double.parseDouble(cell.toString());
+                            PoiHelper.setFieldMethod(shop, fieldColumn[j], String.class, cell == null ? "" : site+"");
+                        } else if (cell.getCellType() == cell.CELL_TYPE_STRING) {
+                            PoiHelper.setFieldMethod(shop, fieldColumn[j], String.class, cell == null ? "" : cell.toString());
+                        } else if (cell.getCellType() == cell.CELL_TYPE_NUMERIC) {
+                            if (DateUtil.isCellDateFormatted(cell)) {
+                                Date date = cell.getDateCellValue();
+                                PoiHelper.setFieldMethod(shop, fieldColumn[j], Date.class, date);
+                            } else {
+                                PoiHelper.setFieldMethod(shop, fieldColumn[j], Double.class, cell == null ? -1.0 : cell.getNumericCellValue());
+                            }
+                        }
+                    }
+                    shop.setCreatTime(new Date());
+                    shop.setUpdateTime(new Date());
+
+                    shopMapper.insert(shop);
+                }
             }
 
         } catch (Exception e) {
@@ -98,6 +124,9 @@ public class UploadServiceImpl implements UploadService {
         if (Upload.PRODUCT_ADD.equals(type)) {
             headColumn = new String[]{"商品名称", "商品主图", "商品详情页链接地址", "商品一级类目", "原价", "券后价",
                     "平台类型", "优惠券面额", "商品优惠券推广链接", "优惠券结束时间"};
+        } else if (Upload.SHOP_ADD.equals(type)) {
+            headColumn = new String[]{"网店名称", "所属商城", "网店类型", " 网店经营商", "品牌名称", "主要经营产品",
+                    "网店网址", "推广链接", "手机版推广网址", "店铺所在地"};
         }
         return headColumn;
     }
@@ -108,6 +137,9 @@ public class UploadServiceImpl implements UploadService {
         if (Upload.PRODUCT_ADD.equals(type)) {
             fieldColumn = new String[]{"name", "banner", "detail", "category", "price", "discountPrice",
                     "platform", "savePrice", "prodGeneralize", "expiration"};
+        } else if (Upload.SHOP_ADD.equals(type)) {
+            fieldColumn = new String[]{"webShop", "site", "type", "sellName", "brandName", "sellProd",
+                    "webUrl", "webGeneralize", "mobileGeneralize", "shopAddr"};
         }
         return fieldColumn;
     }

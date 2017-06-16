@@ -12,11 +12,11 @@ public interface ShopService {
 
     List<Shop> getShopList(Shop shop);
 
-    Shop getShopByShopId(String shopId);
+    Shop getShopByShopId(Long shopId);
 
     void addShop(Shop shop);
 
-    void deleteShopByProdId(String shopId);
+    void deleteShopByProdId(Long shopId);
 
     void updateShop(Shop shop);
 

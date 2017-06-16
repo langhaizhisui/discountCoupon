@@ -36,6 +36,14 @@ var app = {
         var self = this;
         self.ajax("get", "meta/getMeta", data, callback);
     },
+    deleteShop: function (data, callback) {
+        var self = this;
+        self.ajax("get", "shop/delete", data, callback);
+    },
+    deleteProduct: function (data, callback) {
+        var self = this;
+        self.ajax("get", "prod/delete", data, callback);
+    },
     getSelectedNav: function (navId) {
         setTimeout(function () {
             $(".top-nav ul li").removeClass("top-nav-select");

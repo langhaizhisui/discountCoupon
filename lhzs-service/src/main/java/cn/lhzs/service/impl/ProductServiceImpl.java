@@ -16,7 +16,6 @@ import java.util.Map;
  * Created by ZHX on 2017/4/27.
  */
 @Service
-@Transactional(readOnly = true)
 public class ProductServiceImpl implements ProductService {
 
     @Resource

@@ -62,7 +62,6 @@
         .left-nav-grade2 {
             text-indent: 35px;
             width: 100%;
-            height: 40px;
             border-bottom: 1px solid #e7e7e7;
             line-height: 40px;
         }
@@ -70,10 +69,7 @@
         .content {
             width: 997px;
             min-width: 997px;
-            float: left;
             background-color: #fff;
-            margin-top: 20px;
-            margin-left: 40px;
             border: 1px solid #d5d5d5;
         }
 
@@ -130,7 +126,7 @@
             width: 80px;
         }
 
-        #prod-edit, #prod-delete {
+        .prod-edit, .prod-delete {
             text-decoration: underline;
             color: #0094d2;
         }
@@ -152,9 +148,8 @@
         }
 
         .prod-btn {
-            margin-left: 40px;
-            float: left;
-            margin-top: 60px;
+            margin-top: 20px;
+            margin-bottom: 20px;
         }
 
         #add-prod, #add-prods {
@@ -183,8 +178,51 @@
         }
 
         .left-nav-bg {
-            background: #0094d2;
             color: white;
+        }
+
+        .prod-operation {
+            color: #666;
+        }
+
+        .prod-list {
+            background: #0094d2;
+        }
+
+        .prod-list a{
+            color: white;
+        }
+
+        .center-right {
+            float: left;
+            margin-left: 40px;
+            margin-top: 60px;
+        }
+
+        .search-title {
+            font-size: 13px;
+            margin-right: 5px;
+        }
+
+        .search {
+            margin-right: 20px;
+        }
+
+        .search-line {
+            margin-bottom: 20px;
+        }
+
+        .search-btn {
+            width: 59px;
+            height: 22px;
+            border: 1px solid #ccc;
+            background-color: #ececec;
+            color: #666;
+            line-height: 22px;
+            text-align: center;
+            margin-left: 10px;
+            cursor: pointer;
+            display: inline-block;
         }
     </style>
 </head>
@@ -201,40 +239,105 @@
         </ul>
     </div>
 
-    <div class="center clearfix">
-        <div class="left-nav">
-            <div class="left-nav-grade1">商品管理</div>
-            <div class="left-nav-grade2">
-                <div class="left-nav-bg">商品列表</div>
+    <div class="center">
+        <div class="left-nav clearfix">
+            <div>
+                <div class="left-nav-grade1">商品管理</div>
+                <div class="left-nav-grade2">
+                    <div class="left-nav-bg prod-operation">
+                        <a href="/prodEnterManage.html">商品录入</a>
+                    </div>
+                    <div class="left-nav-bg prod-list">
+                        <a href="/manageSystem.html">商品列表</a>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="left-nav-grade1">批量管理</div>
+                <div class="left-nav-grade2">
+                    <div class="left-nav-bg prod-all">
+                        <a href="/prodBachManage.html">商品批量管理</a>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="prod-btn">
-            <span id="add-prod">添加商品</span>
-            <span id="add-prods">批量导入</span>
-            <span id="prods-form">
-                <form action="/upload/excel" method="post" enctype="multipart/form-data" target="tmp" id="sendFile">
-                    <input class="type-input" style="display: none" name="type" value="1">
-                    <input type="file" accept="application/vnd.ms-excel,x-excel,.xlsx,.xls" id="innerFile" name="file">
-                </form>
-            </span>
-        </div>
+        <div class="center-right">
+            <div>
+                <div class="search-line">
+                    <span class="search">
+                        <span class="search-title">商品ID</span>
+                        <span>
+                            <input class="search-input" id="prod-id-input" placeholder="请输入商品ID"/>
+                        </span>
+                    </span>
+                    <span class="search">
+                        <span class="search-title">类别</span>
+                        <span>
+                            <input class="search-input" id="category-input" placeholder="请输入类别"/>
+                        </span>
+                    </span>
+                    <span class="search">
+                        <span class="search-title">平台</span>
+                        <span>
+                            <input class="search-input" id="platform-input" placeholder="请输入平台"/>
+                        </span>
+                    </span>
+                </div>
+                <div class="search-line">
+                    <span class="search">
+                        <span class="search-title">过期时间</span>
+                        <span>
+                            <input class="search-input" id="expiration-start-input" placeholder="2017-05-07"/>
+                        </span>
+                        <span>
+                            <input class="search-input" id="expiration-end-input" placeholder="2017-06-08"/>
+                        </span>
+                    </span>
 
-        <div class="content">
-            <div class="content-title clearfix">
-                <div class="prod-id">商品ID</div>
-                <div class="prod-title">商品标题</div>
-                <div class="cata">类别</div>
-                <div class="price">原价</div>
-                <div class="sale-price">销售价</div>
-                <div class="save-price">优惠价</div>
-                <div class="plate">平台</div>
-                <div class="expire">过期日期</div>
-                <div class="operation">操作</div>
+                    <span class="search">
+                        <span class="search-title">创建时间</span>
+                        <span>
+                            <input class="search-input" id="createtime-start-input" placeholder="2017-05-07"/>
+                        </span>
+                        <span>
+                            <input class="search-input" id="createtime-end-input" placeholder="2017-06-08"/>
+                        </span>
+                    </span>
+
+                    <span class="search-btn">查询</span>
+                </div>
+
             </div>
 
-            <div class="content-list">
+            <!--<div class="prod-btn">
+                <span id="add-prod">添加商品</span>
+                <span id="add-prods">批量导入</span>
+                <span id="prods-form">
+                    <form action="/upload/excel" method="post" enctype="multipart/form-data" target="tmp" id="sendFile">
+                        <input class="type-input" style="display: none" name="type" value="1">
+                        <input type="file" accept="application/vnd.ms-excel,x-excel,.xlsx,.xls" id="innerFile"
+                               name="file">
+                    </form>
+                </span>
+            </div>-->
 
+            <div class="content">
+                <div class="content-title clearfix">
+                    <div class="prod-id">商品ID</div>
+                    <div class="prod-title">商品标题</div>
+                    <div class="cata">类别</div>
+                    <div class="price">原价</div>
+                    <div class="sale-price">销售价</div>
+                    <div class="save-price">优惠</div>
+                    <div class="plate">平台</div>
+                    <div class="expire">有效期</div>
+                    <div class="operation">操作</div>
+                </div>
+
+                <div class="content-list">
+
+                </div>
             </div>
         </div>
     </div>
@@ -281,8 +384,8 @@
                         '<div class="plate">' + product.platform + '</div>' +
                         '<div class="expire">' + product.expiration + '</div>' +
                         '<div class="operation">' +
-                        '<span id="prod-edit"> 编辑 </span>' +
-                        '<span id="prod-delete"> 删除 </span>' +
+                        '<span class="prod-edit"> 编辑 </span>' +
+                        '<span class="prod-delete"> 删除 </span>' +
                         '</div>' +
                         '</div>';
                 }
@@ -355,7 +458,7 @@
                         getProduct(currPageIndex + 1);
                     }
                 });
-                $("#prod-delete").click(function () {
+                $(".prod-delete").click(function () {
                     var prodId = $(this).parent().parent().find(".prod-id").text();
                     var param = {};
                     param.prodId = prodId;
@@ -380,6 +483,58 @@
             };
 
             $("#sendFile").ajaxSubmit(opt);
+        });
+
+        $(".search-btn").click(function () {
+            var prodId=$("#prod-id-input").val();
+            var category=$("#category-input").val();
+            var platform=$("#platform-input").val();
+            var expirationStart=$("#expiration-start-input").val();
+            var expirationEnd=$("#expiration-end-input").val();
+            var createTimeStart=$("#createtime-start-input").val();
+            var createTimeEnd=$("#createtime-end-input").val();
+            var reqData = {};
+            var param = {};
+            param.prodId = prodId;
+            param.category = category;
+            param.platform = platform;
+            param.expirationStart = expirationStart;
+            param.expirationEnd = expirationEnd;
+            param.createTimeStart = createTimeStart;
+            param.createTimeEnd = createTimeEnd;
+            reqData.reqData = param;
+            $.ajax({
+                type: 'post',
+                url: "prod/search",
+                dataType: 'json',
+                contentType: "application/json",
+                data: JSON.stringify(reqData),
+                success: function (result) {
+                    if (result.code == 200) {
+                        var html = '';
+                        var data = result.data.list;
+                        for (var i = 0; i < data.length; i++) {
+                            var product = data[i];
+                            html += '<div class="content-item">' +
+                                '<div class="prod-id">' + product.prodId + '</div>' +
+                                '<div class="prod-title">' + product.name + '</div>' +
+                                '<div class="cata">' + product.category + '</div>' +
+                                '<div class="price">' + product.price + '</div>' +
+                                '<div class="sale-price">' + product.discountPrice + '</div>' +
+                                '<div class="save-price">' + product.savePrice + '</div>' +
+                                '<div class="plate">' + product.platform + '</div>' +
+                                '<div class="expire">' + product.expiration + '</div>' +
+                                '<div class="operation">' +
+                                '<span class="prod-edit"> 编辑 </span>' +
+                                '<span class="prod-delete"> 删除 </span>' +
+                                '</div>' +
+                                '</div>';
+                        }
+                        $(".content-list").html(html);
+                        $(".page-num").html("");
+                    }
+                }
+            });
         });
     }
 </script>

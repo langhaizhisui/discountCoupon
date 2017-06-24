@@ -64,10 +64,39 @@ public class ProductServiceImpl implements ProductService {
         if (data != null) {
             JSONObject jsonObject = JSONObject.parseObject(data).getJSONObject("reqData");
             String key = jsonObject.getString("key");
-            key = "%" + key + "%";
-            Map searchKey = new HashMap();
-            searchKey.put("key", key);
-            return productMapper.searchProduct(searchKey);
+            if (key != null) {
+                key = "%" + key + "%";
+                Map searchKey = new HashMap();
+                searchKey.put("key", key);
+                return productMapper.searchProduct(searchKey);
+            } else {
+                Integer prodId = jsonObject.getInteger("prodId");
+                String category = jsonObject.getString("category");
+                String platform = jsonObject.getString("platform");
+                String expirationStart = jsonObject.getString("expirationStart");
+                String expirationEnd = jsonObject.getString("expirationEnd");
+                String createStart = jsonObject.getString("createTimeStart");
+                String createEnd = jsonObject.getString("createTimeEnd");
+                Map searchKey = new HashMap();
+                if (prodId != null && !"".equals(prodId)) {
+                    searchKey.put("prodId", prodId);
+                }
+                if (category != null && !"".equals(category)) {
+                    searchKey.put("category", category);
+                }
+                if (platform != null && !"".equals(platform)) {
+                    searchKey.put("platform", platform);
+                }
+                if (expirationStart != null && !"".equals(expirationStart)) {
+                    searchKey.put("expirationStart", expirationStart);
+                    searchKey.put("expirationEnd", expirationEnd);
+                }
+                if (createStart != null && !"".equals(createStart)) {
+                    searchKey.put("createStart", createStart + " 00:00:00");
+                    searchKey.put("createEnd", createEnd + " 00:00:00");
+                }
+                return productMapper.searchProduct(searchKey);
+            }
         }
         return null;
 

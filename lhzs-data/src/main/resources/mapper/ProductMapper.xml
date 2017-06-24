@@ -298,7 +298,25 @@
   <select id="searchProduct" parameterType="java.util.Map" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from product where `name` LIKE #{key}
+    from product where 1=1
+    <if test="key != null" >
+      and `name` LIKE #{key,jdbcType=VARCHAR}
+    </if>
+    <if test="prodId != null" >
+      and prod_id = #{prodId,jdbcType=BIGINT}
+    </if>
+    <if test="category != null" >
+      and category = #{category,jdbcType=VARCHAR}
+    </if>
+    <if test="platform != null" >
+      and platform = #{platform,jdbcType=VARCHAR}
+    </if>
+    <if test="expirationStart != null" >
+      <![CDATA[ and expiration >= #{expirationStart,jdbcType=VARCHAR} and expiration <= #{expirationEnd,jdbcType=VARCHAR}]]>
+    </if>
+    <if test="createTimeStart != null" >
+      <![CDATA[ and create_time >= #{createTimeStart,jdbcType=TIMESTAMP} and create_time <= #{createTimeEnd,jdbcType=TIMESTAMP}]]>
+    </if>
   </select>
 
   <select id="selectCount" parameterType="cn.lhzs.data.bean.Product" resultType="java.lang.Long">

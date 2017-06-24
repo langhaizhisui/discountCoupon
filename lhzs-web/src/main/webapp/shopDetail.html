@@ -258,9 +258,9 @@
 <div class="header"></div>
 <section>
     <div class="shop-detail clearfix">
-        <a class="shop-detail-a" biz-sellerid="363607599" isconvert=1 href="">
+        <!--<a class="shop-detail-a" biz-sellerid="363607599" isconvert=1 href="">
 
-        </a>
+        </a>-->
     </div>
 
     <div class="hot-brand clearfix" style="display: none">
@@ -311,7 +311,11 @@
                     '</div>' +
                     '</div>';
             }
-            $(".shop-detail-a").html(html);
+            $(".shop-detail").html(html);
+
+            $(".shop-detail").click(function () {
+                location.href = data.webUrl;
+            });
 
             $("head > title").text(data.brandName);
             $('head > meta[name="Keywords"]').attr("content", data.brandName + "网店，" + data.brandName + "网购，" + data.brandName + "店铺，" + data.brandName + "品牌店，" + data.brandName + "官方店");

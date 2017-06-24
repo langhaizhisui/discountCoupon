@@ -3,75 +3,75 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fiel
     padding: 0
 }
 
-/* ³õÊ¼»¯±êÇ©ÔÚËùÓĞä¯ÀÀÆ÷ÖĞµÄmargin¡¢paddingÖµ */
+/* ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Ç©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğµï¿½marginï¿½ï¿½paddingÖµ */
 fieldset, img {
     border: 0 none
 }
 
-/* ÖØÖÃfieldset£¨±íµ¥·Ö×é£©¡¢Í¼Æ¬µÄ±ß¿òÎª0*/
+/* ï¿½ï¿½ï¿½ï¿½fieldsetï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½é£©ï¿½ï¿½Í¼Æ¬ï¿½Ä±ß¿ï¿½Îª0*/
 dl, ul, ol, menu, li {
     list-style: none
 }
 
-/* ÖØÖÃÀà±íÇ°µ¼·ûºÅÎªonne,menuÔÚHTML5ÖĞÓĞĞ§ */
+/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªonne,menuï¿½ï¿½HTML5ï¿½ï¿½ï¿½ï¿½Ğ§ */
 blockquote, q {
     quotes: none
 }
 
-/* ÖØÖÃÇ¶Ì×ÒıÓÃµÄÒıºÅÀàĞÍ */
+/* ï¿½ï¿½ï¿½ï¿½Ç¶ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 blockquote:before, blockquote:after, q:before, q:after {
     content: '';
     content: none
 }
 
-/* ÖØÖÃÇ¶Ì×ÒıÓÃ*/
+/* ï¿½ï¿½ï¿½ï¿½Ç¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 input, select, textarea, button {
     vertical-align: middle
 }
 
-/* ÖØÖÃ±íµ¥¿Ø¼ş´¹Ö±¾ÓÖĞ*/
+/* ï¿½ï¿½ï¿½Ã±ï¿½ï¿½Ø¼ï¿½ï¿½ï¿½Ö±ï¿½ï¿½ï¿½ï¿½*/
 button {
     border: 0 none;
     background-color: transparent;
     cursor: pointer
 }
 
-/* ÖØÖÃ±íµ¥button°´Å¥Ğ§¹û */
+/* ï¿½ï¿½ï¿½Ã±ï¿½buttonï¿½ï¿½Å¥Ğ§ï¿½ï¿½ */
 body {
     background: #fff
 }
 
-/* ÖØÖÃbody Ò³Ãæ±³¾°Îª°×É« */
+/* ï¿½ï¿½ï¿½ï¿½body Ò³ï¿½æ±³ï¿½ï¿½Îªï¿½ï¿½É« */
 body, th, td, input, select, textarea, button {
     font-size: 12px;
     line-height: 1;
-    font-family: "Î¢ÈíÑÅºÚ", "ºÚÌå", "ËÎÌå";
+    font-family: "Î¢ï¿½ï¿½ï¿½Åºï¿½", "ï¿½ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½";
     color: #666
 }
 
-/* ÖØÖÃÒ³ÃæÎÄ×ÖÊôĞÔ */
+/* ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 a {
     color: #666;
     text-decoration: none
 }
 
-/* ÖØÖÃÁ´½Óa±êÇ© */
+/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½aï¿½ï¿½Ç© */
 a:active, a:hover {
     text-decoration: none
 }
 
-/* ÖØÖÃÁ´½Óa±êÇ©µÄÊó±ê»¬¶¯Ğ§¹û */
+/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½aï¿½ï¿½Ç©ï¿½ï¿½ï¿½ï¿½ê»¬ï¿½ï¿½Ğ§ï¿½ï¿½ */
 address, caption, cite, code, dfn, em, var {
     font-style: normal;
     font-weight: normal
 }
 
-/* ÖØÖÃÑùÊ½±êÇ©µÄÑùÊ½ */
+/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½Ç©ï¿½ï¿½ï¿½ï¿½Ê½ */
 caption {
     display: none;
 }
 
-/* ÖØÖÃ±í¸ñ±êÌâÎªÒş²Ø */
+/* ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -79,13 +79,13 @@ table {
     table-layout: fixed;
 }
 
-/* ÖØÖÃtableÊôĞÔ */
+/* ï¿½ï¿½ï¿½ï¿½tableï¿½ï¿½ï¿½ï¿½ */
 img {
     vertical-align: top
 }
 
-/* Í¼Æ¬ÔÚµ±Ç°ĞĞÄÚµÄ´¹Ö±Î»ÖÃ */
-/* È¡Ïûa±êÇ©µã»÷ºóµÄĞéÏß¿ò */
+/* Í¼Æ¬ï¿½Úµï¿½Ç°ï¿½ï¿½ï¿½ÚµÄ´ï¿½Ö±Î»ï¿½ï¿½ */
+/* È¡ï¿½ï¿½aï¿½ï¿½Ç©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¿ï¿½ */
 a {
     outline: none;
 }
@@ -94,7 +94,7 @@ a:active {
     star: expression(this.onFocus=this.blur());
 }
 
-/*Çå³ı¸¡¶¯*/
+/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 .clear {
     clear: both;
 }
@@ -113,7 +113,7 @@ a:active {
     margin: 0 auto;
 }
 
-/* ¶¥²¿µ¼º½ */
+/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 .logo {
     float: left;
 }
@@ -189,10 +189,17 @@ a:active {
     color: white;
 }
 
-/* µ×²¿ÑùÊ½ */
+/* ï¿½×²ï¿½ï¿½ï¿½Ê½ */
 .bottom-icp {
     position: relative;
     top: -6px;
     color: #939393;
     left: 5px;
+}
+
+.safe360{
+    position: relative;
+    width: 10%;
+    top: -8px;
+    left: 23px;
 }

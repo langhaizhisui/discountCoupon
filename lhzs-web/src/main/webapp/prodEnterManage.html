@@ -1,0 +1,383 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>后台管理系统</title>
+    <meta name="Keywords" content="网店,品牌网店,精选网购,精选旗舰店">
+    <meta name="Description" content="精选品牌网店大全，为您推荐精选网店、精选旗舰店、精选品牌网店、精选全面优惠网购等信息。">
+    <link rel="stylesheet" href="css/manage-system.css">
+    <style>
+
+        .nav {
+            width: 100%;
+            height: 100px;
+            background: #0094d2;
+            color: white;
+            font-size: 16px;
+        }
+
+        .nav-logo {
+            float: left;
+            padding: 10px 20px;
+        }
+
+        .nav-logo img {
+            width: 100px;
+        }
+
+        .nav ul li {
+            float: left;
+            padding: 40px 20px;
+        }
+
+        .nav ul li a {
+            color: white;
+        }
+
+        .center {
+            min-width: 1500px;
+        }
+
+        .left-nav {
+            width: 181px;
+            float: left;
+            border: 1px solid #d5d5d5;
+            font-size: 14px;
+            color: #666;
+            min-height: 650px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px #ccc;
+        }
+
+        .left-nav-grade1 {
+            width: 100%;
+            font-weight: 700;
+            height: 41px;
+            line-height: 41px;
+            text-indent: 20px;
+            position: relative;
+            background-color: #edf6f9;
+            color: #999;
+        }
+
+        .left-nav-grade2 {
+            text-indent: 35px;
+            width: 100%;
+            border-bottom: 1px solid #e7e7e7;
+            line-height: 40px;
+        }
+
+        .nav-bg {
+            background: #157fac;
+        }
+
+        .center-right {
+            float: left;
+            margin-left: 60px;
+            margin-top: 30px;
+        }
+
+        .prod-operation {
+            background: #0094d2;
+        }
+
+        .prod-operation a {
+            color: white;
+        }
+
+        .table {
+            border: 0;
+            cellspacing: 0;
+            cellpadding: 0;
+            width: 800px;
+        }
+
+        .table td {
+            border-bottom: 1px solid #ddd;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            border-top: 1px solid #ddd;
+            border-right: 1px solid #ddd;
+            font-size: 13px;
+        }
+
+        .table-title {
+            background-color: #f4f4f4;
+            text-align: center;
+            border-right: 1px solid #ddd;
+            border-top: 1px solid #ddd;
+        }
+
+        .table-input {
+            width: 450px;
+            height: 27px;
+            padding-left: 5px;
+            margin-left: 20px;
+        }
+
+        .btn-group{
+            margin-top: 20px;
+            margin-bottom: 120px;
+            text-align: center;
+        }
+        #save-btn{
+            width: 112px;
+            height: 32px;
+            background-color: #333;
+            color: #fff;
+            line-height: 32px;
+            text-align: center;
+            border-radius: 2px;
+            cursor: pointer;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <div class="nav">
+        <div class="nav-logo">
+            <img src="images/logo2.jpg">
+            <div>系统管理后台</div>
+        </div>
+        <ul>
+            <li id="prod-manage" class="nav-bg"><a>商品管理</a></li>
+            <li id="shop-manage"><a>店铺管理</a></li>
+        </ul>
+    </div>
+
+    <div class="center">
+        <div class="left-nav clearfix">
+            <div>
+                <div class="left-nav-grade1">商品管理</div>
+                <div class="left-nav-grade2">
+                    <div class="left-nav-bg prod-operation">
+                        <a href="/prodEnterManage.html">商品录入</a>
+                    </div>
+                    <div class="left-nav-bg prod-list">
+                        <a href="/manageSystem.html">商品列表</a>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="left-nav-grade1">批量管理</div>
+                <div class="left-nav-grade2">
+                    <div class="left-nav-bg prod-all">
+                        <a href="/prodBachManage.html">商品批量管理</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="center-right">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td class="table-title">商品名称</td>
+                        <td colspan="3">
+                            <input class="table-input" type="text" name="" id="prod-name" value="">
+                        </td>
+                    <tr>
+                        <td class="table-title">主图链接</td>
+                        <td colspan="3">
+                            <input class="table-input" type="text" name="" id="banner-url" value="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="table-title">详情页链接</td>
+                        <td colspan="3">
+                            <input class="table-input" type="text" name="" id="detail-url" value="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="table-title">类目</td>
+                        <td colspan="3">
+                            <input class="table-input" type="text" name="" id="cata" value="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="table-title">原价</td>
+                        <td colspan="3">
+                            <input class="table-input" type="text" name="" id="price" value="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="table-title">销售价</td>
+                        <td colspan="3">
+                            <input class="table-input" type="text" name="" id="sale-price" value="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="table-title">优惠</td>
+                        <td colspan="3">
+                            <input class="table-input" type="text" name="" id="save-price" value="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="table-title">平台</td>
+                        <td colspan="3">
+                            <input class="table-input" type="text" name="" id="plateform" value="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="table-title">商品推广链接</td>
+                        <td colspan="3">
+                            <input class="table-input" type="text" name="" id="generalize-url" value="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="table-title">有效期</td>
+                        <td colspan="3">
+                            <input class="table-input" type="text" name="" id="expiration" value="">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="btn-group">
+                <span id="save-btn">保存</span>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.form.js"></script>
+<script src="js/app.js"></script>
+<script src="js/systemManage.js"></script>
+<script>
+    $(function () {
+        init();
+    });
+
+    function init() {
+        getProduct(1);
+        bindEvent();
+    }
+
+    function getProduct(page) {
+        var reqData = {};
+        var param = {};
+        param.page = page;
+        param.pageSize = 20;
+
+        reqData.reqData = param;
+
+        app.getProductList(reqData, function (result) {
+            if (result.code == 200) {
+                var html = '';
+                var data = result.data.prodList;
+                for (var i = 0; i < data.length; i++) {
+                    var product = data[i];
+                    html += '<div class="content-item">' +
+                        '<div class="prod-id">' + product.prodId + '</div>' +
+                        '<div class="prod-title">' + product.name + '</div>' +
+                        '<div class="cata">' + product.category + '</div>' +
+                        '<div class="price">' + product.price + '</div>' +
+                        '<div class="sale-price">' + product.discountPrice + '</div>' +
+                        '<div class="save-price">' + product.savePrice + '</div>' +
+                        '<div class="plate">' + product.platform + '</div>' +
+                        '<div class="expire">' + product.expiration + '</div>' +
+                        '<div class="operation">' +
+                        '<span id="prod-edit"> 编辑 </span>' +
+                        '<span id="prod-delete"> 删除 </span>' +
+                        '</div>' +
+                        '</div>';
+                }
+                $(".content-list").html(html);
+
+                var totalPage = result.data.totalPage;
+                var currPage = result.data.page;
+                var pageNum = "";
+                if (totalPage < 10) {
+                    pageNum += '<span class="pre-page">上一页</span>';
+                    for (var i = 0; i < totalPage; i++) {
+                        if ((i + 1) == currPage) {
+                            pageNum += '<span id="curr-page" index="' + (i + 1) + '">' + (i + 1) + '</span>';
+                        } else {
+                            pageNum += '<span index="' + (i + 1) + '">' + (i + 1) + '</span>';
+                        }
+                    }
+                    pageNum += '<span class="next-page">下一页</span>';
+                } else if (totalPage > 10) {
+                    if (currPage < 5) {
+                        pageNum += '<span class="pre-page">上一页</span>';
+                        for (var i = 0; i < 5; i++) {
+                            if ((i + 1) == currPage) {
+                                pageNum += '<span id="curr-page" index="' + (i + 1) + '">' + (i + 1) + '</span>';
+                            } else {
+                                pageNum += '<span index="' + (i + 1) + '">' + (i + 1) + '</span>';
+                            }
+                        }
+                        pageNum += '<span>...</span>' +
+                            '<span index="' + totalPage + '">' + totalPage + '</span>' +
+                            '<span class="next-page">下一页</span>';
+                    } else if (currPage > totalPage - 5) {
+                        pageNum += '<span class="pre-page">上一页</span><span index="1">1</span><span>...</span>';
+                        for (var i = totalPage - 5; i < totalPage; i++) {
+                            if ((i + 1) == currPage) {
+                                pageNum += '<span id="curr-page" index="' + (i + 1) + '">' + (i + 1) + '</span>';
+                            } else {
+                                pageNum += '<span index="' + (i + 1) + '">' + (i + 1) + '</span>';
+                            }
+                        }
+                        pageNum += '<span class="next-page">下一页</span>';
+                    } else {
+                        pageNum += '<span class="pre-page">上一页</span>' +
+                            '<span index="1">1</span>' +
+                            '<span>...</span>' +
+                            '<span index="' + (currPage - 1) + '">' + (currPage - 1) + '</span>' +
+                            '<span id="curr-page" index="' + currPage + '">' + currPage + '</span>' +
+                            '<span index="' + (currPage + 1) + '">' + (currPage + 1) + '</span>' +
+                            '<span index="' + (currPage + 2) + '">' + (currPage + 2) + '</span>' +
+                            '<span>...</span>' +
+                            '<span index="' + totalPage + '">' + totalPage + '</span>' +
+                            '<span class="next-page">下一页</span>';
+                    }
+                }
+                $(".page-num").html(pageNum);
+                $(".page-num span").click(function () {
+                    var index = $(this).attr("index");
+                    getProduct(index);
+                });
+                $(".pre-page").click(function () {
+                    var currPageIndex = $("#curr-page").attr("index");
+                    if (currPageIndex != 1) {
+                        getProduct(currPageIndex - 1);
+                    }
+                })
+                $(".next-page").click(function () {
+                    var currPageIndex = $("#curr-page").attr("index");
+                    currPageIndex = parseInt(currPageIndex);
+                    if (currPageIndex != totalPage) {
+                        getProduct(currPageIndex + 1);
+                    }
+                });
+                $("#prod-delete").click(function () {
+                    var prodId = $(this).parent().parent().find(".prod-id").text();
+                    var param = {};
+                    param.prodId = prodId;
+
+                    app.deleteProduct(param, function () {
+                        if (result.code == 200) {
+                            getProduct(1);
+                            alert("删除成功");
+                        }
+                    });
+                });
+            }
+        });
+    }
+
+    function bindEvent() {
+        $("#add-prods").click(function () {
+            var opt = {
+                success: function (data) {
+                    alert(data.msg);
+                }
+            };
+
+            $("#sendFile").ajaxSubmit(opt);
+        });
+    }
+</script>
+</html>

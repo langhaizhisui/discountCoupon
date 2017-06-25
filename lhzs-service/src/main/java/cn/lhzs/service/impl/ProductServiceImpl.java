@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,6 +47,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void addProd(Product product) {
+        product.setScanNum(0);
+        product.setCreateTime(new Date());
+        product.setUpdateTime(new Date());
         productMapper.insert(product);
     }
 
@@ -56,19 +60,25 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void updateProd(Product product) {
+        product.setUpdateTime(new Date());
         productMapper.updateByPrimaryKey(product);
     }
 
     @Override
-    public List<Product> searchProduct(String data) {
+    public JSONObject searchProduct(String data) {
         if (data != null) {
             JSONObject jsonObject = JSONObject.parseObject(data).getJSONObject("reqData");
+            Integer page = jsonObject.getInteger("page");
+            Integer size = jsonObject.getInteger("size");
             String key = jsonObject.getString("key");
+            Map searchKey = new HashMap();
+
+            page = page == null ? 0 : page;
+            size = size == null ? 20 : size;
+
             if (key != null) {
                 key = "%" + key + "%";
-                Map searchKey = new HashMap();
                 searchKey.put("key", key);
-                return productMapper.searchProduct(searchKey);
             } else {
                 Integer prodId = jsonObject.getInteger("prodId");
                 String category = jsonObject.getString("category");
@@ -77,7 +87,7 @@ public class ProductServiceImpl implements ProductService {
                 String expirationEnd = jsonObject.getString("expirationEnd");
                 String createStart = jsonObject.getString("createTimeStart");
                 String createEnd = jsonObject.getString("createTimeEnd");
-                Map searchKey = new HashMap();
+
                 if (prodId != null && !"".equals(prodId)) {
                     searchKey.put("prodId", prodId);
                 }
@@ -95,8 +105,25 @@ public class ProductServiceImpl implements ProductService {
                     searchKey.put("createStart", createStart + " 00:00:00");
                     searchKey.put("createEnd", createEnd + " 00:00:00");
                 }
-                return productMapper.searchProduct(searchKey);
+
+                searchKey.put("index", page == 0 ? 0 : (page - 1) * size);
+                searchKey.put("size", size);
             }
+
+            List<Product> productList = productMapper.searchProduct(searchKey);
+
+            Long count = productMapper.selectCount(searchKey);
+            Long totalPage = count / size;
+            if (count % size != 0) {
+                totalPage = totalPage + 1;
+            }
+
+            JSONObject prodJson = new JSONObject();
+            prodJson.put("list", productList);
+            prodJson.put("totalPage", totalPage);
+            prodJson.put("page", page);
+
+            return prodJson;
         }
         return null;
 
@@ -119,7 +146,8 @@ public class ProductServiceImpl implements ProductService {
         product.setCategory(category);
         List<Product> productList = getProdList(product);
 
-        Long count = productMapper.selectCount(product);
+        Map countMap=new HashMap();
+        Long count = productMapper.selectCount(countMap);
         Long totalPage = count / size;
         if (count % size != 0) {
             totalPage = totalPage + 1;

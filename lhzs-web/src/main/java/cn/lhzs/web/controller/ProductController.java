@@ -71,6 +71,17 @@ public class ProductController {
         return result;
     }
 
+    @RequestMapping("/update")
+    @ResponseBody
+    public RequestResult updateProduct(@RequestBody Product product) {
+        productService.updateProd(product);
+
+        RequestResult result = new RequestResult();
+        result.setCode(200);
+        result.setMsg("更新商品成功");
+        return result;
+    }
+
     @RequestMapping("/search")
     @ResponseBody
     public RequestResult search(@RequestBody String reqData) {
@@ -80,9 +91,9 @@ public class ProductController {
             searchJson.put("type", "1");
             searchJson.put("list",shopList);
         } else {
-            List<Product> productList = productService.searchProduct(reqData);
-            searchJson.put("type", "2");
-            searchJson.put("list",productList);
+            JSONObject productList = productService.searchProduct(reqData);
+            productList.put("type", "2");
+            searchJson = productList;
         }
         RequestResult result = new RequestResult();
         result.setCode(200);

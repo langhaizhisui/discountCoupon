@@ -62,7 +62,6 @@
         .left-nav-grade2 {
             text-indent: 35px;
             width: 100%;
-            height: 40px;
             border-bottom: 1px solid #e7e7e7;
             line-height: 40px;
         }
@@ -70,14 +69,11 @@
         .content {
             width: 997px;
             min-width: 997px;
-            float: left;
             background-color: #fff;
-            margin-top: 20px;
-            margin-left: 40px;
             border: 1px solid #d5d5d5;
         }
 
-        .content-title div,.content-item div {
+        .content-title div, .content-item div {
             float: left;
             padding: 10px 10px;
             border-top: 2px solid #e0e0e0;
@@ -88,7 +84,8 @@
             text-align: center;
             overflow: hidden;
         }
-        .content-title div{
+
+        .content-title div {
             font-weight: 700;
             background-color: #f4f4f4;
         }
@@ -109,27 +106,33 @@
             width: 80px;
         }
 
-        .sale-price{
+        .sale-price {
             width: 80px;
         }
-        .save-price{
+
+        .save-price {
             width: 80px;
         }
-        .plate{
+
+        .plate {
             width: 80px;
         }
-        .expire{
+
+        .expire {
             width: 80px;
         }
+
         .operation {
             width: 80px;
         }
-        #prod-edit,#prod-delete{
+
+        .prod-edit, .prod-delete {
             text-decoration: underline;
             color: #0094d2;
         }
 
         .page-num {
+            float: left;
             text-align: center;
             width: 1500px;
             margin: 40px 0px 40px 0px;
@@ -140,16 +143,17 @@
             background: #eee;
             margin: 5px;
         }
+
         #curr-page {
             background-color: #ea6b18;
         }
 
-        .prod-btn{
-            margin-left: 40px;
-            float: left;
-            margin-top: 60px;
+        .prod-btn {
+            margin-top: 20px;
+            margin-bottom: 20px;
         }
-        #add-prod,#add-shops{
+
+        #add-prod, #add-prods {
             width: 112px;
             height: 32px;
             background-color: #333;
@@ -160,19 +164,66 @@
             cursor: pointer;
             display: inline-block;
         }
-        #add-shops{
+
+        #add-prods {
             margin-left: 20px;
         }
-        #prods-form{
+
+        #prods-form {
             display: inline-block;
             margin-left: 10px;
         }
-        .nav-bg{
+
+        .nav-bg {
             background: #157fac;
         }
-        .left-nav-bg{
-            background: #0094d2;
+
+        .left-nav-bg {
             color: white;
+        }
+
+        .prod-operation {
+            color: #666;
+        }
+
+        .prod-list {
+            background: #0094d2;
+        }
+
+        .prod-list a {
+            color: white;
+        }
+
+        .center-right {
+            float: left;
+            margin-left: 40px;
+            margin-top: 60px;
+        }
+
+        .search-title {
+            font-size: 13px;
+            margin-right: 5px;
+        }
+
+        .search {
+            margin-right: 20px;
+        }
+
+        .search-line {
+            margin-bottom: 20px;
+        }
+
+        .search-btn {
+            width: 59px;
+            height: 22px;
+            border: 1px solid #ccc;
+            background-color: #ececec;
+            color: #666;
+            line-height: 22px;
+            text-align: center;
+            margin-left: 10px;
+            cursor: pointer;
+            display: inline-block;
         }
     </style>
 </head>
@@ -190,14 +241,29 @@
     </div>
 
     <div class="center clearfix">
-        <div class="left-nav">
-            <div class="left-nav-grade1">店铺管理</div>
-            <div class="left-nav-grade2">
-                <div class="left-nav-bg">店铺列表</div>
+        <div class="left-nav clearfix">
+            <div>
+                <div class="left-nav-grade1">店铺管理</div>
+                <div class="left-nav-grade2">
+                    <div class="left-nav-bg prod-operation">
+                        <a href="/prodEnterManage.html">店铺录入</a>
+                    </div>
+                    <div class="left-nav-bg prod-list">
+                        <a href="/manageSystem.html">店铺列表</a>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="left-nav-grade1">批量管理</div>
+                <div class="left-nav-grade2">
+                    <div class="left-nav-bg prod-all">
+                        <a href="/prodBatchManage.html">店铺批量管理</a>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="prod-btn">
+        <!--<div class="prod-btn">
             <span id="add-prod">添加店铺</span>
             <span id="add-shops">批量导入</span>
             <span id="prods-form">
@@ -206,23 +272,66 @@
                     <input type="file" accept="application/vnd.ms-excel,x-excel,.xlsx,.xls" id="innerFile" name="file">
                 </form>
             </span>
-        </div>
+        </div>-->
+        <div class="center-right">
+            <div>
+                <div class="search-line">
+                        <span class="search">
+                            <span class="search-title">网店ID</span>
+                            <span>
+                                <input class="search-input" id="prod-id-input" placeholder="请输入网店ID"/>
+                            </span>
+                        </span>
+                    <span class="search">
+                            <span class="search-title">网店名称</span>
+                            <span>
+                                <input class="search-input" id="category-input" placeholder="请输入网店名称"/>
+                            </span>
+                        </span>
+                    <span class="search">
+                        <span class="search-title">商城类型</span>
+                        <span>
+                            <input class="search-input" id="platform-input" placeholder="请输入商城类型"/>
+                        </span>
+                    </span>
+                    <span class="search">
+                        <span class="search-title">网店类型</span>
+                        <span>
+                            <input class="search-input" id="platform-input" placeholder="请输入网店类型"/>
+                        </span>
+                    </span>
+                </div>
+                <div class="search-line">
+                    <span class="search">
+                            <span class="search-title">创建时间</span>
+                            <span>
+                                <input class="search-input" id="createtime-start-input" placeholder="2017-05-07"/>
+                            </span>
+                            <span>
+                                <input class="search-input" id="createtime-end-input" placeholder="2017-06-08"/>
+                            </span>
+                        </span>
 
-        <div class="content">
-            <div class="content-title clearfix">
-                <div class="prod-id">网店ID</div>
-                <div class="prod-title">网店名称</div>
-                <div class="cata">商城类型</div>
-                <div class="price">网店类型</div>
-                <div class="sale-price">经营商</div>
-                <div class="save-price">经营品牌</div>
-                <div class="plate">经营产品</div>
-                <div class="expire">网店地址</div>
-                <div class="operation">操作</div>
+                    <span class="search-btn">查询</span>
+                </div>
             </div>
 
-            <div class="content-list">
+            <div class="content">
+                <div class="content-title clearfix">
+                    <div class="prod-id">网店ID</div>
+                    <div class="prod-title">网店名称</div>
+                    <div class="cata">商城类型</div>
+                    <div class="price">网店类型</div>
+                    <div class="sale-price">经营商</div>
+                    <div class="save-price">经营品牌</div>
+                    <div class="plate">经营产品</div>
+                    <div class="expire">网店地址</div>
+                    <div class="operation">操作</div>
+                </div>
 
+                <div class="content-list">
+
+                </div>
             </div>
         </div>
     </div>
@@ -274,8 +383,8 @@
                         '<div class="plate">'+shop.sellProd+'</div>'+
                         '<div class="expire">'+shop.shopAddr+'</div>'+
                         '<div class="operation">'+
-                        '<span id="prod-edit"> 编辑 </span>'+
-                        '<span id="prod-delete"> 删除 </span>'+
+                        '<span class="prod-edit"> 编辑 </span>'+
+                        '<span class="prod-delete"> 删除 </span>'+
                         '</div>'+
                         '</div>';
                 }
@@ -350,13 +459,13 @@
                 }
             });
 
-            $("#prod-delete").click(function () {
+            $(".prod-delete").click(function () {
                 var shopId = $(this).parent().parent().find(".prod-id").text();
                 var param = {};
                 param.shopId = shopId;
                 app.deleteShop(param, function (result) {
                     if (result.code == 200) {
-                        getShop(1);
+                        getShop(page);
                         alert("删除成功");
                     }
                 });

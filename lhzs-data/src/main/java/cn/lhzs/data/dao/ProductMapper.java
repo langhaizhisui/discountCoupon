@@ -70,5 +70,10 @@ public interface ProductMapper {
      */
     List<Product> searchProduct(Map map);
 
-    Long selectCount(Product product);
+    /**
+     * 统计总数
+     * @param map
+     * @return
+     */
+    Long selectCount(Map map);
 }

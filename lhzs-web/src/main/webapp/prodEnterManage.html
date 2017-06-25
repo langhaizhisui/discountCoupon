@@ -114,12 +114,13 @@
             margin-left: 20px;
         }
 
-        .btn-group{
+        .btn-group {
             margin-top: 20px;
             margin-bottom: 120px;
             text-align: center;
         }
-        #save-btn{
+
+        #save-btn {
             width: 112px;
             height: 32px;
             background-color: #333;
@@ -162,7 +163,7 @@
                 <div class="left-nav-grade1">批量管理</div>
                 <div class="left-nav-grade2">
                     <div class="left-nav-bg prod-all">
-                        <a href="/prodBachManage.html">商品批量管理</a>
+                        <a href="/prodBatchManage.html">商品批量管理</a>
                     </div>
                 </div>
             </div>
@@ -171,65 +172,65 @@
         <div class="center-right">
             <table class="table">
                 <tbody>
-                    <tr>
-                        <td class="table-title">商品名称</td>
-                        <td colspan="3">
-                            <input class="table-input" type="text" name="" id="prod-name" value="">
-                        </td>
-                    <tr>
-                        <td class="table-title">主图链接</td>
-                        <td colspan="3">
-                            <input class="table-input" type="text" name="" id="banner-url" value="">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="table-title">详情页链接</td>
-                        <td colspan="3">
-                            <input class="table-input" type="text" name="" id="detail-url" value="">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="table-title">类目</td>
-                        <td colspan="3">
-                            <input class="table-input" type="text" name="" id="cata" value="">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="table-title">原价</td>
-                        <td colspan="3">
-                            <input class="table-input" type="text" name="" id="price" value="">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="table-title">销售价</td>
-                        <td colspan="3">
-                            <input class="table-input" type="text" name="" id="sale-price" value="">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="table-title">优惠</td>
-                        <td colspan="3">
-                            <input class="table-input" type="text" name="" id="save-price" value="">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="table-title">平台</td>
-                        <td colspan="3">
-                            <input class="table-input" type="text" name="" id="plateform" value="">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="table-title">商品推广链接</td>
-                        <td colspan="3">
-                            <input class="table-input" type="text" name="" id="generalize-url" value="">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="table-title">有效期</td>
-                        <td colspan="3">
-                            <input class="table-input" type="text" name="" id="expiration" value="">
-                        </td>
-                    </tr>
+                <tr>
+                    <td class="table-title">商品名称</td>
+                    <td colspan="3">
+                        <input class="table-input" type="text" name="" id="prod-name" value="">
+                    </td>
+                <tr>
+                    <td class="table-title">主图链接</td>
+                    <td colspan="3">
+                        <input class="table-input" type="text" name="" id="banner-url" value="">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="table-title">详情页链接</td>
+                    <td colspan="3">
+                        <input class="table-input" type="text" name="" id="detail-url" value="">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="table-title">类目</td>
+                    <td colspan="3">
+                        <input class="table-input" type="text" name="" id="cata" value="">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="table-title">原价</td>
+                    <td colspan="3">
+                        <input class="table-input" type="text" name="" id="price" value="">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="table-title">销售价</td>
+                    <td colspan="3">
+                        <input class="table-input" type="text" name="" id="sale-price" value="">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="table-title">优惠</td>
+                    <td colspan="3">
+                        <input class="table-input" type="text" name="" id="save-price" value="">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="table-title">平台</td>
+                    <td colspan="3">
+                        <input class="table-input" type="text" name="" id="plateform" value="">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="table-title">商品推广链接</td>
+                    <td colspan="3">
+                        <input class="table-input" type="text" name="" id="generalize-url" value="">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="table-title">有效期</td>
+                    <td colspan="3">
+                        <input class="table-input" type="text" name="" id="expiration" value="">
+                    </td>
+                </tr>
                 </tbody>
             </table>
 
@@ -245,138 +246,80 @@
 <script src="js/app.js"></script>
 <script src="js/systemManage.js"></script>
 <script>
+    var id = getParameter("id");
+
     $(function () {
         init();
     });
 
     function init() {
-        getProduct(1);
+        getProduct();
         bindEvent();
     }
 
-    function getProduct(page) {
-        var reqData = {};
-        var param = {};
-        param.page = page;
-        param.pageSize = 20;
-
-        reqData.reqData = param;
-
-        app.getProductList(reqData, function (result) {
-            if (result.code == 200) {
-                var html = '';
-                var data = result.data.prodList;
-                for (var i = 0; i < data.length; i++) {
-                    var product = data[i];
-                    html += '<div class="content-item">' +
-                        '<div class="prod-id">' + product.prodId + '</div>' +
-                        '<div class="prod-title">' + product.name + '</div>' +
-                        '<div class="cata">' + product.category + '</div>' +
-                        '<div class="price">' + product.price + '</div>' +
-                        '<div class="sale-price">' + product.discountPrice + '</div>' +
-                        '<div class="save-price">' + product.savePrice + '</div>' +
-                        '<div class="plate">' + product.platform + '</div>' +
-                        '<div class="expire">' + product.expiration + '</div>' +
-                        '<div class="operation">' +
-                        '<span id="prod-edit"> 编辑 </span>' +
-                        '<span id="prod-delete"> 删除 </span>' +
-                        '</div>' +
-                        '</div>';
+    function getProduct() {
+        if(id){
+            var param = {};
+            param.prodId = id;
+            app.getProductDetail(param,function (result) {
+                if (result.code == 200) {
+                    var data = result.data;
+                    $("#prod-name").val(data.name);
+                    $("#banner-url").val(data.banner);
+                    $("#detail-url").val(data.detail);
+                    $("#cata").val(data.category);
+                    $("#price").val(data.price);
+                    $("#sale-price").val(data.discountPrice);
+                    $("#save-price").val(data.savePrice);
+                    $("#plateform").val(data.platform);
+                    $("#generalize-url").val(data.prodGeneralize);
+                    $("#expiration").val(data.expiration);
                 }
-                $(".content-list").html(html);
-
-                var totalPage = result.data.totalPage;
-                var currPage = result.data.page;
-                var pageNum = "";
-                if (totalPage < 10) {
-                    pageNum += '<span class="pre-page">上一页</span>';
-                    for (var i = 0; i < totalPage; i++) {
-                        if ((i + 1) == currPage) {
-                            pageNum += '<span id="curr-page" index="' + (i + 1) + '">' + (i + 1) + '</span>';
-                        } else {
-                            pageNum += '<span index="' + (i + 1) + '">' + (i + 1) + '</span>';
-                        }
-                    }
-                    pageNum += '<span class="next-page">下一页</span>';
-                } else if (totalPage > 10) {
-                    if (currPage < 5) {
-                        pageNum += '<span class="pre-page">上一页</span>';
-                        for (var i = 0; i < 5; i++) {
-                            if ((i + 1) == currPage) {
-                                pageNum += '<span id="curr-page" index="' + (i + 1) + '">' + (i + 1) + '</span>';
-                            } else {
-                                pageNum += '<span index="' + (i + 1) + '">' + (i + 1) + '</span>';
-                            }
-                        }
-                        pageNum += '<span>...</span>' +
-                            '<span index="' + totalPage + '">' + totalPage + '</span>' +
-                            '<span class="next-page">下一页</span>';
-                    } else if (currPage > totalPage - 5) {
-                        pageNum += '<span class="pre-page">上一页</span><span index="1">1</span><span>...</span>';
-                        for (var i = totalPage - 5; i < totalPage; i++) {
-                            if ((i + 1) == currPage) {
-                                pageNum += '<span id="curr-page" index="' + (i + 1) + '">' + (i + 1) + '</span>';
-                            } else {
-                                pageNum += '<span index="' + (i + 1) + '">' + (i + 1) + '</span>';
-                            }
-                        }
-                        pageNum += '<span class="next-page">下一页</span>';
-                    } else {
-                        pageNum += '<span class="pre-page">上一页</span>' +
-                            '<span index="1">1</span>' +
-                            '<span>...</span>' +
-                            '<span index="' + (currPage - 1) + '">' + (currPage - 1) + '</span>' +
-                            '<span id="curr-page" index="' + currPage + '">' + currPage + '</span>' +
-                            '<span index="' + (currPage + 1) + '">' + (currPage + 1) + '</span>' +
-                            '<span index="' + (currPage + 2) + '">' + (currPage + 2) + '</span>' +
-                            '<span>...</span>' +
-                            '<span index="' + totalPage + '">' + totalPage + '</span>' +
-                            '<span class="next-page">下一页</span>';
-                    }
-                }
-                $(".page-num").html(pageNum);
-                $(".page-num span").click(function () {
-                    var index = $(this).attr("index");
-                    getProduct(index);
-                });
-                $(".pre-page").click(function () {
-                    var currPageIndex = $("#curr-page").attr("index");
-                    if (currPageIndex != 1) {
-                        getProduct(currPageIndex - 1);
-                    }
-                })
-                $(".next-page").click(function () {
-                    var currPageIndex = $("#curr-page").attr("index");
-                    currPageIndex = parseInt(currPageIndex);
-                    if (currPageIndex != totalPage) {
-                        getProduct(currPageIndex + 1);
-                    }
-                });
-                $("#prod-delete").click(function () {
-                    var prodId = $(this).parent().parent().find(".prod-id").text();
-                    var param = {};
-                    param.prodId = prodId;
-
-                    app.deleteProduct(param, function () {
-                        if (result.code == 200) {
-                            getProduct(1);
-                            alert("删除成功");
-                        }
-                    });
-                });
-            }
-        });
+            });
+        }
     }
 
     function bindEvent() {
-        $("#add-prods").click(function () {
-            var opt = {
-                success: function (data) {
-                    alert(data.msg);
-                }
-            };
+        $("#save-btn").click(function () {
+            var prodName = $("#prod-name").val();
+            var bannerUrl = $("#banner-url").val();
+            var detailUrl = $("#detail-url").val();
+            var cata = $("#cata").val();
+            var price = $("#price").val();
+            var salePrice = $("#sale-price").val();
+            var savePrice = $("#save-price").val();
+            var plateform = $("#plateform").val();
+            var generalizeUrl = $("#generalize-url").val();
+            var expiration = $("#expiration").val();
 
-            $("#sendFile").ajaxSubmit(opt);
+            if (prodName == "" || bannerUrl == "" || detailUrl == "" || cata == "" || price == "" || salePrice == ""
+                || savePrice == "" || plateform == "" || generalizeUrl == "" || expiration == "") {
+                alert("信息填写不能为空");
+                return;
+            }
+
+            var param = {};
+            param.name = prodName;
+            param.banner = bannerUrl;
+            param.detail = detailUrl;
+            param.category = cata;
+            param.price = price;
+            param.discountPrice = salePrice;
+            param.savePrice = savePrice;
+            param.platform = plateform;
+            param.prodGeneralize = generalizeUrl;
+            param.expiration = expiration;
+
+            if(id){
+                param.prodId=id;
+                app.updateProduct(param,function () {
+                   alert("更新成功");
+                });
+            }else{
+                app.addProd(param, function () {
+                    alert("添加成功");
+                });
+            }
         });
     }
 </script>

@@ -53,6 +53,14 @@ var app = {
         },100);
 
     },
+    addProd: function (data, callback) {
+        var self = this;
+        self.ajax("post", "prod/add", data, callback);
+    },
+    updateProduct: function (data, callback) {
+        var self = this;
+        self.ajax("post", "prod/update", data, callback);
+    },
     "ajax": function (type, url, data, callback) {
         var self = this;
         if (self.isParamEmpty(type) || self.isParamEmpty(url) || self.isParamEmpty(data)) {

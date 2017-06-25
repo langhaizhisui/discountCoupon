@@ -299,17 +299,9 @@
     select
     <include refid="Base_Column_List" />
     from product where 1=1
+    <include refid="Select_Where_Sql" />
     <if test="key != null" >
       and `name` LIKE #{key,jdbcType=VARCHAR}
-    </if>
-    <if test="prodId != null" >
-      and prod_id = #{prodId,jdbcType=BIGINT}
-    </if>
-    <if test="category != null" >
-      and category = #{category,jdbcType=VARCHAR}
-    </if>
-    <if test="platform != null" >
-      and platform = #{platform,jdbcType=VARCHAR}
     </if>
     <if test="expirationStart != null" >
       <![CDATA[ and expiration >= #{expirationStart,jdbcType=VARCHAR} and expiration <= #{expirationEnd,jdbcType=VARCHAR}]]>
@@ -317,11 +309,22 @@
     <if test="createTimeStart != null" >
       <![CDATA[ and create_time >= #{createTimeStart,jdbcType=TIMESTAMP} and create_time <= #{createTimeEnd,jdbcType=TIMESTAMP}]]>
     </if>
+    <if test="index != null and size !=null">
+      limit #{index,jdbcType=INTEGER}, #{size,jdbcType=INTEGER}
+    </if>
   </select>
 
-  <select id="selectCount" parameterType="cn.lhzs.data.bean.Product" resultType="java.lang.Long">
-    select count(*) from product
-    where 1=1
+  <select id="selectCount" parameterType="java.util.Map" resultType="java.lang.Long">
+    select count(*) from product where 1=1
     <include refid="Select_Where_Sql" />
+    <if test="key != null" >
+      and `name` LIKE #{key,jdbcType=VARCHAR}
+    </if>
+    <if test="expirationStart != null" >
+      <![CDATA[ and expiration >= #{expirationStart,jdbcType=VARCHAR} and expiration <= #{expirationEnd,jdbcType=VARCHAR}]]>
+    </if>
+    <if test="createTimeStart != null" >
+      <![CDATA[ and create_time >= #{createTimeStart,jdbcType=TIMESTAMP} and create_time <= #{createTimeEnd,jdbcType=TIMESTAMP}]]>
+    </if>
   </select>
 </mapper>

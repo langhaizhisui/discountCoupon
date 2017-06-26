@@ -83,7 +83,11 @@ public class UploadServiceImpl implements UploadService {
             Cell cell = row.getCell(j);
             if ("String".equals(FieldClassType[j])) {
                 if (cell != null && Cell.CELL_TYPE_NUMERIC == cell.getCellType()) {
-                    PoiHelper.setFieldMethod(clazz, fieldColumn[j], String.class, cell == null ? "" : ((int) Double.parseDouble(cell.toString())) + "");
+                    try{
+                        PoiHelper.setFieldMethod(clazz, fieldColumn[j], String.class, cell == null ? "" : ((int) Double.parseDouble(cell.toString())) + "");
+                    }catch (Exception e){
+                        PoiHelper.setFieldMethod(clazz, fieldColumn[j], String.class, cell == null ? "" : cell.toString());
+                    }
                 } else {
                     PoiHelper.setFieldMethod(clazz, fieldColumn[j], String.class, cell == null ? "" : cell.toString());
                 }

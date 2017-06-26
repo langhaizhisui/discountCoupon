@@ -72,10 +72,10 @@ public interface ShopMapper {
 
     /**
      * 根据类型获取店铺
-     * @param shop 店铺对象
+     * @param map
      * @return 总个数
      */
-    Integer selectCountByType(Shop shop);
+    Long selectCount(Map map);
 
     /**
      * 删除数据库表所有数据

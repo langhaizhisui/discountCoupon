@@ -4,7 +4,7 @@
     <title>后台管理系统</title>
     <meta name="Keywords" content="网店,品牌网店,精选网购,精选旗舰店">
     <meta name="Description" content="精选品牌网店大全，为您推荐精选网店、精选旗舰店、精选品牌网店、精选全面优惠网购等信息。">
-    <link rel="stylesheet" href="css/manage-system.css">
+    <link rel="stylesheet" href="/css/manage-system.css">
     <style>
 
         .nav {
@@ -213,7 +213,7 @@
             margin-bottom: 20px;
         }
 
-        .search-btn {
+        .search-btn, .more-delete-btn, .all-delete-btn {
             width: 59px;
             height: 22px;
             border: 1px solid #ccc;
@@ -284,8 +284,6 @@
                             <input class="search-input" id="platform-input" placeholder="请输入平台"/>
                         </span>
                     </span>
-                </div>
-                <div class="search-line">
                     <span class="search">
                         <span class="search-title">过期时间</span>
                         <span>
@@ -295,7 +293,8 @@
                             <input class="search-input" id="expiration-end-input" placeholder="2017-06-08"/>
                         </span>
                     </span>
-
+                </div>
+                <div class="search-line">
                     <span class="search">
                         <span class="search-title">创建时间</span>
                         <span>
@@ -305,23 +304,11 @@
                             <input class="search-input" id="createtime-end-input" placeholder="2017-06-08"/>
                         </span>
                     </span>
-
                     <span class="search-btn">查询</span>
+                    <span class="more-delete-btn">批量删除</span>
+                    <span class="all-delete-btn">全部删除</span>
                 </div>
-
             </div>
-
-            <!--<div class="prod-btn">
-                <span id="add-prod">添加商品</span>
-                <span id="add-prods">批量导入</span>
-                <span id="prods-form">
-                    <form action="/upload/excel" method="post" enctype="multipart/form-data" target="tmp" id="sendFile">
-                        <input class="type-input" style="display: none" name="type" value="1">
-                        <input type="file" accept="application/vnd.ms-excel,x-excel,.xlsx,.xls" id="innerFile"
-                               name="file">
-                    </form>
-                </span>
-            </div>-->
 
             <div class="content">
                 <div class="content-title clearfix">
@@ -345,6 +332,11 @@
 
     <!--分页-->
     <div class="page-num"></div>
+</div>
+
+<div class="load hidden">
+    <div class="loading"></div>
+    <img class="loading-img" src="images/loading.gif"/>
 </div>
 </body>
 <script src="js/jquery.min.js"></script>
@@ -430,18 +422,58 @@
     }
 
     function bindEvent() {
-        $("#add-prods").click(function () {
-            var opt = {
-                success: function (data) {
-                    alert(data.msg);
-                }
-            };
-
-            $("#sendFile").ajaxSubmit(opt);
-        });
-
         $(".search-btn").click(function () {
             searchInfo(1);
+        });
+
+        $(".more-delete-btn").click(function () {
+            var prodId = $("#prod-id-input").val();
+            var category = $("#category-input").val();
+            var platform = $("#platform-input").val();
+            var expirationStart = $("#expiration-start-input").val();
+            var expirationEnd = $("#expiration-end-input").val();
+            var createTimeStart = $("#createtime-start-input").val();
+            var createTimeEnd = $("#createtime-end-input").val();
+
+            if (prodId == "" && category == "" && platform == "" && expirationStart == "" && expirationEnd == ""
+                && createTimeStart == "" && createTimeEnd == "") {
+                alert("请输入删除条件");
+                return;
+            }
+            $(".load").removeClass("hidden");
+            var reqData = {};
+            var param = {};
+            param.prodId = prodId;
+            param.category = category;
+            param.platform = platform;
+            param.expirationStart = expirationStart;
+            param.expirationEnd = expirationEnd;
+            param.createTimeStart = createTimeStart;
+            param.createTimeEnd = createTimeEnd;
+            param.page = 1;
+            param.pageSize = 20;
+            reqData.reqData = param;
+
+            app.batchProdDelete(reqData, function (result) {
+                $(".load").addClass("hidden");
+                if (result.code == 200) {
+                    searchInfo(1);
+                    alert("删除成功");
+                }
+            });
+        });
+
+        $(".all-delete-btn").click(function () {
+            $(".load").removeClass("hidden");
+
+            var param = {};
+            app.allProdDelete(param, function (result) {
+                $(".load").addClass("hidden");
+                if (result.code == 200) {
+                    searchInfo(1);
+                    alert("删除成功");
+                }
+            });
         });
     }
 

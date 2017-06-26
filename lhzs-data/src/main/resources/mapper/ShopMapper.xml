@@ -31,6 +31,9 @@
         mobile_url, mobile_generalize, shop_addr, banner, creat_time, update_time
     </sql>
     <sql id="Select_Where_Sql">
+        <if test="id != null">
+            and id = #{id}
+        </if>
         <if test="webShop != null">
             and web_shop = #{webShop}
         </if>
@@ -303,13 +306,32 @@
     <select id="searchShop" parameterType="java.util.Map" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from shop where web_shop LIKE #{key}
+        from shop where  1=1
+        <include refid="Select_Where_Sql"/>
+        <if test="key != null" >
+            and web_shop LIKE #{key,jdbcType=VARCHAR}
+        </if>
+        <if test="expirationStart != null" >
+            <![CDATA[ and expiration >= #{expirationStart,jdbcType=VARCHAR} and expiration <= #{expirationEnd,jdbcType=VARCHAR}]]>
+        </if>
+        <if test="createTimeStart != null" >
+            <![CDATA[ and create_time >= #{createTimeStart,jdbcType=TIMESTAMP} and create_time <= #{createTimeEnd,jdbcType=TIMESTAMP}]]>
+        </if>
+        <if test="index != null and size !=null">
+            limit #{index,jdbcType=INTEGER}, #{size,jdbcType=INTEGER}
+        </if>
     </select>
 
-    <select id="selectCountByType" parameterType="cn.lhzs.data.bean.Shop" resultType="java.lang.Integer">
+    <select id="selectCount" parameterType="java.util.Map" resultType="java.lang.Long">
         select count(*) from shop
         where 1=1
         <include refid="Select_Where_Sql"/>
+        <if test="key != null" >
+            and web_shop LIKE #{key,jdbcType=VARCHAR}
+        </if>
+        <if test="createTimeStart != null" >
+            <![CDATA[ and create_time >= #{createTimeStart,jdbcType=TIMESTAMP} and create_time <= #{createTimeEnd,jdbcType=TIMESTAMP}]]>
+        </if>
     </select>
 
     <delete id="deleteTable">

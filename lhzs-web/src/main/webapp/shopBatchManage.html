@@ -76,11 +76,11 @@
             margin-top: 30px;
         }
 
-        .prod-operation {
+        .prod-all {
             background: #0094d2;
         }
 
-        .prod-operation a {
+        .prod-all a {
             color: white;
         }
 
@@ -152,21 +152,21 @@
             <div>系统管理后台</div>
         </div>
         <ul>
-            <li id="prod-manage" class="nav-bg"><a>商品管理</a></li>
-            <li id="shop-manage"><a>店铺管理</a></li>
+            <li id="prod-manage"><a>商品管理</a></li>
+            <li id="shop-manage" class="nav-bg"><a>店铺管理</a></li>
         </ul>
     </div>
 
     <div class="center">
         <div class="left-nav clearfix">
             <div>
-                <div class="left-nav-grade1">商品管理</div>
+                <div class="left-nav-grade1">店铺管理</div>
                 <div class="left-nav-grade2">
                     <div class="left-nav-bg prod-operation">
-                        <a href="/prodEnterManage.html">商品录入</a>
+                        <a href="/shopEnterManage.html">店铺录入</a>
                     </div>
                     <div class="left-nav-bg prod-list">
-                        <a href="/manageSystem.html">商品列表</a>
+                        <a href="/shopManage.html">店铺列表</a>
                     </div>
                 </div>
             </div>
@@ -174,7 +174,7 @@
                 <div class="left-nav-grade1">批量管理</div>
                 <div class="left-nav-grade2">
                     <div class="left-nav-bg prod-all">
-                        <a href="/prodBatchManage.html">商品批量管理</a>
+                        <a href="/shopBatchManage.html">店铺批量管理</a>
                     </div>
                 </div>
             </div>
@@ -188,7 +188,7 @@
                         <div class="batch-form-title">请选择文件：</div>
                         <div class="batch-form">
                             <form action="/upload/excel" method="post" enctype="multipart/form-data" target="tmp" id="sendFile">
-                                <input class="type-input" style="display: none" name="type" value="1">
+                                <input class="type-input" style="display: none" name="type" value="2">
                                 <input type="file" accept="application/vnd.ms-excel,x-excel,.xlsx,.xls" id="innerFile" name="file">
                             </form>
                         </div>

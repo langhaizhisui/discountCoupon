@@ -91,13 +91,12 @@ public class ProductController {
     public RequestResult search(@RequestBody String reqData) {
         JSONObject searchJson = new JSONObject();
         if (reqData.indexOf("旗舰店") != -1 || reqData.indexOf("专卖店") != -1 || reqData.indexOf("自营店") != -1) {
-            List<Shop> shopList = shopService.searchShop(reqData);
+            JSONObject shopList = shopService.searchShop(reqData);
             searchJson.put("type", "1");
             searchJson.put("list", shopList);
         } else {
-            JSONObject productList = productService.searchProduct(reqData);
-            productList.put("type", "2");
-            searchJson = productList;
+            searchJson = productService.searchProduct(reqData);
+            searchJson.put("type", "2");
         }
         RequestResult result = new RequestResult();
         result.setCode(200);
@@ -108,7 +107,7 @@ public class ProductController {
 
     @RequestMapping("/all/delete")
     @ResponseBody
-    public RequestResult deleteTable(String prodId) {
+    public RequestResult deleteTable(@RequestBody String reqData) {
         productService.deleteTable();
 
         RequestResult result = new RequestResult();
@@ -120,9 +119,6 @@ public class ProductController {
     @RequestMapping("/batch/delete")
     @ResponseBody
     public RequestResult batchDelete(@RequestBody String reqData) {
-
-        JSONObject jsonObject = JSONObject.parseObject(reqData).getJSONObject("reqData");
-        jsonObject.put("page", 1);
 
         JSONObject productJson = productService.searchProduct(reqData);
         JSONArray productArray = productJson.getJSONArray("list");

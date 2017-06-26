@@ -20,9 +20,9 @@ public interface ShopService {
 
     void updateShop(Shop shop);
 
-    List<Shop> searchShop(String data);
+    JSONObject searchShop(String data);
 
-    Integer selectCountByTypeSite(String type, String site);
+    Long selectCountByTypeSite(String type, String site);
 
     JSONObject getShops(Shop shop);
 

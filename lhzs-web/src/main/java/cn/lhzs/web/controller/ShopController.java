@@ -108,7 +108,7 @@ public class ShopController {
     @RequestMapping("/search")
     @ResponseBody
     public RequestResult searchShop(@RequestBody String reqData) {
-        List<Shop> shopList = shopService.searchShop(reqData);
+        JSONObject shopList = shopService.searchShop(reqData);
 
         RequestResult result = new RequestResult();
         result.setCode(200);
@@ -152,19 +152,16 @@ public class ShopController {
     @ResponseBody
     public RequestResult batchDelete(@RequestBody String reqData) {
 
-        JSONObject jsonObject = JSONObject.parseObject(reqData).getJSONObject("reqData");
-        jsonObject.put("page", 1);
-
-//        JSONObject productJson = shopService.searchShop(reqData);
-//        JSONArray productArray = productJson.getJSONArray("list");
-//        while (productArray.size() != 0) {
-//            for (int i = 0; i < productArray.size(); i++) {
-//                JSONObject shop = productArray.getJSONObject(i);
-//                shopService.deleteShopByShopId(Long.parseLong(shop.getString("prodId")));
-//            }
-//            productJson = shopService.searchProduct(reqData);
-//            productArray = productJson.getJSONArray("list");
-//        }
+        JSONObject shopJson = shopService.searchShop(reqData);
+        JSONArray shopArray = shopJson.getJSONArray("list");
+        while (shopArray.size() != 0) {
+            for (int i = 0; i < shopArray.size(); i++) {
+                JSONObject shop = shopArray.getJSONObject(i);
+                shopService.deleteShopByShopId(Long.parseLong(shop.getString("id")));
+            }
+            shopJson = shopService.searchShop(reqData);
+            shopArray = shopJson.getJSONArray("list");
+        }
 
         RequestResult result = new RequestResult();
         result.setCode(200);

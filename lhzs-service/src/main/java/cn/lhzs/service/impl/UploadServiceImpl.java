@@ -64,13 +64,11 @@ public class UploadServiceImpl implements UploadService {
                 Shop shop = new Shop();
                 for (int i = 1; i <= lastRowNum; i++) {
                     Row row = sheet.getRow(i);
-                    for (int j = 0; j < fieldColumn.length; j++) {
-                        shop.setCreatTime(new Date());
-                        shop.setUpdateTime(new Date());
-                        setField(row, shop, fieldColumn, fieldClassColumn);
+                    shop.setCreatTime(new Date());
+                    shop.setUpdateTime(new Date());
+                    setField(row, shop, fieldColumn, fieldClassColumn);
 
-                        shopMapper.insert(shop);
-                    }
+                    shopMapper.insert(shop);
                 }
             }
         } catch (Exception e) {
@@ -84,7 +82,11 @@ public class UploadServiceImpl implements UploadService {
         for (int j = 0; j < fieldColumn.length; j++) {
             Cell cell = row.getCell(j);
             if ("String".equals(FieldClassType[j])) {
-                PoiHelper.setFieldMethod(clazz, fieldColumn[j], String.class, cell == null ? "" : cell.toString());
+                if (cell != null && Cell.CELL_TYPE_NUMERIC == cell.getCellType()) {
+                    PoiHelper.setFieldMethod(clazz, fieldColumn[j], String.class, cell == null ? "" : ((int) Double.parseDouble(cell.toString())) + "");
+                } else {
+                    PoiHelper.setFieldMethod(clazz, fieldColumn[j], String.class, cell == null ? "" : cell.toString());
+                }
             } else if ("Double".equals(FieldClassType[j])) {
                 PoiHelper.setFieldMethod(clazz, fieldColumn[j], Double.class, cell == null ? 0.0 : Double.parseDouble(cell.toString()));
             } else if ("Integer".equals(FieldClassType[j])) {
@@ -106,8 +108,8 @@ public class UploadServiceImpl implements UploadService {
             headColumn = new String[]{"商品名称", "商品主图", "商品详情页链接地址", "商品一级类目", "原价", "券后价",
                     "平台类型", "优惠券面额", "商品优惠券推广链接", "优惠券结束时间"};
         } else if (Upload.SHOP_ADD.equals(type)) {
-            headColumn = new String[]{"网店名称", "所属商城", "网店类型", " 网店经营商", "品牌名称", "主要经营产品",
-                    "网店网址", "推广链接", "手机版推广网址", "店铺所在地"};
+            headColumn = new String[]{"网店名称", "所属商城", "网店类型", "网店经营商", "品牌名称", "主要经营产品",
+                    "网店网址", "网站推广链接", "手机网址", "手机版推广网址", "店铺所在地"};
         }
         return headColumn;
     }
@@ -120,7 +122,7 @@ public class UploadServiceImpl implements UploadService {
                     "platform", "savePrice", "prodGeneralize", "expiration"};
         } else if (Upload.SHOP_ADD.equals(type)) {
             fieldColumn = new String[]{"webShop", "site", "type", "sellName", "brandName", "sellProd",
-                    "webUrl", "webGeneralize", "mobileGeneralize", "shopAddr"};
+                    "webUrl", "webGeneralize", "mobileUrl", "mobileGeneralize", "shopAddr"};
         }
         return fieldColumn;
     }
@@ -133,7 +135,7 @@ public class UploadServiceImpl implements UploadService {
                     "String", "Double", "String", "String"};
         } else if (Upload.SHOP_ADD.equals(type)) {
             fieldColumn = new String[]{"String", "String", "String", "String", "String", "String",
-                    "String", "String", "String", "String"};
+                    "String", "String", "String", "String", "String"};
         }
         return fieldColumn;
     }

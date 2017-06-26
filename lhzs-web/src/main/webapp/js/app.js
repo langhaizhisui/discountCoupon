@@ -61,6 +61,30 @@ var app = {
         var self = this;
         self.ajax("post", "prod/update", data, callback);
     },
+    addShop: function (data, callback) {
+        var self = this;
+        self.ajax("post", "shop/add", data, callback);
+    },
+    updateShop: function (data, callback) {
+        var self = this;
+        self.ajax("post", "shop/update", data, callback);
+    },
+    batchProdDelete: function (data, callback) {
+        var self = this;
+        self.ajax("post", "prod/batch/delete", data, callback);
+    },
+    allProdDelete: function (data, callback) {
+        var self = this;
+        self.ajax("post", "prod/all/delete", data, callback);
+    },
+    batchShopDelete: function (data, callback) {
+        var self = this;
+        self.ajax("post", "shop/batch/delete", data, callback);
+    },
+    allShopDelete: function (data, callback) {
+        var self = this;
+        self.ajax("post", "shop/all/delete", data, callback);
+    },
     "ajax": function (type, url, data, callback) {
         var self = this;
         if (self.isParamEmpty(type) || self.isParamEmpty(url) || self.isParamEmpty(data)) {

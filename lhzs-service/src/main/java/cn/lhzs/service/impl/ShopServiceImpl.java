@@ -29,27 +29,77 @@ public class ShopServiceImpl implements ShopService {
         return shopMapper.selectShop(shop);
     }
 
-    public List<Shop> searchShop(String data) {
+    public JSONObject searchShop(String data) {
         if (data != null) {
             JSONObject jsonObject = JSONObject.parseObject(data).getJSONObject("reqData");
+            Integer page = jsonObject.getInteger("page");
+            Integer size = jsonObject.getInteger("size");
             String key = jsonObject.getString("key");
-            key = "%" + key + "%";
 
-            Map keyMap = new HashMap();
-            keyMap.put("key", key);
-            return shopMapper.searchShop(keyMap);
+
+            Map searchKey = new HashMap();
+
+            page = page == null ? 0 : page;
+            size = size == null ? 20 : size;
+
+            if (key != null) {
+                key = "%" + key + "%";
+                searchKey.put("key", key);
+            }else{
+                Integer id = jsonObject.getInteger("id");
+                String webShop = jsonObject.getString("webShop");
+                String site = jsonObject.getString("site");
+                String type = jsonObject.getString("type");
+                String createStart = jsonObject.getString("createTimeStart");
+                String createEnd = jsonObject.getString("createTimeEnd");
+
+                if (id != null && !"".equals(id)) {
+                    searchKey.put("id", id);
+                }
+                if (webShop != null && !"".equals(webShop)) {
+                    searchKey.put("webShop", webShop);
+                }
+                if (site != null && !"".equals(site)) {
+                    searchKey.put("site", site);
+                }
+                if (type != null && !"".equals(type)) {
+                    searchKey.put("type", type);
+                }
+                if (createStart != null && !"".equals(createStart)) {
+                    searchKey.put("createStart", createStart + " 00:00:00");
+                    searchKey.put("createEnd", createEnd + " 00:00:00");
+                }
+
+                searchKey.put("index", page == 0 ? 0 : (page - 1) * size);
+                searchKey.put("size", size);
+            }
+
+            List<Shop> shopList = shopMapper.searchShop(searchKey);
+
+            Long count = shopMapper.selectCount(searchKey);
+            Long totalPage = count / size;
+            if (count % size != 0) {
+                totalPage = totalPage + 1;
+            }
+
+            JSONObject prodJson = new JSONObject();
+            prodJson.put("list", shopList);
+            prodJson.put("totalPage", totalPage);
+            prodJson.put("page", page);
+
+            return prodJson;
         }
         return null;
     }
 
     @Override
-    public Integer selectCountByTypeSite(String type, String site) {
-        Shop shop = new Shop();
-        shop.setType(type);
+    public Long selectCountByTypeSite(String type, String site) {
+        Map shop =new HashMap();
+        shop.put("type",type);
         if (site != null) {
-            shop.setSite(site);
+            shop.put("site",site);
         }
-        return shopMapper.selectCountByType(shop);
+        return shopMapper.selectCount(shop);
     }
 
     @Override
@@ -59,8 +109,8 @@ public class ShopServiceImpl implements ShopService {
 
         Integer size = shop.getSize();
         Integer page = shop.getPage();
-        Integer count = selectCountByTypeSite(shop.getType(), shop.getSite());
-        Integer totalPage = count / size;
+        Long count = selectCountByTypeSite(shop.getType(), shop.getSite());
+        Long totalPage = count / size;
         if (count % size != 0) {
             totalPage += 1;
         }

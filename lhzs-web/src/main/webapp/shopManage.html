@@ -213,7 +213,7 @@
             margin-bottom: 20px;
         }
 
-        .search-btn {
+        .search-btn, .more-delete-btn, .all-delete-btn {
             width: 59px;
             height: 22px;
             border: 1px solid #ccc;
@@ -246,10 +246,10 @@
                 <div class="left-nav-grade1">店铺管理</div>
                 <div class="left-nav-grade2">
                     <div class="left-nav-bg prod-operation">
-                        <a href="/prodEnterManage.html">店铺录入</a>
+                        <a href="/shopEnterManage.html">店铺录入</a>
                     </div>
                     <div class="left-nav-bg prod-list">
-                        <a href="/manageSystem.html">店铺列表</a>
+                        <a href="/shopManage.html">店铺列表</a>
                     </div>
                 </div>
             </div>
@@ -257,47 +257,37 @@
                 <div class="left-nav-grade1">批量管理</div>
                 <div class="left-nav-grade2">
                     <div class="left-nav-bg prod-all">
-                        <a href="/prodBatchManage.html">店铺批量管理</a>
+                        <a href="/shopBatchManage.html">店铺批量管理</a>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!--<div class="prod-btn">
-            <span id="add-prod">添加店铺</span>
-            <span id="add-shops">批量导入</span>
-            <span id="prods-form">
-                <form action="/upload/excel" method="post" enctype="multipart/form-data" target="tmp" id="sendFile">
-                    <input class="type-input" style="display: none" name="type" value="2">
-                    <input type="file" accept="application/vnd.ms-excel,x-excel,.xlsx,.xls" id="innerFile" name="file">
-                </form>
-            </span>
-        </div>-->
         <div class="center-right">
             <div>
                 <div class="search-line">
                         <span class="search">
                             <span class="search-title">网店ID</span>
                             <span>
-                                <input class="search-input" id="prod-id-input" placeholder="请输入网店ID"/>
+                                <input class="search-input" id="shop-id-input" placeholder="请输入网店ID"/>
                             </span>
                         </span>
                     <span class="search">
-                            <span class="search-title">网店名称</span>
-                            <span>
-                                <input class="search-input" id="category-input" placeholder="请输入网店名称"/>
-                            </span>
+                        <span class="search-title">网店名称</span>
+                        <span>
+                            <input class="search-input" id="shop-name-input" placeholder="请输入网店名称"/>
                         </span>
+                    </span>
                     <span class="search">
                         <span class="search-title">商城类型</span>
                         <span>
-                            <input class="search-input" id="platform-input" placeholder="请输入商城类型"/>
+                            <input class="search-input" id="store-type-input" placeholder="请输入商城类型"/>
                         </span>
                     </span>
                     <span class="search">
                         <span class="search-title">网店类型</span>
                         <span>
-                            <input class="search-input" id="platform-input" placeholder="请输入网店类型"/>
+                            <input class="search-input" id="shop-type-input" placeholder="请输入网店类型"/>
                         </span>
                     </span>
                 </div>
@@ -313,6 +303,8 @@
                         </span>
 
                     <span class="search-btn">查询</span>
+                    <span class="more-delete-btn">批量删除</span>
+                    <span class="all-delete-btn">全部删除</span>
                 </div>
             </div>
 
@@ -338,6 +330,11 @@
 
     <!--分页-->
     <div class="page-num"></div>
+</div>
+
+<div class="load hidden">
+    <div class="loading"></div>
+    <img class="loading-img" src="images/loading.gif"/>
 </div>
 </body>
 <script src="js/jquery.min.js"></script>
@@ -373,115 +370,259 @@
                 }
                 for (var i = 0; i < data.length; i++) {
                     var shop = data[i];
-                    html +='<div class="content-item">'+
-                        '<div class="prod-id">'+shop.id+'</div>'+
-                        '<div class="prod-title">'+shop.webShop+'</div>'+
-                        '<div class="cata">'+shop.site+'</div>'+
-                        '<div class="price">'+shop.type+'</div>'+
-                        '<div class="sale-price">'+shop.sellName+'</div>'+
-                        '<div class="save-price">'+shop.brandName+'</div>'+
-                        '<div class="plate">'+shop.sellProd+'</div>'+
-                        '<div class="expire">'+shop.shopAddr+'</div>'+
-                        '<div class="operation">'+
-                        '<span class="prod-edit"> 编辑 </span>'+
-                        '<span class="prod-delete"> 删除 </span>'+
-                        '</div>'+
+                    html += '<div class="content-item">' +
+                        '<div class="prod-id">' + shop.id + '</div>' +
+                        '<div class="prod-title">' + shop.webShop + '</div>' +
+                        '<div class="cata">' + shop.site + '</div>' +
+                        '<div class="price">' + shop.type + '</div>' +
+                        '<div class="sale-price">' + shop.sellName + '</div>' +
+                        '<div class="save-price">' + shop.brandName + '</div>' +
+                        '<div class="plate">' + shop.sellProd + '</div>' +
+                        '<div class="expire">' + shop.shopAddr + '</div>' +
+                        '<div class="operation">' +
+                        '<span class="prod-edit"> 编辑 </span>' +
+                        '<span class="prod-delete"> 删除 </span>' +
+                        '</div>' +
                         '</div>';
                 }
                 $(".content-list").html(html);
 
                 var totalPage = result.data.totalPage;
                 var currPage = result.data.page;
-                var pageNum = "";
-                if (totalPage < 10) {
-                    pageNum += '<span class="pre-page">上一页</span>';
-                    for (var i = 0; i < totalPage; i++) {
-                        if ((i + 1) == currPage) {
-                            pageNum += '<span id="curr-page" index="' + (i + 1) + '">' + (i + 1) + '</span>';
-                        } else {
-                            pageNum += '<span index="' + (i + 1) + '">' + (i + 1) + '</span>';
-                        }
-                    }
-                    pageNum += '<span class="next-page">下一页</span>';
-                } else if (totalPage > 10) {
-                    if (currPage < 5) {
-                        pageNum += '<span class="pre-page">上一页</span>';
-                        for (var i = 0; i < 5; i++) {
-                            if ((i + 1) == currPage) {
-                                pageNum += '<span id="curr-page" index="' + (i + 1) + '">' + (i + 1) + '</span>';
-                            } else {
-                                pageNum += '<span index="' + (i + 1) + '">' + (i + 1) + '</span>';
-                            }
-                        }
-                        pageNum += '<span>...</span>' +
-                            '<span index="' + totalPage + '">' + totalPage + '</span>' +
-                            '<span class="next-page">下一页</span>';
-                    } else if (currPage > totalPage - 5) {
-                        pageNum += '<span class="pre-page">上一页</span><span index="1">1</span><span>...</span>';
-                        for (var i = totalPage - 5; i < totalPage; i++) {
-                            if ((i + 1) == currPage) {
-                                pageNum += '<span id="curr-page" index="' + (i + 1) + '">' + (i + 1) + '</span>';
-                            } else {
-                                pageNum += '<span index="' + (i + 1) + '">' + (i + 1) + '</span>';
-                            }
-                        }
-                        pageNum += '<span class="next-page">下一页</span>';
-                    } else {
-                        pageNum += '<span class="pre-page">上一页</span>' +
-                            '<span index="1">1</span>' +
-                            '<span>...</span>' +
-                            '<span index="' + (currPage - 1) + '">' + (currPage - 1) + '</span>' +
-                            '<span id="curr-page" index="' + currPage + '">' + currPage + '</span>' +
-                            '<span index="' + (currPage + 1) + '">' + (currPage + 1) + '</span>' +
-                            '<span index="' + (currPage + 2) + '">' + (currPage + 2) + '</span>' +
-                            '<span>...</span>' +
-                            '<span index="' + totalPage + '">' + totalPage + '</span>' +
-                            '<span class="next-page">下一页</span>';
-                    }
-                }
-            }
-            $(".page-num").html(pageNum);
-            $(".page-num span").click(function () {
-                var index = $(this).attr("index");
-                getShop(index);
-            });
-            $(".pre-page").click(function () {
-                var currPageIndex = $("#curr-page").attr("index");
-                if (currPageIndex != 1) {
-                    getShop(currPageIndex - 1);
-                }
-            })
-            $(".next-page").click(function () {
-                var currPageIndex = $("#curr-page").attr("index");
-                currPageIndex = parseInt(currPageIndex);
-                if (currPageIndex != totalPage) {
-                    getShop(currPageIndex + 1);
-                }
-            });
 
-            $(".prod-delete").click(function () {
-                var shopId = $(this).parent().parent().find(".prod-id").text();
-                var param = {};
-                param.shopId = shopId;
-                app.deleteShop(param, function (result) {
-                    if (result.code == 200) {
-                        getShop(page);
-                        alert("删除成功");
-                    }
+                splitPage(totalPage, currPage, ".page-num",
+                    function (index) {
+                        if (index != 1) {
+                            getShop(index - 1);
+                        }
+                    }, function (index) {
+                        index = parseInt(index);
+                        if (index != totalPage) {
+                            getShop(index + 1);
+                        }
+                    }, function (index) {
+                        getShop(index);
+                    });
+
+                $(".prod-delete").click(function () {
+                    var shopId = $(this).parent().parent().find(".prod-id").text();
+                    var param = {};
+                    param.shopId = shopId;
+                    app.deleteShop(param, function (result) {
+                        if (result.code == 200) {
+                            getShop(page);
+                            alert("删除成功");
+                        }
+                    });
                 });
-            });
+
+                $(".prod-edit").click(function () {
+                    var shopId = $(this).parent().parent().find(".prod-id").text();
+                    location.href = "/shopEnterManage.html?id=" + shopId;
+                });
+            }
         });
     }
 
     function bindEvent() {
-        $("#add-shops").click(function () {
-            var opt = {
-                success: function (data) {
-                    alert(data.msg);
-                }
-            };
 
-            $("#sendFile").ajaxSubmit(opt);
+        $(".search-btn").click(function () {
+            searchInfo(1);
+        });
+
+        $(".more-delete-btn").click(function () {
+            var shopId = $("#shop-id-input").val();
+            var shopName = $("#shop-name-input").val();
+            var storeType = $("#store-type-input").val();
+            var shopType = $("#shop-type-input").val();
+            var createTimeStart = $("#createtime-start-input").val();
+            var createTimeEnd = $("#createtime-end-input").val();
+
+            if (shopId == "" && shopName == "" && storeType == "" && shopType == "" && createTimeStart == "" && createTimeEnd == "") {
+                alert("请输入删除条件");
+                return;
+            }
+
+            $(".load").removeClass("hidden");
+
+            var reqData = {};
+            var param = {};
+            param.id = shopId;
+            param.webShop = shopName;
+            param.site = storeType;
+            param.type = shopType;
+            param.createTimeStart = createTimeStart;
+            param.createTimeEnd = createTimeEnd;
+            param.page = 1;
+            param.pageSize = 20;
+            reqData.reqData = param;
+
+            app.batchShopDelete(reqData, function (result) {
+                $(".load").addClass("hidden");
+                if (result.code == 200) {
+                    searchInfo(1);
+                    alert("删除成功");
+                }
+            });
+        });
+
+        $(".all-delete-btn").click(function () {
+            $(".load").removeClass("hidden");
+
+            var param = {};
+            app.allShopDelete(param, function (result) {
+                $(".load").addClass("hidden");
+                if (result.code == 200) {
+                    searchInfo(1);
+                    alert("删除成功");
+                }
+            });
+        });
+    }
+
+    function searchInfo(page) {
+        var shopId = $("#shop-id-input").val();
+        var shopName = $("#shop-name-input").val();
+        var storeType = $("#store-type-input").val();
+        var shopType = $("#shop-type-input").val();
+        var createTimeStart = $("#createtime-start-input").val();
+        var createTimeEnd = $("#createtime-end-input").val();
+        var reqData = {};
+        var param = {};
+
+        param.id = shopId;
+        param.webShop = shopName;
+        param.site = storeType;
+        param.type = shopType;
+        param.createTimeStart = createTimeStart;
+        param.createTimeEnd = createTimeEnd;
+        param.page = page;
+        param.pageSize = 20;
+        reqData.reqData = param;
+
+        $.ajax({
+            type: 'post',
+            url: "shop/search",
+            dataType: 'json',
+            contentType: "application/json",
+            data: JSON.stringify(reqData),
+            success: function (result) {
+                if (result.code == 200) {
+                    var html = '';
+                    var data = result.data.list;
+                    for (var i = 0; i < data.length; i++) {
+                        var shop = data[i];
+                        html += '<div class="content-item">' +
+                            '<div class="prod-id">' + shop.id + '</div>' +
+                            '<div class="prod-title">' + shop.webShop + '</div>' +
+                            '<div class="cata">' + shop.site + '</div>' +
+                            '<div class="price">' + shop.type + '</div>' +
+                            '<div class="sale-price">' + shop.sellName + '</div>' +
+                            '<div class="save-price">' + shop.brandName + '</div>' +
+                            '<div class="plate">' + shop.sellProd + '</div>' +
+                            '<div class="expire">' + shop.shopAddr + '</div>' +
+                            '<div class="operation">' +
+                            '<span class="prod-edit"> 编辑 </span>' +
+                            '<span class="prod-delete"> 删除 </span>' +
+                            '</div>' +
+                            '</div>';
+                    }
+                    $(".content-list").html(html);
+
+                    var totalPage = result.data.totalPage;
+                    var currPage = result.data.page;
+                    splitPage(totalPage, currPage, ".page-num",
+                        function (index) {
+                            if (index != 1) {
+                                searchInfo(index - 1);
+                            }
+                        }, function (index) {
+                            index = parseInt(index);
+                            if (index != totalPage) {
+                                searchInfo(index + 1);
+                            }
+                        }, function (index) {
+                            searchInfo(index);
+                        });
+
+                    $(".prod-delete").click(function () {
+                        var prodId = $(this).parent().parent().find(".prod-id").text();
+                        var param = {};
+                        param.prodId = prodId;
+
+                        app.deleteProduct(param, function () {
+                            if (result.code == 200) {
+                                searchInfo(page);
+                                alert("删除成功");
+                            }
+                        });
+                    });
+                    $(".prod-edit").click(function () {
+                        var prodId = $(this).parent().parent().find(".prod-id").text();
+                        location.href = "/prodEnterManage.html?id=" + prodId;
+                    });
+                }
+            }
+        });
+    }
+
+    function splitPage(totalPage, currPage, node, prePage, nextPage, fixPage) {
+        var pageNum = "";
+        if (totalPage < 10) {
+            pageNum += '<span class="pre-page">上一页</span>';
+            for (var i = 0; i < totalPage; i++) {
+                if ((i + 1) == currPage) {
+                    pageNum += '<span id="curr-page" index="' + (i + 1) + '">' + (i + 1) + '</span>';
+                } else {
+                    pageNum += '<span index="' + (i + 1) + '">' + (i + 1) + '</span>';
+                }
+            }
+            pageNum += '<span class="next-page">下一页</span>';
+        } else if (totalPage > 10) {
+            if (currPage < 5) {
+                pageNum += '<span class="pre-page">上一页</span>';
+                for (var i = 0; i < 5; i++) {
+                    if ((i + 1) == currPage) {
+                        pageNum += '<span id="curr-page" index="' + (i + 1) + '">' + (i + 1) + '</span>';
+                    } else {
+                        pageNum += '<span index="' + (i + 1) + '">' + (i + 1) + '</span>';
+                    }
+                }
+                pageNum += '<span>...</span>' +
+                    '<span index="' + totalPage + '">' + totalPage + '</span>' +
+                    '<span class="next-page">下一页</span>';
+            } else if (currPage > totalPage - 5) {
+                pageNum += '<span class="pre-page">上一页</span><span index="1">1</span><span>...</span>';
+                for (var i = totalPage - 5; i < totalPage; i++) {
+                    if ((i + 1) == currPage) {
+                        pageNum += '<span id="curr-page" index="' + (i + 1) + '">' + (i + 1) + '</span>';
+                    } else {
+                        pageNum += '<span index="' + (i + 1) + '">' + (i + 1) + '</span>';
+                    }
+                }
+                pageNum += '<span class="next-page">下一页</span>';
+            } else {
+                pageNum += '<span class="pre-page">上一页</span>' +
+                    '<span index="1">1</span>' +
+                    '<span>...</span>' +
+                    '<span index="' + (currPage - 1) + '">' + (currPage - 1) + '</span>' +
+                    '<span id="curr-page" index="' + currPage + '">' + currPage + '</span>' +
+                    '<span index="' + (currPage + 1) + '">' + (currPage + 1) + '</span>' +
+                    '<span index="' + (currPage + 2) + '">' + (currPage + 2) + '</span>' +
+                    '<span>...</span>' +
+                    '<span index="' + totalPage + '">' + totalPage + '</span>' +
+                    '<span class="next-page">下一页</span>';
+            }
+        }
+        $(node).html(pageNum);
+        $(".page-num span").click(function () {
+            fixPage($(this).attr("index"));
+        });
+        $(".pre-page").click(function () {
+            prePage($("#curr-page").attr("index"));
+        });
+        $(".next-page").click(function () {
+            nextPage($("#curr-page").attr("index"));
         });
     }
 </script>

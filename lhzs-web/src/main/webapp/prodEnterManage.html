@@ -240,6 +240,12 @@
         </div>
     </div>
 </div>
+
+<div id="load">
+    <div class="loading hidden"></div>
+    <img class="loading-img hidden" src="images/loading.gif" />
+</div>
+
 </body>
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery.form.js"></script>
@@ -258,10 +264,10 @@
     }
 
     function getProduct() {
-        if(id){
+        if (id) {
             var param = {};
             param.prodId = id;
-            app.getProductDetail(param,function (result) {
+            app.getProductDetail(param, function (result) {
                 if (result.code == 200) {
                     var data = result.data;
                     $("#prod-name").val(data.name);
@@ -310,12 +316,12 @@
             param.prodGeneralize = generalizeUrl;
             param.expiration = expiration;
 
-            if(id){
-                param.prodId=id;
-                app.updateProduct(param,function () {
-                   alert("更新成功");
+            if (id) {
+                param.prodId = id;
+                app.updateProduct(param, function () {
+                    alert("更新成功");
                 });
-            }else{
+            } else {
                 app.addProd(param, function () {
                     alert("添加成功");
                 });

@@ -8,17 +8,11 @@ import cn.lhzs.data.dao.ShopMapper;
 import cn.lhzs.service.intf.UploadService;
 import cn.lhzs.util.PoiHelper;
 import org.apache.log4j.Logger;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.io.IOException;
 import java.io.InputStream;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
 
 /**
@@ -36,21 +30,12 @@ public class UploadServiceImpl implements UploadService {
 
     @Override
     public String getExcell(String fileName, InputStream inputStream, String type) {
-
-        Workbook workbook = null;
-        String fileType = fileName.substring(fileName.lastIndexOf("."), fileName.length());
         try {
-            if (".xls".equals(fileType.trim().toLowerCase())) {
-                workbook = new HSSFWorkbook(inputStream);// 创建 Excel 2003 工作簿对象
-            } else if (".xlsx".equals(fileType.trim().toLowerCase())) {
-                workbook = new XSSFWorkbook(inputStream);//创建 Excel 2007 工作簿对象
-            }
-
-            Sheet sheet = workbook.getSheetAt(0);
-            int lastRowNum = sheet.getLastRowNum();
+            Sheet sheet = PoiHelper.initSheet(inputStream, fileName);
 
             String headColumn[] = getHeadColumn(type);
             String fieldColumn[] = getFieldColumn(type);
+            String fieldClassColumn[] = getFieldClassColumn(type);
 
             //验证Excel模板
             short columnSize = sheet.getRow(0).getLastCellNum();
@@ -62,63 +47,56 @@ public class UploadServiceImpl implements UploadService {
                 return Upload.EXCEL_TEMPLATE_ERROR;
             }
 
+            //添加数据
+            int lastRowNum = sheet.getLastRowNum();
             if (Upload.PRODUCT_ADD.equals(type)) {
+                Product product = new Product();
                 for (int i = 1; i <= lastRowNum; i++) {
                     Row row = sheet.getRow(i);
-                    Product product = new Product();
-
-                    for (int j = 0; j < fieldColumn.length; j++) {
-                        Cell cell = row.getCell(j);
-                        if (cell.getCellType() == cell.CELL_TYPE_STRING) {
-                            PoiHelper.setFieldMethod(product, fieldColumn[j], String.class, cell == null ? "" : cell.toString());
-                        } else if (cell.getCellType() == cell.CELL_TYPE_NUMERIC) {
-                            if (DateUtil.isCellDateFormatted(cell)) {
-                                Date date = cell.getDateCellValue();
-                                PoiHelper.setFieldMethod(product, fieldColumn[j], Date.class, date);
-                            } else {
-                                PoiHelper.setFieldMethod(product, fieldColumn[j], Double.class, cell == null ? -1.0 : cell.getNumericCellValue());
-                            }
-                        }
-                    }
                     product.setScanNum(0);
                     product.setCreateTime(new Date());
                     product.setUpdateTime(new Date());
+                    setField(row, product, fieldColumn, fieldClassColumn);
 
                     productMapper.insert(product);
                 }
             } else if (Upload.SHOP_ADD.equals(type)) {
+                Shop shop = new Shop();
                 for (int i = 1; i <= lastRowNum; i++) {
                     Row row = sheet.getRow(i);
-                    Shop shop = new Shop();
-
                     for (int j = 0; j < fieldColumn.length; j++) {
-                        Cell cell = row.getCell(j);
-                        if (j == 1) {
-                            int site = (int) Double.parseDouble(cell.toString());
-                            PoiHelper.setFieldMethod(shop, fieldColumn[j], String.class, cell == null ? "" : site+"");
-                        } else if (cell.getCellType() == cell.CELL_TYPE_STRING) {
-                            PoiHelper.setFieldMethod(shop, fieldColumn[j], String.class, cell == null ? "" : cell.toString());
-                        } else if (cell.getCellType() == cell.CELL_TYPE_NUMERIC) {
-                            if (DateUtil.isCellDateFormatted(cell)) {
-                                Date date = cell.getDateCellValue();
-                                PoiHelper.setFieldMethod(shop, fieldColumn[j], Date.class, date);
-                            } else {
-                                PoiHelper.setFieldMethod(shop, fieldColumn[j], Double.class, cell == null ? -1.0 : cell.getNumericCellValue());
-                            }
-                        }
-                    }
-                    shop.setCreatTime(new Date());
-                    shop.setUpdateTime(new Date());
+                        shop.setCreatTime(new Date());
+                        shop.setUpdateTime(new Date());
+                        setField(row, shop, fieldColumn, fieldClassColumn);
 
-                    shopMapper.insert(shop);
+                        shopMapper.insert(shop);
+                    }
                 }
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         return null;
+    }
+
+    private void setField(Row row, Object clazz, String[] fieldColumn, String[] FieldClassType) throws Exception {
+        for (int j = 0; j < fieldColumn.length; j++) {
+            Cell cell = row.getCell(j);
+            if ("String".equals(FieldClassType[j])) {
+                PoiHelper.setFieldMethod(clazz, fieldColumn[j], String.class, cell == null ? "" : cell.toString());
+            } else if ("Double".equals(FieldClassType[j])) {
+                PoiHelper.setFieldMethod(clazz, fieldColumn[j], Double.class, cell == null ? 0.0 : Double.parseDouble(cell.toString()));
+            } else if ("Integer".equals(FieldClassType[j])) {
+                PoiHelper.setFieldMethod(clazz, fieldColumn[j], Integer.class, cell == null ? 0 : Integer.parseInt(cell.toString()));
+            } else if ("Boolean".equals(FieldClassType[j])) {
+                PoiHelper.setFieldMethod(clazz, fieldColumn[j], Boolean.class, cell == null ? false : Boolean.parseBoolean(cell.toString()));
+            } else if ("Float".equals(FieldClassType[j])) {
+                PoiHelper.setFieldMethod(clazz, fieldColumn[j], Float.class, cell == null ? 0f : Float.parseFloat(cell.toString()));
+            } else if ("Date".equals(FieldClassType[j])) {
+                PoiHelper.setFieldMethod(clazz, fieldColumn[j], Date.class, cell == null ? new Date() : cell.getDateCellValue());
+            }
+        }
     }
 
     private String[] getHeadColumn(String type) {
@@ -143,6 +121,19 @@ public class UploadServiceImpl implements UploadService {
         } else if (Upload.SHOP_ADD.equals(type)) {
             fieldColumn = new String[]{"webShop", "site", "type", "sellName", "brandName", "sellProd",
                     "webUrl", "webGeneralize", "mobileGeneralize", "shopAddr"};
+        }
+        return fieldColumn;
+    }
+
+    private String[] getFieldClassColumn(String type) {
+        String[] fieldColumn = null;
+
+        if (Upload.PRODUCT_ADD.equals(type)) {
+            fieldColumn = new String[]{"String", "String", "String", "String", "Double", "Double",
+                    "String", "Double", "String", "String"};
+        } else if (Upload.SHOP_ADD.equals(type)) {
+            fieldColumn = new String[]{"String", "String", "String", "String", "String", "String",
+                    "String", "String", "String", "String"};
         }
         return fieldColumn;
     }

@@ -1,7 +1,12 @@
 package cn.lhzs.util;
 
 import cn.lhzs.data.bean.Product;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.util.List;
@@ -28,5 +33,17 @@ public class PoiHelper {
         builder.append(filed.substring(1));
         Method method = pojo.getClass().getMethod(builder.toString(), valType);
         method.invoke(pojo, val);
+    }
+
+    public static Sheet initSheet(InputStream inputStream, String fileName) throws IOException {
+        Workbook workbook = null;
+        String fileType = fileName.substring(fileName.lastIndexOf("."), fileName.length());
+        if (".xls".equals(fileType.trim().toLowerCase())) {
+            workbook = new HSSFWorkbook(inputStream);// 创建 Excel 2003 工作簿对象
+        } else if (".xlsx".equals(fileType.trim().toLowerCase())) {
+            workbook = new XSSFWorkbook(inputStream);//创建 Excel 2007 工作簿对象
+        }
+
+        return workbook.getSheetAt(0);
     }
 }

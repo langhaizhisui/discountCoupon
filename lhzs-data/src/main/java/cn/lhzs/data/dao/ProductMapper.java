@@ -76,4 +76,9 @@ public interface ProductMapper {
      * @return
      */
     Long selectCount(Map map);
+
+    /**
+     * 删除数据库表所有数据
+     */
+    void deleteTable();
 }

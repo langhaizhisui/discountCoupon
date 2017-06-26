@@ -25,4 +25,6 @@ public interface ProductService {
     Long getCount();
 
     JSONObject getProds(String data);
+
+    void deleteTable();
 }

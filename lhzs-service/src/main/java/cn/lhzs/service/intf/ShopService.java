@@ -16,7 +16,7 @@ public interface ShopService {
 
     void addShop(Shop shop);
 
-    void deleteShopByProdId(Long shopId);
+    void deleteShopByShopId(Long shopId);
 
     void updateShop(Shop shop);
 
@@ -25,4 +25,6 @@ public interface ShopService {
     Integer selectCountByTypeSite(String type, String site);
 
     JSONObject getShops(Shop shop);
+
+    void deleteTable();
 }

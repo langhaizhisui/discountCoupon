@@ -327,4 +327,8 @@
       <![CDATA[ and create_time >= #{createTimeStart,jdbcType=TIMESTAMP} and create_time <= #{createTimeEnd,jdbcType=TIMESTAMP}]]>
     </if>
   </select>
+
+  <delete id="deleteTable">
+    truncate table product
+  </delete>
 </mapper>

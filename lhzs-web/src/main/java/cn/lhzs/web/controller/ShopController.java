@@ -3,6 +3,7 @@ package cn.lhzs.web.controller;
 import cn.lhzs.data.bean.Shop;
 import cn.lhzs.service.intf.ShopService;
 import cn.lhzs.web.result.RequestResult;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,7 +82,7 @@ public class ShopController {
     @ResponseBody
     public RequestResult deleteShop(Long shopId) {
         try {
-            shopService.deleteShopByProdId(shopId);
+            shopService.deleteShopByShopId(shopId);
 
             RequestResult result = new RequestResult();
             result.setCode(200);
@@ -136,4 +137,38 @@ public class ShopController {
         return result;
     }
 
+    @RequestMapping("/all/delete")
+    @ResponseBody
+    public RequestResult deleteTable(@RequestBody Shop shop) {
+        shopService.deleteTable();
+
+        RequestResult result = new RequestResult();
+        result.setCode(200);
+        result.setMsg("删除所有店铺成功");
+        return result;
+    }
+
+    @RequestMapping("/batch/delete")
+    @ResponseBody
+    public RequestResult batchDelete(@RequestBody String reqData) {
+
+        JSONObject jsonObject = JSONObject.parseObject(reqData).getJSONObject("reqData");
+        jsonObject.put("page", 1);
+
+//        JSONObject productJson = shopService.searchShop(reqData);
+//        JSONArray productArray = productJson.getJSONArray("list");
+//        while (productArray.size() != 0) {
+//            for (int i = 0; i < productArray.size(); i++) {
+//                JSONObject shop = productArray.getJSONObject(i);
+//                shopService.deleteShopByShopId(Long.parseLong(shop.getString("prodId")));
+//            }
+//            productJson = shopService.searchProduct(reqData);
+//            productArray = productJson.getJSONArray("list");
+//        }
+
+        RequestResult result = new RequestResult();
+        result.setCode(200);
+        result.setMsg("批量删除成功");
+        return result;
+    }
 }

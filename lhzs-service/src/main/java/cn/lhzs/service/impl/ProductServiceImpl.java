@@ -163,4 +163,9 @@ public class ProductServiceImpl implements ProductService {
 
         return prodJson;
     }
+
+    @Override
+    public void deleteTable() {
+        productMapper.deleteTable();
+    }
 }

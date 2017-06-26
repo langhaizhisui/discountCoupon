@@ -5,6 +5,7 @@ import cn.lhzs.data.bean.Shop;
 import cn.lhzs.service.intf.ProductService;
 import cn.lhzs.service.intf.ShopService;
 import cn.lhzs.web.result.RequestResult;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.ibatis.annotations.Param;
 import org.apache.log4j.Logger;
@@ -89,10 +90,10 @@ public class ProductController {
     @ResponseBody
     public RequestResult search(@RequestBody String reqData) {
         JSONObject searchJson = new JSONObject();
-        if (reqData.indexOf("旗舰店")!=-1 || reqData.indexOf("专卖店")!=-1 || reqData.indexOf("自营店")!=-1) {
+        if (reqData.indexOf("旗舰店") != -1 || reqData.indexOf("专卖店") != -1 || reqData.indexOf("自营店") != -1) {
             List<Shop> shopList = shopService.searchShop(reqData);
             searchJson.put("type", "1");
-            searchJson.put("list",shopList);
+            searchJson.put("list", shopList);
         } else {
             JSONObject productList = productService.searchProduct(reqData);
             productList.put("type", "2");
@@ -102,6 +103,41 @@ public class ProductController {
         result.setCode(200);
         result.setMsg("搜索成功");
         result.setData(searchJson);
+        return result;
+    }
+
+    @RequestMapping("/all/delete")
+    @ResponseBody
+    public RequestResult deleteTable(String prodId) {
+        productService.deleteTable();
+
+        RequestResult result = new RequestResult();
+        result.setCode(200);
+        result.setMsg("删除所有商品成功");
+        return result;
+    }
+
+    @RequestMapping("/batch/delete")
+    @ResponseBody
+    public RequestResult batchDelete(@RequestBody String reqData) {
+
+        JSONObject jsonObject = JSONObject.parseObject(reqData).getJSONObject("reqData");
+        jsonObject.put("page", 1);
+
+        JSONObject productJson = productService.searchProduct(reqData);
+        JSONArray productArray = productJson.getJSONArray("list");
+        while (productArray.size() != 0) {
+            for (int i = 0; i < productArray.size(); i++) {
+                JSONObject product = productArray.getJSONObject(i);
+                productService.deleteProdByProdId(product.getString("prodId"));
+            }
+            productJson = productService.searchProduct(reqData);
+            productArray = productJson.getJSONArray("list");
+        }
+
+        RequestResult result = new RequestResult();
+        result.setCode(200);
+        result.setMsg("批量删除成功");
         return result;
     }
 }

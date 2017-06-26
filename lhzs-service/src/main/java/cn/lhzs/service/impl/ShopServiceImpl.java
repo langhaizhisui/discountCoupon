@@ -74,6 +74,11 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
+    public void deleteTable() {
+        shopMapper.deleteTable();
+    }
+
+    @Override
     public Shop getShopByShopId(Long shopId) {
         return shopMapper.selectByPrimaryKey(shopId);
     }
@@ -84,7 +89,7 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
-    public void deleteShopByProdId(Long shopId) {
+    public void deleteShopByShopId(Long shopId) {
         shopMapper.deleteByPrimaryKey(shopId);
     }
 
@@ -92,6 +97,5 @@ public class ShopServiceImpl implements ShopService {
     public void updateShop(Shop shop) {
         shopMapper.updateByPrimaryKey(shop);
     }
-
 
 }

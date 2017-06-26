@@ -76,4 +76,9 @@ public interface ShopMapper {
      * @return 总个数
      */
     Integer selectCountByType(Shop shop);
+
+    /**
+     * 删除数据库表所有数据
+     */
+    void deleteTable();
 }

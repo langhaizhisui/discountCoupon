@@ -7,6 +7,7 @@ import cn.lhzs.service.intf.ShopService;
 import cn.lhzs.web.result.RequestResult;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.ibatis.annotations.Param;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,8 @@ import java.util.List;
 @Controller
 @RequestMapping("/prod")
 public class ProductController {
+
+    Logger logger = Logger.getLogger(ProductController.class);
 
     @Autowired
     public ProductService productService;

@@ -3,6 +3,7 @@ package cn.lhzs.service.impl;
 import cn.lhzs.data.bean.Catalog;
 import cn.lhzs.data.dao.CatalogMapper;
 import cn.lhzs.service.intf.CatalogService;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +16,8 @@ import java.util.List;
 @Service
 @Transactional(readOnly = true)
 public class CatalogServiceImpl implements CatalogService{
+
+    Logger logger = Logger.getLogger(CatalogServiceImpl.class);
 
     @Resource
     public CatalogMapper catalogMapper;

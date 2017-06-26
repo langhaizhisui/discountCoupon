@@ -4,6 +4,7 @@ import cn.lhzs.data.bean.Shop;
 import cn.lhzs.data.dao.ShopMapper;
 import cn.lhzs.service.intf.ShopService;
 import com.alibaba.fastjson.JSONObject;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +18,8 @@ import java.util.Map;
  */
 @Service
 public class ShopServiceImpl implements ShopService {
+
+    Logger logger = Logger.getLogger(ShopServiceImpl.class);
 
     @Resource
     public ShopMapper shopMapper;

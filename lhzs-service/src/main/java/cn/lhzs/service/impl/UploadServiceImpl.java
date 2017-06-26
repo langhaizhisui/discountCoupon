@@ -7,6 +7,7 @@ import cn.lhzs.data.dao.ProductMapper;
 import cn.lhzs.data.dao.ShopMapper;
 import cn.lhzs.service.intf.UploadService;
 import cn.lhzs.util.PoiHelper;
+import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -25,6 +26,8 @@ import java.util.Date;
  */
 @Service
 public class UploadServiceImpl implements UploadService {
+
+    Logger logger = Logger.getLogger(UploadServiceImpl.class);
 
     @Resource
     public ProductMapper productMapper;

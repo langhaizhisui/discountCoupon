@@ -3,6 +3,7 @@ package cn.lhzs.web.controller;
 import cn.lhzs.data.bean.Catalog;
 import cn.lhzs.service.intf.CatalogService;
 import cn.lhzs.web.result.RequestResult;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,8 @@ import java.util.List;
 @Controller
 @RequestMapping("/catalog")
 public class CatalogController {
+
+    Logger logger = Logger.getLogger(CatalogController.class);
 
     @Autowired
     public CatalogService catalogService;

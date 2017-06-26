@@ -3,6 +3,7 @@ package cn.lhzs.web.controller;
 import cn.lhzs.data.bean.Upload;
 import cn.lhzs.service.impl.UploadServiceImpl;
 import cn.lhzs.web.result.RequestResult;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,8 @@ import java.io.InputStream;
 @Controller
 @RequestMapping("/upload")
 public class UploadController {
+
+    Logger logger = Logger.getLogger(UploadController.class);
 
     @Autowired
     public UploadServiceImpl uploadService;

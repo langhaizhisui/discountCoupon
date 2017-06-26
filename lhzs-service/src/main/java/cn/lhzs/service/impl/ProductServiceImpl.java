@@ -4,6 +4,7 @@ import cn.lhzs.data.bean.Product;
 import cn.lhzs.data.dao.ProductMapper;
 import cn.lhzs.service.intf.ProductService;
 import com.alibaba.fastjson.JSONObject;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +19,8 @@ import java.util.Map;
  */
 @Service
 public class ProductServiceImpl implements ProductService {
+
+    Logger logger = Logger.getLogger(ProductServiceImpl.class);
 
     @Resource
     public ProductMapper productMapper;

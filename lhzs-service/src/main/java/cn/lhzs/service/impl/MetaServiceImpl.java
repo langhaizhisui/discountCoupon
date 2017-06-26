@@ -3,6 +3,7 @@ package cn.lhzs.service.impl;
 import cn.lhzs.data.bean.Meta;
 import cn.lhzs.data.dao.MetaMapper;
 import cn.lhzs.service.intf.MetaService;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +15,8 @@ import javax.annotation.Resource;
 @Service
 @Transactional(readOnly = true)
 public class MetaServiceImpl implements MetaService{
+
+    Logger logger = Logger.getLogger(MetaServiceImpl.class);
 
     @Resource
     public MetaMapper metaMapper;

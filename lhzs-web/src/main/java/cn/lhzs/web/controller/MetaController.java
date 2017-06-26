@@ -5,6 +5,7 @@ import cn.lhzs.data.bean.Meta;
 import cn.lhzs.service.intf.CatalogService;
 import cn.lhzs.service.intf.MetaService;
 import cn.lhzs.web.result.RequestResult;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,8 @@ import java.util.List;
 @Controller
 @RequestMapping("/meta")
 public class MetaController {
+
+    Logger logger = Logger.getLogger(MetaController.class);
 
     @Autowired
     public MetaService metaService;

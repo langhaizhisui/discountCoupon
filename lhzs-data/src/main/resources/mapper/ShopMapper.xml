@@ -295,6 +295,7 @@
         <include refid="Base_Column_List"/>
         from shop where 1=1
         <include refid="Select_Where_Sql"/>
+        ORDER BY site
         <if test="index != null and size !=null">
             limit #{index,jdbcType=INTEGER}, #{size,jdbcType=INTEGER}
         </if>

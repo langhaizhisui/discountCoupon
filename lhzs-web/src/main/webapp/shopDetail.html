@@ -4,7 +4,8 @@
     <meta charset="utf-8">
     <title>店铺详情</title>
     <meta name="Keywords" content="领券购物,领券网,领券网">
-    <meta name="Description" content="领券购物专注全网商家内部优惠券活动,每日送出大量商家内部优惠券，特价团购福利，提供当季全网最具性价比的包邮产品,精选万人团商品超值好货,超低价好货享疯狂特价促销,让你全面安心享受网上购物乐趣!">
+    <meta name="Description"
+          content="领券购物专注全网商家内部优惠券活动,每日送出大量商家内部优惠券，特价团购福利，提供当季全网最具性价比的包邮产品,精选万人团商品超值好货,超低价好货享疯狂特价促销,让你全面安心享受网上购物乐趣!">
 
     <script type="text/javascript">
         (function (win, doc) {
@@ -238,6 +239,9 @@
 
         .shop-detail-content-name {
             padding-top: 50px;
+            padding-top: 50px;
+            text-decoration: underline;
+            font-weight: 600;
         }
 
         .shop-detail-content-type {
@@ -258,9 +262,7 @@
 <div class="header"></div>
 <section>
     <div class="shop-detail clearfix">
-        <!--<a class="shop-detail-a" biz-sellerid="363607599" isconvert=1 href="">
 
-        </a>-->
     </div>
 
     <div class="hot-brand clearfix" style="display: none">
@@ -296,28 +298,60 @@
             if (result.code == 200) {
                 var data = result.data;
 
-                html = '<div class="shop-detail-img">' +
-                    '<img src="' + getShopImage(data.site) + '"/>' +
-                    '</div>' +
-                    '<div class="shop-detail-content">' +
-                    '<div class="shop-detail-content-name">' + data.webShop + '</div>' +
-                    '<div class="shop-detail-content-type">店铺类型：' + getShopType(data.site) + '</div>' +
-                    '<div class="shop-detail-content-addr">地址：' + data.shopAddr + '</div>' +
-                    '</div>' +
-                    '<div class="shop-detail-desc">' +
-                    '<div style="line-height: 22px;">' + getDescription(data.site, data.type, data.webShop, data.sellName, data.sellProd) + '</div>' +
-                    '<div class="shop-detail-desc-img">' +
-                    '<img src="images/gotoshop.png">' +
-                    '</div>' +
-                    '</div>';
+                var webGeneralize = data.webGeneralize;
+                if (webGeneralize) {
+                    html = '<div class="shop-detail-img">' +
+                        '<img src="' + getShopImage(data.site) + '"/>' +
+                        '</div>' +
+                        '<div class="shop-detail-content">' +
+                        '<div class="shop-detail-content-name">' + data.webShop + '</div>' +
+                        '<div class="shop-detail-content-type">店铺类型：' + getShopType(data.site) + '</div>' +
+                        '<div class="shop-detail-content-addr">地址：' + data.shopAddr + '</div>' +
+                        '</div>' +
+                        '<div class="shop-detail-desc">' +
+                        '<div style="line-height: 22px;">' + getDescription(data.site, data.type, data.webShop, data.sellName, data.sellProd) + '</div>' +
+                        '<div class="shop-detail-desc-img">' +
+                        '<img src="images/gotoshop.png">' +
+                        '</div>' +
+                        '</div>';
+                    $(".shop-detail").html(html);
+
+                    $(".shop-detail-img").click(function () {
+                        location.href = data.webGeneralize;
+                    });
+                    $(".shop-detail-content-name").click(function () {
+                        location.href = data.webGeneralize;
+                    });
+                    $(".shop-detail-desc-img").click(function () {
+                        location.href = data.webGeneralize;
+                    });
+                } else {
+                    html = '<a isconvert="1" rel="nofollow" target="_blank" href="' + data.webUrl + '">' +
+                        '<div class="shop-detail-img">' +
+                        '<img src="' + getShopImage(data.site) + '"/>' +
+                        '</div>' +
+                        '</a>' +
+                        '<div class="shop-detail-content">' +
+                        '<div class="shop-detail-content-name">' +
+                        '<a isconvert="1" rel="nofollow" target="_blank" href="' + data.webUrl + '">' + data.webShop + '</a></div>' +
+                        '<div class="shop-detail-content-type">店铺类型：' + getShopType(data.site) + '</div>' +
+                        '<div class="shop-detail-content-addr">地址：' + data.shopAddr + '</div>' +
+                        '</div>' +
+                        '<div class="shop-detail-desc">' +
+                        '<div style="line-height: 22px;">' + getDescription(data.site, data.type, data.webShop, data.sellName, data.sellProd) + '</div>' +
+                        '<a isconvert="1" rel="nofollow" target="_blank" href="' + data.webUrl + '">' +
+                        '<div class="shop-detail-desc-img">' +
+                        '<img src="images/gotoshop.png">' +
+                        '</div>' +
+                        '</a>' +
+                        '</div>' +
+                        '</a>';
+                    $(".shop-detail").html(html);
+                }
+
             }
-            $(".shop-detail").html(html);
 
-            $(".shop-detail").click(function () {
-                location.href = data.webUrl;
-            });
-
-            $("head > title").text(data.brandName);
+            $("head > title").text(data.webShop + "→【" + data.brandName + "网店】");
             $('head > meta[name="Keywords"]').attr("content", data.brandName + "网店，" + data.brandName + "网购，" + data.brandName + "店铺，" + data.brandName + "品牌店，" + data.brandName + "官方店");
             $('head > meta[name="Description"]').attr("content", getDescription(data.site, data.type, data.webShop, data.sellName, data.sellProd));
         });

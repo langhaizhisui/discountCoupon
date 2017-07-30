@@ -13,7 +13,9 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by ZHX on 2017/4/26.
@@ -50,25 +52,38 @@ public class UploadServiceImpl implements UploadService {
             //添加数据
             int lastRowNum = sheet.getLastRowNum();
             if (Upload.PRODUCT_ADD.equals(type)) {
-                Product product = new Product();
+                List<Product> productList = new ArrayList<Product>();
+                Product product;
                 for (int i = 1; i <= lastRowNum; i++) {
+                    product = new Product();
                     Row row = sheet.getRow(i);
                     product.setScanNum(0);
                     product.setCreateTime(new Date());
                     product.setUpdateTime(new Date());
                     setField(row, product, fieldColumn, fieldClassColumn);
 
-                    productMapper.insert(product);
+                    productList.add(product);
+                    if (productList.size() >= 500 || i == lastRowNum) {
+                        productMapper.batchInsert(productList);
+                        productList.clear();
+                    }
+
                 }
             } else if (Upload.SHOP_ADD.equals(type)) {
-                Shop shop = new Shop();
+                List<Shop> shopList = new ArrayList<Shop>();
+                Shop shop;
                 for (int i = 1; i <= lastRowNum; i++) {
+                    shop = new Shop();
                     Row row = sheet.getRow(i);
                     shop.setCreatTime(new Date());
                     shop.setUpdateTime(new Date());
                     setField(row, shop, fieldColumn, fieldClassColumn);
 
-                    shopMapper.insert(shop);
+                    shopList.add(shop);
+                    if (shopList.size() >= 500 || i == lastRowNum) {
+                        shopMapper.batchInsert(shopList);
+                        shopList.clear();
+                    }
                 }
             }
         } catch (Exception e) {
@@ -83,9 +98,9 @@ public class UploadServiceImpl implements UploadService {
             Cell cell = row.getCell(j);
             if ("String".equals(FieldClassType[j])) {
                 if (cell != null && Cell.CELL_TYPE_NUMERIC == cell.getCellType()) {
-                    try{
+                    try {
                         PoiHelper.setFieldMethod(clazz, fieldColumn[j], String.class, cell == null ? "" : ((int) Double.parseDouble(cell.toString())) + "");
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         PoiHelper.setFieldMethod(clazz, fieldColumn[j], String.class, cell == null ? "" : cell.toString());
                     }
                 } else {

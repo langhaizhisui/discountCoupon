@@ -107,6 +107,23 @@
       #{scanNum,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
+  <insert id="batchInsert" parameterType="java.util.List" >
+    insert into product (name, banner,
+    detail, category, price,
+    discount_price, discount_desc, platform,
+    save_price, prod_generalize, expiration,
+    scan_num, create_time, update_time
+    )
+    values
+    <foreach collection="list" item="data" separator="," index="index">
+      (#{data.name}, #{data.banner},
+      #{data.detail}, #{data.category}, #{data.price},
+      #{data.discountPrice}, #{data.discountDesc}, #{data.platform},
+      #{data.savePrice}, #{data.prodGeneralize}, #{data.expiration},
+      #{data.scanNum}, #{data.createTime}, #{data.updateTime}
+      )
+    </foreach>
+  </insert>
   <insert id="insertSelective" parameterType="cn.lhzs.data.bean.Product" >
     <!--
       WARNING - @mbggenerated

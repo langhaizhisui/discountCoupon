@@ -114,6 +114,23 @@
         #{banner,jdbcType=VARCHAR}, #{creatTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
         )
     </insert>
+    <insert id="batchInsert" parameterType="java.util.List">
+        insert into shop (web_shop, site,
+        type, sell_name, brand_name,
+        sell_prod, web_url, web_generalize,
+        mobile_url, mobile_generalize, shop_addr,
+        banner, creat_time, update_time
+        )
+        values
+        <foreach collection="list" item="data" index="index" separator=",">
+            (#{data.webShop,jdbcType=VARCHAR}, #{data.site,jdbcType=VARCHAR},
+            #{data.type,jdbcType=VARCHAR}, #{data.sellName,jdbcType=VARCHAR}, #{data.brandName,jdbcType=VARCHAR},
+            #{data.sellProd,jdbcType=VARCHAR}, #{data.webUrl,jdbcType=VARCHAR}, #{data.webGeneralize,jdbcType=VARCHAR},
+            #{data.mobileUrl,jdbcType=VARCHAR}, #{data.mobileGeneralize,jdbcType=VARCHAR}, #{data.shopAddr,jdbcType=VARCHAR},
+            #{data.banner,jdbcType=VARCHAR}, #{data.creatTime,jdbcType=TIMESTAMP}, #{data.updateTime,jdbcType=TIMESTAMP}
+            )
+        </foreach>
+    </insert>
     <insert id="insertSelective" parameterType="cn.lhzs.data.bean.Shop">
         <!--
           WARNING - @mbggenerated

@@ -16,6 +16,8 @@ public interface ShopService {
 
     void addShop(Shop shop);
 
+    void addBatchShop(List<Shop> shops);
+
     void deleteShopByShopId(Long shopId);
 
     void updateShop(Shop shop);

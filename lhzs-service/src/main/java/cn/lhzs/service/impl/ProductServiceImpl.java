@@ -57,6 +57,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public void addBatchProd(List<Product> products) {
+        productMapper.batchInsert(products);
+    }
+
+
+    @Override
     public void deleteProdByProdId(String prodId) {
         productMapper.deleteByPrimaryKey(Long.parseLong(prodId));
     }
@@ -149,7 +155,7 @@ public class ProductServiceImpl implements ProductService {
         product.setCategory(category);
         List<Product> productList = getProdList(product);
 
-        Map countMap=new HashMap();
+        Map countMap = new HashMap();
         Long count = productMapper.selectCount(countMap);
         Long totalPage = count / size;
         if (count % size != 0) {

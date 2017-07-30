@@ -16,6 +16,8 @@ public interface ProductService {
 
     void addProd(Product product);
 
+    void addBatchProd(List<Product> product);
+
     void deleteProdByProdId(String prodId);
 
     void updateProd(Product product);

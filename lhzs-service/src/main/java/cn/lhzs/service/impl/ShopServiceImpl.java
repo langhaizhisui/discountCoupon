@@ -134,6 +134,11 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
+    public void addBatchShop(List<Shop> shops) {
+        shopMapper.batchInsert(shops);
+    }
+
+    @Override
     public void addShop(Shop shop) {
         shopMapper.insert(shop);
     }

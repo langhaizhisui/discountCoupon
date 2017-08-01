@@ -39,14 +39,15 @@
             success: function (result) {
                 if (result.code == 200) {
                     var html = '';
-                    var type = result.data.type;
-                    var list = result.data.list;
-                    if (type == "1") {
-                        $(".ad").css("display", "none");
+                    var shopList = result.data.shopList.list;
+                    var prodList = result.data.prodList.list;
+                    $(".ad").css("display", "none");
+                    if(shopList.length == 0){
                         $(".hot-brand").css("display", "none");
-                        $(".moldbaby-more").css("display", "none");
-                        for (var i = 0; i < list.length; i++) {
-                            var shop = list[i];
+                    }else {
+                        $(".hot-brand").css("display", "block");
+                        for (var i = 0; i < shopList.length; i++) {
+                            var shop = shopList[i];
                             html += '<div class="shop clearfix" index="' + i + '">' +
                                 '<div class="shop-logo ">' +
                                 '<img src="' + getShopImage(shop.site) + '">' +
@@ -64,41 +65,38 @@
                                 '</div>' +
                                 '</div>'
                         }
-                        $(".moldbaby").html(html);
+                        $(".shop-list").html(html);
 
                         $(".shop").click(function () {
                             var index = $(this).attr("index");
                             location.href = "shopDetail.html?shopId=" + list[index].id + "&shopImg=" + getShopId(list[index].type);
                         });
-                    } else if (type == "2") {
-                        $(".ad").css("display", "none");
-                        $(".hot-brand").css("display", "none");
-                        $(".moldbaby-more").css("display", "none");
-                        for (var i = 0; i < list.length; i++) {
-                            var product = list[i];
-                            html += '<div class="moldbaby-subject" index="' + i + '">' +
-                                '<div class="moldbaby-subject-img">' +
-                                '<img src="' + product.banner + '">' +
-                                '</div>' +
-                                '<div class="moldbaby-subject-title">' + product.name + '</div>' +
-                                '<div class="clearfix">' +
-                                '<div class="curr-price">现价:¥' + product.price + '</div>' +
-                                '<div class="other-price">' +
-                                '<div>原价:¥' + product.discountPrice + '</div>' +
-                                '<div>立省:¥' + (product.price - product.discountPrice).toFixed(2) + '</div>' +
-                                '</div>' +
-                                '</div>' +
-                                '<div class="go-shop">去购物</div>' +
-                                '</div>';
-                        }
-                        $(".moldbaby").html(html);
-
-                        $(".moldbaby-subject").click(function () {
-                            var index = $(this).attr("index");
-                            location.href = "productDetail.html?prodId=" + list[index].prodId;
-                            ;
-                        });
                     }
+
+                    html = "";
+                    for (var i = 0; i < prodList.length; i++) {
+                        var product = prodList[i];
+                        html += '<div class="moldbaby-subject" index="' + i + '">' +
+                            '<div class="moldbaby-subject-img">' +
+                            '<img src="' + product.banner + '">' +
+                            '</div>' +
+                            '<div class="moldbaby-subject-title">' + product.name + '</div>' +
+                            '<div class="clearfix">' +
+                            '<div class="curr-price">现价:¥' + product.price + '</div>' +
+                            '<div class="other-price">' +
+                            '<div>原价:¥' + product.discountPrice + '</div>' +
+                            '<div>立省:¥' + (product.price - product.discountPrice).toFixed(2) + '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '<div class="go-shop">去购物</div>' +
+                            '</div>';
+                    }
+                    $(".moldbaby").html(html);
+
+                    $(".moldbaby-subject").click(function () {
+                        var index = $(this).attr("index");
+                        location.href = "productDetail.html?prodId=" + list[index].prodId;
+                    });
                 }
             }
         });

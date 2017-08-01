@@ -4,7 +4,8 @@
     <meta charset="utf-8">
     <title>哔唛网-汇聚全网品牌网店，海量优惠券，下单更优惠！-必买网</title>
     <meta name="Keywords" content="网购，网店，九块九，购物商城，网购省钱，淘宝优惠券，天猫优惠券，内部优惠券，9块9包邮，天天特价，旗舰店，专卖店，京东自营，必买网">
-    <meta name="Description" content="哔唛网是一家专注收录知名品牌网店的网站，涵盖行业各大购物网站品牌旗舰店，专卖店等，每日汇聚大量商家内部优惠券，特价团购福利，提供当季全网最具性价比的包邮产品,提供最全的超低好货，让您随时体验便捷实惠的网上购物乐趣！">
+    <meta name="Description"
+          content="哔唛网是一家专注收录知名品牌网店的网站，涵盖行业各大购物网站品牌旗舰店，专卖店等，每日汇聚大量商家内部优惠券，特价团购福利，提供当季全网最具性价比的包邮产品,提供最全的超低好货，让您随时体验便捷实惠的网上购物乐趣！">
     <meta name="baidu_union_verify" content="43d0b442ebf595bc4d3a2cc15ba81d64">
     <link rel="stylesheet" href="/css/base.css">
     <link rel="stylesheet" href="/css/swiper.min.css">
@@ -268,6 +269,14 @@
     $(function () {
         init();
         bindEvent();
+
+        setTimeout(function () {
+            $(".search-input").bind("keyup", function (even) {
+                if (even.keyCode == "13") {
+                    searchProduct();
+                }
+            });
+        }, 2000)
     });
     function init() {
         $(".header").load("header.html");
@@ -369,12 +378,6 @@
             }
         });
     }
-
-    //    $('#search-btn').keydown(function (e) {
-    //        if (e.keyCode == 13) {
-    //            searchProduct();
-    //        }
-    //    });
 
     var shopPage = 1;
     function getHotShop() {

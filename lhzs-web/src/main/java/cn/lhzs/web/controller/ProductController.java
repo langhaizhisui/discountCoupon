@@ -89,19 +89,15 @@ public class ProductController {
     @RequestMapping("/search")
     @ResponseBody
     public RequestResult search(@RequestBody String reqData) {
-        JSONObject searchJson = new JSONObject();
-        if (reqData.indexOf("旗舰店") != -1 || reqData.indexOf("专卖店") != -1 || reqData.indexOf("自营店") != -1) {
-            JSONObject shopList = shopService.searchShop(reqData);
-            searchJson.put("type", "1");
-            searchJson.put("list", shopList);
-        } else {
-            searchJson = productService.searchProduct(reqData);
-            searchJson.put("type", "2");
-        }
+        JSONObject searchResult = new JSONObject();
+        JSONObject shopList = shopService.searchShop(reqData);
+        searchResult.put("shopList", shopList);
+        JSONObject prodList = productService.searchProduct(reqData);
+        searchResult.put("prodList", prodList);
         RequestResult result = new RequestResult();
         result.setCode(200);
         result.setMsg("搜索成功");
-        result.setData(searchJson);
+        result.setData(searchResult);
         return result;
     }
 

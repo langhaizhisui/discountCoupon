@@ -42,10 +42,13 @@
                     var shopList = result.data.shopList.list;
                     var prodList = result.data.prodList.list;
                     $(".ad").css("display", "none");
+                    $("#dataArea").css("display", "none")
                     if(shopList.length == 0){
                         $(".hot-brand").css("display", "none");
                     }else {
                         $(".hot-brand").css("display", "block");
+                        $(".hot-brand-text").text("店铺");
+                        $(".hot-shop-next").css("display", "none");
                         for (var i = 0; i < shopList.length; i++) {
                             var shop = shopList[i];
                             html += '<div class="shop clearfix" index="' + i + '">' +
@@ -65,15 +68,18 @@
                                 '</div>' +
                                 '</div>'
                         }
-                        $(".shop-list").html(html);
+                        $("#shop-list").html(html);
 
                         $(".shop").click(function () {
                             var index = $(this).attr("index");
-                            location.href = "shopDetail.html?shopId=" + list[index].id + "&shopImg=" + getShopId(list[index].type);
+                            location.href = "shopDetail.html?shopId=" + shopList[index].id + "&shopImg=" + getShopId(shopList[index].type);
                         });
                     }
 
                     html = "";
+                    $(".hot-prod-text").text("商品");
+                    $(".hot-prod-next").css("display", "none");
+                    $(".hot-prod").css("display","block");
                     for (var i = 0; i < prodList.length; i++) {
                         var product = prodList[i];
                         html += '<div class="moldbaby-subject" index="' + i + '">' +
@@ -91,11 +97,11 @@
                             '<div class="go-shop">去购物</div>' +
                             '</div>';
                     }
-                    $(".moldbaby").html(html);
+                    $("#moldbaby").html(html);
 
                     $(".moldbaby-subject").click(function () {
                         var index = $(this).attr("index");
-                        location.href = "productDetail.html?prodId=" + list[index].prodId;
+                        location.href = "productDetail.html?prodId=" + prodList[index].prodId;
                     });
                 }
             }

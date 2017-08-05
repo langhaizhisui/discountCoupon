@@ -156,6 +156,9 @@ public class ProductServiceImpl implements ProductService {
         List<Product> productList = getProdList(product);
 
         Map countMap = new HashMap();
+        if(category!=null && !"".equals(category)){
+            countMap.put("category",category);
+        }
         Long count = productMapper.selectCount(countMap);
         Long totalPage = count / size;
         if (count % size != 0) {

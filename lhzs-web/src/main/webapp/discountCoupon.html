@@ -10,6 +10,12 @@
     <link rel="stylesheet" href="/css/discountCoupon.css">
     <link rel="stylesheet" href="/css/base.css">
     <link rel="stylesheet" href="/css/index2.css">
+    <style>
+        .moldbaby-subject-img {
+            text-align: center;
+            height: 250px;
+        }
+    </style>
 </head>
 <body>
 <div class="header"></div>
@@ -82,12 +88,14 @@
         getCatalog();
 
         categoryId = cataId;
-        $(".prod-catalog ul li").removeClass("prod-nav-selected");
-        var liArr = $(".prod-catalog ul li");
-        for(var i= 0;i<liArr.length;i++){
-            var index = $(liArr[i]).attr("index");
-            if(index==categoryId){
-                $(liArr[i]).addClass("prod-nav-selected");
+        if(categoryId!=4){
+            $(".prod-catalog ul li").removeClass("prod-nav-selected");
+            var liArr = $(".prod-catalog ul li");
+            for(var i= 0;i<liArr.length;i++){
+                var index = $(liArr[i]).attr("index");
+                if(index==categoryId){
+                    $(liArr[i]).addClass("prod-nav-selected");
+                }
             }
         }
         getProduct(1);
@@ -235,14 +243,15 @@
     }
     $(".prod-catalog ul li").click(function () {
         var index = $(this).attr("index");
-        $(".prod-catalog ul li").removeClass("prod-nav-selected");
-        $(this).addClass("prod-nav-selected");
-        if (index == "" || index == "0") {
-            categoryId = "0";
-        } else {
-            categoryId = index;
-        }
-        getProduct(1);
+        location.href="discountCoupon.html?id="+index;
+//        $(".prod-catalog ul li").removeClass("prod-nav-selected");
+//        $(this).addClass("prod-nav-selected");
+//        if (index == "" || index == "0") {
+//            categoryId = "0";
+//        } else {
+//            categoryId = index;
+//        }
+//        getProduct(1);
     });
 
     function getProduct(page) {

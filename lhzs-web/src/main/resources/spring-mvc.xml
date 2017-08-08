@@ -5,15 +5,25 @@
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:task="http://www.springframework.org/schema/task"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/task
+       http://www.springframework.org/schema/task/spring-task-3.2.xsd ">
 
     <!-- 扫描指定包带注解的类-->
     <!--<context:annotation-config />-->
     <context:component-scan base-package="cn.lhzs.web.controller"></context:component-scan>
     <context:component-scan base-package="cn.lhzs.service.impl"></context:component-scan>
     <context:component-scan base-package="cn.lhzs.data.dao"></context:component-scan>
-    <!--<context:component-scan base-package="cn.lhzs.task"></context:component-scan>-->
+    <context:component-scan base-package="cn.lhzs.task"></context:component-scan>
     <mvc:annotation-driven/>
+    <task:annotation-driven/>
 
     <!-- 配置SessionFactory -->
     <context:property-placeholder location="classpath:jdbc.properties"/>
@@ -57,11 +67,11 @@
     <bean id="multipartResolver"
           class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <!-- 默认编码 -->
-        <property name="defaultEncoding" value="utf-8" />
+        <property name="defaultEncoding" value="utf-8"/>
         <!-- 文件大小最大值 -->
-        <property name="maxUploadSize" value="10485760000" />
+        <property name="maxUploadSize" value="10485760000"/>
         <!-- 内存中的最大值 -->
-        <property name="maxInMemorySize" value="40960" />
+        <property name="maxInMemorySize" value="40960"/>
     </bean>
 
     <!-- 定时任务 -->

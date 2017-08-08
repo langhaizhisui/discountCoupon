@@ -546,20 +546,20 @@
                         });
 
                     $(".prod-delete").click(function () {
-                        var prodId = $(this).parent().parent().find(".prod-id").text();
+                        var shopId = $(this).parent().parent().find(".prod-id").text();
                         var param = {};
-                        param.prodId = prodId;
-
-                        app.deleteProduct(param, function () {
+                        param.shopId = shopId;
+                        app.deleteShop(param, function (result) {
                             if (result.code == 200) {
-                                searchInfo(page);
+                                getShop(page);
                                 alert("删除成功");
                             }
                         });
                     });
+
                     $(".prod-edit").click(function () {
-                        var prodId = $(this).parent().parent().find(".prod-id").text();
-                        location.href = "/prodEnterManage.html?id=" + prodId;
+                        var shopId = $(this).parent().parent().find(".prod-id").text();
+                        location.href = "/shopEnterManage.html?id=" + shopId;
                     });
                 }
             }

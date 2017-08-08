@@ -124,6 +124,12 @@
       )
     </foreach>
   </insert>
+  <delete id="batchDelete" parameterType="java.lang.List">
+    delete from product where id in
+    <foreach collection="list" item="data" separator="," index="index">
+      #{data.prodId}
+    </foreach>
+  </delete>
   <insert id="insertSelective" parameterType="cn.lhzs.data.bean.Product" >
     <!--
       WARNING - @mbggenerated

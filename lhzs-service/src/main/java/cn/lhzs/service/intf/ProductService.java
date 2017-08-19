@@ -4,7 +4,6 @@ import cn.lhzs.data.bean.Product;
 import com.alibaba.fastjson.JSONObject;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by ZHX on 2017/4/27.
@@ -29,4 +28,6 @@ public interface ProductService {
     JSONObject getProds(String data);
 
     void deleteTable();
+
+    void timerDeleteTask(String expiration);
 }

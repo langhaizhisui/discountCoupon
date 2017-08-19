@@ -507,7 +507,7 @@
             success: function (result) {
                 if (result.code == 200) {
                     var html = '';
-                    var data = result.data.list;
+                    var data = result.data.prodList.list;
                     for (var i = 0; i < data.length; i++) {
                         var product = data[i];
                         html += '<div class="content-item">' +

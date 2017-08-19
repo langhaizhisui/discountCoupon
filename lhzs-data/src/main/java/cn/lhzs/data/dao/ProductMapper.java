@@ -88,4 +88,9 @@ public interface ProductMapper {
      * 删除数据库表所有数据
      */
     void deleteTable();
+
+    /**
+     * 定时删除过期商品
+     */
+    void timerDeleteTask(String expiration);
 }

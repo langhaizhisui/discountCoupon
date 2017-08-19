@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -116,6 +117,8 @@ public class UploadServiceImpl implements UploadService {
                 PoiHelper.setFieldMethod(clazz, fieldColumn[j], Float.class, cell == null ? 0f : Float.parseFloat(cell.toString()));
             } else if ("Date".equals(FieldClassType[j])) {
                 PoiHelper.setFieldMethod(clazz, fieldColumn[j], Date.class, cell == null ? new Date() : cell.getDateCellValue());
+            } else if("DateString".equals(FieldClassType[j])){
+                PoiHelper.setFieldMethod(clazz, fieldColumn[j], String.class, cell == null ? "" : new SimpleDateFormat("yyyy-MM-dd").format(cell.getDateCellValue()));
             }
         }
     }
@@ -151,7 +154,7 @@ public class UploadServiceImpl implements UploadService {
 
         if (Upload.PRODUCT_ADD.equals(type)) {
             fieldColumn = new String[]{"String", "String", "String", "String", "Double", "Double",
-                    "String", "Double", "String", "String"};
+                    "String", "Double", "String", "DateString"};
         } else if (Upload.SHOP_ADD.equals(type)) {
             fieldColumn = new String[]{"String", "String", "String", "String", "String", "String",
                     "String", "String", "String", "String", "String"};

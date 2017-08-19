@@ -6,7 +6,6 @@ import cn.lhzs.service.intf.ProductService;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -176,5 +175,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void deleteTable() {
         productMapper.deleteTable();
+    }
+
+    @Override
+    public void timerDeleteTask(String expiration){
+        productMapper.timerDeleteTask(expiration);
     }
 }

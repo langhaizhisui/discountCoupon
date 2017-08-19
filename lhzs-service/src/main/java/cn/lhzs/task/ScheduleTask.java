@@ -1,12 +1,20 @@
 package cn.lhzs.task;
 
+import cn.lhzs.service.intf.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 @Component
 public class ScheduleTask {
-    @Scheduled(cron = "0 0 2 * * ? ") // 间隔5秒执行
+    @Autowired
+    public ProductService productService;
+
+    @Scheduled(cron = "0 0 2 * * ? ")
     public void taskCycle() {
-        System.out.println("使用SpringMVC框架配置定时任务");
+        productService.timerDeleteTask(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
     }
 }

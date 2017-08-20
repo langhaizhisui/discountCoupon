@@ -7,13 +7,19 @@ import cn.lhzs.service.intf.ShopService;
 import cn.lhzs.web.result.RequestResult;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import freemarker.core.ParseException;
+import freemarker.template.*;
 import org.apache.ibatis.annotations.Param;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by ZHX on 2017/4/27.
@@ -132,4 +138,35 @@ public class ProductController {
         result.setMsg("批量删除成功");
         return result;
     }
+
+    @RequestMapping("/gene/article")
+    @ResponseBody
+    public RequestResult generatorArticle(@RequestBody String reqData) {
+
+        JSONObject jsonObject = JSONObject.parseObject(reqData).getJSONObject("reqData");
+
+        try {
+            //创建一个合适的Configration对象
+            Configuration configuration = new Configuration();
+            configuration.setDirectoryForTemplateLoading(new File(getClass().getResource("../../../../../../").getPath()));
+            System.out.println(getClass().getResource("../../../../../../").getPath());
+            configuration.setObjectWrapper(new DefaultObjectWrapper());
+            configuration.setDefaultEncoding("UTF-8");   //这个一定要设置，不然在生成的页面中 会乱码
+            //获取或创建一个模版。
+            Template template = configuration.getTemplate("article/articleGenerator.html");
+            Map<String, Object> paramMap = new HashMap<String, Object>();
+            paramMap.put("article", jsonObject.getString("article"));
+
+            Writer writer  = new OutputStreamWriter(new FileOutputStream(getClass().getResource("../../../../../../").getPath()+"article/article.html"),"UTF-8");
+            template.process(paramMap, writer);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        RequestResult result = new RequestResult();
+        result.setCode(200);
+        result.setMsg("生成文章成功");
+        return result;
+    }
+
 }

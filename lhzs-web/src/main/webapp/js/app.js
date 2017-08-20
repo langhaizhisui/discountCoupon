@@ -77,6 +77,10 @@ var app = {
         var self = this;
         self.ajax("post", "prod/all/delete", data, callback);
     },
+    generatorActicle: function (data, callback) {
+        var self = this;
+        self.ajax("post", "/prod/gene/article", data, callback);
+    },
     batchShopDelete: function (data, callback) {
         var self = this;
         self.ajax("post", "shop/batch/delete", data, callback);

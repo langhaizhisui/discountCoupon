@@ -1,4 +1,4 @@
-package cn.lhzs.web.result;
+package cn.lhzs.result;
 
 /**
  * Created by ZHX on 2017/1/5.

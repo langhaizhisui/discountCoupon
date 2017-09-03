@@ -2,7 +2,7 @@ package cn.lhzs.web.controller;
 
 import cn.lhzs.data.bean.Catalog;
 import cn.lhzs.service.intf.CatalogService;
-import cn.lhzs.web.result.RequestResult;
+import cn.lhzs.result.RequestResult;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -179,6 +179,7 @@
 .prod-detail {
     margin: 20px 7%;
     float: left;
+    width: 800px;
 }
 
 .prod-detail-img {

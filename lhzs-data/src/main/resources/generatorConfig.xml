@@ -95,5 +95,11 @@
                enableUpdateByExample="false" enableDeleteByExample="false">
 
         </table>-->
+
+        <!--<table tableName="article" domainObjectName="Article"
+               enableCountByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false">
+
+        </table>-->
     </context>
 </generatorConfiguration>

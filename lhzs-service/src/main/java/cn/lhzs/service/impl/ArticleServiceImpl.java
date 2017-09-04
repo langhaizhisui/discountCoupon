@@ -61,7 +61,7 @@ public class ArticleServiceImpl implements ArticleService {
         article.setState(1);
         article.setCreateTime(date);
         article.setUpdateTime(date);
-        article.setSrc("article/"+ date.getTime() +".html");
+        article.setSrc("article/" + date.getTime() + ".html");
         if (articleMapper.insert(article) != 0) {
             generatorHtml(article);
 
@@ -70,6 +70,17 @@ public class ArticleServiceImpl implements ArticleService {
         }
 
         return result;
+    }
+
+    @Override
+    public List<Article> getArticleList(String type) {
+        List<Article> articleList = articleMapper.selectListByType("%"+type+"%");
+//        for(int i =0;i<articleList.size();i++){
+//            Article article = articleList.get(i);
+//            String typeText = getTypeText(article.getType());
+//            article.setType(typeText);
+//        }
+        return articleList;
     }
 
     private void generatorHtml(Article article) {
@@ -83,12 +94,68 @@ public class ArticleServiceImpl implements ArticleService {
             //获取或创建一个模版。
             Template template = configuration.getTemplate("article/articleGenerator.html");
             Map<String, Object> paramMap = new HashMap<String, Object>();
-            paramMap.put("article", article.getContent());
+            paramMap.put("title",article.getTitle());
+            paramMap.put("typeText",getTypeText(article.getType()));
+            paramMap.put("author",article.getAuthor());
+            paramMap.put("createTime",article.getCreateTime());
+            paramMap.put("content", article.getContent());
 
             Writer writer = new OutputStreamWriter(new FileOutputStream(getClass().getResource("../../../../../../").getPath() + article.getSrc()), "UTF-8");
             template.process(paramMap, writer);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private String getTypeText(String type) {
+        String[] typeArr = type.split(",");
+        String typeText = "";
+        for (int i = 0; i < typeArr.length; i++) {
+            String typeValue = typeArr[i];
+            if ("1".equals(typeValue)) {
+                typeText += "家居装修,";
+            } else if ("2".equals(typeValue)) {
+                typeText += "选购导购,";
+            } else if ("3".equals(typeValue)) {
+                typeText += "旅游景点,";
+            } else if ("4".equals(typeValue)) {
+                typeText += "娱乐趣闻,";
+            } else if ("5".equals(typeValue)) {
+                typeText += "健康养生,";
+            } else if ("6".equals(typeValue)) {
+                typeText += "日常生活,";
+            } else if ("7".equals(typeValue)) {
+                typeText += "母婴育儿,";
+            } else if ("8".equals(typeValue)) {
+                typeText += "数码科技,";
+            } else if ("9".equals(typeValue)) {
+                typeText += "游戏资讯,";
+            } else if ("10".equals(typeValue)) {
+                typeText += "服装鞋包,";
+            } else if ("11".equals(typeValue)) {
+                typeText += "美妆护肤,";
+            } else if ("12".equals(typeValue)) {
+                typeText += "城市房产,";
+            } else if ("13".equals(typeValue)) {
+                typeText += "金融理财,";
+            } else if ("14".equals(typeValue)) {
+                typeText += "汽车出行,";
+            } else if ("15".equals(typeValue)) {
+                typeText += "品牌热点,";
+            } else if ("16".equals(typeValue)) {
+                typeText += "人生指南,";
+            } else if ("17".equals(typeValue)) {
+                typeText += "美食菜谱,";
+            } else if ("18".equals(typeValue)) {
+                typeText += "奢侈时尚,";
+            }
+        }
+        if (!typeText.equals("")) {
+            typeText = typeText.substring(0, typeText.length() - 1);
+            if (typeText.length() > 10) {
+                typeText = typeText.substring(0, 9);
+            }
+        }
+        return typeText;
     }
 }

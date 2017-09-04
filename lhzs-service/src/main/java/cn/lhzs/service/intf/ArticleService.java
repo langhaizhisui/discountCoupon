@@ -16,4 +16,6 @@ public interface ArticleService {
     Article getArticle(Long id);
 
     RequestResult generatorArticle(Article article);
+
+    List<Article> getArticleList(String type);
 }

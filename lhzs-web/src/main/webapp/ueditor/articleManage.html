@@ -203,22 +203,22 @@
                             <input type="checkbox" name="articleCatalog" value="2">选购导购</input>
                             <input type="checkbox" name="articleCatalog" value="3">旅游景点</input>
                             <input type="checkbox" name="articleCatalog" value="4">娱乐趣闻</input>
-                            <input type="checkbox" name="articleCatalog" value="4">健康养生</input>
-                            <input type="checkbox" name="articleCatalog" value="4">日常生活</input>
-                            <input type="checkbox" name="articleCatalog" value="4">母婴育儿</input>
-                            <input type="checkbox" name="articleCatalog" value="4">数码科技</input>
-                            <input type="checkbox" name="articleCatalog" value="4">游戏资讯</input>
+                            <input type="checkbox" name="articleCatalog" value="5">健康养生</input>
+                            <input type="checkbox" name="articleCatalog" value="6">日常生活</input>
+                            <input type="checkbox" name="articleCatalog" value="7">母婴育儿</input>
+                            <input type="checkbox" name="articleCatalog" value="8">数码科技</input>
+                            <input type="checkbox" name="articleCatalog" value="9">游戏资讯</input>
                         </div>
                         <div>
-                            <input type="checkbox" name="articleCatalog" value="4">服装鞋包</input>
-                            <input type="checkbox" name="articleCatalog" value="4">美妆护肤</input>
-                            <input type="checkbox" name="articleCatalog" value="4">城市房产</input>
-                            <input type="checkbox" name="articleCatalog" value="4">金融理财</input>
-                            <input type="checkbox" name="articleCatalog" value="4">汽车出行</input>
-                            <input type="checkbox" name="articleCatalog" value="4">品牌热点</input>
-                            <input type="checkbox" name="articleCatalog" value="4">人生指南</input>
-                            <input type="checkbox" name="articleCatalog" value="4">美食菜谱</input>
-                            <input type="checkbox" name="articleCatalog" value="4">奢侈时尚</input>
+                            <input type="checkbox" name="articleCatalog" value="10">服装鞋包</input>
+                            <input type="checkbox" name="articleCatalog" value="11">美妆护肤</input>
+                            <input type="checkbox" name="articleCatalog" value="12">城市房产</input>
+                            <input type="checkbox" name="articleCatalog" value="13">金融理财</input>
+                            <input type="checkbox" name="articleCatalog" value="14">汽车出行</input>
+                            <input type="checkbox" name="articleCatalog" value="15">品牌热点</input>
+                            <input type="checkbox" name="articleCatalog" value="16">人生指南</input>
+                            <input type="checkbox" name="articleCatalog" value="17">美食菜谱</input>
+                            <input type="checkbox" name="articleCatalog" value="18">奢侈时尚</input>
                         </div>
                     </td>
                 </tr>
@@ -276,13 +276,20 @@
 
     function generatorActicle() {
         var param = {};
-        param.metaTitle=$("#meta-title").val();
-        param.metaKey=$("#meta-key").val();
-        param.metaDescp=$("#meta-descp").val();
-        param.title=$("#title").val();
-        param.picture=$("#picture").val();
-        param.author=$("#author").val();
+        param.metaTitle = $("#meta-title").val();
+        param.metaKey = $("#meta-key").val();
+        param.metaDescp = $("#meta-descp").val();
+        param.title = $("#title").val();
+        param.picture = $("#picture").val();
+        param.author = $("#author").val();
         param.content = UE.getEditor('editor').getContent();
+
+        var type = "";
+        $('input[name="articleCatalog"]:checked').each(function () {
+            type += $(this).val() + ",";
+        });
+        type = type.substr(0, type.length - 1);
+        param.type = type;
 
         app.generatorActicle(param, function (result) {
             if (result.code == 200) {
@@ -295,7 +302,7 @@
         init();
         setTimeout(function () {
             $("#edui1").attr("style", "width: 730px; z-index: 999;");
-            $("#edui1_toolbarbox").attr("style","");
+            $("#edui1_toolbarbox").attr("style", "");
         }, 200);
 
     });

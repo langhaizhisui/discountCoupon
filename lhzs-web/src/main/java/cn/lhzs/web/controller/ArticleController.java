@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -22,10 +23,24 @@ public class ArticleController {
     @Autowired
     public ArticleService articleService;
 
-    @RequestMapping("/articleList")
+    @RequestMapping("/list")
     @ResponseBody
-    public RequestResult getCatalogList(){
-        return null;
+    public RequestResult getArticleList(@RequestBody Article article) {
+        RequestResult result = new RequestResult();
+        result.setCode(200);
+        result.setMsg("获取文章列表成功");
+        result.setData(articleService.getArticleList(article.getType()));
+        return result;
+    }
+
+    @RequestMapping("/detail")
+    @ResponseBody
+    public RequestResult getArticleDetail(@RequestBody Article article) {
+        RequestResult result = new RequestResult();
+        result.setCode(200);
+        result.setMsg("获取文章信息成功");
+        result.setData(articleService.getArticle(article.getId()));
+        return result;
     }
 
     @RequestMapping("/gene/article")

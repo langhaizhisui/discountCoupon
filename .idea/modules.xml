@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/discountCoupon.iml" filepath="$PROJECT_DIR$/.idea/discountCoupon.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lhzs-data/lhzs-data.iml" filepath="$PROJECT_DIR$/lhzs-data/lhzs-data.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lhzs-service/lhzs-service.iml" filepath="$PROJECT_DIR$/lhzs-service/lhzs-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lhzs-web/lhzs-web.iml" filepath="$PROJECT_DIR$/lhzs-web/lhzs-web.iml" />
+    </modules>
+  </component>
+</project>

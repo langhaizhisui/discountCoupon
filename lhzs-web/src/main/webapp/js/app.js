@@ -79,7 +79,7 @@ var app = {
     },
     generatorActicle: function (data, callback) {
         var self = this;
-        self.ajax("post", "article/gene/article", data, callback);
+        self.ajax("post", "/article/gene/article", data, callback);
     },
     getArticleDetail: function (data, callback) {
         var self = this;
@@ -88,6 +88,14 @@ var app = {
     getArticleList: function (data, callback) {
         var self = this;
         self.ajax("post", "article/list", data, callback);
+    },
+    getArticleCount: function (data, callback) {
+        var self = this;
+        self.ajax("post", "article/count", data, callback);
+    },
+    getWebGeneralize: function (data, callback) {
+        var self = this;
+        self.ajax("post", "article/webGeneralize", data, callback);
     },
     batchShopDelete: function (data, callback) {
         var self = this;

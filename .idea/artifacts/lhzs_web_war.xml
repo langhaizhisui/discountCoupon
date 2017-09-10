@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="lhzs-web:war">
+    <output-path>$PROJECT_DIR$/lhzs-web/target</output-path>
+    <root id="archive" name="lhzs-web.war">
+      <element id="artifact" artifact-name="lhzs-web:war exploded" />
+    </root>
+  </artifact>
+</component>

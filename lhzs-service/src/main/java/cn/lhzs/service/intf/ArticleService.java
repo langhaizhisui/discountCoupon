@@ -2,6 +2,7 @@ package cn.lhzs.service.intf;
 
 import cn.lhzs.data.bean.Article;
 import cn.lhzs.result.RequestResult;
+import com.alibaba.fastjson.JSONObject;
 
 import java.util.List;
 
@@ -17,5 +18,7 @@ public interface ArticleService {
 
     RequestResult generatorArticle(Article article);
 
-    List<Article> getArticleList(String type);
+    JSONObject getArticleList(String data);
+
+    int getArticleCount();
 }

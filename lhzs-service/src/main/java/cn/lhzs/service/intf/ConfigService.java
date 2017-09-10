@@ -11,9 +11,7 @@ import java.util.List;
 /**
  * Created by ZHX on 2017/5/7.
  */
-@Service
-@Transactional(readOnly = true)
 public interface ConfigService {
 
-    Config getConfigByConfId(String confId);
+    Config getConfigByConfId(Long confId);
 }

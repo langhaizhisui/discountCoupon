@@ -282,7 +282,12 @@
         param.title = $("#title").val();
         param.picture = $("#picture").val();
         param.author = $("#author").val();
-        param.content = UE.getEditor('editor').getContent();
+        var content = UE.getEditor('editor').getContentTxt();
+        if (content.length > 100) {
+            content = content.substr(0, 95)+".....";
+        }
+        param.content = content;
+        param.articlContent = UE.getEditor('editor').getContent();
 
         var type = "";
         $('input[name="articleCatalog"]:checked').each(function () {

@@ -154,9 +154,9 @@
             <div>系统管理后台</div>
         </div>
         <ul>
-            <li id="prod-manage" class="nav-bg"><a>商品管理</a></li>
+            <li id="prod-manage"><a>商品管理</a></li>
             <li id="shop-manage"><a>店铺管理</a></li>
-            <li id="article-manage"><a>文章管理</a></li>
+            <li id="article-manage" class="nav-bg"><a>文章管理</a></li>
         </ul>
     </div>
 
@@ -165,11 +165,8 @@
             <div>
                 <div class="left-nav-grade1">文章管理</div>
                 <div class="left-nav-grade2">
-                    <div class="left-nav-bg prod-operation">
-                        <a href="/prodEnterManage.html">文章列表</a>
-                    </div>
-                    <div class="left-nav-bg prod-list">
-                        <a href="/manageSystem.html">文章录入</a>
+                    <div class="left-nav-bg prod-list prod-operation">
+                        <a href="">文章录入</a>
                     </div>
                 </div>
             </div>
@@ -263,10 +260,10 @@
     <img class="loading-img" src="images/loading.gif"/>
 </div>
 </body>
-<script src="js/jquery.min.js"></script>
-<script src="js/jquery.form.js"></script>
-<script src="js/app.js"></script>
-<script src="js/systemManage.js"></script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.form.js"></script>
+<script src="/js/app.js"></script>
+<script src="/js/systemManage.js"></script>
 <script src="/js/jquery.min.js"></script>
 <script src="/js/app.js"></script>
 <script>
@@ -295,6 +292,42 @@
         });
         type = type.substr(0, type.length - 1);
         param.type = type;
+
+        if(param.metaTitle==""){
+            alert("标题名称不能为空");
+            return;
+        }
+        if(param.metaKey==""){
+            alert("页面关键字不能为空");
+            return;
+        }
+        if(param.metaDescp==""){
+            alert("文章摘要不能为空");
+            return;
+        }
+        if(type==""){
+            alert("所属类型不能为空");
+            return;
+        }
+        if(param.title==""){
+            alert("文章标题不能为空");
+            return;
+        }
+        if(param.author==""){
+            alert("文章作者不能为空");
+            return;
+        }
+        if(content==""){
+            alert("文章内容不能为空");
+            return;
+        }
+
+        param.metaTitle = $("#meta-title").val();
+        param.metaKey = $("#meta-key").val();
+        param.metaDescp = $("#meta-descp").val();
+        param.title = $("#title").val();
+        param.picture = $("#picture").val();
+        param.author = $("#author").val();
 
         app.generatorActicle(param, function (result) {
             if (result.code == 200) {

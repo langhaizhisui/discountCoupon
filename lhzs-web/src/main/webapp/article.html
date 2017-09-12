@@ -103,6 +103,23 @@
         .prod-detail {
             width: 750px;
         }
+
+        .page-num {
+            float: left;
+            text-align: center;
+            width: 750px;
+            margin: 40px 0px 40px 0px;
+        }
+
+        .page-num span {
+            padding: 10px;
+            background: #eee;
+            margin: 5px;
+        }
+
+        #curr-page {
+            background-color: #ea6b18;
+        }
     </style>
 </head>
 <body>
@@ -155,6 +172,9 @@
                 <div class="article-list">
 
                 </div>
+
+                <!--分页-->
+                <div class="page-num"></div>
             </div>
 
             <div class="prod-generalize">
@@ -239,41 +259,7 @@
             });
         }, 2000)
 
-        var reqData = {};
-        var param = {};
-        param.type = id;
-        param.page = 1;
-        param.pageSize = 20;
-        reqData.reqData = param;
-        app.getArticleList(reqData, function (result) {
-            var html = "";
-            if (result.code == 200) {
-                var data = result.data.articleList;
-                for (var i = 0; i < data.length; i++) {
-                    var item = data[i];
-                    html += '<div class="article-item" onclick="articleDetail(' + item.id + ')">' +
-                        '<div class="article-item-title">' + item.title + '</div>' +
-                        '<div class="article-item-content">' + item.content + '</div>' +
-                        '<div class="article-item-descp">' +
-                        '<span>' +
-                        '<span class="article-item-descp-title">栏目：</span>' +
-                        '<span class="article-item-descp-bar">' + item.type + '</span>' +
-                        '</span>' +
-                        '<span>' +
-                        '<span class="article-item-descp-title">作者：</span>' +
-                        '<span class="article-item-descp-author">' + item.author + '</span>' +
-                        '</span>' +
-                        '<span>' +
-                        '<span class="article-item-descp-title">时间：</span>' +
-                        '<span class="article-item-descp-date">' + item.time + '</span>' +
-                        '</span>' +
-                        '</div>' +
-                        '</div>';
-                }
-
-                $(".article-list").html(html);
-            }
-        });
+        getArticleList(1);
 
         var param = {}
         app.getArticleCount(param, function (result) {
@@ -323,6 +309,60 @@
             }
         });
     });
+    function getArticleList(page) {
+        var reqData = {};
+        var param = {};
+        param.type = id;
+        param.page = page;
+        param.pageSize = 10;
+        reqData.reqData = param;
+        app.getArticleList(reqData, function (result) {
+            var html = "";
+            if (result.code == 200) {
+                var data = result.data.articleList;
+                for (var i = 0; i < data.length; i++) {
+                    var item = data[i];
+                    html += '<div class="article-item" onclick="articleDetail(' + item.id + ')">' +
+                        '<div class="article-item-title">' + item.title + '</div>' +
+                        '<div class="article-item-content">' + item.content + '</div>' +
+                        '<div class="article-item-descp">' +
+                        '<span>' +
+                        '<span class="article-item-descp-title">栏目：</span>' +
+                        '<span class="article-item-descp-bar">' + item.type + '</span>' +
+                        '</span>' +
+                        '<span>' +
+                        '<span class="article-item-descp-title">作者：</span>' +
+                        '<span class="article-item-descp-author">' + item.author + '</span>' +
+                        '</span>' +
+                        '<span>' +
+                        '<span class="article-item-descp-title">时间：</span>' +
+                        '<span class="article-item-descp-date">' + item.time + '</span>' +
+                        '</span>' +
+                        '</div>' +
+                        '</div>';
+                }
+
+                $(".article-list").html(html);
+
+                var totalPage = result.data.totalPage;
+                var currPage = result.data.page;
+
+                splitPage(totalPage, currPage, ".page-num",
+                    function (index) {
+                        if (index != 1) {
+                            getArticleList(index - 1);
+                        }
+                    }, function (index) {
+                        index = parseInt(index);
+                        if (index != totalPage) {
+                            getArticleList(index + 1);
+                        }
+                    }, function (index) {
+                        getArticleList(index);
+                    });
+            }
+        });
+    }
     function getTitle(title) {
         if (title.length > 15) {
             title = title.substr(0, 15) + "...";
@@ -339,6 +379,8 @@
         getGeneralizeProduct();
         getProduct();
     }
+
+
 
     function getShopImage(type) {
         switch (type) {
@@ -508,6 +550,66 @@
             productName = productName.substr(0, 28) + "...";
         }
         return productName;
+    }
+
+    function splitPage(totalPage, currPage, node, prePage, nextPage, fixPage) {
+        var pageNum = "";
+        if (totalPage < 10) {
+            pageNum += '<span class="pre-page">上一页</span>';
+            for (var i = 0; i < totalPage; i++) {
+                if ((i + 1) == currPage) {
+                    pageNum += '<span id="curr-page" index="' + (i + 1) + '">' + (i + 1) + '</span>';
+                } else {
+                    pageNum += '<span index="' + (i + 1) + '">' + (i + 1) + '</span>';
+                }
+            }
+            pageNum += '<span class="next-page">下一页</span>';
+        } else if (totalPage > 10) {
+            if (currPage < 5) {
+                pageNum += '<span class="pre-page">上一页</span>';
+                for (var i = 0; i < 5; i++) {
+                    if ((i + 1) == currPage) {
+                        pageNum += '<span id="curr-page" index="' + (i + 1) + '">' + (i + 1) + '</span>';
+                    } else {
+                        pageNum += '<span index="' + (i + 1) + '">' + (i + 1) + '</span>';
+                    }
+                }
+                pageNum += '<span>...</span>' +
+                    '<span index="' + totalPage + '">' + totalPage + '</span>' +
+                    '<span class="next-page">下一页</span>';
+            } else if (currPage > totalPage - 5) {
+                pageNum += '<span class="pre-page">上一页</span><span index="1">1</span><span>...</span>';
+                for (var i = totalPage - 5; i < totalPage; i++) {
+                    if ((i + 1) == currPage) {
+                        pageNum += '<span id="curr-page" index="' + (i + 1) + '">' + (i + 1) + '</span>';
+                    } else {
+                        pageNum += '<span index="' + (i + 1) + '">' + (i + 1) + '</span>';
+                    }
+                }
+                pageNum += '<span class="next-page">下一页</span>';
+            } else {
+                pageNum += '<span class="pre-page">上一页</span>' +
+                    '<span index="1">1</span>' +
+                    '<span>...</span>' +
+                    '<span index="' + (currPage - 1) + '">' + (currPage - 1) + '</span>' +
+                    '<span id="curr-page" index="' + currPage + '">' + currPage + '</span>' +
+                    '<span index="' + (currPage + 1) + '">' + (currPage + 1) + '</span>' +
+                    '<span index="' + (currPage + 2) + '">' + (currPage + 2) + '</span>' +
+                    '<span>...</span>' +
+                    '<span index="' + totalPage + '">' + totalPage + '</span>' +
+                    '<span class="next-page">下一页</span>';
+            }
+        }
+        $(node).html(pageNum);
+        $(".page-num span").click(function () {
+            fixPage($(this).attr("index"));
+        });
+        $(".pre-page").click(function () {
+            prePage($("#curr-page").attr("index"));
+        });
+        $(".next-page").click(function () {
+            nextPage($("#curr-page").attr("index"));
+        });
     }
 </script>
 </html>

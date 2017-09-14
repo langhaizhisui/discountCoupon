@@ -23,4 +23,6 @@ public interface ArticleService {
     int getArticleCount();
 
     void deleteArticle(Long id);
+
+    List<Article> searchArticle(Article article);
 }

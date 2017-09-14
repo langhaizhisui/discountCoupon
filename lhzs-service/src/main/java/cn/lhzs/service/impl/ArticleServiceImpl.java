@@ -26,6 +26,8 @@ import java.io.Writer;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import static com.github.pagehelper.page.PageMethod.startPage;
+
 /**
  * Created by ZHX on 2017/5/7.
  */
@@ -229,11 +231,17 @@ public class ArticleServiceImpl implements ArticleService {
         articleMapper.deleteByPrimaryKey(id);
     }
 
-    public Condition getTypeCondition(String type) {
+    @Override
+    public List<Article> searchArticle(Article article){
+        startPage(article.getPage(),article.getSize());
+        return articleMapper.selectByCondition(getSearchArticleCondition(article));
+    }
+
+    public Condition getSearchArticleCondition(Article article) {
         Condition condition = new Condition(Article.class);
         Example.Criteria criteria = condition.createCriteria();
-        criteria.andLike("type", "%" + type + "%");
-        criteria.andNotLike("type", "%" + type + type + "%");
+        criteria.andLike("type", "%" + article.getType() + "%");
+        criteria.andNotLike("type", "%" + article.getType() + article.getType() + "%");
         return condition;
     }
 }

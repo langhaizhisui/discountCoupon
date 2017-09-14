@@ -8,6 +8,7 @@ import cn.lhzs.result.RequestResult;
 import cn.lhzs.service.intf.ConfigService;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.PageInfo;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import static com.github.pagehelper.page.PageMethod.startPage;
 
 /**
  * Created by Administrator on 2017/5/7.
@@ -85,5 +88,11 @@ public class ArticleController {
         result.setMsg("获取网站推广成功");
         result.setData(JSONObject.parse(configService.getConfigByConfId(Constants.WEB_GENERALIZE).getValue()));
         return result;
+    }
+
+    @RequestMapping("/search")
+    @ResponseBody
+    public PageInfo searchArticle(@RequestBody Article article) {
+        return new PageInfo(articleService.searchArticle(article));
     }
 }

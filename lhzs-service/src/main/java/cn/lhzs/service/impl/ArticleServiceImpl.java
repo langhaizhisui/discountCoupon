@@ -15,6 +15,8 @@ import freemarker.template.Template;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import tk.mybatis.mapper.entity.Condition;
+import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
 import java.io.File;
@@ -99,10 +101,11 @@ public class ArticleServiceImpl implements ArticleService {
         for (int i = 0; i < articleList.size(); i++) {
             Article article1 = articleList.get(i);
             String typeText = getTypeText(article1.getType());
-            String time=new SimpleDateFormat("yyyy-MM-dd").format(article1.getCreateTime());
-            if(typeText.length()>10){
-                typeText=typeText.substring(0,10)+"...";
-            };
+            String time = new SimpleDateFormat("yyyy-MM-dd").format(article1.getCreateTime());
+            if (typeText.length() > 10) {
+                typeText = typeText.substring(0, 10) + "...";
+            }
+            ;
             article1.setType(typeText);
             article1.setTime(time);
             newList.add(article1);
@@ -224,5 +227,13 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public void deleteArticle(Long id) {
         articleMapper.deleteByPrimaryKey(id);
+    }
+
+    public Condition getTypeCondition(String type) {
+        Condition condition = new Condition(Article.class);
+        Example.Criteria criteria = condition.createCriteria();
+        criteria.andLike("type", "%" + type + "%");
+        criteria.andNotLike("type", "%" + type + type + "%");
+        return condition;
     }
 }

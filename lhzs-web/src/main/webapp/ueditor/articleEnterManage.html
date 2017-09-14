@@ -165,8 +165,11 @@
             <div>
                 <div class="left-nav-grade1">文章管理</div>
                 <div class="left-nav-grade2">
+                    <div class="left-nav-bg">
+                        <a href="/articleManage.html">文章列表</a>
+                    </div>
                     <div class="left-nav-bg prod-list prod-operation">
-                        <a href="">文章录入</a>
+                        <a href="/ueditor/articleEnterManage.html">文章录入</a>
                     </div>
                 </div>
             </div>
@@ -271,6 +274,8 @@
     //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
     UE.getEditor('editor');
 
+    var id = getParam("id");
+
     function generatorActicle() {
         var param = {};
         param.metaTitle = $("#meta-title").val();
@@ -346,7 +351,8 @@
     });
 
     function init() {
-        getProduct(1);
+
+//        getProduct(1);
         bindEvent();
     }
 

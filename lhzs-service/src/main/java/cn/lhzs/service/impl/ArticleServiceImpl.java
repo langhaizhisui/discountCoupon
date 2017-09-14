@@ -220,4 +220,9 @@ public class ArticleServiceImpl implements ArticleService {
     public int getArticleCount() {
         return articleMapper.selectCount(new HashMap());
     }
+
+    @Override
+    public void deleteArticle(Long id) {
+        articleMapper.deleteByPrimaryKey(id);
+    }
 }

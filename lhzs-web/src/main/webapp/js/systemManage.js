@@ -6,6 +6,6 @@ $(function () {
         location.href="/shopManage.html";
     });
     $("#article-manage").click(function () {
-        location.href="/ueditor/articleManage.html";
+        location.href="/articleManage.html";
     });
 })

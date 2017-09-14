@@ -85,6 +85,10 @@ var app = {
         var self = this;
         self.ajax("post", "article/detail", data, callback);
     },
+    deleteArticle: function (data, callback) {
+        var self = this;
+        self.ajax("get", "article/delete", data, callback);
+    },
     getArticleList: function (data, callback) {
         var self = this;
         self.ajax("post", "article/list", data, callback);

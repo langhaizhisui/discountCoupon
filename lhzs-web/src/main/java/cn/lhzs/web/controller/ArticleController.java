@@ -41,6 +41,16 @@ public class ArticleController {
         return result;
     }
 
+    @RequestMapping("/delete")
+    @ResponseBody
+    public RequestResult deleteArticle(Long id) {
+        articleService.deleteArticle(id);
+        RequestResult result = new RequestResult();
+        result.setCode(200);
+        result.setMsg("删除文章成功");
+        return result;
+    }
+
     @RequestMapping("/detail")
     @ResponseBody
     public RequestResult getArticleDetail(@RequestBody Article article) {

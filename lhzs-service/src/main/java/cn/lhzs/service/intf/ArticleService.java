@@ -21,4 +21,6 @@ public interface ArticleService {
     JSONObject getArticleList(String data);
 
     int getArticleCount();
+
+    void deleteArticle(Long id);
 }

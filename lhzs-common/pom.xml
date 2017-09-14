@@ -4,21 +4,20 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>com.iba</groupId>
-		<artifactId>drp</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
-		<relativePath>../pom.xml</relativePath>
+		<groupId>cn.lhzs</groupId>
+		<artifactId>lhzs-web</artifactId>
+		<version>1.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>drp-common</artifactId>
+	<artifactId>lhzs-common</artifactId>
 	<packaging>jar</packaging>
 	<dependencies>
-		<dependency>
+		<!--<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
 			<optional>true</optional>
-		</dependency>
-		<!-- excel -->
+		</dependency>-->
+		<!--&lt;!&ndash; excel &ndash;&gt;
 		<dependency>
 			<groupId>net.sourceforge.jexcelapi</groupId>
 			<artifactId>jxl</artifactId>
@@ -39,7 +38,7 @@
 			<artifactId>poi-ooxml-schemas</artifactId>
 			<version>${poi.version}</version>
 		</dependency>
-		<!-- 文件图片处理 -->
+		&lt;!&ndash; 文件图片处理 &ndash;&gt;
 		<dependency>
 			<groupId>net.coobird</groupId>
 			<artifactId>thumbnailator</artifactId>
@@ -49,8 +48,8 @@
 			<groupId>com.jcraft</groupId>
 			<artifactId>jsch</artifactId>
 			<version>${jsch.version}</version>
-		</dependency>
-		<dependency>
+		</dependency>-->
+		<!--<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
 		</dependency>
@@ -61,22 +60,22 @@
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
-		</dependency>
-		<!-- alibaba工具包 -->
+		</dependency>-->
+		<!--&lt;!&ndash; alibaba工具包 &ndash;&gt;
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
 			<version>${fastjson.version}</version>
 		</dependency>
 
-		<!-- shiro -->
+		&lt;!&ndash; shiro &ndash;&gt;
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
 			<version>${shiro.version}</version>
 			<artifactId>shiro-spring</artifactId>
 		</dependency>
 
-		<!-- 中文拼音 -->
+		&lt;!&ndash; 中文拼音 &ndash;&gt;
 		<dependency>
 			<groupId>com.belerweb</groupId>
 			<artifactId>pinyin4j</artifactId>
@@ -87,7 +86,7 @@
 			<groupId>com.aliyun.oss</groupId>
 			<artifactId>aliyun-sdk-oss</artifactId>
 			<version>${aliyun-sdk-oss.version}</version>
-		</dependency>
+		</dependency>-->
 	</dependencies>
 
 </project>

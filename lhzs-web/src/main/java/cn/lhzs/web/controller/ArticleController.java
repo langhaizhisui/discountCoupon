@@ -2,11 +2,10 @@ package cn.lhzs.web.controller;
 
 import cn.lhzs.data.bean.Article;
 import cn.lhzs.data.common.Constants;
-import cn.lhzs.service.impl.ConfigServiceImpl;
+import cn.lhzs.result.ResponseResult;
 import cn.lhzs.service.intf.ArticleService;
 import cn.lhzs.result.RequestResult;
 import cn.lhzs.service.intf.ConfigService;
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageInfo;
 import org.apache.log4j.Logger;
@@ -14,13 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import static com.github.pagehelper.page.PageMethod.startPage;
+import static cn.lhzs.result.ResponseResultGenerator.generatorSuccessResult;
 
 /**
- * Created by Administrator on 2017/5/7.
+ * Created by ZHX on 2017/5/7.
  */
 @Controller
 @RequestMapping("/article")
@@ -34,34 +32,17 @@ public class ArticleController {
     @Autowired
     public ConfigService configService;
 
-    @RequestMapping("/list")
-    @ResponseBody
-    public RequestResult getArticleList(@RequestBody String reqData) {
-        RequestResult result = new RequestResult();
-        result.setCode(200);
-        result.setMsg("获取文章列表成功");
-        result.setData(articleService.getArticleList(reqData));
-        return result;
-    }
-
     @RequestMapping("/delete")
     @ResponseBody
-    public RequestResult deleteArticle(Long id) {
+    public ResponseResult deleteArticle(Long id) {
         articleService.deleteArticle(id);
-        RequestResult result = new RequestResult();
-        result.setCode(200);
-        result.setMsg("删除文章成功");
-        return result;
+        return generatorSuccessResult();
     }
 
     @RequestMapping("/detail")
     @ResponseBody
-    public RequestResult getArticleDetail(@RequestBody Article article) {
-        RequestResult result = new RequestResult();
-        result.setCode(200);
-        result.setMsg("获取文章信息成功");
-        result.setData(articleService.getArticle(article.getId()));
-        return result;
+    public ResponseResult getArticleDetail(@RequestBody Article article) {
+        return generatorSuccessResult(articleService.getArticle(article.getId()));
     }
 
     @RequestMapping("/gene/article")
@@ -72,27 +53,19 @@ public class ArticleController {
 
     @RequestMapping("/count")
     @ResponseBody
-    public RequestResult getArticleCount() {
-        RequestResult result = new RequestResult();
-        result.setCode(200);
-        result.setMsg("获取文章列表成功");
-        result.setData(articleService.getArticleCount());
-        return result;
+    public ResponseResult getArticleCount(@RequestBody Article article) {
+        return generatorSuccessResult(articleService.getArticleCount(article));
     }
 
     @RequestMapping("/webGeneralize")
     @ResponseBody
-    public RequestResult getWebGeneralize() {
-        RequestResult result = new RequestResult();
-        result.setCode(200);
-        result.setMsg("获取网站推广成功");
-        result.setData(JSONObject.parse(configService.getConfigByConfId(Constants.WEB_GENERALIZE).getValue()));
-        return result;
+    public ResponseResult getWebGeneralize() {
+        return generatorSuccessResult(JSONObject.parse(configService.getConfigByConfId(Constants.WEB_GENERALIZE).getValue()));
     }
 
     @RequestMapping("/search")
     @ResponseBody
-    public PageInfo searchArticle(@RequestBody Article article) {
-        return new PageInfo(articleService.searchArticle(article));
+    public ResponseResult searchArticle(@RequestBody Article article) {
+        return generatorSuccessResult(new PageInfo(articleService.searchArticle(article)));
     }
 }

@@ -57,12 +57,6 @@
         <property name="mapperLocations" value="classpath:mapper/*.xml"/>
     </bean>
 
-    <!-- DAO接口所在包名，Spring会自动查找其下的类 -->
-    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="cn.lhzs.data.dao"/>
-        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
-    </bean>
-
     <!-- 配置文件上传，如果没有使用文件上传可以不用配置 -->
     <bean id="multipartResolver"
           class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
@@ -74,7 +68,14 @@
         <property name="maxInMemorySize" value="40960"/>
     </bean>
 
-    <!-- 定时任务 -->
-    <!--<task:annotation-driven scheduler="schedulerTask" mode="proxy"></task:annotation-driven>
-    <task:scheduler id="schedulerTask" pool-size="10"/>-->
+    <!-- spring xml bean配置 -->
+    <bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="cn.lhzs.data.dao" />
+        <property name="properties">
+            <value>
+                mappers=tk.mybatis.mapper.common.Mapper,tk.mybatis.mapper.common.special.InsertListMapper
+            </value>
+        </property>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+    </bean>
 </beans>

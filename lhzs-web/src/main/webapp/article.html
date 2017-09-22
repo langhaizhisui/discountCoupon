@@ -269,12 +269,10 @@
             }
         });
 
-        var reqData = {};
         var param = {};
         param.page = 1;
-        param.pageSize = 5;
-        reqData.reqData = param;
-        app.getArticleList(reqData, function (result) {
+        param.size = 5;
+        app.getArticleList(param, function (result) {
             var html = '<div><span class="line"></span>最新文章</div>';
             if (result.code == 200) {
                 var data = result.data.articleList;
@@ -296,12 +294,12 @@
                     var value = data[i];
                     if (i % 4 == 0) {
                         html += '<div>';
-                        html += '<span><a href="'+value.url+'" target="_blank">'+value.webName+'</a></span>';
+                        html += '<span><a href="' + value.url + '" target="_blank">' + value.webName + '</a></span>';
                     } else if (i % 4 == 3) {
-                        html += '<span><a href="'+value.url+'" target="_blank">'+value.webName+'</a></span>';
+                        html += '<span><a href="' + value.url + '" target="_blank">' + value.webName + '</a></span>';
                         html += '</div>';
                     } else {
-                        html += '<span><a href="'+value.url+'" target="_blank">'+value.webName+'</a></span>';
+                        html += '<span><a href="' + value.url + '" target="_blank">' + value.webName + '</a></span>';
                     }
 
                 }
@@ -310,16 +308,14 @@
         });
     });
     function getArticleList(page) {
-        var reqData = {};
         var param = {};
         param.type = id;
         param.page = page;
-        param.pageSize = 10;
-        reqData.reqData = param;
-        app.getArticleList(reqData, function (result) {
+        param.size = 10;
+        app.getArticleList(param, function (result) {
             var html = "";
             if (result.code == 200) {
-                var data = result.data.articleList;
+                var data = result.data.list;
                 for (var i = 0; i < data.length; i++) {
                     var item = data[i];
                     html += '<div class="article-item" onclick="articleDetail(' + item.id + ')">' +
@@ -336,7 +332,7 @@
                         '</span>' +
                         '<span>' +
                         '<span class="article-item-descp-title">时间：</span>' +
-                        '<span class="article-item-descp-date">' + item.time + '</span>' +
+                        '<span class="article-item-descp-date">' + item.cTime + '</span>' +
                         '</span>' +
                         '</div>' +
                         '</div>';
@@ -344,8 +340,8 @@
 
                 $(".article-list").html(html);
 
-                var totalPage = result.data.totalPage;
-                var currPage = result.data.page;
+                var totalPage = result.data.pageSize / param.size;
+                var currPage = result.data.pageNum;
 
                 splitPage(totalPage, currPage, ".page-num",
                     function (index) {
@@ -379,7 +375,6 @@
         getGeneralizeProduct();
         getProduct();
     }
-
 
 
     function getShopImage(type) {

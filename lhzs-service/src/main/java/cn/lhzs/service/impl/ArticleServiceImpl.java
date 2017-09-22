@@ -2,24 +2,19 @@ package cn.lhzs.service.impl;
 
 
 import cn.lhzs.data.bean.Article;
-import cn.lhzs.data.bean.Catalog;
-import cn.lhzs.data.bean.Product;
-import cn.lhzs.data.common.ArticleCatalogEnum;
+import cn.lhzs.data.common.ArticleTypeEnum;
 import cn.lhzs.data.dao.ArticleMapper;
-import cn.lhzs.data.dao.CatalogMapper;
 import cn.lhzs.result.RequestResult;
 import cn.lhzs.service.intf.ArticleService;
-import cn.lhzs.service.intf.CatalogService;
+import cn.lhzs.util.DateUtil;
 import cn.lhzs.util.StringUtil;
-import com.alibaba.fastjson.JSONObject;
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapper;
 import freemarker.template.Template;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import tk.mybatis.mapper.entity.Condition;
 import tk.mybatis.mapper.entity.Example;
+import tk.mybatis.mapper.entity.Example.Criteria;
 
 import javax.annotation.Resource;
 import java.io.File;
@@ -102,21 +97,6 @@ public class ArticleServiceImpl implements ArticleService {
         }
     }
 
-    private String getTypeText(String type) {
-        String typeText = "";
-        String[] typeArr = type.split(",");
-        for (int i = 0; i < typeArr.length; i++) {
-            typeText += ArticleCatalogEnum.get(Integer.parseInt(typeArr[i])).getName();
-        }
-        if (!typeText.equals("")) {
-            typeText = typeText.substring(0, typeText.length() - 1);
-            if (typeText.length() > 15) {
-                typeText = typeText.substring(0, 15) + "...";
-            }
-        }
-        return typeText;
-    }
-
     @Override
     public int getArticleCount(Article article) {
         return articleMapper.selectCountByExample(getSearchArticleCondition(article));
@@ -130,12 +110,26 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public List<Article> searchArticle(Article article) {
         startPage(article.getPage(), article.getSize());
-        return articleMapper.selectByExample(getSearchArticleCondition(article));
+        List<Article> articleList = articleMapper.selectByExample(getSearchArticleCondition(article));
+        for (Article item : articleList) {
+            item.setcTime(DateUtil.formatDate(item.getCreateTime(), "yyyy-MM-dd"));
+            item.setType(getTypeText(item.getType()));
+        }
+        return articleList;
     }
 
-    private Condition getSearchArticleCondition(Article article) {
-        Condition condition = new Condition(Article.class);
-        Example.Criteria criteria = condition.createCriteria();
+    private String getTypeText(String type) {
+        String typeText = "";
+        String[] typeArr = type.split(",");
+        for (int i = 0; i < typeArr.length; i++) {
+            typeText += ArticleTypeEnum.get(Integer.parseInt(typeArr[i])).getName()+"，";
+        }
+        return typeText.length() > 15 ? typeText.substring(0, 15) + "..." : typeText.substring(0, typeText.length() - 1);
+    }
+
+    private Example getSearchArticleCondition(Article article) {
+        Example example = new Example(Article.class);
+        Criteria criteria = example.createCriteria();
         if (article == null) {
             article = new Article();
         }
@@ -143,6 +137,6 @@ public class ArticleServiceImpl implements ArticleService {
             criteria.andLike("type", "%" + article.getType() + "%");
             criteria.andNotLike("type", "%" + article.getType() + article.getType() + "%");
         }
-        return condition;
+        return example;
     }
 }

@@ -91,7 +91,7 @@ var app = {
     },
     getArticleList: function (data, callback) {
         var self = this;
-        self.ajax("post", "article/list", data, callback);
+        self.ajax("post", "article/search", data, callback);
     },
     getArticleCount: function (data, callback) {
         var self = this;

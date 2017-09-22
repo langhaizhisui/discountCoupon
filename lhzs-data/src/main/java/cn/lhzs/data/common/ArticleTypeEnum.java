@@ -3,7 +3,7 @@ package cn.lhzs.data.common;
 /**
  * Created by ZHX on 2017/9/3 0003.
  */
-public enum ArticleCatalogEnum {
+public enum ArticleTypeEnum {
 
     FURNITURE_DECORATION(1,"家居装修"),
     CHOOSE_GUIDE(2,"选购导购"),
@@ -24,7 +24,7 @@ public enum ArticleCatalogEnum {
     FOOD_RECIPES(17,"美食菜谱"),
     LUXURY_FASHION(18,"奢侈时尚");
 
-    ArticleCatalogEnum(Integer code, String name) {
+    ArticleTypeEnum(Integer code, String name) {
         this.code = code;
         this.name = name;
     }
@@ -48,10 +48,10 @@ public enum ArticleCatalogEnum {
         this.name = name;
     }
 
-    public static ArticleCatalogEnum get(Integer code){
-        ArticleCatalogEnum[] articleCatalogEnums = values();
+    public static ArticleTypeEnum get(Integer code){
+        ArticleTypeEnum[] articleCatalogEnums = values();
         for (int i = 0; i < articleCatalogEnums.length; i++) {
-            ArticleCatalogEnum articleCatalogEnum = articleCatalogEnums[i];
+            ArticleTypeEnum articleCatalogEnum = articleCatalogEnums[i];
             if(articleCatalogEnum.getCode().equals(code)){
                 return articleCatalogEnum;
             }

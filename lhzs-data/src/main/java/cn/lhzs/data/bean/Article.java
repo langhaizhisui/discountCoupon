@@ -1,8 +1,5 @@
 package cn.lhzs.data.bean;
 
-
-import org.springframework.stereotype.Component;
-
 import javax.persistence.*;
 import java.util.Date;
 @Table(name = "article")

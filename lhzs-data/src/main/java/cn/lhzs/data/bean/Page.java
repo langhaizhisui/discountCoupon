@@ -1,13 +1,21 @@
 package cn.lhzs.data.bean;
 
+import javax.persistence.Transient;
+
 /**
  * Created by ZHX on 2017/4/27.
  */
 public class Page {
+    @Transient
     private Integer page;
+    @Transient
     private Integer size;
+    @Transient
     private Integer index;
+    @Transient
     private Boolean lock;
+    @Transient
+    private String cTime;
 
     public Integer getPage() {
         return page;
@@ -33,5 +41,11 @@ public class Page {
         this.index = index;
     }
 
+    public String getcTime() {
+        return cTime;
+    }
 
+    public void setcTime(String cTime) {
+        this.cTime = cTime;
+    }
 }

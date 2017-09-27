@@ -2,12 +2,17 @@ package cn.lhzs.service.impl;
 
 
 import cn.lhzs.data.bean.Article;
+import cn.lhzs.data.bean.Config;
+import cn.lhzs.data.bean.WebGeneralize;
 import cn.lhzs.data.common.ArticleTypeEnum;
+import cn.lhzs.data.common.Constants;
 import cn.lhzs.data.dao.ArticleMapper;
 import cn.lhzs.result.RequestResult;
 import cn.lhzs.service.intf.ArticleService;
+import cn.lhzs.service.intf.ConfigService;
 import cn.lhzs.util.DateUtil;
 import cn.lhzs.util.StringUtil;
+import com.alibaba.fastjson.JSONObject;
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapper;
 import freemarker.template.Template;
@@ -36,6 +41,9 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Resource
     public ArticleMapper articleMapper;
+
+    @Resource
+    public ConfigService configService;
 
     @Override
     public void addArticle(Article article) {
@@ -118,11 +126,56 @@ public class ArticleServiceImpl implements ArticleService {
         return articleList;
     }
 
+    @Override
+    public void addWebGeneralize(WebGeneralize webGeneralize) {
+        Config webGeneralizeConfig = configService.getConfigById(Constants.WEB_GENERALIZE);
+        List<WebGeneralize> webGeneralizeList = JSONObject.parseArray(webGeneralizeConfig.getValue(), WebGeneralize.class);
+        webGeneralizeList.add(webGeneralize);
+        webGeneralizeConfig.setValue(JSONObject.toJSONString(webGeneralizeList));
+        configService.updateConfigById(webGeneralizeConfig);
+    }
+
+    @Override
+    public void deleteWebGeneralize(Integer id) {
+        Config webGeneralizeConfig = configService.getConfigById(Constants.WEB_GENERALIZE);
+        List<WebGeneralize> webGeneralizeList = JSONObject.parseArray(webGeneralizeConfig.getValue(), WebGeneralize.class);
+        webGeneralizeList.remove(id);
+        webGeneralizeConfig.setValue(JSONObject.toJSONString(webGeneralizeList));
+        configService.updateConfigById(webGeneralizeConfig);
+    }
+
+    @Override
+    public void updateWebGeneralize(WebGeneralize webGeneralize) {
+        Config webGeneralizeConfig = configService.getConfigById(Constants.WEB_GENERALIZE);
+        List<WebGeneralize> webGeneralizeList = JSONObject.parseArray(webGeneralizeConfig.getValue(), WebGeneralize.class);
+        webGeneralizeList.remove(webGeneralize.getConfigId());
+        webGeneralizeList.add(webGeneralize.getConfigId(), webGeneralize);
+        webGeneralizeConfig.setValue(JSONObject.toJSONString(webGeneralizeList));
+        configService.updateConfigById(webGeneralizeConfig);
+    }
+
+    @Override
+    public WebGeneralize getWebGeneralizeDetail(Integer id) {
+        Config webGeneralizeConfig = configService.getConfigById(Constants.WEB_GENERALIZE);
+        List<WebGeneralize> webGeneralizeList = JSONObject.parseArray(webGeneralizeConfig.getValue(), WebGeneralize.class);
+        for (WebGeneralize webGeneralize : webGeneralizeList) {
+            if (webGeneralize.getConfigId().equals(id)) {
+                return webGeneralize;
+            }
+        }
+        return new WebGeneralize();
+    }
+
+    @Override
+    public List<WebGeneralize> getWebGeneralizeList(WebGeneralize webGeneralize) {
+        return JSONObject.parseArray(configService.getConfigById(Constants.WEB_GENERALIZE).getValue(), WebGeneralize.class);
+    }
+
     private String getTypeText(String type) {
         String typeText = "";
         String[] typeArr = type.split(",");
         for (int i = 0; i < typeArr.length; i++) {
-            typeText += ArticleTypeEnum.get(Integer.parseInt(typeArr[i])).getName()+"，";
+            typeText += ArticleTypeEnum.get(Integer.parseInt(typeArr[i])).getName() + "，";
         }
         return typeText.length() > 15 ? typeText.substring(0, 15) + "..." : typeText.substring(0, typeText.length() - 1);
     }

@@ -29,7 +29,9 @@ public class ConfigController {
         RequestResult result = new RequestResult();
         result.setCode(200);
         result.setMsg("获取轮播图成功");
-        result.setData(configService.getConfigByConfId(Constants.SLIDESHOW_PICTURE));
+        result.setData(configService.getConfigById(Constants.SLIDESHOW_PICTURE));
         return result;
     }
+
+
 }

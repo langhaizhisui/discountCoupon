@@ -225,9 +225,6 @@
             cursor: pointer;
             display: inline-block;
         }
-        .prod-title {
-            width: 400px;
-        }
         .cata {
             width: 85px;
         }
@@ -236,6 +233,9 @@
         }
         .operation {
             width: 87px;
+        }
+        .prod-title {
+            width: 390px;
         }
     </style>
 </head>
@@ -249,20 +249,29 @@
         <ul>
             <li id="prod-manage"><a>商品管理</a></li>
             <li id="shop-manage"><a>店铺管理</a></li>
-            <li id="article-manage" class="nav-bg"><a>文章管理</a></li>
+            <li id="article-manage"><a>文章管理</a></li>
+            <li id="base-set" class="nav-bg"><a>基础设置</a></li>
         </ul>
     </div>
 
     <div class="center clearfix">
         <div class="left-nav clearfix">
             <div>
-                <div class="left-nav-grade1">文章管理</div>
+                <div class="left-nav-grade1">首页</div>
+                <div class="left-nav-grade2">
+                    <div class="left-nav-bg">
+                        <a href="/articleManage.html">轮播图</a>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="left-nav-grade1">商城推荐</div>
                 <div class="left-nav-grade2">
                     <div class="left-nav-bg prod-list prod-operation">
-                        <a href="/articleManage.html">文章列表</a>
+                        <a href="/baseSetManage.html">商城列表</a>
                     </div>
                     <div class="left-nav-bg">
-                        <a href="/ueditor/articleEnterManage.html">文章录入</a>
+                        <a href="/webGeneralizeEnterManage.html">增加商城</a>
                     </div>
                 </div>
             </div>
@@ -272,29 +281,22 @@
             <div>
                 <div class="search-line">
                     <span class="search">
-                        <span class="search-title">所搜文章</span>
+                        <span class="search-title">商城名称</span>
                         <span>
-                            <input class="search-input" id="shop-id-input" placeholder="请输入文章标题"/>
-                        </span>
-                    </span>
-                    <span class="search">
-                        <span class="search-title">文章类型</span>
-                        <span>
-                            <input class="search-input" id="shop-name-input" placeholder="请输入文章类型"/>
+                            <input class="search-input" id="shop-id-input" placeholder="请输入商城名称"/>
                         </span>
                     </span>
                     <span class="search-btn">查询</span>
-                    <!--<span class="more-delete-btn">批量删除</span>-->
                     <span class="all-delete-btn">全部删除</span>
                 </div>
             </div>
 
             <div class="content">
                 <div class="content-title clearfix">
-                    <div class="prod-id">文章ID</div>
-                    <div class="prod-title">文章标题</div>
-                    <div class="cata">文章类型</div>
-                    <div class="price">录入时间</div>
+                    <div class="prod-id">商城ID</div>
+                    <div class="prod-title">商城名称</div>
+                    <div class="cata">权重</div>
+                    <div class="price">商城链接</div>
                     <div class="sale-price">操作</div>
                 </div>
 
@@ -324,32 +326,32 @@
     });
 
     function init() {
-        getArticleList(1);
+        getWebGeneralizeList(1);
         bindEvent();
     }
 
-    function getArticleList(page) {
+    function getWebGeneralizeList(page) {
         var param = {};
-
         param.page = page;
         param.size = 20;
 
-        app.getArticleList(param, function (result) {
+        app.getWebGeneralize(param, function (result) {
             if (result.code == 200) {
                 var html = "";
-                var data = result.data.list;
+                var data = result.data;
                 if (data.length == 0) {
                     $(".shop-list").html("");
                     $(".page-num").html("");
                     return;
                 }
+
                 for (var i = 0; i < data.length; i++) {
                     var item = data[i];
                     html += '<div class="content-item">' +
-                    '<div class="prod-id">' + item.id + '</div>' +
-                    '<div class="prod-title">' + getTitle(item.title) + '</div>' +
-                    '<div class="price">' + item.type + '</div>' +
-                    '<div class="sale-price">' + item.time + '</div>' +
+                    '<div class="prod-id">' + (i+1) + '</div>' +
+                    '<div class="prod-title">' + item.webName + '</div>' +
+                    '<div class="cata">' + item.weighnt + '</div>' +
+                    '<div class="price">' + item.url + '</div>' +
                     '<div class="operation">' +
                     '<span class="prod-delete"> 删除 </span>' +
                     '</div>' +

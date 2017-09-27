@@ -1,12 +1,10 @@
 package cn.lhzs.web.controller;
 
 import cn.lhzs.data.bean.Article;
-import cn.lhzs.data.common.Constants;
+import cn.lhzs.data.bean.WebGeneralize;
 import cn.lhzs.result.ResponseResult;
 import cn.lhzs.service.intf.ArticleService;
 import cn.lhzs.result.RequestResult;
-import cn.lhzs.service.intf.ConfigService;
-import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageInfo;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +26,6 @@ public class ArticleController {
 
     @Autowired
     public ArticleService articleService;
-
-    @Autowired
-    public ConfigService configService;
 
     @RequestMapping("/delete")
     @ResponseBody
@@ -59,8 +54,37 @@ public class ArticleController {
 
     @RequestMapping("/webGeneralize")
     @ResponseBody
-    public ResponseResult getWebGeneralize() {
-        return generatorSuccessResult(JSONObject.parse(configService.getConfigByConfId(Constants.WEB_GENERALIZE).getValue()));
+    public ResponseResult getWebGeneralize(@RequestBody WebGeneralize webGeneralize) {
+        articleService.getWebGeneralizeList(webGeneralize);
+        return generatorSuccessResult();
+    }
+
+    @RequestMapping("/webGeneralize/add")
+    @ResponseBody
+    public ResponseResult addWebGeneralize(@RequestBody WebGeneralize webGeneralize) {
+        articleService.addWebGeneralize(webGeneralize);
+        return generatorSuccessResult();
+    }
+
+    @RequestMapping("/webGeneralize/delete")
+    @ResponseBody
+    public ResponseResult deleteWebGeneralize(Integer id) {
+        articleService.deleteWebGeneralize(id);
+        return generatorSuccessResult();
+    }
+
+    @RequestMapping("/webGeneralize/update")
+    @ResponseBody
+    public ResponseResult updateWebGeneralize(@RequestBody WebGeneralize webGeneralize) {
+        articleService.updateWebGeneralize(webGeneralize);
+        return generatorSuccessResult();
+    }
+
+    @RequestMapping("/webGeneralize/detail")
+    @ResponseBody
+    public ResponseResult getWebGeneralizeDetail(Integer id) {
+        articleService.getWebGeneralizeDetail(id);
+        return generatorSuccessResult();
     }
 
     @RequestMapping("/search")

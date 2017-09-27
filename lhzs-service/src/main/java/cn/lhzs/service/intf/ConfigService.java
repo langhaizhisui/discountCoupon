@@ -13,5 +13,7 @@ import java.util.List;
  */
 public interface ConfigService {
 
-    Config getConfigByConfId(Long confId);
+    Config getConfigById(Long confId);
+
+    void updateConfigById(Config config);
 }

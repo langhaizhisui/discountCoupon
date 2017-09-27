@@ -1,9 +1,8 @@
 package cn.lhzs.service.intf;
 
 import cn.lhzs.data.bean.Article;
+import cn.lhzs.data.bean.WebGeneralize;
 import cn.lhzs.result.RequestResult;
-import com.alibaba.fastjson.JSONObject;
-import tk.mybatis.mapper.entity.Condition;
 
 import java.util.List;
 
@@ -18,11 +17,19 @@ public interface ArticleService {
 
     RequestResult generatorArticle(Article article);
 
-//    JSONObject getArticleList(String data);
-
     int getArticleCount(Article article);
 
     void deleteArticle(Long id);
 
     List<Article> searchArticle(Article article);
+
+    void addWebGeneralize(WebGeneralize webGeneralize);
+
+    void deleteWebGeneralize(Integer id);
+
+    void updateWebGeneralize(WebGeneralize webGeneralize);
+
+    WebGeneralize getWebGeneralizeDetail(Integer id);
+
+    List<WebGeneralize> getWebGeneralizeList(WebGeneralize webGeneralize);
 }

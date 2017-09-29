@@ -182,13 +182,24 @@ public class ArticleServiceImpl implements ArticleService {
 
     private Example getSearchArticleCondition(Article article) {
         Example example = new Example(Article.class);
+        example.orderBy("createTime").desc();
         Criteria criteria = example.createCriteria();
-        if (article == null) {
-            article = new Article();
+        if(StringUtil.isNotEmptyString(article.getTitle())){
+            criteria.andEqualTo("title",article.getTitle());
         }
-        if (StringUtil.isNotEmptyString(article.getType())) {
-            criteria.andLike("type", "%" + article.getType() + "%");
-            criteria.andNotLike("type", "%" + article.getType() + article.getType() + "%");
+        String typeCode = ArticleTypeEnum.getTypeCode(article.getType());
+        if (StringUtil.isNotEmptyString(typeCode)) {
+            criteria.andLike("type", "%" + typeCode + "%");
+            criteria.andNotLike("type", "%" + typeCode + "0%");
+            criteria.andNotLike("type", "%" + typeCode + "1%");
+            criteria.andNotLike("type", "%" + typeCode + "2%");
+            criteria.andNotLike("type", "%" + typeCode + "3%");
+            criteria.andNotLike("type", "%" + typeCode + "4%");
+            criteria.andNotLike("type", "%" + typeCode + "5%");
+            criteria.andNotLike("type", "%" + typeCode + "6%");
+            criteria.andNotLike("type", "%" + typeCode + "7%");
+            criteria.andNotLike("type", "%" + typeCode + "8%");
+            criteria.andNotLike("type", "%" + typeCode + "9%");
         }
         return example;
     }

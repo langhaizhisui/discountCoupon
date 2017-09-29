@@ -225,15 +225,19 @@
             cursor: pointer;
             display: inline-block;
         }
+
         .prod-title {
             width: 400px;
         }
+
         .cata {
             width: 85px;
         }
+
         .price {
             width: 250px;
         }
+
         .operation {
             width: 87px;
         }
@@ -250,6 +254,7 @@
             <li id="prod-manage"><a>商品管理</a></li>
             <li id="shop-manage"><a>店铺管理</a></li>
             <li id="article-manage" class="nav-bg"><a>文章管理</a></li>
+            <li id="base-set"><a>基础设置</a></li>
         </ul>
     </div>
 
@@ -324,36 +329,54 @@
     });
 
     function init() {
-        getArticleList(1);
+        searchInfo(1);
         bindEvent();
     }
 
-    function getArticleList(page) {
-        var param = {};
+    function getTitle(title) {
+        return title.length > 15 ? title.substring(0, 30) + "..." : title
+    }
 
+    function bindEvent() {
+
+        $(".search-btn").click(function () {
+            searchInfo(1);
+        });
+    }
+
+    function searchInfo(page) {
+        var title = $("#shop-id-input").val();
+        var type = $("#shop-name-input").val();
+
+        var param = {};
         param.page = page;
         param.size = 20;
+        if (title) {
+            param.title = title;
+        }
+        if (type) {
+            param.type = type;
+        }
 
         app.getArticleList(param, function (result) {
             if (result.code == 200) {
                 var html = "";
                 var data = result.data.list;
-                if (data.length == 0) {
-                    $(".shop-list").html("");
-                    $(".page-num").html("");
-                    return;
-                }
+
+                $(".content-list").html(html);
+                $(".page-num").html("");
+
                 for (var i = 0; i < data.length; i++) {
                     var item = data[i];
                     html += '<div class="content-item">' +
-                    '<div class="prod-id">' + item.id + '</div>' +
-                    '<div class="prod-title">' + getTitle(item.title) + '</div>' +
-                    '<div class="price">' + item.type + '</div>' +
-                    '<div class="sale-price">' + item.time + '</div>' +
-                    '<div class="operation">' +
-                    '<span class="prod-delete"> 删除 </span>' +
-                    '</div>' +
-                    '</div>';
+                        '<div class="prod-id">' + item.id + '</div>' +
+                        '<div class="prod-title">' + getTitle(item.title) + '</div>' +
+                        '<div class="price">' + item.type + '</div>' +
+                        '<div class="sale-price">' + item.cTime + '</div>' +
+                        '<div class="operation">' +
+                        '<span class="prod-delete"> 删除 </span>' +
+                        '</div>' +
+                        '</div>';
                 }
                 $(".content-list").html(html);
 
@@ -363,15 +386,15 @@
                 splitPage(totalPage, currPage, ".page-num",
                     function (index) {
                         if (index != 1) {
-                            getArticleList(index - 1);
+                            searchInfo(index - 1);
                         }
                     }, function (index) {
                         index = parseInt(index);
                         if (index != totalPage) {
-                            getArticleList(index + 1);
+                            searchInfo(index + 1);
                         }
                     }, function (index) {
-                        getArticleList(index);
+                        searchInfo(index);
                     });
 
                 $(".prod-delete").click(function () {
@@ -380,162 +403,11 @@
                     param.id = id;
                     app.deleteArticle(param, function (result) {
                         if (result.code == 200) {
-                            getArticleList(page);
+                            searchInfo(page);
                             alert("删除成功");
                         }
                     });
                 });
-
-                $(".prod-edit").click(function () {
-                    var id = $(this).parent().parent().find(".prod-id").text();
-                    location.href = "/ueditor/articleEnterManage.html?id=" + id;
-                });
-            }
-        });
-    }
-
-    function getTitle(title) {
-        return title.length > 15 ? title.substring(0, 30)+"..." : title
-    }
-
-    function bindEvent() {
-
-        $(".search-btn").click(function () {
-            searchInfo(1);
-        });
-
-        $(".more-delete-btn").click(function () {
-            var shopId = $("#shop-id-input").val();
-            var shopName = $("#shop-name-input").val();
-            var storeType = $("#store-type-input").val();
-            var shopType = $("#shop-type-input").val();
-            var createTimeStart = $("#createtime-start-input").val();
-            var createTimeEnd = $("#createtime-end-input").val();
-
-            if (shopId == "" && shopName == "" && storeType == "" && shopType == "" && createTimeStart == "" && createTimeEnd == "") {
-                alert("请输入删除条件");
-                return;
-            }
-
-            $(".load").removeClass("hidden");
-
-            var reqData = {};
-            var param = {};
-            param.id = shopId;
-            param.webShop = shopName;
-            param.site = storeType;
-            param.type = shopType;
-            param.createTimeStart = createTimeStart;
-            param.createTimeEnd = createTimeEnd;
-            param.page = 1;
-            param.pageSize = 20;
-            reqData.reqData = param;
-
-            app.batchShopDelete(reqData, function (result) {
-                $(".load").addClass("hidden");
-                if (result.code == 200) {
-                    searchInfo(1);
-                    alert("删除成功");
-                }
-            });
-        });
-
-        $(".all-delete-btn").click(function () {
-            $(".load").removeClass("hidden");
-
-            var param = {};
-            app.allShopDelete(param, function (result) {
-                $(".load").addClass("hidden");
-                if (result.code == 200) {
-                    searchInfo(1);
-                    alert("删除成功");
-                }
-            });
-        });
-    }
-
-    function searchInfo(page) {
-        var shopId = $("#shop-id-input").val();
-        var shopName = $("#shop-name-input").val();
-        var storeType = $("#store-type-input").val();
-        var shopType = $("#shop-type-input").val();
-        var createTimeStart = $("#createtime-start-input").val();
-        var createTimeEnd = $("#createtime-end-input").val();
-        var reqData = {};
-        var param = {};
-
-        param.id = shopId;
-        param.webShop = shopName;
-        param.site = storeType;
-        param.type = shopType;
-        param.createTimeStart = createTimeStart;
-        param.createTimeEnd = createTimeEnd;
-        param.page = page;
-        param.pageSize = 20;
-        reqData.reqData = param;
-
-        $.ajax({
-            type: 'post',
-            url: "shop/search",
-            dataType: 'json',
-            contentType: "application/json",
-            data: JSON.stringify(reqData),
-            success: function (result) {
-                if (result.code == 200) {
-                    var html = '';
-                    var data = result.data.list;
-                    for (var i = 0; i < data.length; i++) {
-                        var shop = data[i];
-                        html += '<div class="content-item">' +
-                            '<div class="prod-id">' + shop.id + '</div>' +
-                            '<div class="prod-title">' + shop.webShop + '</div>' +
-                            '<div class="cata">' + shop.site + '</div>' +
-                            '<div class="price">' + shop.type + '</div>' +
-                            '<div class="sale-price">' + shop.sellName + '</div>' +
-                            '<div class="save-price">' + shop.brandName + '</div>' +
-                            '<div class="plate">' + shop.sellProd + '</div>' +
-                            '<div class="expire">' + shop.shopAddr + '</div>' +
-                            '<div class="operation">' +
-                            '<span class="prod-edit"> 编辑 </span>' +
-                            '<span class="prod-delete"> 删除 </span>' +
-                            '</div>' +
-                            '</div>';
-                    }
-                    $(".content-list").html(html);
-
-                    var totalPage = result.data.totalPage;
-                    var currPage = result.data.page;
-                    splitPage(totalPage, currPage, ".page-num",
-                        function (index) {
-                            if (index != 1) {
-                                searchInfo(index - 1);
-                            }
-                        }, function (index) {
-                            index = parseInt(index);
-                            if (index != totalPage) {
-                                searchInfo(index + 1);
-                            }
-                        }, function (index) {
-                            searchInfo(index);
-                        });
-
-                    $(".prod-delete").click(function () {
-                        var shopId = $(this).parent().parent().find(".prod-id").text();
-                        var param = {};
-                        param.shopId = shopId;
-                        app.deleteShop(param, function (result) {
-                            if (result.code == 200) {
-                                getShop(page);
-                                alert("删除成功");
-                            }
-                        });
-                    });
-
-                    $(".prod-edit").click(function () {
-                        var shopId = $(this).parent().parent().find(".prod-id").text();
-                        location.href = "/shopEnterManage.html?id=" + shopId;
-                    });
-                }
             }
         });
     }

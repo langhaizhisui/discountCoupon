@@ -109,6 +109,22 @@ var app = {
         var self = this;
         self.ajax("post", "shop/all/delete", data, callback);
     },
+    addWebGeneralize: function (data, callback) {
+        var self = this;
+        self.ajax("post", "article/webGeneralize/add", data, callback);
+    },
+    deleteWebGeneralize: function (data, callback) {
+        var self = this;
+        self.ajax("post", "article/webGeneralize/delete", data, callback);
+    },
+    updateWebGeneralize: function (data, callback) {
+        var self = this;
+        self.ajax("post", "article/webGeneralize/update", data, callback);
+    },
+    getWebGeneralizeDetail: function (data, callback) {
+        var self = this;
+        self.ajax("post", "article/webGeneralize/detail", data, callback);
+    },
     "ajax": function (type, url, data, callback) {
         var self = this;
         if (self.isParamEmpty(type) || self.isParamEmpty(url) || self.isParamEmpty(data)) {

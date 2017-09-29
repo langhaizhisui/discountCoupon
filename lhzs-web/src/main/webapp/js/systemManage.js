@@ -8,4 +8,7 @@ $(function () {
     $("#article-manage").click(function () {
         location.href="/articleManage.html";
     });
+    $("#base-set").click(function () {
+        location.href="/baseSetManage.html";
+    });
 })

@@ -58,4 +58,15 @@ public enum ArticleTypeEnum {
         }
         return null;
     }
+
+    public static String getTypeCode(String name){
+        ArticleTypeEnum[] articleCatalogEnums = values();
+        for (int i = 0; i < articleCatalogEnums.length; i++) {
+            ArticleTypeEnum articleCatalogEnum = articleCatalogEnums[i];
+            if(articleCatalogEnum.getName().equals(name)){
+                return articleCatalogEnum.getCode().toString();
+            }
+        }
+        return null;
+    }
 }

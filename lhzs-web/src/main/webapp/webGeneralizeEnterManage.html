@@ -141,8 +141,10 @@
             <div>系统管理后台</div>
         </div>
         <ul>
-            <li id="prod-manage" class="nav-bg"><a>商品管理</a></li>
+            <li id="prod-manage"><a>商品管理</a></li>
             <li id="shop-manage"><a>店铺管理</a></li>
+            <li id="article-manage"><a>文章管理</a></li>
+            <li id="base-set" class="nav-bg"><a>基础设置</a></li>
         </ul>
     </div>
 
@@ -225,19 +227,12 @@
         if (id) {
             var param = {};
             param.id = id;
-            app.getProductDetail(param, function (result) {
+            app.getWebGeneralizeDetail(param, function (result) {
                 if (result.code == 200) {
                     var data = result.data;
-                    $("#prod-name").val(data.name);
-                    $("#banner-url").val(data.banner);
-                    $("#detail-url").val(data.detail);
-                    $("#cata").val(data.category);
-                    $("#price").val(data.price);
-                    $("#sale-price").val(data.discountPrice);
-                    $("#save-price").val(data.savePrice);
-                    $("#plateform").val(data.platform);
-                    $("#generalize-url").val(data.prodGeneralize);
-                    $("#expiration").val(data.expiration);
+                    $("#prod-name").val(data.webName);
+                    $("#banner-url").val(data.weighnt);
+                    $("#detail-url").val(data.url);
                 }
             });
         }
@@ -248,39 +243,24 @@
             var prodName = $("#prod-name").val();
             var bannerUrl = $("#banner-url").val();
             var detailUrl = $("#detail-url").val();
-            var cata = $("#cata").val();
-            var price = $("#price").val();
-            var salePrice = $("#sale-price").val();
-            var savePrice = $("#save-price").val();
-            var plateform = $("#plateform").val();
-            var generalizeUrl = $("#generalize-url").val();
-            var expiration = $("#expiration").val();
 
-            if (prodName == "" || bannerUrl == "" || detailUrl == "" || cata == "" || price == "" || salePrice == ""
-                || savePrice == "" || plateform == "" || generalizeUrl == "" || expiration == "") {
+            if (prodName == "" || bannerUrl == "" || detailUrl == "") {
                 alert("信息填写不能为空");
                 return;
             }
 
             var param = {};
-            param.name = prodName;
-            param.banner = bannerUrl;
-            param.detail = detailUrl;
-            param.category = cata;
-            param.price = price;
-            param.discountPrice = salePrice;
-            param.savePrice = savePrice;
-            param.platform = plateform;
-            param.prodGeneralize = generalizeUrl;
-            param.expiration = expiration;
+            param.webName = prodName;
+            param.weighnt = bannerUrl;
+            param.url = detailUrl;
 
             if (id) {
-                param.prodId = id;
-                app.updateProduct(param, function () {
+                param.id = id;
+                app.updateWebGeneralize(param, function () {
                     alert("更新成功");
                 });
             } else {
-                app.addProd(param, function () {
+                app.addWebGeneralize(param, function () {
                     alert("添加成功");
                 });
             }

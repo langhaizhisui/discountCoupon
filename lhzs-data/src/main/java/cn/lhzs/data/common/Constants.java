@@ -7,11 +7,11 @@ public interface Constants {
     /**
      * 商城推荐
      */
-    public static final Long WEB_GENERALIZE = 10000L;
+    Long WEB_GENERALIZE = 10000L;
 
     /**
      * 轮播图
      */
-    public static final Long SLIDESHOW_PICTURE = 10001L;
+    Long SLIDESHOW_PICTURE = 10001L;
 
 }

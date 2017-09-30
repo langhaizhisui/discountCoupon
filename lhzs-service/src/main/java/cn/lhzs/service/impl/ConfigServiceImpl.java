@@ -22,12 +22,19 @@ public class ConfigServiceImpl implements ConfigService{
     Logger logger = Logger.getLogger(ConfigServiceImpl.class);
 
     @Override
-    public Config getConfigById(Long confId) {
-        return configMapper.selectByPrimaryKey(confId);
+    public Config getConfigById(final Long confId) {
+        return configMapper.selectOne(new Config(){{
+            setConfigId(confId);
+        }});
     }
 
     @Override
     public void updateConfigById(Config config){
-        configMapper.updateByPrimaryKey(config);
+        configMapper.updateConfig(config);
+    }
+
+    @Override
+    public void addConfig(Config config){
+        configMapper.insert(config);
     }
 }

@@ -16,4 +16,6 @@ public interface ConfigService {
     Config getConfigById(Long confId);
 
     void updateConfigById(Config config);
+
+    void addConfig(Config config);
 }

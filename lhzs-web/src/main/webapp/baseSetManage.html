@@ -338,7 +338,7 @@
         app.getWebGeneralize(param, function (result) {
             if (result.code == 200) {
                 var html = "";
-                var data = result.data;
+                var data = result.data.list;
                 if (data.length == 0) {
                     $(".shop-list").html("");
                     $(".page-num").html("");
@@ -353,6 +353,7 @@
                     '<div class="cata">' + item.weighnt + '</div>' +
                     '<div class="price">' + item.url + '</div>' +
                     '<div class="operation">' +
+                    '<span class="prod-edit"> 编辑 </span>' +
                     '<span class="prod-delete"> 删除 </span>' +
                     '</div>' +
                     '</div>';
@@ -365,15 +366,15 @@
                 splitPage(totalPage, currPage, ".page-num",
                     function (index) {
                         if (index != 1) {
-                            getArticleList(index - 1);
+                            getWebGeneralizeList(index - 1);
                         }
                     }, function (index) {
                         index = parseInt(index);
                         if (index != totalPage) {
-                            getArticleList(index + 1);
+                            getWebGeneralizeList(index + 1);
                         }
                     }, function (index) {
-                        getArticleList(index);
+                        getWebGeneralizeList(index);
                     });
 
                 $(".prod-delete").click(function () {
@@ -382,7 +383,7 @@
                     param.id = id;
                     app.deleteArticle(param, function (result) {
                         if (result.code == 200) {
-                            getArticleList(page);
+                            getWebGeneralizeList(page);
                             alert("删除成功");
                         }
                     });
@@ -390,7 +391,7 @@
 
                 $(".prod-edit").click(function () {
                     var id = $(this).parent().parent().find(".prod-id").text();
-                    location.href = "/ueditor/articleEnterManage.html?id=" + id;
+                    location.href = "/webGeneralizeEnterManage.html?id=" + id;
                 });
             }
         });

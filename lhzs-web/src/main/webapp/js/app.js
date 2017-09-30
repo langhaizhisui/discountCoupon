@@ -99,7 +99,7 @@ var app = {
     },
     getWebGeneralize: function (data, callback) {
         var self = this;
-        self.ajax("post", "article/webGeneralize", data, callback);
+        self.ajax("post", "article/webGeneralize/search", data, callback);
     },
     batchShopDelete: function (data, callback) {
         var self = this;
@@ -123,7 +123,7 @@ var app = {
     },
     getWebGeneralizeDetail: function (data, callback) {
         var self = this;
-        self.ajax("post", "article/webGeneralize/detail", data, callback);
+        self.ajax("get", "article/webGeneralize/detail", data, callback);
     },
     "ajax": function (type, url, data, callback) {
         var self = this;

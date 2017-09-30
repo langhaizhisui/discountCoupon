@@ -5,7 +5,7 @@ package cn.lhzs.data.bean;
  */
 public class WebGeneralize {
 
-    private Integer configId;
+    private Integer id;
 
     private String webName;
 
@@ -13,12 +13,12 @@ public class WebGeneralize {
 
     private String url;
 
-    public Integer getConfigId() {
-        return configId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setConfigId(Integer configId) {
-        this.configId = configId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getWebName() {

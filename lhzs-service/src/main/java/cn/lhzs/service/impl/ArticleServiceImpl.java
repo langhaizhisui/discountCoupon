@@ -148,8 +148,8 @@ public class ArticleServiceImpl implements ArticleService {
     public void updateWebGeneralize(WebGeneralize webGeneralize) {
         Config webGeneralizeConfig = configService.getConfigById(Constants.WEB_GENERALIZE);
         List<WebGeneralize> webGeneralizeList = JSONObject.parseArray(webGeneralizeConfig.getValue(), WebGeneralize.class);
-        webGeneralizeList.remove(webGeneralize.getConfigId());
-        webGeneralizeList.add(webGeneralize.getConfigId(), webGeneralize);
+        webGeneralizeList.remove(webGeneralize.getId() - 1);
+        webGeneralizeList.add(webGeneralize.getId() - 1, webGeneralize);
         webGeneralizeConfig.setValue(JSONObject.toJSONString(webGeneralizeList));
         configService.updateConfigById(webGeneralizeConfig);
     }
@@ -158,12 +158,7 @@ public class ArticleServiceImpl implements ArticleService {
     public WebGeneralize getWebGeneralizeDetail(Integer id) {
         Config webGeneralizeConfig = configService.getConfigById(Constants.WEB_GENERALIZE);
         List<WebGeneralize> webGeneralizeList = JSONObject.parseArray(webGeneralizeConfig.getValue(), WebGeneralize.class);
-        for (WebGeneralize webGeneralize : webGeneralizeList) {
-            if (webGeneralize.getConfigId().equals(id)) {
-                return webGeneralize;
-            }
-        }
-        return new WebGeneralize();
+        return webGeneralizeList.get(id - 1);
     }
 
     @Override
@@ -184,8 +179,8 @@ public class ArticleServiceImpl implements ArticleService {
         Example example = new Example(Article.class);
         example.orderBy("createTime").desc();
         Criteria criteria = example.createCriteria();
-        if(StringUtil.isNotEmptyString(article.getTitle())){
-            criteria.andEqualTo("title",article.getTitle());
+        if (StringUtil.isNotEmptyString(article.getTitle())) {
+            criteria.andEqualTo("title", article.getTitle());
         }
         String typeCode = ArticleTypeEnum.getTypeCode(article.getType());
         if (StringUtil.isNotEmptyString(typeCode)) {

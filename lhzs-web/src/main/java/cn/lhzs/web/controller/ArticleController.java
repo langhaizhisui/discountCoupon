@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import static cn.lhzs.result.ResponseResultGenerator.generatorSuccessResult;
@@ -52,11 +53,10 @@ public class ArticleController {
         return generatorSuccessResult(articleService.getArticleCount(article));
     }
 
-    @RequestMapping("/webGeneralize")
+    @RequestMapping("/webGeneralize/search")
     @ResponseBody
     public ResponseResult getWebGeneralize(@RequestBody WebGeneralize webGeneralize) {
-        articleService.getWebGeneralizeList(webGeneralize);
-        return generatorSuccessResult();
+        return generatorSuccessResult(new PageInfo(articleService.getWebGeneralizeList(webGeneralize)));
     }
 
     @RequestMapping("/webGeneralize/add")
@@ -82,9 +82,8 @@ public class ArticleController {
 
     @RequestMapping("/webGeneralize/detail")
     @ResponseBody
-    public ResponseResult getWebGeneralizeDetail(Integer id) {
-        articleService.getWebGeneralizeDetail(id);
-        return generatorSuccessResult();
+    public ResponseResult getWebGeneralizeDetail(@RequestParam Integer id) {
+        return generatorSuccessResult(articleService.getWebGeneralizeDetail(id));
     }
 
     @RequestMapping("/search")

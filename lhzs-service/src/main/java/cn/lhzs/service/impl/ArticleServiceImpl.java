@@ -139,7 +139,7 @@ public class ArticleServiceImpl implements ArticleService {
     public void deleteWebGeneralize(Integer id) {
         Config webGeneralizeConfig = configService.getConfigById(Constants.WEB_GENERALIZE);
         List<WebGeneralize> webGeneralizeList = JSONObject.parseArray(webGeneralizeConfig.getValue(), WebGeneralize.class);
-        webGeneralizeList.remove(id);
+        webGeneralizeList.remove(id - 1);
         webGeneralizeConfig.setValue(JSONObject.toJSONString(webGeneralizeList));
         configService.updateConfigById(webGeneralizeConfig);
     }

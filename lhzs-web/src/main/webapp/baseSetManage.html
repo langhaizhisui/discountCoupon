@@ -287,7 +287,7 @@
                         </span>
                     </span>
                     <span class="search-btn">查询</span>
-                    <span class="all-delete-btn">全部删除</span>
+                    <!--<span class="all-delete-btn">全部删除</span>-->
                 </div>
             </div>
 
@@ -381,7 +381,7 @@
                     var id = $(this).parent().parent().find(".prod-id").text();
                     var param = {};
                     param.id = id;
-                    app.deleteArticle(param, function (result) {
+                    app.deleteWebGeneralize(param, function (result) {
                         if (result.code == 200) {
                             getWebGeneralizeList(page);
                             alert("删除成功");
@@ -404,7 +404,7 @@
     function bindEvent() {
 
         $(".search-btn").click(function () {
-            searchInfo(1);
+            getWebGeneralizeList(1);
         });
 
         $(".more-delete-btn").click(function () {

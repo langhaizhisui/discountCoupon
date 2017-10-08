@@ -115,7 +115,7 @@ var app = {
     },
     deleteWebGeneralize: function (data, callback) {
         var self = this;
-        self.ajax("post", "article/webGeneralize/delete", data, callback);
+        self.ajax("get", "article/webGeneralize/delete", data, callback);
     },
     updateWebGeneralize: function (data, callback) {
         var self = this;

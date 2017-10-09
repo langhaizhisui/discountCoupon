@@ -163,7 +163,25 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public List<WebGeneralize> getWebGeneralizeList(WebGeneralize webGeneralize) {
-        return JSONObject.parseArray(configService.getConfigById(Constants.WEB_GENERALIZE).getValue(), WebGeneralize.class);
+        List<WebGeneralize> webGeneralizeList= JSONObject.parseArray(configService.getConfigById(Constants.WEB_GENERALIZE).getValue(), WebGeneralize.class);
+        if (getSearchWebGeneralizeList(webGeneralize, webGeneralizeList) != null) {
+            return getSearchWebGeneralizeList(webGeneralize, webGeneralizeList);
+        }
+        return webGeneralizeList;
+    }
+
+    private List<WebGeneralize> getSearchWebGeneralizeList(WebGeneralize webGeneralize, List<WebGeneralize> webGeneralizeList) {
+        List<WebGeneralize> currWebGeneralizeList = new ArrayList<WebGeneralize>();
+        if (StringUtil.isNotEmptyString(webGeneralize.getWebName())) {
+            for (int i = 0; i < webGeneralizeList.size(); i++) {
+                WebGeneralize currentWebGeneralize = webGeneralizeList.get(i);
+                if (webGeneralize.getWebName().equals(currentWebGeneralize.getWebName())) {
+                    currWebGeneralizeList.add(currentWebGeneralize);
+                }
+            }
+            return currWebGeneralizeList;
+        }
+        return null;
     }
 
     private String getTypeText(String type) {

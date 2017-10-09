@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/discountCoupon.iml" filepath="$PROJECT_DIR$/.idea/discountCoupon.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lhzs-common/lhzs-common.iml" filepath="$PROJECT_DIR$/lhzs-common/lhzs-common.iml" />
       <module fileurl="file://$PROJECT_DIR$/lhzs-data/lhzs-data.iml" filepath="$PROJECT_DIR$/lhzs-data/lhzs-data.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lhzs-generator/lhzs-generator.iml" filepath="$PROJECT_DIR$/lhzs-generator/lhzs-generator.iml" />
       <module fileurl="file://$PROJECT_DIR$/lhzs-service/lhzs-service.iml" filepath="$PROJECT_DIR$/lhzs-service/lhzs-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/lhzs-web/lhzs-web.iml" filepath="$PROJECT_DIR$/lhzs-web/lhzs-web.iml" />
     </modules>

@@ -1,10 +1,7 @@
 package cn.lhzs.service.intf;
 
 import cn.lhzs.data.bean.Config;
-import cn.lhzs.data.bean.Product;
-import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import cn.lhzs.data.bean.SlideShowPicture;
 
 import java.util.List;
 
@@ -18,4 +15,8 @@ public interface ConfigService {
     void updateConfigById(Config config);
 
     void addConfig(Config config);
+
+    List<SlideShowPicture> getSlideShowPictureList();
+
+    void deleteSlideShowPicture(Integer id);
 }

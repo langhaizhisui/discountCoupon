@@ -225,15 +225,19 @@
             cursor: pointer;
             display: inline-block;
         }
+
         .cata {
             width: 85px;
         }
+
         .price {
             width: 250px;
         }
+
         .operation {
             width: 87px;
         }
+
         .prod-title {
             width: 390px;
         }
@@ -260,7 +264,10 @@
                 <div class="left-nav-grade1">首页</div>
                 <div class="left-nav-grade2">
                     <div class="left-nav-bg">
-                        <a href="/articleManage.html">轮播图</a>
+                        <a href="/slideShowPictureEnterManage.html">轮播图</a>
+                    </div>
+                    <div class="left-nav-bg">
+                        <a href="/slideShowPictureManage.html">轮播图列表</a>
                     </div>
                 </div>
             </div>
@@ -335,6 +342,11 @@
         param.page = page;
         param.size = 20;
 
+        var webName = $("#shop-id-input").val();
+        if (webName) {
+            param.webName = webName;
+        }
+
         app.getWebGeneralize(param, function (result) {
             if (result.code == 200) {
                 var html = "";
@@ -348,15 +360,15 @@
                 for (var i = 0; i < data.length; i++) {
                     var item = data[i];
                     html += '<div class="content-item">' +
-                    '<div class="prod-id">' + (i+1) + '</div>' +
-                    '<div class="prod-title">' + item.webName + '</div>' +
-                    '<div class="cata">' + item.weighnt + '</div>' +
-                    '<div class="price">' + item.url + '</div>' +
-                    '<div class="operation">' +
-                    '<span class="prod-edit"> 编辑 </span>' +
-                    '<span class="prod-delete"> 删除 </span>' +
-                    '</div>' +
-                    '</div>';
+                        '<div class="prod-id">' + (i + 1) + '</div>' +
+                        '<div class="prod-title">' + item.webName + '</div>' +
+                        '<div class="cata">' + item.weighnt + '</div>' +
+                        '<div class="price">' + item.url + '</div>' +
+                        '<div class="operation">' +
+                        '<span class="prod-edit"> 编辑 </span>' +
+                        '<span class="prod-delete"> 删除 </span>' +
+                        '</div>' +
+                        '</div>';
                 }
                 $(".content-list").html(html);
 
@@ -398,11 +410,10 @@
     }
 
     function getTitle(title) {
-        return title.length > 15 ? title.substring(0, 30)+"..." : title
+        return title.length > 15 ? title.substring(0, 30) + "..." : title
     }
 
     function bindEvent() {
-
         $(".search-btn").click(function () {
             getWebGeneralizeList(1);
         });

@@ -1,12 +1,17 @@
 package cn.lhzs.service.impl;
 
+import cn.lhzs.data.bean.Config;
 import cn.lhzs.data.bean.Product;
 import cn.lhzs.data.bean.Shop;
+import cn.lhzs.data.bean.SlideShowPicture;
 import cn.lhzs.data.bean.Upload;
+import cn.lhzs.data.common.Constants;
 import cn.lhzs.data.dao.ProductMapper;
 import cn.lhzs.data.dao.ShopMapper;
+import cn.lhzs.service.intf.ConfigService;
 import cn.lhzs.service.intf.UploadService;
-import cn.lhzs.util.PoiHelper;
+import cn.lhzs.util.*;
+import com.alibaba.fastjson.JSONObject;
 import org.apache.log4j.Logger;
 import org.apache.poi.ss.usermodel.*;
 import org.springframework.stereotype.Service;
@@ -16,7 +21,9 @@ import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by ZHX on 2017/4/26.
@@ -30,6 +37,8 @@ public class UploadServiceImpl implements UploadService {
     public ProductMapper productMapper;
     @Resource
     public ShopMapper shopMapper;
+    @Resource
+    public ConfigService configService;
 
     @Override
     public String getExcell(String fileName, InputStream inputStream, String type) {
@@ -94,6 +103,37 @@ public class UploadServiceImpl implements UploadService {
         return null;
     }
 
+    @Override
+    public void saveImageInfo(SlideShowPicture slideShowPicture) {
+        Config currentConfig = configService.getConfigById(Constants.SLIDESHOW_PICTURE);
+        if (currentConfig == null) {
+            addSlideshowPictureConfig(slideShowPicture);
+        } else {
+            updateSlideshowPictureConfig(slideShowPicture, currentConfig);
+        }
+    }
+
+    private void updateSlideshowPictureConfig(SlideShowPicture slideShowPicture, Config currentConfig) {
+        List<SlideShowPicture> slideShowPictureList = JSONObject.parseArray(currentConfig.getValue(), SlideShowPicture.class);
+        slideShowPictureList.add(slideShowPicture);
+        currentConfig.setValue(JSONObject.toJSONString(slideShowPictureList));
+        currentConfig.setUpdateTime(new Date());
+        configService.updateConfigById(currentConfig);
+    }
+
+    private void addSlideshowPictureConfig(SlideShowPicture slideShowPicture) {
+        Config config = new Config();
+        config.setConfigId(Constants.SLIDESHOW_PICTURE);
+        List<SlideShowPicture> imageList = new ArrayList<SlideShowPicture>();
+        imageList.add(slideShowPicture);
+        config.setValue(JSONObject.toJSONString(imageList));
+        config.setCreateTime(new Date());
+        config.setUpdateTime(new Date());
+        config.setRemark("轮播图");
+        config.setState("1");
+        configService.addConfig(config);
+    }
+
     private void setField(Row row, Object clazz, String[] fieldColumn, String[] FieldClassType) throws Exception {
         for (int j = 0; j < fieldColumn.length; j++) {
             Cell cell = row.getCell(j);
@@ -117,7 +157,7 @@ public class UploadServiceImpl implements UploadService {
                 PoiHelper.setFieldMethod(clazz, fieldColumn[j], Float.class, cell == null ? 0f : Float.parseFloat(cell.toString()));
             } else if ("Date".equals(FieldClassType[j])) {
                 PoiHelper.setFieldMethod(clazz, fieldColumn[j], Date.class, cell == null ? new Date() : cell.getDateCellValue());
-            } else if("DateString".equals(FieldClassType[j])){
+            } else if ("DateString".equals(FieldClassType[j])) {
                 PoiHelper.setFieldMethod(clazz, fieldColumn[j], String.class, cell == null ? "" : new SimpleDateFormat("yyyy-MM-dd").format(cell.getDateCellValue()));
             }
         }

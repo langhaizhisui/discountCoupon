@@ -1,5 +1,7 @@
 package cn.lhzs.service.intf;
 
+import cn.lhzs.data.bean.SlideShowPicture;
+
 import java.io.InputStream;
 
 /**
@@ -7,4 +9,6 @@ import java.io.InputStream;
  */
 public interface UploadService {
     String getExcell(String fileName, InputStream inputStream, String type);
+
+    void saveImageInfo(SlideShowPicture slideShowPicture);
 }

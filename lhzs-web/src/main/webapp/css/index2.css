@@ -167,6 +167,7 @@
     display: none;
     padding: 23px 18px;
     border-radius: 100%;
+
 }
 
 .hot-prod {
@@ -183,10 +184,16 @@
     margin-left: 985px;
     text-decoration: underline;
     color: #ff5e54;
+    cursor: pointer;
 }
 
 .hot-prod-next {
     margin-left: 985px;
     text-decoration: underline;
     color: #ff5e54;
+    cursor: pointer;
+}
+
+.hidden{
+    display: none;
 }

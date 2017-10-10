@@ -167,6 +167,7 @@
     display: none;
     padding: 23px 18px;
     border-radius: 100%;
+    cursor: pointer;
 }
 
 .hot-prod {
@@ -184,6 +185,7 @@
     display: none;
     padding: 23px 18px;
     border-radius: 100%;
+    cursor: pointer;
 }
 
 .shop-detail {

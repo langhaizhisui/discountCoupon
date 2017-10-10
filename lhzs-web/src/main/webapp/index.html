@@ -14,7 +14,7 @@
 <body>
 <div class="header"></div>
 <section>
-    <div class="ad clearfix">
+    <div class="ad clearfix hidden">
         <div class="new-shop">
             <ul class="shop-item"></ul>
         </div>
@@ -111,8 +111,10 @@
                 }
 
                 $(".sliderShowPicture").html(html);
+                $(".ad").removeClass("hidden");
 
                 setCarousel();
+
             }
         });
     }

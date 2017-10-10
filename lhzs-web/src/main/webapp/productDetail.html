@@ -184,7 +184,7 @@
                         '<div class="prod-generalize-item-img">' +
                         '<img src="' + product.banner + '">' +
                         '</div>' +
-                        '<div class="prod-generalize-item-price">券后¥' + (product.price - product.discountPrice).toFixed(2) + '</div>' +
+                        '<div class="prod-generalize-item-price">券后¥' + product.discountPrice.toFixed(2) + '</div>' +
                         '</div>'
                 }
                 $(".prod-generalize-list").html(html);

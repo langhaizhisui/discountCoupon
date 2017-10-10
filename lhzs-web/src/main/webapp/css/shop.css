@@ -172,6 +172,7 @@
     display: none;
     padding: 23px 18px;
     border-radius: 100%;
+    cursor: pointer;
 }
 
 .hot-prod {
@@ -190,6 +191,7 @@
     padding: 10px;
     background: #eee;
     margin: 5px;
+    cursor: pointer;
 }
 
 #curr-page {
@@ -214,6 +216,7 @@
     border-top: 1px solid #eee;
     border-bottom: 1px solid #eee;
     margin-top: 10px;
+    cursor: pointer;
 }
 
 .prod-catalog ul li:after {

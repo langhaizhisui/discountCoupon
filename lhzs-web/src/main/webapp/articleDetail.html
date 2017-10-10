@@ -293,20 +293,22 @@
         });
 
         var param = {}
+        param.page = 1;
+        param.size = 20;
         app.getWebGeneralize(param, function (result) {
             if (result.code == 200) {
-                var data = result.data;
+                var data = result.data.list;
                 var html = '<div>商城推荐</div>';
                 for (var i = 0; i < data.length; i++) {
                     var value = data[i];
                     if (i % 4 == 0) {
                         html += '<div>';
-                        html += '<span><a href="'+value.url+'" target="_blank">'+value.webName+'</a></span>';
+                        html += '<span><a href="' + value.url + '" target="_blank">' + value.webName + '</a></span>';
                     } else if (i % 4 == 3) {
-                        html += '<span><a href="'+value.url+'" target="_blank">'+value.webName+'</a></span>';
+                        html += '<span><a href="' + value.url + '" target="_blank">' + value.webName + '</a></span>';
                         html += '</div>';
                     } else {
-                        html += '<span><a href="'+value.url+'" target="_blank">'+value.webName+'</a></span>';
+                        html += '<span><a href="' + value.url + '" target="_blank">' + value.webName + '</a></span>';
                     }
 
                 }

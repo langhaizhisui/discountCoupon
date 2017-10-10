@@ -178,9 +178,8 @@
 }
 
 .prod-detail {
-    margin: 20px 7%;
-    float: left;
-    width: 800px;
+    margin: 20px auto;
+    width: 1050px;
 }
 
 .prod-detail-img {

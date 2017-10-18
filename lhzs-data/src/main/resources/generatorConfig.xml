@@ -101,5 +101,36 @@
                enableUpdateByExample="false" enableDeleteByExample="false">
 
         </table>-->
+
+        <!--<table tableName="sys_auth" domainObjectName="SysAuth"
+               enableCountByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false">
+
+        </table>
+        <table tableName="sys_auth_menu" domainObjectName="SysAuthMenu"
+               enableCountByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false">
+
+        </table>
+        <table tableName="sys_role" domainObjectName="SysRole"
+               enableCountByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false">
+
+        </table>
+        <table tableName="sys_role_auth" domainObjectName="SysRoleAuth"
+               enableCountByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false">
+
+        </table>
+        <table tableName="sys_role_user" domainObjectName="SysRoleUser"
+               enableCountByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false">
+
+        </table>
+        <table tableName="sys_user" domainObjectName="SysUser"
+               enableCountByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false">
+
+        </table>-->
     </context>
 </generatorConfiguration>

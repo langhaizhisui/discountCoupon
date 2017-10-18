@@ -133,6 +133,10 @@ var app = {
         var self = this;
         self.ajax("get", "config/slideshowPicture/delete", data, callback);
     },
+    login: function (data, callback) {
+        var self = this;
+        self.ajax("post", "login/login", data, callback);
+    },
     "ajax": function (type, url, data, callback) {
         var self = this;
         if (self.isParamEmpty(type) || self.isParamEmpty(url) || self.isParamEmpty(data)) {

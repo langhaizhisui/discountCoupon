@@ -8,7 +8,7 @@ var app = {
         var self = this;
         self.ajax("post", "shop/getList", data, callback);
     },
-    getSiteShopList:function (data,callback) {
+    getSiteShopList: function (data, callback) {
         var self = this;
         self.ajax("post", "shop/getSiteList", data, callback);
     },
@@ -23,6 +23,10 @@ var app = {
     getProductList: function (data, callback) {
         var self = this;
         self.ajax("post", "prod/getList", data, callback);
+    },
+    getBgProductList: function (data, callback) {
+        var self = this;
+        self.ajax("post", "prod/bac/getList", data, callback);
     },
     getProductDetail: function (data, callback) {
         var self = this;
@@ -47,10 +51,10 @@ var app = {
     getSelectedNav: function (navId) {
         setTimeout(function () {
             $(".top-nav ul li").removeClass("top-nav-select");
-            if(navId<=5){
-                $('.top-nav ul li:eq('+navId+')').addClass("top-nav-select");
+            if (navId <= 5) {
+                $('.top-nav ul li:eq(' + navId + ')').addClass("top-nav-select");
             }
-        },100);
+        }, 100);
 
     },
     addProd: function (data, callback) {
@@ -156,7 +160,17 @@ var app = {
             $.ajax({
                 type: 'get',
                 url: url + param,
-                success: callback
+                success: function (result) {
+                    if (result.code == 600) {
+                        location.replace("/login.html");
+                        return;
+                    }
+                    if(result.code==601){
+                        location.replace("/manageSystem.html");
+                        return;
+                    }
+                    return callback(result);
+                }
             });
         } else {
             $.ajax({
@@ -165,7 +179,17 @@ var app = {
                 dataType: 'json',
                 contentType: "application/json",
                 data: JSON.stringify(data),
-                success: callback
+                success: function (result) {
+                    if (result.code == 600) {
+                        location.replace("/login.html");
+                        return;
+                    }
+                    if(result.code==601){
+                        location.replace("/manageSystem.html");
+                        return;
+                    }
+                    return callback(result);
+                }
             });
         }
     },

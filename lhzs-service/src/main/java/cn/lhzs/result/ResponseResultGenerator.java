@@ -51,4 +51,12 @@ public class ResponseResultGenerator {
                 .setCode(responseCode.getCode())
                 .setMsg(responseCode.getDescp());
     }
+
+    public static ResponseResult generatorLoginResult() {
+        return getResponseResult(ResponseCode.LOGIN);
+    }
+
+    public static ResponseResult generatorUnLoginResult() {
+        return getResponseResult(ResponseCode.UNLOGIN);
+    }
 }

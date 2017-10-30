@@ -97,7 +97,7 @@
         <!-- Shiro的核心安全接口，这个属性是必须的 -->
         <property name="securityManager" ref="securityManager"/>
         <!-- 要求登录时的链接（可根据项目的URL进行替换），非必须的属性，默认会找Web工程根目录下的[/login.jsp] -->
-        <property name="loginUrl" value="/login.html"/>
+        <property name="loginUrl" value="/login/unLogin"/>
         <!-- 登录成功后要跳转的连接（本例中此属性用不到，因为登录成功后的处理逻辑已在LoginController中硬编码为main.jsp） -->
         <!-- <property name="successUrl" value="/system/main"/> -->
         <!--
@@ -105,7 +105,7 @@
         若想更明显的测试此属性可以修改它的值，比如unauthor.jsp
         然后用[xuanyu]登录后访问/admin/list.jsp就看见浏览器会显示unauthor.jsp
         -->
-        <property name="unauthorizedUrl" value="/login.html"/>
+        <property name="unauthorizedUrl" value="/login/unLogin"/>
         <!--
         Shiro连接约束配置，即过滤链的定义
         更详细介绍，见本文最下方提供的Shiro-1.2.2内置的FilterChain说明
@@ -123,6 +123,22 @@
                 /user/info**      = authc
                 /mydemo/aaa**     = authc,perms[admin:manage]-->
                 /login/aaa**     = authc,perms[admin:manage]
+                /shop/delete     = authc,perms[admin:manage]
+                /prod/delete     = authc,perms[admin:manage]
+                /prod/add     = authc,perms[admin:manage]
+                /prod/bac/getList     = authc,perms[admin:manage]
+                /prod/update     = authc,perms[admin:manage]
+                /shop/add     = authc,perms[admin:manage]
+                /shop/update     = authc,perms[admin:manage]
+                /prod/all/delete     = authc,perms[admin:manage]
+                /article/gene/article     = authc,perms[admin:manage]
+                /article/delete     = authc,perms[admin:manage]
+                /shop/batch/delete     = authc,perms[admin:manage]
+                /shop/all/delete     = authc,perms[admin:manage]
+                /article/webGeneralize/add     = authc,perms[admin:manage]
+                /article/webGeneralize/delete     = authc,perms[admin:manage]
+                /article/webGeneralize/update     = authc,perms[admin:manage]
+                /config/slideshowPicture/delete     = authc,perms[admin:manage]
             </value>
         </property>
     </bean>

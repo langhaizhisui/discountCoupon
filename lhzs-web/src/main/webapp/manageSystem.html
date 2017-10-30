@@ -363,7 +363,7 @@
         param.pageSize = 20;
         reqData.reqData = param;
 
-        app.getProductList(reqData, function (result) {
+        app.getBgProductList(reqData, function (result) {
             if (result.code == 200) {
                 var html = '';
                 var data = result.data.prodList;

@@ -49,6 +49,18 @@ public class ProductController {
         return result;
     }
 
+    @RequestMapping(value = "/bac/getList")
+    @ResponseBody
+    public RequestResult getProductList2(@RequestBody String reqData) {
+        JSONObject productList = productService.getProds(reqData);
+
+        RequestResult result = new RequestResult();
+        result.setCode(200);
+        result.setMsg("获取列表成功");
+        result.setData(productList);
+        return result;
+    }
+
     @RequestMapping("/add")
     @ResponseBody
     public RequestResult addProduct(@RequestBody Product product) {

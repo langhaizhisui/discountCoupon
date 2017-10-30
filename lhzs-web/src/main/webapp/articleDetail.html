@@ -196,47 +196,8 @@
                 </div>
                 <div>
                     <div class="hot-shop"><span class="line"></span>热门店铺</div>
-                    <div>
-                        <div class="shop" index="0">
-                            <div class="shop-logo "><img src="./images/tm.jpg"></div>
-                            <div class="shop-desc">
-                                <div class="shop-name">英尚旗舰店</div>
-                                <div class="shop-type"><span>商城：</span><span>天猫</span></div>
-                                <div class="shop-addr"><span>地区：</span><span>浙江省,杭州市</span></div>
-                            </div>
-                        </div>
-                        <div class="shop" index="0">
-                            <div class="shop-logo "><img src="./images/tm.jpg"></div>
-                            <div class="shop-desc">
-                                <div class="shop-name">英尚旗舰店</div>
-                                <div class="shop-type"><span>商城：</span><span>天猫</span></div>
-                                <div class="shop-addr"><span>地区：</span><span>浙江省,杭州市</span></div>
-                            </div>
-                        </div>
-                        <div class="shop" index="0">
-                            <div class="shop-logo "><img src="./images/tm.jpg"></div>
-                            <div class="shop-desc">
-                                <div class="shop-name">英尚旗舰店</div>
-                                <div class="shop-type"><span>商城：</span><span>天猫</span></div>
-                                <div class="shop-addr"><span>地区：</span><span>浙江省,杭州市</span></div>
-                            </div>
-                        </div>
-                        <div class="shop" index="0">
-                            <div class="shop-logo "><img src="./images/tm.jpg"></div>
-                            <div class="shop-desc">
-                                <div class="shop-name">英尚旗舰店</div>
-                                <div class="shop-type"><span>商城：</span><span>天猫</span></div>
-                                <div class="shop-addr"><span>地区：</span><span>浙江省,杭州市</span></div>
-                            </div>
-                        </div>
-                        <div class="shop" index="0">
-                            <div class="shop-logo "><img src="./images/tm.jpg"></div>
-                            <div class="shop-desc">
-                                <div class="shop-name">英尚旗舰店</div>
-                                <div class="shop-type"><span>商城：</span><span>天猫</span></div>
-                                <div class="shop-addr"><span>地区：</span><span>浙江省,杭州市</span></div>
-                            </div>
-                        </div>
+                    <div class="content-list">
+
                     </div>
                 </div>
             </div>
@@ -329,6 +290,8 @@
                 $(".article-list").load(data.src);
             }
         });
+
+        getShop(1);
     });
 
     function getTitle(title) {
@@ -514,6 +477,43 @@
             productName = productName.substr(0, 28) + "...";
         }
         return productName;
+    }
+
+    function getShop(page) {
+        var reqData = {};
+        var param = {};
+
+        param.page = page;
+        param.pageSize = 5;
+        reqData.reqData = param;
+
+        app.getShopList(reqData, function (result) {
+            if (result.code == 200) {
+                var html = "";
+                var data = result.data.shopList;
+                if (data.length == 0) {
+                    $(".shop-list").html("");
+                    return;
+                }
+                for (var i = 0; i < data.length; i++) {
+                    var shop = data[i];
+                    html += '<div class="shop" index="' + i + '">' +
+                        '<div class="shop-logo "><img src="' + getShopImage(shop.site) + '"></div>' +
+                        '<div class="shop-desc">' +
+                        '<div class="shop-name">' + shop.webShop + '</div>' +
+                        '<div class="shop-type"><span>商城：</span><span>' + getShopType(shop.site) + '</span></div>' +
+                        '<div class="shop-addr"><span>地区：</span><span>' + shop.shopAddr + '</span></div>' +
+                        '</div>' +
+                        '</div>';
+                }
+                $(".content-list").html(html);
+
+                $(".shop").click(function () {
+                    var index = $(this).attr("index");
+                    window.open("shopDetail.html?shopId=" + data[index].id + "&shopImg=" + getShopId(data[index].type));
+                });
+            }
+        });
     }
 </script>
 </html>

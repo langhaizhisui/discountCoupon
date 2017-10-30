@@ -6,7 +6,9 @@ package cn.lhzs.result;
 public enum ResponseCode {
 
     OK(200, "请求成功"),
-    FAIL(500,"请求失败");
+    FAIL(500,"请求失败"),
+    UNLOGIN(600,"未登录"),
+    LOGIN(601,"登录成功");
 
     private Integer code;
     private String descp;

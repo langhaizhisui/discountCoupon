@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+import static cn.lhzs.result.ResponseResultGenerator.generatorLoginResult;
 import static cn.lhzs.result.ResponseResultGenerator.generatorSuccessResult;
+import static cn.lhzs.result.ResponseResultGenerator.generatorUnLoginResult;
 
 /**
  * Created by ZHX on 2017/5/7.
@@ -40,8 +42,8 @@ public class LoginController {
     public ResponseResult login() {
         System.out.println("-------------------------------------------------------");
 
-        String username="jadyer";
-        String password="jadyer";
+        String username="biibuy";
+        String password="biibuy";
 
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
         token.setRememberMe(true);
@@ -75,12 +77,12 @@ public class LoginController {
         }else{
             token.clear();
         }
-        return generatorSuccessResult("login");
+        return generatorLoginResult();
     }
 
-    @RequestMapping("/aaa")
+    @RequestMapping("/unLogin")
     @ResponseBody
     public ResponseResult deleteArticle() {
-        return generatorSuccessResult("aaaaa");
+        return generatorUnLoginResult();
     }
 }

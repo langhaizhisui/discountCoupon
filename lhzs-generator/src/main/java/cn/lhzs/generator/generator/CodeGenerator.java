@@ -143,7 +143,7 @@ public class CodeGenerator {
         try {
             freemarker.template.Configuration cfg = getConfiguration();
 
-            Map<String, Object> data = new HashMap<>();
+            Map<String, Object> data = new HashMap<String, Object>();
             data.put("date", DATE);
             data.put("author", AUTHOR);
             String modelNameUpperCamel = StringUtils.isEmpty(modelName) ? tableNameConvertUpperCamel(tableName) : modelName;
@@ -175,7 +175,7 @@ public class CodeGenerator {
         try {
             freemarker.template.Configuration cfg = getConfiguration();
 
-            Map<String, Object> data = new HashMap<>();
+            Map<String, Object> data = new HashMap<String, Object>();
             data.put("date", DATE);
             data.put("author", AUTHOR);
             String modelNameUpperCamel = StringUtils.isEmpty(modelName) ? tableNameConvertUpperCamel(tableName) : modelName;

@@ -197,3 +197,22 @@
 .hidden{
     display: none;
 }
+
+.moldbaby-subject img {
+    width: 250px;
+    height: 250px;
+}
+
+.shop-detail-content-name {
+    padding-top: 50px;
+    text-decoration: underline;
+    font-weight: 600;
+    width: 170px;
+    line-height: 25px;
+}
+
+#cnzz_stat_icon_1261882558{
+    position: relative;
+    top: -43px;
+    left: 38%;
+}

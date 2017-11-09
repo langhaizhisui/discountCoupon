@@ -1,5 +1,5 @@
-package ${basePackage}.service;
-import ${basePackage}.model.${modelNameUpperCamel};
+package ${basePackage}.service.intf;
+import ${basePackage}.data.bean.${modelNameUpperCamel};
 import ${basePackage}.base.IBaseService;
 
 

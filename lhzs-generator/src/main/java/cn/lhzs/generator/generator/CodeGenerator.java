@@ -20,17 +20,17 @@ import static cn.lhzs.generator.generator.ProjectConstant.*;
  */
 public class CodeGenerator {
     //JDBC配置，请修改为你项目的实际配置
-    private static final String JDBC_URL = "jdbc:mysql://192.168.0.200:3306/drp";
-    private static final String JDBC_USERNAME = "drp";
-    private static final String JDBC_PASSWORD = "drp";
+    private static final String JDBC_URL = "jdbc:mysql://119.23.54.39:3306/discount_coupon";
+    private static final String JDBC_USERNAME = "root";
+    private static final String JDBC_PASSWORD = "biibuy66";
     private static final String JDBC_DIVER_CLASS_NAME = "com.mysql.jdbc.Driver";
 
     private static final String PROJECT_PATH = System.getProperty("user.dir");//项目在硬盘上的基础路径
 
-    private static final String SERVICE_PATH = PROJECT_PATH + "/drp-service";
-    private static final String DAO_PATH = PROJECT_PATH + "/drp-dao";
-    private static final String WEB_PATH = PROJECT_PATH + "/drp-web";
-    private static final String TEMPLATE_FILE_PATH = PROJECT_PATH + "/drp-generator/src/main/resources/generator/template";//模板位置
+    private static final String SERVICE_PATH = PROJECT_PATH + "/lhzs-service";
+    private static final String DAO_PATH = PROJECT_PATH + "/lhzs-data";
+    private static final String WEB_PATH = PROJECT_PATH + "/lhzs-web";
+    private static final String TEMPLATE_FILE_PATH = PROJECT_PATH + "/lhzs-generator/src/main/resources/generator/template";//模板位置
 
     private static final String JAVA_PATH = "/src/main/java"; //java文件路径
     private static final String RESOURCES_PATH = "/src/main/resources";//资源文件路径
@@ -39,12 +39,12 @@ public class CodeGenerator {
     private static final String PACKAGE_PATH_SERVICE_IMPL = packageConvertPath(SERVICE_IMPL_PACKAGE);//生成的Service实现存放路径
     private static final String PACKAGE_PATH_CONTROLLER = packageConvertPath(CONTROLLER_PACKAGE);//生成的Controller存放路径
 
-    private static final String AUTHOR = "ibaboss-team";//@author
+    private static final String AUTHOR = "ZHX";//@author
     private static final String DATE = new SimpleDateFormat("yyyy/MM/dd").format(new Date());//@date
 
     public static void main(String[] args) {
 //        String str = tableNameConvertLowerCamel("drp_cty");
-        genCode("drp_user");
+        genCode("article2");
         //genCode("输入表名","输入自定义Model名称");
     }
 
@@ -87,7 +87,7 @@ public class CodeGenerator {
         context.setJdbcConnectionConfiguration(jdbcConnectionConfiguration);
 
         PluginConfiguration pluginConfiguration = new PluginConfiguration();
-        pluginConfiguration.setConfigurationType("MapperPlugin");
+        pluginConfiguration.setConfigurationType(MAPPER_PLUGIN);
         pluginConfiguration.addProperty("mappers", MAPPER_INTERFACE_REFERENCE);
         context.addPluginConfiguration(pluginConfiguration);
 
@@ -99,7 +99,7 @@ public class CodeGenerator {
 
         SqlMapGeneratorConfiguration sqlMapGeneratorConfiguration = new SqlMapGeneratorConfiguration();
         sqlMapGeneratorConfiguration.setTargetProject(DAO_PATH + RESOURCES_PATH);
-        sqlMapGeneratorConfiguration.setTargetPackage("mapper.generator");
+        sqlMapGeneratorConfiguration.setTargetPackage("mapper");
         context.setSqlMapGeneratorConfiguration(sqlMapGeneratorConfiguration);
 
         JavaClientGeneratorConfiguration javaClientGeneratorConfiguration = new JavaClientGeneratorConfiguration();

@@ -51,7 +51,8 @@ public class MapperPlugin extends PluginAdapter {
         super.setProperties(properties);
         String mappers = this.properties.getProperty("mappers");
         if(!StringUtility.stringHasValue(mappers)) {
-            throw new MapperException("Mapper插件缺少必要的mappers属性!");
+//            throw new MapperException("Mapper插件缺少必要的mappers属性!");
+            return;
         } else {
             String[] var3 = mappers.split(",");
             int var4 = var3.length;
@@ -120,6 +121,7 @@ public class MapperPlugin extends PluginAdapter {
 
     private void processEntityClass(TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
         topLevelClass.addImportedType("javax.persistence.*");
+        topLevelClass.addImportedType("cn.lhzs.data.base.BaseModel");
         String tableName = introspectedTable.getFullyQualifiedTableNameAtRuntime();
         if(StringUtility.stringContainsSpace(tableName)) {
             tableName = this.context.getBeginningDelimiter() + tableName + this.context.getEndingDelimiter();

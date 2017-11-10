@@ -86,8 +86,12 @@ public class ArticleServiceImpl extends AbstractBaseService<Article> implements 
 
     @Override
     public List<Article> searchArticle(Article article) {
-        startPage(article.getPage(), article.getSize());
-        List<Article> articleList = findByCondition(getSearchArticleCondition(article));
+        Integer page = article.getPage();
+        Integer size = article.getSize();
+        article.setIndex(page == 0 ? 0 : (page - 1) * size);
+        article.setSize(size);
+
+        List<Article> articleList = articleMapper.getArticleList(article);
         for (Article item : articleList) {
             item.setcTime(DateUtil.formatDate(item.getCreateTime(), "yyyy-MM-dd"));
             item.setType(getTypeText(item.getType()));

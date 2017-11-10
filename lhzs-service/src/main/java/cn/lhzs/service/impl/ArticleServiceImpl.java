@@ -1,14 +1,15 @@
 package cn.lhzs.service.impl;
 
-
-import cn.lhzs.data.bean.Article;
 import cn.lhzs.data.bean.Config;
 import cn.lhzs.data.bean.WebGeneralize;
 import cn.lhzs.data.common.ArticleTypeEnum;
 import cn.lhzs.data.common.Constants;
 import cn.lhzs.data.dao.ArticleMapper;
+import cn.lhzs.data.bean.Article;
 import cn.lhzs.result.RequestResult;
+import cn.lhzs.result.ResponseResult;
 import cn.lhzs.service.intf.ArticleService;
+import cn.lhzs.base.AbstractBaseService;
 import cn.lhzs.service.intf.ConfigService;
 import cn.lhzs.util.DateUtil;
 import cn.lhzs.util.StringUtil;
@@ -18,8 +19,9 @@ import freemarker.template.DefaultObjectWrapper;
 import freemarker.template.Template;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.cache.annotation.CacheConfig;
 import tk.mybatis.mapper.entity.Example;
-import tk.mybatis.mapper.entity.Example.Criteria;
 
 import javax.annotation.Resource;
 import java.io.File;
@@ -27,15 +29,24 @@ import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import static cn.lhzs.result.ResponseResultGenerator.generatorFailResult;
+import static cn.lhzs.result.ResponseResultGenerator.generatorSuccessResult;
 import static com.github.pagehelper.page.PageMethod.startPage;
 
+
 /**
- * Created by ZHX on 2017/5/7.
+ * Created by ZHX on 2017/11/10.
  */
+@CacheConfig(cacheNames = "Article")
 @Service
-public class ArticleServiceImpl implements ArticleService {
+@Transactional
+public class ArticleServiceImpl extends AbstractBaseService<Article> implements ArticleService {
 
     Logger logger = Logger.getLogger(ArticleServiceImpl.class);
 
@@ -46,63 +57,21 @@ public class ArticleServiceImpl implements ArticleService {
     public ConfigService configService;
 
     @Override
-    public void addArticle(Article article) {
-        articleMapper.insert(article);
+    public ResponseResult addArticle(Article article) {
+        article.setWeight(1);
+        article.setState(1);
+        if (save(article) != null) {
+            return generatorSuccessResult();
+        }
+        return generatorFailResult("添加文章失败");
     }
 
     @Override
     public Article getArticle(Long id) {
-        return articleMapper.selectByPrimaryKey(id);
-    }
-
-    @Override
-    public RequestResult generatorArticle(Article article) {
-        RequestResult result = new RequestResult();
-        result.setCode(4000);
-        result.setMsg("生成文章失败");
-
-        Date date = new Date();
-        article.setWeight(1);
-        article.setState(1);
-        article.setCreateTime(date);
-        article.setUpdateTime(date);
-        article.setSrc("article/" + date.getTime() + ".html");
-        if (article.getContent().length() > 100) {
-            article.setContent(article.getContent().substring(0, 100));
-        }
-
-        if (articleMapper.insert(article) != 0) {
-            generatorHtml(article);
-
-            result.setCode(200);
-            result.setMsg("生成文章成功");
-        }
-
-        return result;
-    }
-
-    private void generatorHtml(Article article) {
-        try {
-            //创建一个合适的Configration对象
-            Configuration configuration = new Configuration();
-            configuration.setDirectoryForTemplateLoading(new File(getClass().getResource("../../../../../../").getPath()));
-            System.out.println(getClass().getResource("../../../../../../").getPath());
-            configuration.setObjectWrapper(new DefaultObjectWrapper());
-            configuration.setDefaultEncoding("UTF-8");   //这个一定要设置，不然在生成的页面中 会乱码
-            //获取或创建一个模版。
-            Template template = configuration.getTemplate("article/articleGenerator.html");
-            Map<String, Object> paramMap = new HashMap<String, Object>();
-            paramMap.put("title", article.getTitle());
-            paramMap.put("typeText", getTypeText(article.getType()));
-            paramMap.put("author", article.getAuthor());
-            paramMap.put("createTime", new SimpleDateFormat("yyyy/MM/dd").format(article.getCreateTime()));
-            paramMap.put("articleContent", "10");
-
-            Writer writer = new OutputStreamWriter(new FileOutputStream(getClass().getResource("../../../../../../").getPath() + article.getSrc()), "UTF-8");
-            template.process(paramMap, writer);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Article article = findById(id);
+        article.setType(getTypeText(article.getType()));
+        article.setcTime(DateUtil.formatDate(article.getCreateTime(), DateUtil.DEFAULT_NO_TIME_FROMAT));
+        return article;
     }
 
     @Override
@@ -118,7 +87,7 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public List<Article> searchArticle(Article article) {
         startPage(article.getPage(), article.getSize());
-        List<Article> articleList = articleMapper.selectByExample(getSearchArticleCondition(article));
+        List<Article> articleList = findByCondition(getSearchArticleCondition(article));
         for (Article item : articleList) {
             item.setcTime(DateUtil.formatDate(item.getCreateTime(), "yyyy-MM-dd"));
             item.setType(getTypeText(item.getType()));
@@ -163,7 +132,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public List<WebGeneralize> getWebGeneralizeList(WebGeneralize webGeneralize) {
-        List<WebGeneralize> webGeneralizeList= JSONObject.parseArray(configService.getConfigById(Constants.WEB_GENERALIZE).getValue(), WebGeneralize.class);
+        List<WebGeneralize> webGeneralizeList = JSONObject.parseArray(configService.getConfigById(Constants.WEB_GENERALIZE).getValue(), WebGeneralize.class);
         if (getSearchWebGeneralizeList(webGeneralize, webGeneralizeList) != null) {
             return getSearchWebGeneralizeList(webGeneralize, webGeneralizeList);
         }
@@ -196,7 +165,7 @@ public class ArticleServiceImpl implements ArticleService {
     private Example getSearchArticleCondition(Article article) {
         Example example = new Example(Article.class);
         example.orderBy("createTime").desc();
-        Criteria criteria = example.createCriteria();
+        Example.Criteria criteria = example.createCriteria();
         if (StringUtil.isNotEmptyString(article.getTitle())) {
             criteria.andEqualTo("title", article.getTitle());
         }
@@ -216,4 +185,5 @@ public class ArticleServiceImpl implements ArticleService {
         }
         return example;
     }
+
 }

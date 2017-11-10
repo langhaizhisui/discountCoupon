@@ -122,11 +122,13 @@
             width: 1200px;
             margin: 0 auto;
         }
+
         .prod-detail {
             margin: 20px 7%;
             float: left;
             width: 750px;
         }
+
         .prod {
             min-width: 1300px;
             width: 1200px;
@@ -281,13 +283,31 @@
 
         var param = {};
         param.id = id;
-        app.getArticleDetail(param,function (result) {
+        app.getArticleDetail(param, function (result) {
             if (result.code == 200) {
                 var data = result.data;
                 $("head > title").text(data.metaTitle);
                 $('head > meta[name="Keywords"]').attr("content", data.metaKey);
                 $('head > meta[name="Description"]').attr("content", data.metaDescp);
-                $(".article-list").load(data.src);
+
+                var html = '<div class="article-detail-title">'+data.title+'</div>' +
+                    '<div class="article-detail-descp">' +
+                    '<span>' +
+                    '<span class="article-item-descp-title">栏目：</span>' +
+                    '<span class="article-item-descp-bar">'+data.type+'</span>' +
+                    '</span>' +
+                    '<span>' +
+                    '<span class="article-item-descp-title">作者：</span>' +
+                    '<span class="article-item-descp-author">'+data.author+'</span>' +
+                    '</span>' +
+                    '<span>' +
+                    '<span class="article-item-descp-title">时间：</span>' +
+                    '<span class="article-item-descp-date">'+data.cTime+'</span>' +
+                    '</span>' +
+                    '</div>' +
+                    '<div class="article-detail-content">'+data.content+'</div>';
+
+                $(".article-list").html(html);
             }
         });
 
@@ -516,5 +536,6 @@
         });
     }
 </script>
-<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1261882558'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1261882558%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script>
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cspan id='cnzz_stat_icon_1261882558'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1261882558%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script>
 </html>

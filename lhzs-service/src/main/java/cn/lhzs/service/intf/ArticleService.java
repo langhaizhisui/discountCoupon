@@ -1,21 +1,19 @@
 package cn.lhzs.service.intf;
-
 import cn.lhzs.data.bean.Article;
+import cn.lhzs.base.IBaseService;
 import cn.lhzs.data.bean.WebGeneralize;
-import cn.lhzs.result.RequestResult;
+import cn.lhzs.result.ResponseResult;
 
 import java.util.List;
 
 /**
- * Created by ZHX on 2017/5/7.
+ * Created by ZHX on 2017/11/10.
  */
-public interface ArticleService {
+public interface ArticleService extends IBaseService<Article> {
 
-    void addArticle(Article article);
+    ResponseResult addArticle(Article article);
 
     Article getArticle(Long id);
-
-    RequestResult generatorArticle(Article article);
 
     int getArticleCount(Article article);
 
@@ -32,4 +30,5 @@ public interface ArticleService {
     WebGeneralize getWebGeneralizeDetail(Integer id);
 
     List<WebGeneralize> getWebGeneralizeList(WebGeneralize webGeneralize);
+
 }

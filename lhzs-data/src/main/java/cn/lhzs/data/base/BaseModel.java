@@ -1,21 +1,50 @@
 package cn.lhzs.data.base;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Transient;
+import java.util.Date;
 
 /**
  * Created by ZHX on 2017/11/9.
  */
 public class BaseModel {
+
     @Transient
     private Integer page;
+
     @Transient
     private Integer size;
+
     @Transient
     private Integer index;
+
     @Transient
     private Boolean lock;
+
     @Transient
     private String cTime;
+
+    /**
+     * 标识
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    /**
+     * 创建时间
+     */
+    @Column(name = "create_time")
+    private Date createTime;
+
+    /**
+     * 更新时间
+     */
+    @Column(name = "update_time")
+    private Date updateTime;
 
     public Integer getPage() {
         return page;
@@ -55,5 +84,29 @@ public class BaseModel {
 
     public void setcTime(String cTime) {
         this.cTime = cTime;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }

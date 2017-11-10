@@ -2,12 +2,12 @@ package cn.lhzs.base;
 
 import cn.lhzs.data.base.BaseModel;
 import org.apache.ibatis.exceptions.TooManyResultsException;
-import tk.mybatis.mapper.entity.Condition;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 
 /**
- * @author sonic.liu
+ * @author ZHX
  * @decp 基础服务类接口
  */
 public interface IBaseService<T extends BaseModel> {
@@ -38,15 +38,6 @@ public interface IBaseService<T extends BaseModel> {
      * @param ids
      */
     void deleteByIds(String ids);
-
-    /**
-     * 是否启用或禁用
-     *
-     * @param id    主键
-     * @param inUse 是否启用
-     */
-    void enable(Long id, boolean inUse);
-
 
     /**
      * 更新记录
@@ -85,10 +76,10 @@ public interface IBaseService<T extends BaseModel> {
     /**
      * 根据条件查找
      *
-     * @param condition
+     * @param example
      * @return
      */
-    List<T> findByCondition(Condition condition);
+    List<T> findByCondition(Example example);
 
     /**
      * 获取所有

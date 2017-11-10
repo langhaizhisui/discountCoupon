@@ -285,12 +285,7 @@
         param.title = $("#title").val();
         param.picture = $("#picture").val();
         param.author = $("#author").val();
-        var content = UE.getEditor('editor').getContentTxt();
-        if (content.length > 100) {
-            content = content.substr(0, 95)+".....";
-        }
-        param.content = content;
-        param.articlContent = UE.getEditor('editor').getContent();
+        param.content = UE.getEditor('editor').getContent();
 
         var type = "";
         $('input[name="articleCatalog"]:checked').each(function () {
@@ -298,6 +293,12 @@
         });
         type = type.substr(0, type.length - 1);
         param.type = type;
+
+        var contentDescp = UE.getEditor('editor').getContentTxt();
+        if (contentDescp.length > 100) {
+            contentDescp = contentDescp.substr(0, 95)+".....";
+        }
+        param.contentDescp = contentDescp;
 
         if(param.metaTitle==""){
             alert("标题名称不能为空");
@@ -323,21 +324,14 @@
             alert("文章作者不能为空");
             return;
         }
-        if(content==""){
+        if(param.content==""){
             alert("文章内容不能为空");
             return;
         }
 
-        param.metaTitle = $("#meta-title").val();
-        param.metaKey = $("#meta-key").val();
-        param.metaDescp = $("#meta-descp").val();
-        param.title = $("#title").val();
-        param.picture = $("#picture").val();
-        param.author = $("#author").val();
-
         app.generatorActicle(param, function (result) {
             if (result.code == 200) {
-                alert("生成文章成功");
+                alert("添加文章成功");
             }
         })
     }

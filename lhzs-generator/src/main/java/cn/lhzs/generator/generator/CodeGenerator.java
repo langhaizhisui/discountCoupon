@@ -44,7 +44,7 @@ public class CodeGenerator {
 
     public static void main(String[] args) {
 //        String str = tableNameConvertLowerCamel("drp_cty");
-        genCode("article2");
+//        genCode("article");
         //genCode("输入表名","输入自定义Model名称");
     }
 

@@ -4,21 +4,17 @@ import cn.lhzs.data.bean.Article;
 import cn.lhzs.data.bean.WebGeneralize;
 import cn.lhzs.result.ResponseResult;
 import cn.lhzs.service.intf.ArticleService;
-import cn.lhzs.result.RequestResult;
 import com.github.pagehelper.PageInfo;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import static cn.lhzs.result.ResponseResultGenerator.generatorSuccessResult;
 
 /**
- * Created by ZHX on 2017/5/7.
- */
+* Created by ZHX on 2017/11/10.
+*/
 @Controller
 @RequestMapping("/article")
 public class ArticleController {
@@ -41,10 +37,16 @@ public class ArticleController {
         return generatorSuccessResult(articleService.getArticle(article.getId()));
     }
 
+    @RequestMapping("/search")
+    @ResponseBody
+    public ResponseResult searchArticle(@RequestBody Article article) {
+        return generatorSuccessResult(new PageInfo(articleService.searchArticle(article)));
+    }
+
     @RequestMapping("/gene/article")
     @ResponseBody
-    public RequestResult generatorArticle(@RequestBody Article article) {
-        return articleService.generatorArticle(article);
+    public ResponseResult addArticle(@RequestBody Article article) {
+        return articleService.addArticle(article);
     }
 
     @RequestMapping("/count")
@@ -86,9 +88,4 @@ public class ArticleController {
         return generatorSuccessResult(articleService.getWebGeneralizeDetail(id));
     }
 
-    @RequestMapping("/search")
-    @ResponseBody
-    public ResponseResult searchArticle(@RequestBody Article article) {
-        return generatorSuccessResult(new PageInfo(articleService.searchArticle(article)));
-    }
 }

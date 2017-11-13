@@ -16,12 +16,10 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="drp-common" target="1.8" />
-      <module name="drp-generator" target="1.8" />
       <module name="lhzs-common" target="1.8" />
       <module name="lhzs-data" target="1.8" />
       <module name="lhzs-generator" target="1.8" />
-      <module name="lhzs-service" target="1.6" />
+      <module name="lhzs-service" target="1.8" />
       <module name="lhzs-web" target="1.8" />
     </bytecodeTargetLevel>
   </component>

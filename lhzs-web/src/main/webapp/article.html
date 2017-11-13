@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="/css/productDetail.css">
     <link rel="stylesheet" href="/css/base.css">
     <link rel="stylesheet" href="/css/index2.css">
+    <link rel="shortcut icon" href="/images/favicon.ico"/>
+    <link rel="bookmark" href="/images/favicon.ico"/>
     <style>
         .article-catalog {
             font-size: 15px;
@@ -137,6 +139,15 @@
             width: 1200px;
             margin: 0 auto;
         }
+        .catalog-item{
+            margin-left: 5px;
+        }
+        .article-catalog-title {
+            margin-right: 10px;
+        }
+        .article-catalog-title-free {
+            margin-left: 60px;
+        }
     </style>
 </head>
 <body>
@@ -147,14 +158,14 @@
             <span class="hot-brand-text">热门店铺精选</span>
             <span class="hot-shop-next">换一批</span>
         </div>
-        <div class="shop-list" id="shop-list"></div>
+        <div class="shop-list"></div>
     </div>
     <div class="hot-prod" style="display: none">
         <div class="hot-brand-title">
             <span class="hot-prod-text">热门商品精选</span>
             <span class="hot-prod-next">换一批</span>
         </div>
-        <div class="moldbaby clearfix" id="moldbaby"></div>
+        <div class="moldbaby clearfix"></div>
     </div>
 
     <div id="dataArea">
@@ -163,32 +174,30 @@
                 <div class="article-catalog">
                     <div>
                         <span class="article-catalog-title">类别：</span>
-                        <span><a href="article.html?id=1">家居装修</a></span>
-                        <span><a href="article.html?id=2">选购导购</a></span>
-                        <span><a href="article.html?id=3">旅游景点</a></span>
-                        <span><a href="article.html?id=4">娱乐趣闻</a></span>
-                        <span><a href="article.html?id=5">健康养生</a></span>
-                        <span><a href="article.html?id=6">日常生活</a></span>
-                        <span><a href="article.html?id=7">母婴育儿</a></span>
-                        <span><a href="article.html?id=8">数码科技</a></span>
-                        <span><a href="article.html?id=9">游戏资讯</a></span>
+                        <span class="catalog-item"><a href="article.html?id=1">家居装修</a></span>
+                        <span class="catalog-item"><a href="article.html?id=2">选购导购</a></span>
+                        <span class="catalog-item"><a href="article.html?id=3">旅游景点</a></span>
+                        <span class="catalog-item"><a href="article.html?id=4">娱乐趣闻</a></span>
+                        <span class="catalog-item"><a href="article.html?id=5">健康养生</a></span>
+                        <span class="catalog-item"><a href="article.html?id=6">日常生活</a></span>
+                        <span class="catalog-item"><a href="article.html?id=7">母婴育儿</a></span>
+                        <span class="catalog-item"><a href="article.html?id=8">数码科技</a></span>
+                        <span class="catalog-item"><a href="article.html?id=9">游戏资讯</a></span>
                     </div>
                     <div>
                         <span class="article-catalog-title-free"></span>
-                        <span><a href="article.html?id=10">服装鞋包</a></span>
-                        <span><a href="article.html?id=11">美妆护肤</a></span>
-                        <span><a href="article.html?id=12">城市房产</a></span>
-                        <span><a href="article.html?id=13">金融理财</a></span>
-                        <span><a href="article.html?id=14">汽车出行</a></span>
-                        <span><a href="article.html?id=15">品牌热点</a></span>
-                        <span><a href="article.html?id=16">人生指南</a></span>
-                        <span><a href="article.html?id=17">美食菜谱</a></span>
-                        <span><a href="article.html?id=18">奢侈时尚</a></span>
+                        <span class="catalog-item"><a href="article.html?id=10">服装鞋包</a></span>
+                        <span class="catalog-item"><a href="article.html?id=11">美妆护肤</a></span>
+                        <span class="catalog-item"><a href="article.html?id=12">城市房产</a></span>
+                        <span class="catalog-item"><a href="article.html?id=13">金融理财</a></span>
+                        <span class="catalog-item"><a href="article.html?id=14">汽车出行</a></span>
+                        <span class="catalog-item"><a href="article.html?id=15">品牌热点</a></span>
+                        <span class="catalog-item"><a href="article.html?id=16">人生指南</a></span>
+                        <span class="catalog-item"><a href="article.html?id=17">美食菜谱</a></span>
+                        <span class="catalog-item"><a href="article.html?id=18">奢侈时尚</a></span>
                     </div>
                 </div>
-                <div class="article-list">
-
-                </div>
+                <div class="article-list"></div>
 
                 <!--分页-->
                 <div class="page-num"></div>
@@ -196,17 +205,11 @@
 
             <div class="prod-generalize">
                 <div class="article-count">共有<span class="article-count-num"></span>篇文章</div>
-                <div class="shop-generalize">
-
-                </div>
-                <div class="last-article">
-
-                </div>
+                <div class="shop-generalize"></div>
+                <div class="last-article"></div>
                 <div>
                     <div class="hot-shop"><span class="line"></span>热门店铺</div>
-                    <div class="content-list">
-
-                    </div>
+                    <div class="content-list"></div>
                 </div>
             </div>
         </div>
@@ -322,7 +325,7 @@
 
                 $(".article-list").html(html);
 
-                var totalPage = result.data.pageSize / param.size;
+                var totalPage = result.data.pages;
                 var currPage = result.data.pageNum;
 
                 splitPage(totalPage, currPage, ".page-num",
@@ -353,6 +356,7 @@
     function init() {
         $(".header").load("header.html");
         $(".footer").load("footer.html");
+        app.getSelectedNav(5);
         getProductDetail();
         getGeneralizeProduct();
         getProduct();

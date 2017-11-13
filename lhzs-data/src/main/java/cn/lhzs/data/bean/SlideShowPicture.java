@@ -1,5 +1,7 @@
 package cn.lhzs.data.bean;
 
+import java.util.Date;
+
 /**
  * Created by ZHX on 2017/10/9.
  */
@@ -9,6 +11,8 @@ public class SlideShowPicture {
     private String toUrl;
 
     private Integer weight;
+
+    private Date createTime;
 
     public String getUrl() {
         return url;
@@ -32,5 +36,13 @@ public class SlideShowPicture {
 
     public void setWeight(Integer weight) {
         this.weight = weight;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }

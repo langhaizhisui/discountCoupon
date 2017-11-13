@@ -6,7 +6,6 @@ import cn.lhzs.data.common.ArticleTypeEnum;
 import cn.lhzs.data.common.Constants;
 import cn.lhzs.data.dao.ArticleMapper;
 import cn.lhzs.data.bean.Article;
-import cn.lhzs.result.RequestResult;
 import cn.lhzs.result.ResponseResult;
 import cn.lhzs.service.intf.ArticleService;
 import cn.lhzs.base.AbstractBaseService;
@@ -14,9 +13,6 @@ import cn.lhzs.service.intf.ConfigService;
 import cn.lhzs.util.DateUtil;
 import cn.lhzs.util.StringUtil;
 import com.alibaba.fastjson.JSONObject;
-import freemarker.template.Configuration;
-import freemarker.template.DefaultObjectWrapper;
-import freemarker.template.Template;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,21 +20,12 @@ import org.springframework.cache.annotation.CacheConfig;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static cn.lhzs.result.ResponseResultGenerator.generatorFailResult;
 import static cn.lhzs.result.ResponseResultGenerator.generatorSuccessResult;
-import static com.github.pagehelper.page.PageMethod.startPage;
-
+import static com.github.pagehelper.PageHelper.startPage;
 
 /**
  * Created by ZHX on 2017/11/10.
@@ -86,11 +73,7 @@ public class ArticleServiceImpl extends AbstractBaseService<Article> implements 
 
     @Override
     public List<Article> searchArticle(Article article) {
-        Integer page = article.getPage();
-        Integer size = article.getSize();
-        article.setIndex(page == 0 ? 0 : (page - 1) * size);
-        article.setSize(size);
-
+        startPage(article.getPage(), article.getSize());
         List<Article> articleList = articleMapper.getArticleList(article);
         for (Article item : articleList) {
             item.setcTime(DateUtil.formatDate(item.getCreateTime(), "yyyy-MM-dd"));

@@ -125,6 +125,7 @@ public class UploadServiceImpl implements UploadService {
         Config config = new Config();
         config.setConfigId(Constants.SLIDESHOW_PICTURE);
         List<SlideShowPicture> imageList = new ArrayList<SlideShowPicture>();
+        slideShowPicture.setCreateTime(new Date());
         imageList.add(slideShowPicture);
         config.setValue(JSONObject.toJSONString(imageList));
         config.setCreateTime(new Date());

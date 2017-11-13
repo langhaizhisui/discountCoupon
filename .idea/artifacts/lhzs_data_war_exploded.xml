@@ -19,7 +19,7 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-core:4.1.9.RELEASE" />
           <element id="library" level="project" name="Maven: commons-logging:commons-logging:1.2" />
           <element id="library" level="project" name="Maven: org.springframework:spring-expression:4.1.9.RELEASE" />
-          <element id="library" level="project" name="Maven: tk.mybatis:mapper:3.3.7" />
+          <element id="library" level="project" name="Maven: tk.mybatis:mapper:3.4.5" />
           <element id="library" level="project" name="Maven: javax.persistence:persistence-api:1.0" />
           <element id="archive" name="lhzs-generator-1.0-SNAPSHOT.jar">
             <element id="module-output" name="lhzs-generator" />

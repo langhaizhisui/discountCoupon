@@ -12,7 +12,9 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by ZHX on 2017/5/7.
@@ -46,7 +48,10 @@ public class ConfigServiceImpl implements ConfigService {
     public List<SlideShowPicture> getSlideShowPictureList() {
         String value = getConfigById(Constants.SLIDESHOW_PICTURE).getValue();
         if (StringUtil.isNotEmptyString(value)) {
-            return JSONObject.parseArray(value, SlideShowPicture.class);
+            return JSONObject.parseArray(value, SlideShowPicture.class).stream()
+                    .sorted(Comparator.comparing(SlideShowPicture::getCreateTime).reversed())
+                    .sorted(Comparator.comparing(SlideShowPicture::getWeight).reversed())
+                    .collect(Collectors.toList());
         }
         return new ArrayList<SlideShowPicture>();
     }

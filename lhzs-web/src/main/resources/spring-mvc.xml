@@ -55,6 +55,7 @@
         <property name="dataSource" ref="dataSource"/>
         <!-- 自动扫描mapping.xml文件 -->
         <property name="mapperLocations" value="classpath:mapper/*.xml"/>
+        <property name="configLocation" value="classpath:mybatis-config.xml" />
     </bean>
 
     <!-- 配置文件上传，如果没有使用文件上传可以不用配置 -->

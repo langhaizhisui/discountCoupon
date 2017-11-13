@@ -21,8 +21,18 @@
 </div>
 <script>
     $(".search-btn").click(function () {
-        searchProduct();
+        var flag = $("#pageFlag").text();
+        if (flag == "article") {
+            searchArticle();
+        } else {
+            searchProduct();
+        }
     });
+
+    function searchArticle() {
+        var title = $(".search-input").val();
+        getArticleList(1, title);
+    }
 
     function searchProduct() {
         var key = $(".search-input").val();
@@ -44,9 +54,9 @@
                     var prodList = result.data.prodList.list;
                     $(".ad").css("display", "none");
                     $("#dataArea").css("display", "none")
-                    if(shopList.length == 0){
+                    if (shopList.length == 0) {
                         $(".hot-brand").css("display", "none");
-                    }else {
+                    } else {
                         $(".hot-brand").css("display", "block");
                         $(".hot-brand-text").text("店铺");
                         $(".hot-shop-next").css("display", "none");
@@ -80,7 +90,7 @@
                     html = "";
                     $(".hot-prod-text").text("商品");
                     $(".hot-prod-next").css("display", "none");
-                    $(".hot-prod").css("display","block");
+                    $(".hot-prod").css("display", "block");
                     for (var i = 0; i < prodList.length; i++) {
                         var product = prodList[i];
                         html += '<div class="moldbaby-subject" index="' + i + '">' +

@@ -139,12 +139,15 @@
             width: 1200px;
             margin: 0 auto;
         }
-        .catalog-item{
+
+        .catalog-item {
             margin-left: 5px;
         }
+
         .article-catalog-title {
             margin-right: 10px;
         }
+
         .article-catalog-title-free {
             margin-left: 60px;
         }
@@ -152,6 +155,7 @@
 </head>
 <body>
 <div class="header"></div>
+<div id="pageFlag" style="display: none">article</div>
 <section>
     <div class="hot-brand clearfix" style="display: none">
         <div class="hot-brand-title">
@@ -235,10 +239,12 @@
         setTimeout(function () {
             $(".search-input").bind("keyup", function (even) {
                 if (even.keyCode == "13") {
-                    searchProduct();
+                    searchArticle();
                 }
             });
         }, 2000)
+
+        getMeta();
 
         getArticleList(1);
 
@@ -290,13 +296,29 @@
             }
         });
 
-        getShop(1);
+        getShop(Math.ceil(Math.random() * 10));
     });
-    function getArticleList(page) {
+
+    function getMeta() {
+        var param = {"id": 18};
+        app.getMeta(param, function (result) {
+            if (result.code == 200) {
+                var data = result.data;
+                $("head > title").text(data.title);
+                $('head > meta[name="Keywords"]').attr("content", data.keyWords);
+                $('head > meta[name="Description"]').attr("content", data.description);
+            }
+        });
+    }
+
+    function getArticleList(page, title) {
         var param = {};
         param.type = id;
         param.page = page;
         param.size = 10;
+        if (title != null) {
+            param.title = title;
+        }
         app.getArticleList(param, function (result) {
             var html = "";
             if (result.code == 200) {
@@ -331,15 +353,15 @@
                 splitPage(totalPage, currPage, ".page-num",
                     function (index) {
                         if (index != 1) {
-                            getArticleList(index - 1);
+                            getArticleList(index - 1, title);
                         }
                     }, function (index) {
                         index = parseInt(index);
                         if (index != totalPage) {
-                            getArticleList(index + 1);
+                            getArticleList(index + 1, title);
                         }
                     }, function (index) {
-                        getArticleList(index);
+                        getArticleList(index, title);
                     });
             }
         });
@@ -630,5 +652,6 @@
         });
     }
 </script>
-<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1261882558'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1261882558%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script>
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cspan id='cnzz_stat_icon_1261882558'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1261882558%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script>
 </html>

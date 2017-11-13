@@ -29,8 +29,8 @@
             </div>
         </div>
         <div class="adv">
-            <ul>
-                <li><a href="http://www.chinaz.com/news/2015/0326/393596.shtml" target="_blank">怎么开淘宝网店，开网店需要多少钱</a>
+            <ul class="advUl">
+                <!--<li><a href="http://www.chinaz.com/news/2015/0326/393596.shtml" target="_blank">怎么开淘宝网店，开网店需要多少钱</a>
                 </li>
                 <li><a href="http://www.cr173.com/apple/112356_1.html?_t_t_t=0.1211917503568185" target="_blank">苹果的双重验证有什么用</a>
                 </li>
@@ -43,7 +43,7 @@
                 <li><a href="http://www.chinaz.com/web/2014/0804/362374.shtml" target="_blank">该如何巧妙运用网站内容中的关键词</a></li>
                 <li><a href="http://www.sanwen8.cn/subject/wxotqhi.html" target="_blank">情人节送女孩什么礼物好最有意义</a></li>
                 <li><a href="http://www.ledolady.com/view-298938.html" target="_blank">如何让皮肤变白嫩，肌肤美白小窍门</a></li>
-                <li><a href="http://www.maigoo.com/goomai/156151.html" target="_blank">2万元如何创业,2万元能做什么生意</a></li>
+                <li><a href="http://www.maigoo.com/goomai/156151.html" target="_blank">2万元如何创业,2万元能做什么生意</a></li>-->
             </ul>
         </div>
     </div>
@@ -91,6 +91,7 @@
         getProduct();
         getSlideShowPicture(1);
         app.backTop();
+        getArticleList();
     }
     function getSlideShowPicture(page) {
         var param = {};
@@ -109,7 +110,7 @@
 
                 for (var i = 0; i < data.length; i++) {
                     var item = data[i];
-                    html += '<div class="swiper-slide"><a href="'+item.toUrl+'" target="_blank"><img src="http://biibuy.com'+item.url+'"/></div></a>';
+                    html += '<div class="swiper-slide"><a href="' + item.toUrl + '" target="_blank"><img src="http://biibuy.com' + item.url + '"/></div></a>';
                 }
 
                 $(".sliderShowPicture").html(html);
@@ -121,18 +122,6 @@
         });
     }
     function bindEvent() {
-//        $("#lunbo1").click(function () {
-//            location.href = "https://pages.tmall.com/wow/tmall-3c/17246/tcjz51?spm=a2156.1676643.0008.7.AkLK1h&trackInfo=201608163100101;5405191172;66248;20862671307;0;66248_20862671307;1007.13728.68661.100200300000000;dffcbd71-d6f5-4d72-a492-c7f135a46edc;1;863609748&item_id=20862671307&pvid=dffcbd71-d6f5-4d72-a492-c7f135a46edc&pos=1&activity_id=66248&acm=07057.1003.1.1489930&scm=1003.1.07057.OTHER_66248_1489930";
-//        });
-//        $("#lunbo2").click(function () {
-//            location.href = "https://pages.tmall.com/wow/act/17229/jkmqj?spm=a2156.1676643.0008.10.AkLK1h&wh_weex=true&trackInfo=201608163100101;5375346742;66010;36007901952;0;66010_36007901952;1007.13728.68661.100200300000000;dffcbd71-d6f5-4d72-a492-c7f135a46edc;3;863609748&item_id=36007901952&pvid=dffcbd71-d6f5-4d72-a492-c7f135a46edc&pos=3&activity_id=66010&acm=07057.1003.1.1489930&scm=1003.1.07057.OTHER_66010_1489930";
-//        });
-//        $("#lunbo3").click(function () {
-//            location.href = "https://sale.jd.com/act/60NWaC1YKX.html";
-//        });
-//        $("#lunbo4").click(function () {
-//            location.href = "https://sale.jd.com/act/0fSMAEFVZk5oOje.html";
-//        });
         $(".hot-shop-next").click(function () {
             getHotShop();
         });
@@ -166,7 +155,7 @@
         });
     }
 
-    var hotProductPage = 1;
+    var hotProductPage = Math.ceil(Math.random() * 10);
     function getProduct() {
         var reqData = {};
         var param = {};
@@ -211,7 +200,32 @@
         });
     }
 
-    var shopPage = 1;
+    function getArticleList() {
+        var param = {};
+        param.page = 1;
+        param.size = 11;
+        app.getArticleList(param, function (result) {
+            var html = "";
+            if (result.code == 200) {
+                var data = result.data.list;
+                for (var i = 0; i < data.length; i++) {
+                    var item = data[i];
+                    html += '<li>' +
+                        '<a href="articleDetail.html?id='+item.id+'" target="_blank">'+getArticleTitle(item.title)+'</a>' +
+                        '</li>';
+                }
+                $(".advUl").html(html);
+            }
+        });
+    }
+    function getArticleTitle(title) {
+        if (title.length > 18) {
+            title = title.substr(0, 18) + "...";
+        }
+        return title;
+    }
+
+    var shopPage = Math.ceil(Math.random() * 10);
     function getHotShop() {
         var reqData = {};
         var param = {};
@@ -326,5 +340,6 @@
         }
     }
 </script>
-<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1261882558'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1261882558%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script>
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cspan id='cnzz_stat_icon_1261882558'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1261882558%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script>
 </html>

@@ -12,6 +12,8 @@ public class SlideShowPicture {
 
     private Integer weight;
 
+    private String pictureUrl;
+
     private Date createTime;
 
     public String getUrl() {
@@ -36,6 +38,14 @@ public class SlideShowPicture {
 
     public void setWeight(Integer weight) {
         this.weight = weight;
+    }
+
+    public String getPictureUrl() {
+        return pictureUrl;
+    }
+
+    public void setPictureUrl(String pictureUrl) {
+        this.pictureUrl = pictureUrl;
     }
 
     public Date getCreateTime() {

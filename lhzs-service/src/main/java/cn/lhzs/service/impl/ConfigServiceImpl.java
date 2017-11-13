@@ -50,7 +50,7 @@ public class ConfigServiceImpl implements ConfigService {
         if (StringUtil.isNotEmptyString(value)) {
             return JSONObject.parseArray(value, SlideShowPicture.class).stream()
                     .sorted(Comparator.comparing(SlideShowPicture::getCreateTime).reversed())
-                    .sorted(Comparator.comparing(SlideShowPicture::getWeight).reversed())
+//                    .sorted(Comparator.comparing(SlideShowPicture::getWeight).reversed())
                     .collect(Collectors.toList());
         }
         return new ArrayList<SlideShowPicture>();

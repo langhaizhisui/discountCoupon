@@ -1,6 +1,7 @@
 package cn.lhzs.web.controller;
 
 import cn.lhzs.data.bean.Shop;
+import cn.lhzs.result.ResponseResult;
 import cn.lhzs.service.intf.ShopService;
 import cn.lhzs.result.RequestResult;
 import com.alibaba.fastjson.JSONArray;
@@ -14,6 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
+import static cn.lhzs.result.ResponseResultGenerator.generatorFailResult;
+import static cn.lhzs.result.ResponseResultGenerator.generatorSuccessResult;
+
 /**
  * Created by ZHX on 2017/4/27.
  */
@@ -21,14 +25,12 @@ import java.util.List;
 @RequestMapping("/shop")
 public class ShopController {
 
-    Logger logger = Logger.getLogger(ShopController.class);
-
     @Autowired
     public ShopService shopService;
 
     @RequestMapping("/getList")
     @ResponseBody
-    public RequestResult getShopList(@RequestBody String reqData) {
+    public ResponseResult getShopList(@RequestBody String reqData) {
         JSONObject jsonObject = JSONObject.parseObject(reqData).getJSONObject("reqData");
         String type = jsonObject.getString("type");
         Integer page = jsonObject.getInteger("page");
@@ -44,112 +46,70 @@ public class ShopController {
             shop.setSite(site);
         }
 
-        JSONObject shopList = shopService.getShops(shop);
-
-        RequestResult result = new RequestResult();
-        result.setCode(200);
-        result.setMsg("获取网店成功");
-        result.setData(shopList);
-        return result;
+        return generatorSuccessResult(shopService.getShops(shop));
     }
 
     @RequestMapping("/getShop")
     @ResponseBody
-    public RequestResult getShop(Long shopId) {
+    public ResponseResult getShop(Long shopId) {
 
-        Shop shop = shopService.getShopByShopId(shopId);
-
-        RequestResult result = new RequestResult();
-        result.setCode(200);
-        result.setMsg("获取网店成功");
-        result.setData(shop);
-        return result;
+        return generatorSuccessResult(shopService.getShopByShopId(shopId));
     }
 
     @RequestMapping("/add")
     @ResponseBody
-    public RequestResult addShop(@RequestBody Shop shop) {
+    public ResponseResult addShop(@RequestBody Shop shop) {
         shopService.addShop(shop);
-
-        RequestResult result = new RequestResult();
-        result.setCode(200);
-        result.setMsg("增加网店成功");
-        return result;
+        return generatorSuccessResult();
     }
 
     @RequestMapping("/delete")
     @ResponseBody
-    public RequestResult deleteShop(Long shopId) {
+    public ResponseResult deleteShop(Long shopId) {
         try {
             shopService.deleteShopByShopId(shopId);
-
-            RequestResult result = new RequestResult();
-            result.setCode(200);
-            result.setMsg("删除网店成功");
-            return result;
+            return generatorSuccessResult();
         }catch (Exception e){
             e.printStackTrace();
+            return generatorFailResult("删除失败");
         }
-        return null;
     }
 
     @RequestMapping("/update")
     @ResponseBody
-    public RequestResult updateShop(@RequestBody Shop shop) {
+    public ResponseResult updateShop(@RequestBody Shop shop) {
         shopService.updateShop(shop);
-
-        RequestResult result = new RequestResult();
-        result.setCode(200);
-        result.setMsg("修改网店成功");
-        return result;
+        return generatorSuccessResult();
     }
 
     @RequestMapping("/search")
     @ResponseBody
-    public RequestResult searchShop(@RequestBody String reqData) {
-        JSONObject shopList = shopService.searchShop(reqData);
-
-        RequestResult result = new RequestResult();
-        result.setCode(200);
-        result.setMsg("搜索成功");
-        result.setData(shopList);
-        return result;
+    public ResponseResult searchShop(@RequestBody String reqData) {
+        return generatorSuccessResult(shopService.searchShop(reqData));
     }
 
     @RequestMapping("/getSiteList")
     @ResponseBody
-    public RequestResult getShopListBySite(@RequestBody String reqData) {
+    public ResponseResult getShopListBySite(@RequestBody String reqData) {
         JSONObject jsonObject = JSONObject.parseObject(reqData).getJSONObject("reqData");
-        String site = jsonObject.getString("site");
-        String type = jsonObject.getString("type");
 
         Shop shop = new Shop();
-        shop.setSite(site);
-        shop.setType(type);
+        shop.setSite(jsonObject.getString("site"));
+        shop.setType(jsonObject.getString("type"));
 
-        List<Shop> shopList = shopService.getShopList(shop);
-
-        RequestResult result = new RequestResult();
-        result.setCode(200);
-        result.setMsg("获取网店成功");
-        result.setData(shopList);
-        return result;
+        return generatorSuccessResult(shopService.getShopList(shop));
     }
 
     @RequestMapping("/all/delete")
     @ResponseBody
-    public RequestResult deleteTable(@RequestBody Shop shop) {
+    public ResponseResult deleteTable(@RequestBody Shop shop) {
         shopService.deleteTable();
-
-        RequestResult result = new RequestResult();
-        result.setCode(200);
-        result.setMsg("删除所有店铺成功");
-        return result;
+        return generatorSuccessResult();
     }
 
     @RequestMapping("/batch/delete")
     @ResponseBody
-    public RequestResult batchDelete(@RequestBody String reqData) {
+    public ResponseResult batchDelete(@RequestBody String reqData) {
 
         JSONObject shopJson = shopService.searchShop(reqData);
         JSONArray shopArray = shopJson.getJSONArray("list");
@@ -162,9 +122,6 @@ public class ShopController {
             shopArray = shopJson.getJSONArray("list");
         }
 
-        RequestResult result = new RequestResult();
-        result.setCode(200);
-        result.setMsg("批量删除成功");
-        return result;
+        return generatorSuccessResult();
     }
 }

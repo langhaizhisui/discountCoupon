@@ -12,13 +12,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import static cn.lhzs.result.ResponseResultGenerator.generatorSuccessResult;
 
 /**
- * Created by Administrator on 2017/5/7.
+ * Created by ZHX on 2017/5/7.
  */
 @Controller
 @RequestMapping("/config")
 public class ConfigController {
-
-    Logger logger = Logger.getLogger(ConfigController.class);
 
     @Autowired
     public ConfigService configService;

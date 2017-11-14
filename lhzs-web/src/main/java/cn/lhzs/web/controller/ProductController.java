@@ -1,15 +1,20 @@
 package cn.lhzs.web.controller;
 
 import cn.lhzs.data.bean.Product;
+import cn.lhzs.result.ResponseResult;
 import cn.lhzs.service.intf.ProductService;
 import cn.lhzs.service.intf.ShopService;
-import cn.lhzs.result.RequestResult;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import static cn.lhzs.result.ResponseResultGenerator.generatorSuccessResult;
 
 /**
  * Created by ZHX on 2017/4/27.
@@ -18,8 +23,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/prod")
 public class ProductController {
 
-    Logger logger = Logger.getLogger(ProductController.class);
-
     @Autowired
     public ProductService productService;
     @Autowired
@@ -27,103 +30,62 @@ public class ProductController {
 
     @RequestMapping(value = "/getProduct", method = RequestMethod.GET)
     @ResponseBody
-    public RequestResult getProduct(String prodId) {
-        Product product = productService.getProductByProdId(prodId);
-
-        RequestResult result = new RequestResult();
-        result.setCode(200);
-        result.setMsg("获取商品成功");
-        result.setData(product);
-        return result;
+    public ResponseResult getProduct(String prodId) {
+        return generatorSuccessResult(productService.getProductByProdId(prodId));
     }
 
     @RequestMapping(value = "/getList")
     @ResponseBody
-    public RequestResult getProductList(@RequestBody String reqData) {
-        JSONObject productList = productService.getProds(reqData);
-
-        RequestResult result = new RequestResult();
-        result.setCode(200);
-        result.setMsg("获取列表成功");
-        result.setData(productList);
-        return result;
+    public ResponseResult getProductList(@RequestBody String reqData) {
+        return generatorSuccessResult(productService.getProds(reqData));
     }
 
     @RequestMapping(value = "/bac/getList")
     @ResponseBody
-    public RequestResult getProductList2(@RequestBody String reqData) {
-        JSONObject productList = productService.getProds(reqData);
-
-        RequestResult result = new RequestResult();
-        result.setCode(200);
-        result.setMsg("获取列表成功");
-        result.setData(productList);
-        return result;
+    public ResponseResult getProductList2(@RequestBody String reqData) {
+        return generatorSuccessResult(productService.getProds(reqData));
     }
 
     @RequestMapping("/add")
     @ResponseBody
-    public RequestResult addProduct(@RequestBody Product product) {
+    public ResponseResult addProduct(@RequestBody Product product) {
         productService.addProd(product);
-
-        RequestResult result = new RequestResult();
-        result.setCode(200);
-        result.setMsg("获取商品成功");
-        return result;
+        return generatorSuccessResult();
     }
 
     @RequestMapping("/delete")
     @ResponseBody
-    public RequestResult deleteProduct(String prodId) {
+    public ResponseResult deleteProduct(String prodId) {
         productService.deleteProdByProdId(prodId);
-
-        RequestResult result = new RequestResult();
-        result.setCode(200);
-        result.setMsg("删除商品成功");
-        return result;
+        return generatorSuccessResult();
     }
 
     @RequestMapping("/update")
     @ResponseBody
-    public RequestResult updateProduct(@RequestBody Product product) {
+    public ResponseResult updateProduct(@RequestBody Product product) {
         productService.updateProd(product);
-
-        RequestResult result = new RequestResult();
-        result.setCode(200);
-        result.setMsg("更新商品成功");
-        return result;
+        return generatorSuccessResult();
     }
 
     @RequestMapping("/search")
     @ResponseBody
-    public RequestResult search(@RequestBody String reqData) {
+    public ResponseResult search(@RequestBody String reqData) {
         JSONObject searchResult = new JSONObject();
-        JSONObject shopList = shopService.searchShop(reqData);
-        searchResult.put("shopList", shopList);
-        JSONObject prodList = productService.searchProduct(reqData);
-        searchResult.put("prodList", prodList);
-        RequestResult result = new RequestResult();
-        result.setCode(200);
-        result.setMsg("搜索成功");
-        result.setData(searchResult);
-        return result;
+        searchResult.put("shopList", shopService.searchShop(reqData));
+        searchResult.put("prodList", productService.searchProduct(reqData));
+        return generatorSuccessResult(searchResult);
     }
 
     @RequestMapping("/all/delete")
     @ResponseBody
-    public RequestResult deleteTable(@RequestBody String reqData) {
+    public ResponseResult deleteTable(@RequestBody String reqData) {
         productService.deleteTable();
-
-        RequestResult result = new RequestResult();
-        result.setCode(200);
-        result.setMsg("删除所有商品成功");
-        return result;
+        return generatorSuccessResult();
     }
 
     @RequestMapping("/batch/delete")
     @ResponseBody
-    public RequestResult batchDelete(@RequestBody String reqData) {
-
+    public ResponseResult batchDelete(@RequestBody String reqData) {
         JSONObject productJson = productService.searchProduct(reqData);
         JSONArray productArray = productJson.getJSONArray("list");
         while (productArray.size() != 0) {
@@ -135,9 +97,6 @@ public class ProductController {
             productArray = productJson.getJSONArray("list");
         }
 
-        RequestResult result = new RequestResult();
-        result.setCode(200);
-        result.setMsg("批量删除成功");
-        return result;
+        return generatorSuccessResult();
     }
 }

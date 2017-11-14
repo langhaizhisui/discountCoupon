@@ -41,28 +41,21 @@ import static cn.lhzs.result.ResponseResultGenerator.generatorSuccessResult;
 @RequestMapping("/upload")
 public class UploadController {
 
-    Logger logger = Logger.getLogger(UploadController.class);
-
     @Autowired
     public UploadServiceImpl uploadService;
 
     @RequestMapping("/excel")
     @ResponseBody
-    public RequestResult getExcel(@RequestParam(value = "file") MultipartFile file, @RequestParam(value = "type") String type) {
+    public ResponseResult getExcel(@RequestParam(value = "file") MultipartFile file, @RequestParam(value = "type") String type) {
         try {
             String fileName = file.getOriginalFilename();
             InputStream inputStream = file.getInputStream();
             String flag = uploadService.getExcell(fileName, inputStream, type);
 
-            RequestResult result = new RequestResult();
-            if (flag == Upload.EXCEL_TEMPLATE_ERROR) {
-                result.setCode(1001);
-                result.setMsg("模板格式错误");
-            } else {
-                result.setCode(200);
-                result.setMsg("上传成功");
+            if (Upload.EXCEL_TEMPLATE_ERROR.equals(flag)) {
+                return generatorFailResult("模板格式错误");
             }
-            return result;
+            return generatorSuccessResult();
         } catch (IOException e) {
             e.printStackTrace();
         }

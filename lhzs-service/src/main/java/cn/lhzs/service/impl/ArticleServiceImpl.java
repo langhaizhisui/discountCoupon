@@ -73,6 +73,7 @@ public class ArticleServiceImpl extends AbstractBaseService<Article> implements 
 
     @Override
     public List<Article> searchArticle(Article article) {
+        logger.info("aaaaaaaaaaaaaaaaaaaaaaaa");
         startPage(article.getPage(), article.getSize());
         List<Article> articleList = articleMapper.getArticleList(article);
         for (Article item : articleList) {

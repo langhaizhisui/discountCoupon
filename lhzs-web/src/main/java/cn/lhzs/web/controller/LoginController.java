@@ -32,8 +32,6 @@ import static cn.lhzs.result.ResponseResultGenerator.generatorUnLoginResult;
 @RequestMapping("/login")
 public class LoginController {
 
-    Logger logger = Logger.getLogger(LoginController.class);
-
     @Autowired
     public ArticleService articleService;
 

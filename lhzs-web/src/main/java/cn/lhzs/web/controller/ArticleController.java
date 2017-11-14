@@ -19,8 +19,6 @@ import static cn.lhzs.result.ResponseResultGenerator.generatorSuccessResult;
 @RequestMapping("/article")
 public class ArticleController {
 
-    Logger logger = Logger.getLogger(ArticleController.class);
-
     @Autowired
     public ArticleService articleService;
 

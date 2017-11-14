@@ -22,10 +22,10 @@ import java.util.stream.Collectors;
 @Service
 public class ConfigServiceImpl implements ConfigService {
 
+    Logger logger = Logger.getLogger(ConfigServiceImpl.class);
+
     @Resource
     public ConfigMapper configMapper;
-
-    Logger logger = Logger.getLogger(ConfigServiceImpl.class);
 
     @Override
     public Config getConfigById(final Long confId) {

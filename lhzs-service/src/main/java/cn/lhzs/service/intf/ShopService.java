@@ -1,6 +1,7 @@
 package cn.lhzs.service.intf;
 
 import cn.lhzs.data.bean.Shop;
+import cn.lhzs.data.vo.ShopSearchCondition;
 import com.alibaba.fastjson.JSONObject;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public interface ShopService {
 
     void updateShop(Shop shop);
 
-    List<Shop> searchShop(Shop shop);
+    List<Shop> searchShop(ShopSearchCondition shopSearchCondition);
 
     List<Shop> getShops(Shop shop);
 

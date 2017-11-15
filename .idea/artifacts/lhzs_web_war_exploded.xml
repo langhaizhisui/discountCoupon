@@ -79,7 +79,7 @@
           <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.6.4" />
           <element id="library" level="project" name="Maven: commons-beanutils:commons-beanutils:1.8.3" />
           <element id="library" level="project" name="Maven: org.apache.shiro:shiro-web:1.2.2" />
-          <element id="library" level="project" name="Maven: com.alibaba:fastjson:1.2.35" />
+          <element id="library" level="project" name="Maven: com.alibaba:fastjson:1.2.40" />
         </element>
       </element>
       <element id="directory" name="META-INF">

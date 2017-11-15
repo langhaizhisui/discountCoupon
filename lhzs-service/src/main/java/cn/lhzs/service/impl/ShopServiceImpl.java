@@ -3,17 +3,15 @@ package cn.lhzs.service.impl;
 import cn.lhzs.base.AbstractBaseService;
 import cn.lhzs.data.bean.Shop;
 import cn.lhzs.data.dao.ShopMapper;
+import cn.lhzs.data.vo.ShopSearchCondition;
 import cn.lhzs.service.intf.ShopService;
 import cn.lhzs.util.StringUtil;
-import com.alibaba.fastjson.JSONObject;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static com.github.pagehelper.PageHelper.startPage;
 
@@ -30,34 +28,33 @@ public class ShopServiceImpl extends AbstractBaseService<Shop> implements ShopSe
 
     @Override
     public List<Shop> getShopList(Shop shop) {
-        Example example = new Example(Shop.class);
-        Example.Criteria criteria = example.createCriteria();
-        return findByCondition(example);
+        return shopMapper.select(shop);
     }
 
     @Override
-    public List<Shop> searchShop(Shop shop) {
-        startPage(shop.getPage(), shop.getSize());
-        return findByCondition(getShopSearchExample(shop));
+    public List<Shop> searchShop(ShopSearchCondition shopSearchCondition) {
+        startPage(shopSearchCondition.getPage(), shopSearchCondition.getSize());
+        return findByCondition(getShopSearchExample(shopSearchCondition));
     }
 
-    private Example getShopSearchExample(Shop shop) {
+    private Example getShopSearchExample(ShopSearchCondition shopSearchCondition) {
         Example example = new Example(Shop.class);
         Example.Criteria criteria = example.createCriteria();
-        if (StringUtil.isNotEmptyString(shop.getId() + "")) {
-            criteria.andEqualTo("id", shop.getId());
+        if (StringUtil.isNotEmptyString(shopSearchCondition.getShopId() + "")) {
+            criteria.andEqualTo("id", shopSearchCondition.getShopId());
         }
-        if (StringUtil.isNotEmptyString(shop.getWebShop())) {
-            criteria.andEqualTo("webShop", shop.getWebShop());
+        if (StringUtil.isNotEmptyString(shopSearchCondition.getShopName())) {
+            criteria.andEqualTo("webShop", shopSearchCondition.getShopName());
         }
-        if (StringUtil.isNotEmptyString(shop.getSite())) {
-            criteria.andEqualTo("site", shop.getSite());
+        if (StringUtil.isNotEmptyString(shopSearchCondition.getSite())) {
+            criteria.andEqualTo("site", shopSearchCondition.getSite());
         }
-        if (StringUtil.isNotEmptyString(shop.getType())) {
-            criteria.andEqualTo("type", shop.getType());
+        if (StringUtil.isNotEmptyString(shopSearchCondition.getType())) {
+            criteria.andEqualTo("type", shopSearchCondition.getType());
         }
-        if (shop.getCreateTime() != null) {
-
+        if (shopSearchCondition.getCreateTimeStart() != null && shopSearchCondition.getCreateTimeEnd()!=null) {
+            criteria.andGreaterThanOrEqualTo("createTime",shopSearchCondition.getCreateTimeStart())
+                    .orLessThanOrEqualTo("createTime",shopSearchCondition.getCreateTimeEnd());
         }
         return example;
     }

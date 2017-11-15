@@ -227,13 +227,10 @@
 
     var shopPage = Math.ceil(Math.random() * 10);
     function getHotShop() {
-        var reqData = {};
         var param = {};
         param.page = shopPage;
         param.pageSize = 8;
-        reqData.reqData = param;
-
-        app.getHotShop(reqData, function (result) {
+        app.getHotShop(param, function (result) {
             if (result.code == 200) {
                 var html = "";
                 var data = result.data.shopList;

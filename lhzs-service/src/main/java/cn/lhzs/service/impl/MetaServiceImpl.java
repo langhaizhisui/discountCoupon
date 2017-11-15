@@ -1,5 +1,7 @@
 package cn.lhzs.service.impl;
 
+import cn.lhzs.base.AbstractBaseService;
+import cn.lhzs.data.bean.Article;
 import cn.lhzs.data.bean.Meta;
 import cn.lhzs.data.dao.MetaMapper;
 import cn.lhzs.service.intf.MetaService;
@@ -14,7 +16,7 @@ import javax.annotation.Resource;
  */
 @Service
 @Transactional(readOnly = true)
-public class MetaServiceImpl implements MetaService{
+public class MetaServiceImpl  extends AbstractBaseService<Meta> implements MetaService{
 
     Logger logger = Logger.getLogger(MetaServiceImpl.class);
 
@@ -22,7 +24,7 @@ public class MetaServiceImpl implements MetaService{
     public MetaMapper metaMapper;
 
     @Override
-    public Meta getMeta(int id) {
-        return metaMapper.selectByPrimaryKey(id);
+    public Meta getMeta(Long id) {
+        return findById(id);
     }
 }

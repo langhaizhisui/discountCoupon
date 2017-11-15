@@ -9,4 +9,5 @@ public interface ArticleMapper extends Mapper<Article> {
 
     List<Article> getArticleList(Article article);
 
+    int getArticleCount(Article article);
 }

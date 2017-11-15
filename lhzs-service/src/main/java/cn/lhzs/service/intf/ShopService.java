@@ -22,11 +22,9 @@ public interface ShopService {
 
     void updateShop(Shop shop);
 
-    JSONObject searchShop(String data);
+    List<Shop> searchShop(Shop shop);
 
-    Long selectCountByTypeSite(String type, String site);
-
-    JSONObject getShops(Shop shop);
+    List<Shop> getShops(Shop shop);
 
     void deleteTable();
 }

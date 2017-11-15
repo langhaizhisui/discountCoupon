@@ -34,31 +34,31 @@ public abstract class AbstractBaseService<T extends BaseModel> implements IBaseS
 
     @Override
     public T save(T model) {
-        Assert.notNull(model, "MODEL");
+        Assert.notNull(model, "MODEL不能为空");
         return update(model);
     }
 
     public void save(List<T> models) {
-        Assert.notNull(models, "MODEL");
+        Assert.notNull(models, "MODEL不能为空");
         models.forEach(this::update);
 //        mapper.insertList(models);
     }
 
     @Override
     public void deleteById(Long id) {
-        Assert.notNull(id, "ID");
+        Assert.notNull(id, "ID不能为空");
         mapper.deleteByPrimaryKey(id);
     }
 
     @Override
     public void deleteByIds(String ids) {
-        Assert.notNull(ids, "ID");
+        Assert.notNull(ids, "ID不能为空");
         mapper.deleteByIds(ids);
     }
 
     @Override
     public T update(T model) {
-        Assert.notNull(model, "ID");
+        Assert.notNull(model, "ID不能为空");
         try {
             model.setUpdateTime(new Date());
             if (model.getId() == null) {
@@ -80,7 +80,7 @@ public abstract class AbstractBaseService<T extends BaseModel> implements IBaseS
     @SuppressWarnings("unchecked")
     @Override
     public T findById(Long id) {
-        Assert.notNull(id, "ID");
+        Assert.notNull(id, "ID不能为空");
         try {
             return mapper.selectByPrimaryKey(id);
         } catch (Exception e) {
@@ -103,7 +103,7 @@ public abstract class AbstractBaseService<T extends BaseModel> implements IBaseS
 
     @Override
     public List<T> findByIds(String ids) {
-        Assert.notNull(ids, "ID");
+        Assert.notNull(ids, "ID不能为空");
         return mapper.selectByIds(ids);
     }
 

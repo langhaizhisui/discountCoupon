@@ -22,15 +22,25 @@
     <result column="content" jdbcType="LONGVARCHAR" property="content" />
   </resultMap>
 
-  <select id="getArticleList" parameterType="cn.lhzs.data.bean.Article" resultMap="BaseResultMap">
-    select id, meta_title, meta_key, meta_descp, title, picture, author, src, weight, type, content_descp, state, create_time, update_time
-    from article WHERE 1=1
+  <sql id="sql_where">
     <if test="type != null">
       AND FIND_IN_SET(#{type},type)
     </if>
     <if test="title != null">
-      and title LIKE CONCAT('%',#{title,jdbcType=VARCHAR},'%')
+      AND title LIKE CONCAT('%',#{title,jdbcType=VARCHAR},'%')
     </if>
+  </sql>
+
+  <select id="getArticleList" parameterType="cn.lhzs.data.bean.Article" resultMap="BaseResultMap">
+    select id, meta_title, meta_key, meta_descp, title, picture, author, src, weight, type, content_descp, state, create_time, update_time
+    from article WHERE 1=1
+    <include refid="sql_where"></include>
     ORDER BY create_time DESC
+  </select>
+
+  <select id="getArticleCount" parameterType="cn.lhzs.data.bean.Article" resultMap="BaseResultMap">
+    select count(1)
+    from article WHERE 1=1
+    <include refid="sql_where"></include>
   </select>
 </mapper>

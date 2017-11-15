@@ -85,13 +85,13 @@ public class UploadServiceImpl implements UploadService {
                 for (int i = 1; i <= lastRowNum; i++) {
                     shop = new Shop();
                     Row row = sheet.getRow(i);
-                    shop.setCreatTime(new Date());
+//                    shop.setCreatTime(new Date());
                     shop.setUpdateTime(new Date());
                     setField(row, shop, fieldColumn, fieldClassColumn);
 
                     shopList.add(shop);
                     if (shopList.size() >= 500 || i == lastRowNum) {
-                        shopMapper.batchInsert(shopList);
+//                        shopMapper.batchInsert(shopList);
                         shopList.clear();
                     }
                 }

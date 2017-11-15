@@ -6,9 +6,12 @@ package cn.lhzs.result;
 public enum ResponseCode {
 
     OK(200, "请求成功"),
-    FAIL(500,"请求失败"),
-    UNLOGIN(600,"未登录"),
-    LOGIN(601,"登录成功");
+    BAD_REQUEST(400,"请求参数出错"),
+    NOT_FOUND(404, "找不到页面"),
+    FAIL(500, "请求失败"),
+    INTERNAL_SERVER_ERROR(501, "服务器出错"),
+    UNLOGIN(600, "未登录"),
+    LOGIN(601, "登录成功");
 
     private Integer code;
     private String descp;
@@ -34,11 +37,11 @@ public enum ResponseCode {
         this.descp = descp;
     }
 
-    public static ResponseCode get(Integer code){
+    public static ResponseCode get(Integer code) {
         ResponseCode[] responseCodes = values();
         for (int i = 0; i < responseCodes.length; i++) {
             ResponseCode responseCode = responseCodes[i];
-            if(responseCode.getCode().equals(code)){
+            if (responseCode.getCode().equals(code)) {
                 return responseCode;
             }
         }

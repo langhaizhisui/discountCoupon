@@ -38,7 +38,6 @@ public class LoginController {
     @RequestMapping("/login")
     @ResponseBody
     public ResponseResult login() {
-        System.out.println("-------------------------------------------------------");
 
         String username="biibuy";
         String password="biibuy";

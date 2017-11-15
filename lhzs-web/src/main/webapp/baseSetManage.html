@@ -478,7 +478,6 @@
         var shopType = $("#shop-type-input").val();
         var createTimeStart = $("#createtime-start-input").val();
         var createTimeEnd = $("#createtime-end-input").val();
-        var reqData = {};
         var param = {};
 
         param.id = shopId;
@@ -489,14 +488,13 @@
         param.createTimeEnd = createTimeEnd;
         param.page = page;
         param.pageSize = 20;
-        reqData.reqData = param;
 
         $.ajax({
             type: 'post',
             url: "shop/search",
             dataType: 'json',
             contentType: "application/json",
-            data: JSON.stringify(reqData),
+            data: JSON.stringify(param),
             success: function (result) {
                 if (result.code == 200) {
                     var html = '';

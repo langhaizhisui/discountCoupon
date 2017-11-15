@@ -1,31 +1,31 @@
 package cn.lhzs.service.impl;
 
+import cn.lhzs.base.AbstractBaseService;
+import cn.lhzs.data.bean.Article;
 import cn.lhzs.data.bean.Config;
 import cn.lhzs.data.bean.WebGeneralize;
 import cn.lhzs.data.common.ArticleTypeEnum;
 import cn.lhzs.data.common.Constants;
 import cn.lhzs.data.dao.ArticleMapper;
-import cn.lhzs.data.bean.Article;
 import cn.lhzs.result.ResponseResult;
 import cn.lhzs.service.intf.ArticleService;
-import cn.lhzs.base.AbstractBaseService;
 import cn.lhzs.service.intf.ConfigService;
 import cn.lhzs.util.DateUtil;
 import cn.lhzs.util.StringUtil;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.log4j.Logger;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.cache.annotation.CacheConfig;
-import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static cn.lhzs.result.ResponseResultGenerator.generatorFailResult;
 import static cn.lhzs.result.ResponseResultGenerator.generatorSuccessResult;
 import static com.github.pagehelper.PageHelper.startPage;
+import static java.util.stream.Collectors.toList;
 
 /**
  * Created by ZHX on 2017/11/10.
@@ -63,24 +63,22 @@ public class ArticleServiceImpl extends AbstractBaseService<Article> implements 
 
     @Override
     public int getArticleCount(Article article) {
-        return articleMapper.selectCountByExample(getSearchArticleCondition(article));
+        return articleMapper.getArticleCount(article);
     }
 
     @Override
     public void deleteArticle(Long id) {
-        articleMapper.deleteByPrimaryKey(id);
+        deleteById(id);
     }
 
     @Override
     public List<Article> searchArticle(Article article) {
-        logger.info("aaaaaaaaaaaaaaaaaaaaaaaa");
         startPage(article.getPage(), article.getSize());
-        List<Article> articleList = articleMapper.getArticleList(article);
-        for (Article item : articleList) {
+        return articleMapper.getArticleList(article).stream().map(item -> {
             item.setcTime(DateUtil.formatDate(item.getCreateTime(), "yyyy-MM-dd"));
             item.setType(getTypeText(item.getType()));
-        }
-        return articleList;
+            return item;
+        }).collect(toList());
     }
 
     @Override
@@ -114,64 +112,22 @@ public class ArticleServiceImpl extends AbstractBaseService<Article> implements 
     @Override
     public WebGeneralize getWebGeneralizeDetail(Integer id) {
         Config webGeneralizeConfig = configService.getConfigById(Constants.WEB_GENERALIZE);
-        List<WebGeneralize> webGeneralizeList = JSONObject.parseArray(webGeneralizeConfig.getValue(), WebGeneralize.class);
-        return webGeneralizeList.get(id - 1);
+        return JSONObject.parseArray(webGeneralizeConfig.getValue(), WebGeneralize.class).get(id - 1);
     }
 
     @Override
     public List<WebGeneralize> getWebGeneralizeList(WebGeneralize webGeneralize) {
-        List<WebGeneralize> webGeneralizeList = JSONObject.parseArray(configService.getConfigById(Constants.WEB_GENERALIZE).getValue(), WebGeneralize.class);
-        if (getSearchWebGeneralizeList(webGeneralize, webGeneralizeList) != null) {
-            return getSearchWebGeneralizeList(webGeneralize, webGeneralizeList);
-        }
-        return webGeneralizeList;
-    }
-
-    private List<WebGeneralize> getSearchWebGeneralizeList(WebGeneralize webGeneralize, List<WebGeneralize> webGeneralizeList) {
-        List<WebGeneralize> currWebGeneralizeList = new ArrayList<WebGeneralize>();
-        if (StringUtil.isNotEmptyString(webGeneralize.getWebName())) {
-            for (int i = 0; i < webGeneralizeList.size(); i++) {
-                WebGeneralize currentWebGeneralize = webGeneralizeList.get(i);
-                if (webGeneralize.getWebName().equals(currentWebGeneralize.getWebName())) {
-                    currWebGeneralizeList.add(currentWebGeneralize);
-                }
-            }
-            return currWebGeneralizeList;
-        }
-        return null;
+        return JSONObject.parseArray(configService.getConfigById(Constants.WEB_GENERALIZE).getValue(), WebGeneralize.class).stream()
+                .filter(item->StringUtil.isNotEmptyString(webGeneralize.getWebName()) && webGeneralize.getWebName().equals(item.getWebName()))
+                .collect(toList());
     }
 
     private String getTypeText(String type) {
-        String typeText = "";
-        String[] typeArr = type.split(",");
-        for (int i = 0; i < typeArr.length; i++) {
-            typeText += ArticleTypeEnum.get(Integer.parseInt(typeArr[i])).getName() + "，";
-        }
-        return typeText.length() > 15 ? typeText.substring(0, 15) + "..." : typeText.substring(0, typeText.length() - 1);
-    }
-
-    private Example getSearchArticleCondition(Article article) {
-        Example example = new Example(Article.class);
-        example.orderBy("createTime").desc();
-        Example.Criteria criteria = example.createCriteria();
-        if (StringUtil.isNotEmptyString(article.getTitle())) {
-            criteria.andEqualTo("title", article.getTitle());
-        }
-        String typeCode = ArticleTypeEnum.getTypeCode(article.getType());
-        if (StringUtil.isNotEmptyString(typeCode)) {
-            criteria.andLike("type", "%" + typeCode + "%");
-            criteria.andNotLike("type", "%" + typeCode + "0%");
-            criteria.andNotLike("type", "%" + typeCode + "1%");
-            criteria.andNotLike("type", "%" + typeCode + "2%");
-            criteria.andNotLike("type", "%" + typeCode + "3%");
-            criteria.andNotLike("type", "%" + typeCode + "4%");
-            criteria.andNotLike("type", "%" + typeCode + "5%");
-            criteria.andNotLike("type", "%" + typeCode + "6%");
-            criteria.andNotLike("type", "%" + typeCode + "7%");
-            criteria.andNotLike("type", "%" + typeCode + "8%");
-            criteria.andNotLike("type", "%" + typeCode + "9%");
-        }
-        return example;
+        StringBuilder builder = new StringBuilder();
+        Arrays.asList(type.split(",")).stream().forEach(e -> {
+            builder.append(ArticleTypeEnum.get(Integer.parseInt(e)).getName() + "，");
+        });
+        return builder.toString().isEmpty() ? "" : builder.toString().substring(0, builder.toString().length() - 1);
     }
 
 }

@@ -128,7 +128,6 @@
         });
     }
     function getShop(page) {
-        var reqData = {};
         var param = {};
         if (id == "1") {
             param.type = "G";
@@ -141,10 +140,9 @@
             param.site = categoryId;
         }
         param.page = page;
-        param.pageSize = 20;
-        reqData.reqData = param;
+        param.size = 20;
 
-        app.getShopList(reqData, function (result) {
+        app.getShopList(param, function (result) {
             if (result.code == 200) {
                 var html = "";
                 var data = result.data.shopList;

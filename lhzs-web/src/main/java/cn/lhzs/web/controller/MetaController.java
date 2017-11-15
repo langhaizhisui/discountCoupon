@@ -22,7 +22,7 @@ public class MetaController {
 
     @RequestMapping("/getMeta")
     @ResponseBody
-    public ResponseResult getMeta(int id){
+    public ResponseResult getMeta(Long id){
         return generatorSuccessResult(metaService.getMeta(id));
     }
 }

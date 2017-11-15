@@ -7,7 +7,7 @@ import java.util.Date;
 
 
 public class DateUtil {
-	public static final String DEFAUL_FORMAT = "yyyy-MM-dd HH:mm:ss";
+	public static final String DEFAULT_FORMAT = "yyyy-MM-dd HH:mm:ss";
 	public static final String DEFAULT_NO_TIME_FROMAT = "yyyy-MM-dd";
 
 	/**
@@ -28,7 +28,7 @@ public class DateUtil {
 	 * @return
 	 */
 	public static String getNowDefaultFormatStr() {
-		return getNowStr(DEFAUL_FORMAT);
+		return getNowStr(DEFAULT_FORMAT);
 	}
 
 	/**
@@ -100,7 +100,7 @@ public class DateUtil {
 		if (StringUtil.isEmptyString(date)) {
 			return null;
 		}
-		return getStrDate(DEFAUL_FORMAT, date);
+		return getStrDate(DEFAULT_FORMAT, date);
 	}
 
 	/**
@@ -123,7 +123,7 @@ public class DateUtil {
 	 * @return
 	 */
 	public static String getDefaultFormatDate(Date date) {
-		return formatDate(date, DEFAUL_FORMAT);
+		return formatDate(date, DEFAULT_FORMAT);
 	}
 	
 	public static Date rollDate(Date curDate, char unit, int value){

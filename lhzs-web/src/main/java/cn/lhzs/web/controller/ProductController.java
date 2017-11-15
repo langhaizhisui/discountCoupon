@@ -71,7 +71,7 @@ public class ProductController {
     @ResponseBody
     public ResponseResult search(@RequestBody String reqData) {
         JSONObject searchResult = new JSONObject();
-        searchResult.put("shopList", shopService.searchShop(reqData));
+//        searchResult.put("shopList", shopService.searchShop(reqData));
         searchResult.put("prodList", productService.searchProduct(reqData));
         return generatorSuccessResult(searchResult);
     }

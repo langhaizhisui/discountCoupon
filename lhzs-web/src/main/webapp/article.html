@@ -616,14 +616,12 @@
     }
 
     function getShop(page) {
-        var reqData = {};
         var param = {};
 
         param.page = page;
         param.pageSize = 5;
-        reqData.reqData = param;
 
-        app.getShopList(reqData, function (result) {
+        app.getShopList(param, function (result) {
             if (result.code == 200) {
                 var html = "";
                 var data = result.data.shopList;

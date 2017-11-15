@@ -6,9 +6,11 @@ import cn.lhzs.service.intf.ShopService;
 import cn.lhzs.result.RequestResult;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.PageInfo;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -30,29 +32,13 @@ public class ShopController {
 
     @RequestMapping("/getList")
     @ResponseBody
-    public ResponseResult getShopList(@RequestBody String reqData) {
-        JSONObject jsonObject = JSONObject.parseObject(reqData).getJSONObject("reqData");
-        String type = jsonObject.getString("type");
-        Integer page = jsonObject.getInteger("page");
-        Integer size = jsonObject.getInteger("pageSize");
-        String site = jsonObject.getString("site");
-
-        Shop shop = new Shop();
-        shop.setSize(size);
-        shop.setType(type);
-        shop.setPage(page);
-        shop.setIndex((page - 1) * size);
-        if (site != null) {
-            shop.setSite(site);
-        }
-
-        return generatorSuccessResult(shopService.getShops(shop));
+    public ResponseResult getShopList(@RequestBody Shop shop) {
+        return generatorSuccessResult(new PageInfo(shopService.getShops(shop)));
     }
 
     @RequestMapping("/getShop")
     @ResponseBody
     public ResponseResult getShop(Long shopId) {
-
         return generatorSuccessResult(shopService.getShopByShopId(shopId));
     }
 
@@ -66,13 +52,8 @@ public class ShopController {
     @RequestMapping("/delete")
     @ResponseBody
     public ResponseResult deleteShop(Long shopId) {
-        try {
-            shopService.deleteShopByShopId(shopId);
-            return generatorSuccessResult();
-        }catch (Exception e){
-            e.printStackTrace();
-            return generatorFailResult("删除失败");
-        }
+        shopService.deleteShopByShopId(shopId);
+        return generatorSuccessResult();
     }
 
     @RequestMapping("/update")
@@ -84,8 +65,8 @@ public class ShopController {
 
     @RequestMapping("/search")
     @ResponseBody
-    public ResponseResult searchShop(@RequestBody String reqData) {
-        return generatorSuccessResult(shopService.searchShop(reqData));
+    public ResponseResult searchShop(@RequestBody Shop shop) {
+        return generatorSuccessResult(new PageInfo(shopService.searchShop(shop)));
     }
 
     @RequestMapping("/getSiteList")
@@ -111,17 +92,17 @@ public class ShopController {
     @ResponseBody
     public ResponseResult batchDelete(@RequestBody String reqData) {
 
-        JSONObject shopJson = shopService.searchShop(reqData);
-        JSONArray shopArray = shopJson.getJSONArray("list");
-        while (shopArray.size() != 0) {
-            for (int i = 0; i < shopArray.size(); i++) {
-                JSONObject shop = shopArray.getJSONObject(i);
-                shopService.deleteShopByShopId(Long.parseLong(shop.getString("id")));
-            }
-            shopJson = shopService.searchShop(reqData);
-            shopArray = shopJson.getJSONArray("list");
-        }
-
+//        JSONObject shopJson = shopService.searchShop(reqData);
+//        JSONArray shopArray = shopJson.getJSONArray("list");
+//        while (shopArray.size() != 0) {
+//            for (int i = 0; i < shopArray.size(); i++) {
+//                JSONObject shop = shopArray.getJSONObject(i);
+//                shopService.deleteShopByShopId(Long.parseLong(shop.getString("id")));
+//            }
+//            shopJson = shopService.searchShop(reqData);
+//            shopArray = shopJson.getJSONArray("list");
+//        }
+//
         return generatorSuccessResult();
     }
 }

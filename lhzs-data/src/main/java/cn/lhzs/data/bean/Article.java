@@ -1,8 +1,8 @@
 package cn.lhzs.data.bean;
 
 import cn.lhzs.data.base.BaseModel;
-import java.util.Date;
-import javax.persistence.*;
+
+import javax.persistence.Column;
 
 public class Article extends BaseModel {
 
@@ -53,11 +53,6 @@ public class Article extends BaseModel {
      * 文章类型
      */
     private String type;
-
-    /**
-     * 文章状态
-     */
-    private Integer state;
 
     /**
      * 文章内容
@@ -230,24 +225,6 @@ public class Article extends BaseModel {
      */
     public void setType(String type) {
         this.type = type;
-    }
-
-    /**
-     * 获取文章状态
-     *
-     * @return state - 文章状态
-     */
-    public Integer getState() {
-        return state;
-    }
-
-    /**
-     * 设置文章状态
-     *
-     * @param state 文章状态
-     */
-    public void setState(Integer state) {
-        this.state = state;
     }
 
     /**

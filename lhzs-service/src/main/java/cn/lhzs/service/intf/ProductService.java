@@ -1,6 +1,8 @@
 package cn.lhzs.service.intf;
 
+import cn.lhzs.base.IBaseService;
 import cn.lhzs.data.bean.Product;
+import cn.lhzs.data.vo.ProductSearchCondition;
 import com.alibaba.fastjson.JSONObject;
 
 import java.util.List;
@@ -8,26 +10,22 @@ import java.util.List;
 /**
  * Created by ZHX on 2017/4/27.
  */
-public interface ProductService {
-    List<Product> getProdList(Product product);
+public interface ProductService extends IBaseService<Product> {
+    List<Product> getProdList(ProductSearchCondition productSearchCondition);
 
-    Product getProductByProdId(String prodId);
+    Product getProductByProdId(Long id);
 
     void addProd(Product product);
 
-    void addBatchProd(List<Product> product);
-
-    void deleteProdByProdId(String prodId);
+    void deleteProdByProdId(Long id);
 
     void updateProd(Product product);
 
-    JSONObject searchProduct(String key);
-
-    Long getCount();
-
-    JSONObject getProds(String data);
+    List<Product> searchProduct(ProductSearchCondition productSearchCondition);
 
     void deleteTable();
 
     void timerDeleteTask(String expiration);
+
+    void batchDeleteProduct(ProductSearchCondition productSearchCondition);
 }

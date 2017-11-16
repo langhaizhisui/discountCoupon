@@ -123,7 +123,7 @@ public class UploadServiceImpl implements UploadService {
 
     private void addSlideshowPictureConfig(SlideShowPicture slideShowPicture) {
         Config config = new Config();
-        config.setConfigId(Constants.SLIDESHOW_PICTURE);
+        config.setId(Constants.SLIDESHOW_PICTURE);
         List<SlideShowPicture> imageList = new ArrayList<SlideShowPicture>();
         slideShowPicture.setCreateTime(new Date());
         imageList.add(slideShowPicture);
@@ -131,7 +131,7 @@ public class UploadServiceImpl implements UploadService {
         config.setCreateTime(new Date());
         config.setUpdateTime(new Date());
         config.setRemark("轮播图");
-        config.setState("1");
+        config.setState(1);
         configService.addConfig(config);
     }
 

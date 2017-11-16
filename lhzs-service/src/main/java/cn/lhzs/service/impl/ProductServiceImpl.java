@@ -1,23 +1,25 @@
 package cn.lhzs.service.impl;
 
+import cn.lhzs.base.AbstractBaseService;
 import cn.lhzs.data.bean.Product;
 import cn.lhzs.data.dao.ProductMapper;
+import cn.lhzs.data.vo.ProductSearchCondition;
 import cn.lhzs.service.intf.ProductService;
-import com.alibaba.fastjson.JSONObject;
+import cn.lhzs.util.StringUtil;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+import static com.github.pagehelper.PageHelper.startPage;
 
 /**
  * Created by ZHX on 2017/4/27.
  */
 @Service
-public class ProductServiceImpl implements ProductService {
+public class ProductServiceImpl extends AbstractBaseService<Product> implements ProductService {
 
     Logger logger = Logger.getLogger(ProductServiceImpl.class);
 
@@ -25,151 +27,61 @@ public class ProductServiceImpl implements ProductService {
     public ProductMapper productMapper;
 
     @Override
-    public List<Product> getProdList(Product product) {
-        Integer page = product.getPage();
-        Integer size = product.getSize();
-        String category = product.getCategory();
-        if (page == null || size == null) {
-            product.setIndex(0);
-            product.setSize(20);
-        } else {
-            product.setIndex((page - 1) * size);
-            product.setSize(size);
-        }
-        if (category != null && !"".equals(category)) {
-            product.setCategory(category);
-        }
-        return productMapper.selectProduct(product);
+    public List<Product> getProdList(ProductSearchCondition productSearchCondition) {
+        startPage(productSearchCondition.getPage(), productSearchCondition.getSize());
+        return findByCondition(getProductSearchExample(productSearchCondition));
     }
 
     @Override
-    public Product getProductByProdId(String prodId) {
-        return productMapper.selectByPrimaryKey(Long.parseLong(prodId));
+    public Product getProductByProdId(Long id) {
+        return findById(id);
     }
 
     @Override
     public void addProd(Product product) {
         product.setScanNum(0);
-        product.setCreateTime(new Date());
-        product.setUpdateTime(new Date());
-        productMapper.insert(product);
+        save(product);
     }
 
     @Override
-    public void addBatchProd(List<Product> products) {
-        productMapper.batchInsert(products);
-    }
-
-
-    @Override
-    public void deleteProdByProdId(String prodId) {
-        productMapper.deleteByPrimaryKey(Long.parseLong(prodId));
+    public void deleteProdByProdId(Long id) {
+        deleteById(id);
     }
 
     @Override
     public void updateProd(Product product) {
-        product.setUpdateTime(new Date());
-        productMapper.updateByPrimaryKey(product);
+        save(product);
     }
 
     @Override
-    public JSONObject searchProduct(String data) {
-        if (data != null) {
-            JSONObject jsonObject = JSONObject.parseObject(data).getJSONObject("reqData");
-            Integer page = jsonObject.getInteger("page");
-            Integer size = jsonObject.getInteger("size");
-            String key = jsonObject.getString("key");
-            Map searchKey = new HashMap();
-
-            page = page == null ? 0 : page;
-            size = size == null ? 20 : size;
-
-            if (key != null) {
-                key = "%" + key + "%";
-                searchKey.put("key", key);
-            } else {
-                Integer prodId = jsonObject.getInteger("prodId");
-                String category = jsonObject.getString("category");
-                String platform = jsonObject.getString("platform");
-                String expirationStart = jsonObject.getString("expirationStart");
-                String expirationEnd = jsonObject.getString("expirationEnd");
-                String createStart = jsonObject.getString("createTimeStart");
-                String createEnd = jsonObject.getString("createTimeEnd");
-
-                if (prodId != null && !"".equals(prodId)) {
-                    searchKey.put("prodId", prodId);
-                }
-                if (category != null && !"".equals(category)) {
-                    searchKey.put("category", category);
-                }
-                if (platform != null && !"".equals(platform)) {
-                    searchKey.put("platform", platform);
-                }
-                if (expirationStart != null && !"".equals(expirationStart)) {
-                    searchKey.put("expirationStart", expirationStart);
-                    searchKey.put("expirationEnd", expirationEnd);
-                }
-                if (createStart != null && !"".equals(createStart)) {
-                    searchKey.put("createStart", createStart + " 00:00:00");
-                    searchKey.put("createEnd", createEnd + " 00:00:00");
-                }
-
-                searchKey.put("index", page == 0 ? 0 : (page - 1) * size);
-                searchKey.put("size", size);
-            }
-
-            List<Product> productList = productMapper.searchProduct(searchKey);
-
-            Long count = productMapper.selectCount(searchKey);
-            Long totalPage = count / size;
-            if (count % size != 0) {
-                totalPage = totalPage + 1;
-            }
-
-            JSONObject prodJson = new JSONObject();
-            prodJson.put("list", productList);
-            prodJson.put("totalPage", totalPage);
-            prodJson.put("page", page);
-
-            return prodJson;
-        }
-        return null;
-
+    public List<Product> searchProduct(ProductSearchCondition productSearchCondition) {
+        startPage(productSearchCondition.getPage(), productSearchCondition.getSize());
+        return findByCondition(getProductSearchExample(productSearchCondition));
     }
 
-    @Override
-    public Long getCount() {
-        return null;
-    }
-
-    public JSONObject getProds(String data) {
-        JSONObject jsonObject = JSONObject.parseObject(data).getJSONObject("reqData");
-        Integer page = jsonObject.getInteger("page");
-        Integer size = jsonObject.getInteger("pageSize");
-        String category = jsonObject.getString("category");
-
-        Product product = new Product();
-        product.setPage(page);
-        product.setSize(size);
-        product.setCategory(category);
-        List<Product> productList = getProdList(product);
-
-        Map countMap = new HashMap();
-        if(category!=null && !"".equals(category)){
-            countMap.put("category",category);
+    private Example getProductSearchExample(ProductSearchCondition productSearchCondition) {
+        Example example = new Example(Product.class);
+        Example.Criteria criteria = example.createCriteria();
+        if (StringUtil.isNotEmptyString(productSearchCondition.getProdId() + "")) {
+            criteria.andEqualTo("id", productSearchCondition.getProdId());
         }
-        Long count = productMapper.selectCount(countMap);
-        Long totalPage = count / size;
-        if (count % size != 0) {
-            totalPage = totalPage + 1;
+        if (StringUtil.isNotEmptyString(productSearchCondition.getCategory())) {
+            criteria.andEqualTo("category", productSearchCondition.getCategory());
         }
-
-        JSONObject prodJson = new JSONObject();
-        prodJson.put("prodList", productList);
-        prodJson.put("totalPage", totalPage);
-        prodJson.put("page", page);
-
-        return prodJson;
+        if (StringUtil.isNotEmptyString(productSearchCondition.getPlatform())) {
+            criteria.andEqualTo("platform", productSearchCondition.getPlatform());
+        }
+        if (StringUtil.isNotEmptyString(productSearchCondition.getExpirationStart() + "")
+                && StringUtil.isNotEmptyString(productSearchCondition.getExpirationEnd() + "")) {
+            criteria.andGreaterThanOrEqualTo("expiration", productSearchCondition.getExpirationStart())
+                    .andGreaterThanOrEqualTo("expiration", productSearchCondition.getExpirationEnd());
+        }
+        if (StringUtil.isNotEmptyString(productSearchCondition.getExpirationStart() + "")
+                && StringUtil.isNotEmptyString(productSearchCondition.getExpirationEnd() + "")) {
+            criteria.andGreaterThanOrEqualTo("expiration", productSearchCondition.getCreateTimeStart())
+                    .andLessThanOrEqualTo("expiration", productSearchCondition.getCreateTimeEnd());
+        }
+        return example;
     }
 
     @Override
@@ -178,7 +90,15 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void timerDeleteTask(String expiration){
-        productMapper.timerDeleteTask(expiration);
+    public void timerDeleteTask(String expiration) {
+        Example example = new Example(Product.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andGreaterThanOrEqualTo("expiration", expiration);
+        productMapper.deleteByExample(example);
+    }
+
+    @Override
+    public void batchDeleteProduct(ProductSearchCondition productSearchCondition) {
+        searchProduct(productSearchCondition).forEach(e -> deleteProdByProdId(e.getId()));
     }
 }

@@ -80,10 +80,7 @@ public class ShopController {
     @RequestMapping("/batch/delete")
     @ResponseBody
     public ResponseResult batchDelete(@RequestBody ShopSearchCondition shopSearchCondition) {
-        List<Shop> shopList = shopService.searchShop(shopSearchCondition);
-        for (int i = 0; i < shopList.size(); i++) {
-            shopService.deleteShopByShopId(shopList.get(i).getId());
-        }
+        shopService.searchShop(shopSearchCondition).forEach(shop -> shopService.deleteShopByShopId(shop.getId()));
         return generatorSuccessResult();
     }
 }

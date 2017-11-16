@@ -1,5 +1,6 @@
 package cn.lhzs.service.impl;
 
+import cn.lhzs.base.AbstractBaseService;
 import cn.lhzs.data.bean.Catalog;
 import cn.lhzs.data.dao.CatalogMapper;
 import cn.lhzs.service.intf.CatalogService;
@@ -15,7 +16,7 @@ import java.util.List;
  */
 @Service
 @Transactional(readOnly = true)
-public class CatalogServiceImpl implements CatalogService{
+public class CatalogServiceImpl extends AbstractBaseService<Catalog> implements CatalogService{
 
     Logger logger = Logger.getLogger(CatalogServiceImpl.class);
 
@@ -24,27 +25,6 @@ public class CatalogServiceImpl implements CatalogService{
 
     @Override
     public List<Catalog> getCatalogList() {
-
-        return catalogMapper.selectCatalogs();
-    }
-
-    @Override
-    public Catalog getCatalogByProdId(String cataId) {
-        return null;
-    }
-
-    @Override
-    public void addCatalog(Catalog catalog) {
-
-    }
-
-    @Override
-    public void deleteCatalogByCataId(String cataId) {
-
-    }
-
-    @Override
-    public void updateCatalog(Catalog catalog) {
-
+        return findAll();
     }
 }

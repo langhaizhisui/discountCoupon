@@ -1,12 +1,11 @@
 package cn.lhzs.web.controller;
 
 import cn.lhzs.data.bean.Product;
+import cn.lhzs.data.vo.ProductSearchCondition;
 import cn.lhzs.result.ResponseResult;
 import cn.lhzs.service.intf.ProductService;
 import cn.lhzs.service.intf.ShopService;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import org.apache.log4j.Logger;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,25 +24,26 @@ public class ProductController {
 
     @Autowired
     public ProductService productService;
+
     @Autowired
     public ShopService shopService;
 
     @RequestMapping(value = "/getProduct", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseResult getProduct(String prodId) {
+    public ResponseResult getProduct(Long prodId) {
         return generatorSuccessResult(productService.getProductByProdId(prodId));
     }
 
     @RequestMapping(value = "/getList")
     @ResponseBody
-    public ResponseResult getProductList(@RequestBody String reqData) {
-        return generatorSuccessResult(productService.getProds(reqData));
+    public ResponseResult getProductList(@RequestBody ProductSearchCondition productSearchCondition) {
+        return generatorSuccessResult(new PageInfo(productService.getProdList(productSearchCondition)));
     }
 
     @RequestMapping(value = "/bac/getList")
     @ResponseBody
-    public ResponseResult getProductList2(@RequestBody String reqData) {
-        return generatorSuccessResult(productService.getProds(reqData));
+    public ResponseResult getProductList2(@RequestBody ProductSearchCondition productSearchCondition) {
+        return generatorSuccessResult(new PageInfo(productService.getProdList(productSearchCondition)));
     }
 
     @RequestMapping("/add")
@@ -55,7 +55,7 @@ public class ProductController {
 
     @RequestMapping("/delete")
     @ResponseBody
-    public ResponseResult deleteProduct(String prodId) {
+    public ResponseResult deleteProduct(Long prodId) {
         productService.deleteProdByProdId(prodId);
         return generatorSuccessResult();
     }
@@ -69,34 +69,21 @@ public class ProductController {
 
     @RequestMapping("/search")
     @ResponseBody
-    public ResponseResult search(@RequestBody String reqData) {
-        JSONObject searchResult = new JSONObject();
-//        searchResult.put("shopList", shopService.searchShop(reqData));
-        searchResult.put("prodList", productService.searchProduct(reqData));
-        return generatorSuccessResult(searchResult);
+    public ResponseResult search(@RequestBody ProductSearchCondition productSearchCondition) {
+        return generatorSuccessResult(new PageInfo(productService.searchProduct(productSearchCondition)));
     }
 
     @RequestMapping("/all/delete")
     @ResponseBody
-    public ResponseResult deleteTable(@RequestBody String reqData) {
+    public ResponseResult deleteTable() {
         productService.deleteTable();
         return generatorSuccessResult();
     }
 
     @RequestMapping("/batch/delete")
     @ResponseBody
-    public ResponseResult batchDelete(@RequestBody String reqData) {
-        JSONObject productJson = productService.searchProduct(reqData);
-        JSONArray productArray = productJson.getJSONArray("list");
-        while (productArray.size() != 0) {
-            for (int i = 0; i < productArray.size(); i++) {
-                JSONObject product = productArray.getJSONObject(i);
-                productService.deleteProdByProdId(product.getString("prodId"));
-            }
-            productJson = productService.searchProduct(reqData);
-            productArray = productJson.getJSONArray("list");
-        }
-
+    public ResponseResult batchDelete(@RequestBody ProductSearchCondition productSearchCondition) {
+        productService.batchDeleteProduct(productSearchCondition);
         return generatorSuccessResult();
     }
 }

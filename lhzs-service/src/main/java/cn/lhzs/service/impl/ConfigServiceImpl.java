@@ -1,5 +1,7 @@
 package cn.lhzs.service.impl;
 
+import cn.lhzs.base.AbstractBaseService;
+import cn.lhzs.data.bean.Article;
 import cn.lhzs.data.bean.Config;
 import cn.lhzs.data.bean.SlideShowPicture;
 import cn.lhzs.data.common.Constants;
@@ -20,7 +22,7 @@ import java.util.stream.Collectors;
  * Created by ZHX on 2017/5/7.
  */
 @Service
-public class ConfigServiceImpl implements ConfigService {
+public class ConfigServiceImpl extends AbstractBaseService<Config> implements ConfigService {
 
     Logger logger = Logger.getLogger(ConfigServiceImpl.class);
 
@@ -28,20 +30,18 @@ public class ConfigServiceImpl implements ConfigService {
     public ConfigMapper configMapper;
 
     @Override
-    public Config getConfigById(final Long confId) {
-        return configMapper.selectOne(new Config() {{
-            setConfigId(confId);
-        }});
+    public Config getConfigById(final Long id) {
+        return findById(id);
     }
 
     @Override
     public void updateConfigById(Config config) {
-        configMapper.updateConfig(config);
+        save(config);
     }
 
     @Override
     public void addConfig(Config config) {
-        configMapper.insert(config);
+        save(config);
     }
 
     @Override
@@ -50,10 +50,9 @@ public class ConfigServiceImpl implements ConfigService {
         if (StringUtil.isNotEmptyString(value)) {
             return JSONObject.parseArray(value, SlideShowPicture.class).stream()
                     .sorted(Comparator.comparing(SlideShowPicture::getCreateTime).reversed())
-//                    .sorted(Comparator.comparing(SlideShowPicture::getWeight).reversed())
                     .collect(Collectors.toList());
         }
-        return new ArrayList<SlideShowPicture>();
+        return new ArrayList<>();
     }
 
     @Override

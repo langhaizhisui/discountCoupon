@@ -1,10 +1,10 @@
 package cn.lhzs.data.bean;
 
 import cn.lhzs.data.base.BaseModel;
+import java.util.Date;
+import javax.persistence.*;
 
-import javax.persistence.Column;
-
-public class Meta extends BaseModel{
+public class Meta extends BaseModel {
 
     private String name;
 
@@ -15,45 +15,60 @@ public class Meta extends BaseModel{
 
     private String description;
 
-    private Integer state;
-
+    /**
+     * @return name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * @param name
+     */
     public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+        this.name = name;
     }
 
+    /**
+     * @return title
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     * @param title
+     */
     public void setTitle(String title) {
-        this.title = title == null ? null : title.trim();
+        this.title = title;
     }
 
+    /**
+     * @return key_words
+     */
     public String getKeyWords() {
         return keyWords;
     }
 
+    /**
+     * @param keyWords
+     */
     public void setKeyWords(String keyWords) {
-        this.keyWords = keyWords == null ? null : keyWords.trim();
+        this.keyWords = keyWords;
     }
 
+    /**
+     * @return description
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * @param description
+     */
     public void setDescription(String description) {
-        this.description = description == null ? null : description.trim();
+        this.description = description;
     }
 
-    public Integer getState() {
-        return state;
-    }
-
-    public void setState(Integer state) {
-        this.state = state;
-    }
 }

@@ -20,7 +20,7 @@ import static cn.lhzs.generator.generator.ProjectConstant.*;
  */
 public class CodeGenerator {
     //JDBC配置，请修改为你项目的实际配置
-    private static final String JDBC_URL = "jdbc:mysql://119.23.54.39:3306/discount_coupon";
+    private static final String JDBC_URL = "jdbc:mysql://119.23.54.39:3306/discount_coupon2";
     private static final String JDBC_USERNAME = "root";
     private static final String JDBC_PASSWORD = "biibuy66";
     private static final String JDBC_DIVER_CLASS_NAME = "com.mysql.jdbc.Driver";
@@ -44,7 +44,7 @@ public class CodeGenerator {
 
     public static void main(String[] args) {
 //        String str = tableNameConvertLowerCamel("drp_cty");
-//        genCode("article");
+        genCode("catalog","config","meta","product");
         //genCode("输入表名","输入自定义Model名称");
     }
 
@@ -67,8 +67,8 @@ public class CodeGenerator {
      */
     public static void genCode(String tableName, String modelName) {
         genModelAndMapper(tableName, modelName);
-        genService(tableName, modelName);
-        genController(tableName, modelName);
+//        genService(tableName, modelName);
+//        genController(tableName, modelName);
     }
 
 

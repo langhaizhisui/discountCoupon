@@ -35,6 +35,11 @@ public class BaseModel {
     private Long id;
 
     /**
+     * 状态
+     */
+    private Integer state;
+
+    /**
      * 创建时间
      */
     @Column(name = "create_time")
@@ -92,6 +97,14 @@ public class BaseModel {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
     }
 
     public Date getCreateTime() {

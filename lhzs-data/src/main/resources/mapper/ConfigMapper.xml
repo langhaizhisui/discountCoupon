@@ -1,22 +1,15 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.lhzs.data.dao.ConfigMapper" >
-  <resultMap id="BaseResultMap" type="cn.lhzs.data.bean.Config" >
-    <id column="config_id" property="configId" jdbcType="BIGINT" />
-    <result column="value" property="value" jdbcType="VARCHAR" />
-    <result column="update_uid" property="updateUid" jdbcType="INTEGER" />
-    <result column="remark" property="remark" jdbcType="VARCHAR" />
-    <result column="state" property="state" jdbcType="VARCHAR" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
-  </resultMap>
-  <update id="updateConfig" parameterType="cn.lhzs.data.bean.Config">
-    update config
-    <set >
-      <if test="value != null" >
-        value = #{value,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where config_id = #{configId,jdbcType=INTEGER}
-  </update>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.lhzs.data.dao.ConfigMapper">
+
+    <resultMap id="BaseResultMap" type="cn.lhzs.data.bean.Config">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="value" jdbcType="VARCHAR" property="value"/>
+        <result column="update_uid" jdbcType="INTEGER" property="updateUid"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+
 </mapper>

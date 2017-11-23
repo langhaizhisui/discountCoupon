@@ -69,6 +69,9 @@
           <element id="library" level="project" name="Maven: org.freemarker:freemarker:2.3.23" />
           <element id="library" level="project" name="Maven: com.github.pagehelper:pagehelper:4.1.6" />
           <element id="library" level="project" name="Maven: com.github.jsqlparser:jsqlparser:0.9.5" />
+          <element id="archive" name="lhzs-common-1.0-SNAPSHOT.jar">
+            <element id="module-output" name="lhzs-common" />
+          </element>
           <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.8.0" />
           <element id="library" level="project" name="Maven: commons-fileupload:commons-fileupload:1.3.1" />
           <element id="library" level="project" name="Maven: commons-io:commons-io:2.2" />
@@ -79,7 +82,8 @@
           <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.6.4" />
           <element id="library" level="project" name="Maven: commons-beanutils:commons-beanutils:1.8.3" />
           <element id="library" level="project" name="Maven: org.apache.shiro:shiro-web:1.2.2" />
-          <element id="library" level="project" name="Maven: com.alibaba:fastjson:1.2.40" />
+          <element id="library" level="project" name="Maven: com.alibaba:fastjson:1.2.41" />
+          <element id="library" level="project" name="Maven: org.aspectj:aspectjweaver:1.8.5" />
         </element>
       </element>
       <element id="directory" name="META-INF">

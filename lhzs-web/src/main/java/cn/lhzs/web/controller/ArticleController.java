@@ -1,16 +1,22 @@
 package cn.lhzs.web.controller;
 
+import cn.lhzs.common.aop.log.OpLog;
 import cn.lhzs.data.bean.Article;
 import cn.lhzs.data.bean.WebGeneralize;
 import cn.lhzs.result.ResponseResult;
 import cn.lhzs.service.intf.ArticleService;
 import com.github.pagehelper.PageInfo;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import static cn.lhzs.common.aop.log.OpEnum.ADD;
+import static cn.lhzs.common.aop.log.OpEnum.DEL;
+import static cn.lhzs.common.aop.log.OpEnum.EDIT;
 import static cn.lhzs.result.ResponseResultGenerator.generatorSuccessResult;
 
 /**
@@ -23,6 +29,7 @@ public class ArticleController {
     @Autowired
     public ArticleService articleService;
 
+    @OpLog(type = DEL, descp = "删除文章")
     @RequestMapping("/delete")
     @ResponseBody
     public ResponseResult deleteArticle(Long id) {
@@ -42,6 +49,7 @@ public class ArticleController {
         return generatorSuccessResult(new PageInfo(articleService.searchArticle(article)));
     }
 
+    @OpLog(type = ADD, descp = "删除文章")
     @RequestMapping("/gene/article")
     @ResponseBody
     public ResponseResult addArticle(@RequestBody Article article) {
@@ -61,6 +69,7 @@ public class ArticleController {
         return generatorSuccessResult(new PageInfo(articleService.getWebGeneralizeList(webGeneralize)));
     }
 
+    @OpLog(type = ADD, descp = "增加推荐商城")
     @RequestMapping("/webGeneralize/add")
     @ResponseBody
     public ResponseResult addWebGeneralize(@RequestBody WebGeneralize webGeneralize) {
@@ -68,6 +77,7 @@ public class ArticleController {
         return generatorSuccessResult();
     }
 
+    @OpLog(type = DEL, descp = "删除推荐商城")
     @RequestMapping("/webGeneralize/delete")
     @ResponseBody
     public ResponseResult deleteWebGeneralize(Integer id) {
@@ -75,6 +85,7 @@ public class ArticleController {
         return generatorSuccessResult();
     }
 
+    @OpLog(type = ADD, descp = "增加推荐商城")
     @RequestMapping("/webGeneralize/update")
     @ResponseBody
     public ResponseResult updateWebGeneralize(@RequestBody WebGeneralize webGeneralize) {

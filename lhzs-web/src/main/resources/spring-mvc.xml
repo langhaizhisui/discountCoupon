@@ -4,7 +4,7 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:tx="http://www.springframework.org/schema/tx"
-       xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:task="http://www.springframework.org/schema/task" xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context
@@ -14,7 +14,7 @@
        http://www.springframework.org/schema/tx
        http://www.springframework.org/schema/tx/spring-tx.xsd
        http://www.springframework.org/schema/task
-       http://www.springframework.org/schema/task/spring-task-3.2.xsd ">
+       http://www.springframework.org/schema/task/spring-task-3.2.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!-- 扫描指定包带注解的类-->
     <!--<context:annotation-config />-->
@@ -22,6 +22,7 @@
     <context:component-scan base-package="cn.lhzs.service.impl"></context:component-scan>
     <context:component-scan base-package="cn.lhzs.data.dao"></context:component-scan>
     <context:component-scan base-package="cn.lhzs.task"></context:component-scan>
+    <context:component-scan base-package="cn.lhzs.common.aop"></context:component-scan>
     <mvc:annotation-driven/>
     <task:annotation-driven/>
 
@@ -44,6 +45,8 @@
     </bean>
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <aop:aspectj-autoproxy proxy-target-class="true" />
 
     <!-- (事务管理)transaction manager, use JtaTransactionManager for global tx -->
     <bean id="transactionManager"

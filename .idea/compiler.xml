@@ -16,6 +16,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="discountCoupon" target="1.8" />
       <module name="lhzs-common" target="1.8" />
       <module name="lhzs-data" target="1.8" />
       <module name="lhzs-generator" target="1.8" />

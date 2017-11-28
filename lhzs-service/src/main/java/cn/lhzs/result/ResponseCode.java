@@ -11,7 +11,8 @@ public enum ResponseCode {
     FAIL(500, "请求失败"),
     INTERNAL_SERVER_ERROR(501, "服务器出错"),
     UNLOGIN(600, "未登录"),
-    LOGIN(601, "登录成功");
+    LOGIN(601, "登录成功"),
+    LOGIN_FAIL(602, "登录失败");
 
     private Integer code;
     private String descp;

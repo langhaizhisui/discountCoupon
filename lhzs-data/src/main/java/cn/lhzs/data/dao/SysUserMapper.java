@@ -1,8 +1,7 @@
 package cn.lhzs.data.dao;
 
+import cn.lhzs.data.base.Mapper;
 import cn.lhzs.data.bean.SysUser;
-import tk.mybatis.mapper.common.Mapper;
 
-public interface SysUserMapper extends Mapper<SysUser>{
-
+public interface SysUserMapper extends Mapper<SysUser> {
 }

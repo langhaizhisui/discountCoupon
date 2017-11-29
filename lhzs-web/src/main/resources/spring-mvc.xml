@@ -83,4 +83,6 @@
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
     </bean>
 
+    <bean id="applicationContextUtil" class="cn.lhzs.util.ApplicationContextUtil"></bean>
+
 </beans>

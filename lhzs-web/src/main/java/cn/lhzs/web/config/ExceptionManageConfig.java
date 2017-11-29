@@ -4,6 +4,7 @@ package cn.lhzs.web.config;
 import cn.lhzs.result.ResponseCode;
 import cn.lhzs.result.ResponseResult;
 import cn.lhzs.util.DateUtil;
+import cn.lhzs.web.exception.LoginException;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
@@ -35,9 +36,9 @@ import java.util.List;
  */
 @Configuration
 @EnableWebMvc
-public class WebMvcConfig extends WebMvcConfigurerAdapter {
+public class ExceptionManageConfig extends WebMvcConfigurerAdapter {
 
-    private final Logger logger = LoggerFactory.getLogger(WebMvcConfig.class);
+    private final Logger logger = LoggerFactory.getLogger(ExceptionManageConfig.class);
 
     //使用阿里 FastJson 作为JSON MessageConverter
     @Override
@@ -85,6 +86,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
                 result.setCode(ResponseCode.BAD_REQUEST.getCode()).setMsg(e.getMessage());
             } else if (e instanceof MethodArgumentTypeMismatchException) {
                 result.setCode(ResponseCode.BAD_REQUEST.getCode()).setMsg(e.getMessage());
+            } else if (e instanceof LoginException) {
+                result.setCode(ResponseCode.LOGIN_FAIL.getCode()).setMsg(e.getMessage());
             } else {
                 result.setCode(ResponseCode.INTERNAL_SERVER_ERROR.getCode()).setMsg("接口 [" + request.getRequestURI() + "] 内部错误，请联系管理员");
                 String message = e.getMessage();

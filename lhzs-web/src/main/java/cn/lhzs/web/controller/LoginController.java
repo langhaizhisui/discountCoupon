@@ -1,8 +1,11 @@
 package cn.lhzs.web.controller;
 
+import cn.lhzs.data.bean.SysUser;
 import cn.lhzs.data.vo.LoginCondition;
 import cn.lhzs.result.ResponseResult;
 import cn.lhzs.service.intf.ArticleService;
+import cn.lhzs.service.intf.SysUserService;
+import cn.lhzs.util.ApplicationContextUtil;
 import cn.lhzs.web.exception.LoginException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
@@ -40,6 +43,10 @@ public class LoginController {
     @RequestMapping("/login")
     @ResponseBody
     public ResponseResult login(@RequestBody LoginCondition loginCondition) {
+        SysUserService bean = ApplicationContextUtil.getContext().getBean(SysUserService.class);
+        SysUser byId = bean.findById(10000L);
+        System.out.println("=============="+byId.getName());
+
         UsernamePasswordToken token = new UsernamePasswordToken(loginCondition.getUserName(), loginCondition.getPassword());
         try {
             token.setRememberMe(true);
@@ -58,7 +65,7 @@ public class LoginController {
         } catch (ExcessiveAttemptsException e) {
             throw new LoginException("错误次数过多" + token.getPrincipal());
         } catch (AuthenticationException e) {
-            throw new LoginException("登录错误" + token.getPrincipal());
+            throw new LoginException(e.getCause().getMessage());
         }
     }
 

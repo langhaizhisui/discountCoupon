@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by ZHX on 2017/10/18.
@@ -19,5 +20,11 @@ public class SysUserServiceImpl extends AbstractBaseService<SysUser> implements 
 
     @Resource
     public SysUserMapper sysUserMapper;
+
+    @Override
+    public List<SysUser> getUserAuthList(Long uid) {
+        return sysUserMapper.getUserAuth(uid);
+    }
+
 
 }

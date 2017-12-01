@@ -13,4 +13,18 @@
     <result column="update_by" jdbcType="BIGINT" property="updateBy" />
   </resultMap>
 
+  <sql id="BaseColumnSql">
+    id, amid, name, url, state, create_time, update_time, create_by, update_by
+  </sql>
+
+  <select id="getUserAuthList" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    SELECT
+    <include refid="BaseColumnSql" />
+    FROM sys_auth WHERE id IN (
+        SELECT aid FROM sys_role_auth WHERE rid IN(
+          SELECT rid FROM sys_role_user WHERE id = #{id}
+        )
+    )
+  </select>
+
 </mapper>

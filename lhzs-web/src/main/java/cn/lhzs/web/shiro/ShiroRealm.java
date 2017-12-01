@@ -1,6 +1,8 @@
 package cn.lhzs.web.shiro;
 
+import cn.lhzs.data.bean.SysAuth;
 import cn.lhzs.data.bean.SysUser;
+import cn.lhzs.service.intf.SysAuthService;
 import cn.lhzs.service.intf.SysUserService;
 import cn.lhzs.util.StringUtil;
 import cn.lhzs.web.exception.LoginException;
@@ -25,6 +27,9 @@ public class ShiroRealm extends AuthorizingRealm {
     @Autowired
     private SysUserService sysUserService;
 
+    @Autowired
+    private SysAuthService sysAuthService;
+
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         SysUser sysUser = sysUserService.findBy("account", super.getAvailablePrincipal(principals));
@@ -34,15 +39,16 @@ public class ShiroRealm extends AuthorizingRealm {
 
         SimpleAuthorizationInfo simpleAuthorInfo = new SimpleAuthorizationInfo();
         Subject subject = SecurityUtils.getSubject();
-        if (getSessionUserAuth(simpleAuthorInfo, subject)) {
-            return simpleAuthorInfo;
-        }
+//        if (getSessionUserAuth(simpleAuthorInfo, subject)) {
+//            return simpleAuthorInfo;
+//        }
+
         return getUserAuth(simpleAuthorInfo, subject, sysUser);
     }
 
     private AuthorizationInfo getUserAuth(SimpleAuthorizationInfo simpleAuthorInfo, Subject subject, SysUser sysUser) {
-        sysUserService.getUserAuthList(sysUser.getId()).forEach(userAuth -> simpleAuthorInfo.addStringPermission(userAuth.getName()));
-        subject.getSession().setAttribute("userAuth", setUserAuthName(sysUser.getId()));
+        sysAuthService.getUserAuthList(sysUser.getId()).forEach(userAuth -> simpleAuthorInfo.addStringPermission(userAuth.getId() + ""));
+        subject.getSession().setAttribute("userAuth", setUserAuthId(sysUser.getId()));
         return simpleAuthorInfo;
     }
 
@@ -97,17 +103,17 @@ public class ShiroRealm extends AuthorizingRealm {
             Session session = currentUser.getSession();
             session.setTimeout(1000 * 60 * 60 * 2);
             session.setAttribute("user", uid);
-            session.setAttribute("userAuth", setUserAuthName(uid));
+            session.setAttribute("userAuth", setUserAuthId(uid));
         }
     }
 
-    private String setUserAuthName(Long uid) {
-        String authName = "";
-        List<SysUser> userAuthList = sysUserService.getUserAuthList(uid);
+    private String setUserAuthId(Long uid) {
+        String authIds = "";
+        List<SysAuth> userAuthList = sysAuthService.getUserAuthList(uid);
         for (int i = 0; i < userAuthList.size(); i++) {
-            authName += userAuthList.get(i).getName() + ",";
+            authIds += userAuthList.get(i).getId() + ",";
         }
-        return "".equals(authName) ? "" : authName.substring(0, authName.length() - 1);
+        return "".equals(authIds) ? "" : authIds.substring(0, authIds.length() - 1);
     }
 
 }

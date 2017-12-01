@@ -47,6 +47,7 @@
     <filter>
         <filter-name>shiroFilterFactoryBean</filter-name>
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+        <async-supported>true</async-supported>
         <init-param>
             <!-- 缺省为false，表示由SpringApplicationContext管理生命周期，置为true则表示由ServletContainer管理 -->
             <param-name>targetFilterLifecycle</param-name>

@@ -21,10 +21,4 @@ public class SysUserServiceImpl extends AbstractBaseService<SysUser> implements 
     @Resource
     public SysUserMapper sysUserMapper;
 
-    @Override
-    public List<SysUser> getUserAuthList(Long uid) {
-        return sysUserMapper.getUserAuth(uid);
-    }
-
-
 }

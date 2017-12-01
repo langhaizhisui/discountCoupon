@@ -1,9 +1,5 @@
 package cn.lhzs.web.config;
 
-import cn.lhzs.data.bean.SysAuth;
-import cn.lhzs.service.intf.SysAuthService;
-import cn.lhzs.util.ApplicationContextUtil;
-import cn.lhzs.util.StringUtil;
 import cn.lhzs.web.shiro.ShiroRealm;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
@@ -11,14 +7,11 @@ import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSource
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.filter.authc.LogoutFilter;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.servlet.Filter;
-import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -68,34 +61,8 @@ public class ShiroConfig {
 
     private Map<String, String> initFilterChainConfiguration() {
         Map<String, String> filterChainDefinitionManager = new LinkedHashMap<>();
-        setAnonUrl(filterChainDefinitionManager);
-        setAuthUrl(filterChainDefinitionManager);
+        filterChainDefinitionManager.put("/article/**", "perms[info]");
         return filterChainDefinitionManager;
-    }
-
-    private void setAuthUrl(Map<String, String> filterChainDefinitionManager) {
-        SysAuthService sysAuthService = ApplicationContextUtil.getContext().getBean(SysAuthService.class);
-        sysAuthService.findAll().stream()
-                .filter(sysAuth -> StringUtil.isNotEmptyString(sysAuth.getUrl()))
-                .forEach(sysAuth -> splitUrl(sysAuth, filterChainDefinitionManager));
-    }
-
-    private void setAnonUrl(Map<String, String> filterChainDefinitionManager) {
-        //		List<String> anonsList = ShiroResource.getAnonsList();
-//		if(anonsList != null){
-//			anonsList.stream().filter(Objects::nonNull).forEach(e->filterChainDefinitionManager.put(e, "anon"));
-//		}
-        filterChainDefinitionManager.put("/login", "anon");
-    }
-
-    private void splitUrl(SysAuth sysAuth, Map<String, String> filterChainDefinitionManager) {
-        Arrays.asList(sysAuth.getUrl().split(",")).forEach(url -> {
-            if (url.endsWith("/")) {
-                url = url + "**";
-            }
-            filterChainDefinitionManager.put(url, "authc,perms[" + sysAuth.getName() + "]");
-        });
-
     }
 
     @Bean

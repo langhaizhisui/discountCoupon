@@ -7,5 +7,4 @@ import java.util.List;
 
 public interface SysUserMapper extends Mapper<SysUser> {
 
-    List<SysUser> getUserAuth(Long uid);
 }

@@ -5,9 +5,14 @@ import cn.lhzs.data.bean.SysAuth;
 import cn.lhzs.data.dao.SysAuthMapper;
 import cn.lhzs.service.intf.SysAuthService;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by ZHX on 2017/10/18.
@@ -19,5 +24,10 @@ public class SysAuthServiceImpl extends AbstractBaseService<SysAuth> implements 
 
     @Resource
     public SysAuthMapper sysAuthMapper;
+
+    @Override
+    public List<SysAuth> getUserAuthList(Long uid) {
+        return sysAuthMapper.getUserAuthList(uid);
+    }
 
 }

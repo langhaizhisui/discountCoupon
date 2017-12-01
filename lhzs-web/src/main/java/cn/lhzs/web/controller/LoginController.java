@@ -7,10 +7,6 @@ import cn.lhzs.service.intf.ArticleService;
 import cn.lhzs.service.intf.SysUserService;
 import cn.lhzs.util.ApplicationContextUtil;
 import cn.lhzs.web.exception.LoginException;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.ExcessiveAttemptsException;
@@ -19,16 +15,13 @@ import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
-import org.apache.shiro.web.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import static cn.lhzs.result.ResponseResultGenerator.generatorLoginResult;
-import static cn.lhzs.result.ResponseResultGenerator.generatorSuccessResult;
 import static cn.lhzs.result.ResponseResultGenerator.generatorUnLoginResult;
 
 /**
@@ -43,9 +36,6 @@ public class LoginController {
     @RequestMapping("/login")
     @ResponseBody
     public ResponseResult login(@RequestBody LoginCondition loginCondition) {
-        SysUserService bean = ApplicationContextUtil.getContext().getBean(SysUserService.class);
-        SysUser byId = bean.findById(10000L);
-        System.out.println("=============="+byId.getName());
 
         UsernamePasswordToken token = new UsernamePasswordToken(loginCondition.getUserName(), loginCondition.getPassword());
         try {

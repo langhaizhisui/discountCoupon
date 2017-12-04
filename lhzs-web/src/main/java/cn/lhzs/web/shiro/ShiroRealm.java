@@ -1,5 +1,6 @@
 package cn.lhzs.web.shiro;
 
+import cn.lhzs.common.util.WebUtil;
 import cn.lhzs.data.bean.SysAuth;
 import cn.lhzs.data.bean.SysUser;
 import cn.lhzs.service.intf.SysAuthService;
@@ -70,6 +71,7 @@ public class ShiroRealm extends AuthorizingRealm {
         if (!checkUser(sysUser, token)) {
             throw new LoginException("用户名或密码错误");
         }
+        WebUtil.saveCurrentUser(sysUser.getId());
         AuthenticationInfo authcInfo = new SimpleAuthenticationInfo(token.getUsername(), token.getPassword(), getName());
         setAuthenticationSession(sysUser.getId());
         return authcInfo;

@@ -7,6 +7,9 @@
           <element id="module-output" name="lhzs-data" />
         </element>
         <element id="directory" name="lib">
+          <element id="archive" name="lhzs-data-1.0-SNAPSHOT.jar">
+            <element id="module-output" name="lhzs-data" />
+          </element>
           <element id="library" level="project" name="Maven: com.mchange:c3p0:0.9.5" />
           <element id="library" level="project" name="Maven: com.mchange:mchange-commons-java:0.2.9" />
           <element id="library" level="project" name="Maven: org.mybatis:mybatis:3.4.1" />

@@ -1,6 +1,7 @@
-package cn.lhzs.web.controller;
+package cn.lhzs.web.controller.admin;
 
 import cn.lhzs.result.ResponseResult;
+import cn.lhzs.service.intf.SysUserService;
 import cn.lhzs.web.shiro.ShiroPermissionManage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,11 +15,14 @@ import static cn.lhzs.result.ResponseResultGenerator.generatorSuccessResult;
  * Created by IBA-EDV on 2017/12/1.
  */
 @Controller
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/admin/user")
+public class AdminUserController {
 
     @Autowired
     private ShiroPermissionManage shiroPermissionManage;
+
+    @Autowired
+    private SysUserService sysUserService;
 
     @RequestMapping("perm/update")
     @ResponseBody
@@ -27,5 +31,11 @@ public class UserController {
             return generatorSuccessResult();
         }
         return generatorFailResult("权限更新失败");
+    }
+
+    @RequestMapping("menu")
+    @ResponseBody
+    public ResponseResult getMenu(){
+        return generatorSuccessResult(sysUserService.getMenu());
     }
 }

@@ -2,6 +2,8 @@ package cn.lhzs.data.bean;
 
 import cn.lhzs.data.base.BaseModel;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 import javax.persistence.*;
 
 @Table(name = "sys_auth_menu")
@@ -39,6 +41,12 @@ public class SysAuthMenu extends BaseModel {
      */
     @Column(name = "update_by")
     private Long updateBy;
+
+    /**
+     * 直接下级菜单
+     */
+    @Transient
+    private Set<SysAuthMenu> subSysAuthMenuList;
 
     /**
      * 获取菜单名称
@@ -146,5 +154,34 @@ public class SysAuthMenu extends BaseModel {
      */
     public void setUpdateBy(Long updateBy) {
         this.updateBy = updateBy;
+    }
+
+    public Set<SysAuthMenu> getSubSysAuthMenuList() {
+        return subSysAuthMenuList;
+    }
+
+    public void setSubSysAuthMenuList(Set<SysAuthMenu> subSysAuthMenuList) {
+        this.subSysAuthMenuList = subSysAuthMenuList;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return getId().hashCode();
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o.getClass() == SysAuthMenu.class) {
+            SysAuthMenu sysAuthMenu = (SysAuthMenu)o;
+            return sysAuthMenu.getId().equals(getId());
+        }
+
+        return false;
     }
 }

@@ -84,4 +84,5 @@ public class SysUserServiceImpl extends AbstractBaseService<SysUser> implements 
             sysAuthMenu = sysAuthMenuService.findById(sysAuthMenu.getpAmid());
         }
     }
+
 }

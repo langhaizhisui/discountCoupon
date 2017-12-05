@@ -85,12 +85,12 @@
 
     <bean id="applicationContextUtil" class="cn.lhzs.util.ApplicationContextUtil"></bean>
 
-    <bean id="shiroFilterFactoryBean" class="cn.lhzs.web.shiro.ShiroPermissionManage">
+    <bean id="shiroFilterFactoryBean" class="cn.lhzs.web.shiro.ShiroPermissionManage" init-method="updateFilter">
         <property name="loginUrl" value="/unLogin"/>
         <property name="unauthorizedUrl" value="/forbidden"/>
         <property name="filterChainDefinitions">
             <value>
-                /article/** = authc,perms[admin]
+                /admin/** = authc,perms[admin]
             </value>
         </property>
         <property name="securityManager" ref="securityManager"></property>

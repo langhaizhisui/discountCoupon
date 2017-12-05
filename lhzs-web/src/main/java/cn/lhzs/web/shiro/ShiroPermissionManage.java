@@ -22,14 +22,6 @@ public class ShiroPermissionManage extends ShiroFilterFactoryBean {
     @Autowired
     private SysAuthService sysAuthService;
 
-//    @Override
-//    public void setFilterChainDefinitionMap(Map<String, String> filterChainDefinitionMap) {
-//        Map<String,String> filterMap=new HashMap<>();
-//        filterMap.put("/login","anon");
-//        filterMap.put("/article/**","perms[info]");
-//        super.setFilterChainDefinitionMap(filterMap);
-//    }
-
     public boolean updateFilter() {
         Map<String, String> permissionMap = getPermissionMap();
         try {

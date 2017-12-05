@@ -101,4 +101,10 @@ public class ProductServiceImpl extends AbstractBaseService<Product> implements 
     public void batchDeleteProduct(ProductSearchCondition productSearchCondition) {
         searchProduct(productSearchCondition).forEach(e -> deleteProdByProdId(e.getId()));
     }
+
+    @Override
+    public List<Product> getAllProduct(){
+        return productMapper.selectAll();
+    }
+
 }

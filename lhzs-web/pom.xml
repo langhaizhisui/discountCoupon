@@ -93,8 +93,6 @@
             <version>8.0.26</version>
         </dependency>
 
-
-
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
@@ -122,23 +120,12 @@
             <version>1.8.5</version>
         </dependency>
 
-        <!-- jest -->
-        <dependency>
-            <groupId>io.searchbox</groupId>
-            <artifactId>jest</artifactId>
-            <version>0.0.2</version>
-        </dependency>
-        <!-- elasticsearch  -->
-        <dependency>
-            <groupId>org.elasticsearch</groupId>
-            <artifactId>elasticsearch</artifactId>
-            <version>0.20.2</version>
-        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.10</version>
         </dependency>
+
     </dependencies>
     <build>
         <finalName>lhzs-web</finalName>

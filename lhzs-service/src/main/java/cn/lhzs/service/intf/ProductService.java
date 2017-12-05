@@ -11,6 +11,7 @@ import java.util.List;
  * Created by ZHX on 2017/4/27.
  */
 public interface ProductService extends IBaseService<Product> {
+
     List<Product> getProdList(ProductSearchCondition productSearchCondition);
 
     Product getProductByProdId(Long id);
@@ -28,4 +29,6 @@ public interface ProductService extends IBaseService<Product> {
     void timerDeleteTask(String expiration);
 
     void batchDeleteProduct(ProductSearchCondition productSearchCondition);
+
+    List<Product> getAllProduct();
 }

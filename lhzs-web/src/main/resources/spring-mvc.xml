@@ -17,7 +17,6 @@
        http://www.springframework.org/schema/task/spring-task-3.2.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!-- 扫描指定包带注解的类-->
-    <!--<context:annotation-config />-->
     <context:component-scan base-package="cn.lhzs.web"></context:component-scan>
     <context:component-scan base-package="cn.lhzs.service.impl"></context:component-scan>
     <context:component-scan base-package="cn.lhzs.data.dao"></context:component-scan>
@@ -28,7 +27,6 @@
 
     <!-- 配置SessionFactory -->
     <context:property-placeholder location="classpath:jdbc.properties"/>
-
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
         <property name="driverClass" value="${jdbc.driverClassName}"/>
         <property name="jdbcUrl" value="${jdbc.url}"/>
@@ -44,11 +42,10 @@
         <property name="minPoolSize" value="${c3p0.minPoolSize}"/>
     </bean>
 
+
+    <!-- (事务管理) -->
     <tx:annotation-driven transaction-manager="transactionManager"/>
-
     <aop:aspectj-autoproxy proxy-target-class="true" />
-
-    <!-- (事务管理)transaction manager, use JtaTransactionManager for global tx -->
     <bean id="transactionManager"
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
@@ -56,23 +53,9 @@
 
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
-        <!-- 自动扫描mapping.xml文件 -->
         <property name="mapperLocations" value="classpath:mapper/*.xml"/>
         <property name="configLocation" value="classpath:mybatis-config.xml" />
     </bean>
-
-    <!-- 配置文件上传，如果没有使用文件上传可以不用配置 -->
-    <bean id="multipartResolver"
-          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-        <!-- 默认编码 -->
-        <property name="defaultEncoding" value="utf-8"/>
-        <!-- 文件大小最大值 -->
-        <property name="maxUploadSize" value="10485760000"/>
-        <!-- 内存中的最大值 -->
-        <property name="maxInMemorySize" value="40960"/>
-    </bean>
-
-    <!-- spring xml bean配置 -->
     <bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="cn.lhzs.data.dao" />
         <property name="properties">
@@ -83,8 +66,18 @@
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
     </bean>
 
+    <!-- 文件上传 -->
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="utf-8"/>
+        <property name="maxUploadSize" value="10485760000"/>
+        <property name="maxInMemorySize" value="40960"/>
+    </bean>
+
+    <!-- 应用上下文 -->
     <bean id="applicationContextUtil" class="cn.lhzs.util.ApplicationContextUtil"></bean>
 
+    <!-- shiro -->
     <bean id="shiroFilterFactoryBean" class="cn.lhzs.web.shiro.ShiroPermissionManage" init-method="updateFilter">
         <property name="loginUrl" value="/unLogin"/>
         <property name="unauthorizedUrl" value="/forbidden"/>

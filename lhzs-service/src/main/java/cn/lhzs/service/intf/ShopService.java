@@ -2,7 +2,6 @@ package cn.lhzs.service.intf;
 
 import cn.lhzs.data.bean.Shop;
 import cn.lhzs.data.vo.ShopSearchCondition;
-import com.alibaba.fastjson.JSONObject;
 
 import java.util.List;
 
@@ -28,4 +27,6 @@ public interface ShopService {
     List<Shop> getShops(Shop shop);
 
     void deleteTable();
+
+    List<Shop> getAllShop();
 }

@@ -1,10 +1,10 @@
 package cn.lhzs.web.config;
 
 
+import cn.lhzs.common.exception.LoginException;
 import cn.lhzs.result.ResponseCode;
 import cn.lhzs.result.ResponseResult;
 import cn.lhzs.util.DateUtil;
-import cn.lhzs.web.exception.LoginException;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;

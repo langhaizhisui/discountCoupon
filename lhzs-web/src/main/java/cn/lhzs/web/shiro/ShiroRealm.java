@@ -1,12 +1,12 @@
 package cn.lhzs.web.shiro;
 
+import cn.lhzs.common.exception.LoginException;
 import cn.lhzs.common.util.WebUtil;
 import cn.lhzs.data.bean.SysAuth;
 import cn.lhzs.data.bean.SysUser;
 import cn.lhzs.service.intf.SysAuthService;
 import cn.lhzs.service.intf.SysUserService;
 import cn.lhzs.util.StringUtil;
-import cn.lhzs.web.exception.LoginException;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;

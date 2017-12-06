@@ -1,12 +1,9 @@
 package cn.lhzs.common.exception;
 
-import cn.lhzs.common.result.HttpCode;
-
 /**
  * 登录异常
- * @author sonic.liu
+ * @author ZHX
  */
-@SuppressWarnings("serial")
 public class LoginException extends BaseException {
 	public LoginException() {
 	}
@@ -19,7 +16,4 @@ public class LoginException extends BaseException {
 		super(message, e);
 	}
 
-	protected HttpCode getHttpCode() {
-		return HttpCode.LOGIN_FAIL;
-	}
 }

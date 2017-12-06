@@ -1,8 +1,8 @@
 package cn.lhzs.common.aop.log;
 
 /**
- * @author sonic.liu on 2017/7/12.
  * @descp 日志操作枚举
+ * @author ZHX
  */
 public enum OpEnum {
     SELECT(1, "查询"),
@@ -12,8 +12,7 @@ public enum OpEnum {
     EXPORT(5, "导出"),
     LOGIN(6, "登录"),
     UPLOAD(7,"上传"),
-    DO(8, "执行"),
-    LOGIN_OUT(9, "登出");
+    LOGIN_OUT(8, "登出");
 
     private int code;
     private String descp;

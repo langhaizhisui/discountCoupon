@@ -1,6 +1,5 @@
 package cn.lhzs.web.controller;
 
-import cn.lhzs.data.bean.Product;
 import cn.lhzs.data.vo.ProductSearchCondition;
 import cn.lhzs.result.ResponseResult;
 import cn.lhzs.service.intf.ProductService;
@@ -40,50 +39,10 @@ public class ProductController {
         return generatorSuccessResult(new PageInfo(productService.getProdList(productSearchCondition)));
     }
 
-    @RequestMapping(value = "/bac/getList")
-    @ResponseBody
-    public ResponseResult getProductList2(@RequestBody ProductSearchCondition productSearchCondition) {
-        return generatorSuccessResult(new PageInfo(productService.getProdList(productSearchCondition)));
-    }
-
-    @RequestMapping("/add")
-    @ResponseBody
-    public ResponseResult addProduct(@RequestBody Product product) {
-        productService.addProd(product);
-        return generatorSuccessResult();
-    }
-
-    @RequestMapping("/delete")
-    @ResponseBody
-    public ResponseResult deleteProduct(Long prodId) {
-        productService.deleteProdByProdId(prodId);
-        return generatorSuccessResult();
-    }
-
-    @RequestMapping("/update")
-    @ResponseBody
-    public ResponseResult updateProduct(@RequestBody Product product) {
-        productService.updateProd(product);
-        return generatorSuccessResult();
-    }
-
     @RequestMapping("/search")
     @ResponseBody
     public ResponseResult search(@RequestBody ProductSearchCondition productSearchCondition) {
         return generatorSuccessResult(new PageInfo(productService.searchProduct(productSearchCondition)));
     }
 
-    @RequestMapping("/all/delete")
-    @ResponseBody
-    public ResponseResult deleteTable() {
-        productService.deleteTable();
-        return generatorSuccessResult();
-    }
-
-    @RequestMapping("/batch/delete")
-    @ResponseBody
-    public ResponseResult batchDelete(@RequestBody ProductSearchCondition productSearchCondition) {
-        productService.batchDeleteProduct(productSearchCondition);
-        return generatorSuccessResult();
-    }
 }

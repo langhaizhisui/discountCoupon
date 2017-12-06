@@ -4,6 +4,7 @@ import cn.lhzs.base.AbstractBaseService;
 import cn.lhzs.data.bean.Article;
 import cn.lhzs.data.bean.Config;
 import cn.lhzs.data.bean.SlideShowPicture;
+import cn.lhzs.data.bean.WebGeneralize;
 import cn.lhzs.data.common.Constants;
 import cn.lhzs.data.dao.ConfigMapper;
 import cn.lhzs.service.intf.ConfigService;
@@ -17,6 +18,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * Created by ZHX on 2017/5/7.
@@ -62,5 +65,46 @@ public class ConfigServiceImpl extends AbstractBaseService<Config> implements Co
         slideShowPictureList.remove(id - 1);
         currentConfig.setValue(JSONObject.toJSONString(slideShowPictureList));
         updateConfigById(currentConfig);
+    }
+
+    @Override
+    public void addWebGeneralize(WebGeneralize webGeneralize) {
+        Config webGeneralizeConfig = getConfigById(Constants.WEB_GENERALIZE);
+        List<WebGeneralize> webGeneralizeList = JSONObject.parseArray(webGeneralizeConfig.getValue(), WebGeneralize.class);
+        webGeneralizeList.add(webGeneralize);
+        webGeneralizeConfig.setValue(JSONObject.toJSONString(webGeneralizeList));
+        updateConfigById(webGeneralizeConfig);
+    }
+
+    @Override
+    public void deleteWebGeneralize(Integer id) {
+        Config webGeneralizeConfig = getConfigById(Constants.WEB_GENERALIZE);
+        List<WebGeneralize> webGeneralizeList = JSONObject.parseArray(webGeneralizeConfig.getValue(), WebGeneralize.class);
+        webGeneralizeList.remove(id - 1);
+        webGeneralizeConfig.setValue(JSONObject.toJSONString(webGeneralizeList));
+        updateConfigById(webGeneralizeConfig);
+    }
+
+    @Override
+    public void updateWebGeneralize(WebGeneralize webGeneralize) {
+        Config webGeneralizeConfig = getConfigById(Constants.WEB_GENERALIZE);
+        List<WebGeneralize> webGeneralizeList = JSONObject.parseArray(webGeneralizeConfig.getValue(), WebGeneralize.class);
+        webGeneralizeList.remove(webGeneralize.getId() - 1);
+        webGeneralizeList.add(webGeneralize.getId() - 1, webGeneralize);
+        webGeneralizeConfig.setValue(JSONObject.toJSONString(webGeneralizeList));
+        updateConfigById(webGeneralizeConfig);
+    }
+
+    @Override
+    public WebGeneralize getWebGeneralizeDetail(Integer id) {
+        Config webGeneralizeConfig = getConfigById(Constants.WEB_GENERALIZE);
+        return JSONObject.parseArray(webGeneralizeConfig.getValue(), WebGeneralize.class).get(id - 1);
+    }
+
+    @Override
+    public List<WebGeneralize> getWebGeneralizeList(WebGeneralize webGeneralize) {
+        return JSONObject.parseArray(getConfigById(Constants.WEB_GENERALIZE).getValue(), WebGeneralize.class).stream()
+                .filter(item->StringUtil.isNotEmptyString(webGeneralize.getWebName()) && webGeneralize.getWebName().equals(item.getWebName()))
+                .collect(toList());
     }
 }

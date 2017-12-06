@@ -10,7 +10,6 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 /**
  * 拦截器基类
- *
  */
 public class BaseInterceptor extends HandlerInterceptorAdapter {
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());

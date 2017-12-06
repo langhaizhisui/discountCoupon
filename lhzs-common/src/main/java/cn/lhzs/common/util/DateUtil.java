@@ -8,8 +8,7 @@ import java.util.Date;
 /**
  * 日期操作辅助类
  *
- * @author sonic.liu
- * @version 1.0
+ * @author ZHX
  */
 public final class DateUtil {
 	private DateUtil() {

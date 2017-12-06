@@ -82,6 +82,11 @@ public class ShopServiceImpl extends AbstractBaseService<Shop> implements ShopSe
     }
 
     @Override
+    public List<Shop> getAllShop() {
+        return shopMapper.selectAll();
+    }
+
+    @Override
     public Shop getShopByShopId(Long shopId) {
         return findById(shopId);
     }

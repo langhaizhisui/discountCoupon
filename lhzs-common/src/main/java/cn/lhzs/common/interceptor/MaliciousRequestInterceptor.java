@@ -4,8 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import cn.lhzs.common.Constants;
-import cn.lhzs.common.result.HttpCode;
+import cn.lhzs.common.constant.Constants;
 
 /**
  * 恶意请求拦截器
@@ -32,7 +31,7 @@ public class MaliciousRequestInterceptor extends BaseInterceptor {
 				}
 				session.setAttribute(Constants.MALICIOUS_REQUEST_TIMES, maliciousRequestTimes);
 				if (maliciousRequestTimes > maxMaliciousTimes) {
-					response.setStatus(HttpCode.MULTI_STATUS.value());
+//					response.setStatus(HttpCode.MULTI_STATUS.value());
 					logger.warn("To intercept a malicious request : {}", url);
 					return false;
 				}

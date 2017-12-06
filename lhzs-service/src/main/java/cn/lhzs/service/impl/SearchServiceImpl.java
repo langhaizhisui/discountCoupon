@@ -37,7 +37,6 @@ public class SearchServiceImpl implements SearchService {
             jestClient.execute(createIndex);
             Bulk bulk = new Bulk(index, type);
             list.forEach(item -> {
-                System.out.println(((Product) item).getId());
                 bulk.addIndex(new Index.Builder(item).build());
             });
             jestClient.execute(bulk);

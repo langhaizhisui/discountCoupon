@@ -21,14 +21,4 @@ public interface ArticleService extends IBaseService<Article> {
 
     List<Article> searchArticle(Article article);
 
-    void addWebGeneralize(WebGeneralize webGeneralize);
-
-    void deleteWebGeneralize(Integer id);
-
-    void updateWebGeneralize(WebGeneralize webGeneralize);
-
-    WebGeneralize getWebGeneralizeDetail(Integer id);
-
-    List<WebGeneralize> getWebGeneralizeList(WebGeneralize webGeneralize);
-
 }

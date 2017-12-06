@@ -2,6 +2,7 @@ package cn.lhzs.service.intf;
 
 import cn.lhzs.data.bean.Config;
 import cn.lhzs.data.bean.SlideShowPicture;
+import cn.lhzs.data.bean.WebGeneralize;
 
 import java.util.List;
 
@@ -19,4 +20,14 @@ public interface ConfigService {
     List<SlideShowPicture> getSlideShowPictureList();
 
     void deleteSlideShowPicture(Integer id);
+
+    void addWebGeneralize(WebGeneralize webGeneralize);
+
+    void deleteWebGeneralize(Integer id);
+
+    void updateWebGeneralize(WebGeneralize webGeneralize);
+
+    WebGeneralize getWebGeneralizeDetail(Integer id);
+
+    List<WebGeneralize> getWebGeneralizeList(WebGeneralize webGeneralize);
 }

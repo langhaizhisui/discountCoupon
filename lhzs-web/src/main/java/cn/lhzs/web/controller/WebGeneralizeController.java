@@ -1,9 +1,7 @@
 package cn.lhzs.web.controller;
 
-import cn.lhzs.data.bean.Article;
 import cn.lhzs.data.bean.WebGeneralize;
 import cn.lhzs.result.ResponseResult;
-import cn.lhzs.service.intf.ArticleService;
 import cn.lhzs.service.intf.ConfigService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,32 +17,11 @@ import static cn.lhzs.result.ResponseResultGenerator.generatorSuccessResult;
 * Created by ZHX on 2017/11/10.
 */
 @Controller
-@RequestMapping("/article")
-public class ArticleController {
-
-    @Autowired
-    public ArticleService articleService;
+@RequestMapping("/web/generalize")
+public class WebGeneralizeController {
 
     @Autowired
     public ConfigService configService;
-
-    @RequestMapping("/detail")
-    @ResponseBody
-    public ResponseResult getArticleDetail(@RequestBody Article article) {
-        return generatorSuccessResult(articleService.getArticle(article.getId()));
-    }
-
-    @RequestMapping("/search")
-    @ResponseBody
-    public ResponseResult searchArticle(@RequestBody Article article) {
-        return generatorSuccessResult(new PageInfo(articleService.searchArticle(article)));
-    }
-
-    @RequestMapping("/count")
-    @ResponseBody
-    public ResponseResult getArticleCount(@RequestBody Article article) {
-        return generatorSuccessResult(articleService.getArticleCount(article));
-    }
 
     @RequestMapping("/webGeneralize/search")
     @ResponseBody

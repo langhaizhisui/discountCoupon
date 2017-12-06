@@ -3,7 +3,6 @@ package cn.lhzs.common.util;
 import java.io.BufferedReader;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -12,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.alibaba.fastjson.JSON;
-import cn.lhzs.common.Constants;
+import cn.lhzs.common.constant.Constants;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.InvalidSessionException;
@@ -24,7 +23,7 @@ import org.springframework.web.util.WebUtils;
 
 /**
  * Web层辅助类
- * @author sonic.liu
+ * @author ZHX
  */
 public final class WebUtil {
 
@@ -162,38 +161,6 @@ public final class WebUtil {
 			logger.error(e.getMessage(), e);
 		}
 		return getParameterMap(request);
-	}
-
-	public static <T> T getParameter(HttpServletRequest request, Class<T> cls) {
-		String str, wholeStr = "";
-		try {
-			BufferedReader br = request.getReader();
-			while ((str = br.readLine()) != null) {
-				wholeStr += str;
-			}
-			if (StringUtils.isNotBlank(wholeStr)) {
-				return JSON.parseObject(wholeStr, cls);
-			}
-		} catch (Exception e) {
-			logger.error("", e);
-		}
-		return Request2ModelUtil.covert(cls, request);
-	}
-
-	@SuppressWarnings("unchecked")
-	public static <T> List<T> getParameters(HttpServletRequest request, Class<T> cls) {
-		String str, wholeStr = "";
-		try {
-			BufferedReader br = request.getReader();
-			while ((str = br.readLine()) != null) {
-				wholeStr += str;
-			}
-			if (StringUtils.isNotBlank(wholeStr)) {
-				return JSON.parseObject(wholeStr, List.class);
-			}
-		} catch (Exception e) {
-		}
-		return Request2ListUtil.covert(cls, request);
 	}
 
 	/** 获取客户端IP */

@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
-
 import static cn.lhzs.result.ResponseResultGenerator.generatorSuccessResult;
 
 /**
@@ -37,27 +35,6 @@ public class ShopController {
         return generatorSuccessResult(shopService.getShopByShopId(shopId));
     }
 
-    @RequestMapping("/add")
-    @ResponseBody
-    public ResponseResult addShop(@RequestBody Shop shop) {
-        shopService.addShop(shop);
-        return generatorSuccessResult();
-    }
-
-    @RequestMapping("/delete")
-    @ResponseBody
-    public ResponseResult deleteShop(Long shopId) {
-        shopService.deleteShopByShopId(shopId);
-        return generatorSuccessResult();
-    }
-
-    @RequestMapping("/update")
-    @ResponseBody
-    public ResponseResult updateShop(@RequestBody Shop shop) {
-        shopService.updateShop(shop);
-        return generatorSuccessResult();
-    }
-
     @RequestMapping("/search")
     @ResponseBody
     public ResponseResult searchShop(@RequestBody ShopSearchCondition shopSearchCondition) {
@@ -70,17 +47,4 @@ public class ShopController {
         return generatorSuccessResult(shopService.getShopList(shop));
     }
 
-    @RequestMapping("/all/delete")
-    @ResponseBody
-    public ResponseResult deleteTable() {
-        shopService.deleteTable();
-        return generatorSuccessResult();
-    }
-
-    @RequestMapping("/batch/delete")
-    @ResponseBody
-    public ResponseResult batchDelete(@RequestBody ShopSearchCondition shopSearchCondition) {
-        shopService.searchShop(shopSearchCondition).forEach(shop -> shopService.deleteShopByShopId(shop.getId()));
-        return generatorSuccessResult();
-    }
 }

@@ -40,9 +40,6 @@ public class ArticleServiceImpl extends AbstractBaseService<Article> implements 
     @Resource
     public ArticleMapper articleMapper;
 
-    @Resource
-    public ConfigService configService;
-
     @Override
     public ResponseResult addArticle(Article article) {
         article.setWeight(1);
@@ -79,47 +76,6 @@ public class ArticleServiceImpl extends AbstractBaseService<Article> implements 
             item.setType(getTypeText(item.getType()));
             return item;
         }).collect(toList());
-    }
-
-    @Override
-    public void addWebGeneralize(WebGeneralize webGeneralize) {
-        Config webGeneralizeConfig = configService.getConfigById(Constants.WEB_GENERALIZE);
-        List<WebGeneralize> webGeneralizeList = JSONObject.parseArray(webGeneralizeConfig.getValue(), WebGeneralize.class);
-        webGeneralizeList.add(webGeneralize);
-        webGeneralizeConfig.setValue(JSONObject.toJSONString(webGeneralizeList));
-        configService.updateConfigById(webGeneralizeConfig);
-    }
-
-    @Override
-    public void deleteWebGeneralize(Integer id) {
-        Config webGeneralizeConfig = configService.getConfigById(Constants.WEB_GENERALIZE);
-        List<WebGeneralize> webGeneralizeList = JSONObject.parseArray(webGeneralizeConfig.getValue(), WebGeneralize.class);
-        webGeneralizeList.remove(id - 1);
-        webGeneralizeConfig.setValue(JSONObject.toJSONString(webGeneralizeList));
-        configService.updateConfigById(webGeneralizeConfig);
-    }
-
-    @Override
-    public void updateWebGeneralize(WebGeneralize webGeneralize) {
-        Config webGeneralizeConfig = configService.getConfigById(Constants.WEB_GENERALIZE);
-        List<WebGeneralize> webGeneralizeList = JSONObject.parseArray(webGeneralizeConfig.getValue(), WebGeneralize.class);
-        webGeneralizeList.remove(webGeneralize.getId() - 1);
-        webGeneralizeList.add(webGeneralize.getId() - 1, webGeneralize);
-        webGeneralizeConfig.setValue(JSONObject.toJSONString(webGeneralizeList));
-        configService.updateConfigById(webGeneralizeConfig);
-    }
-
-    @Override
-    public WebGeneralize getWebGeneralizeDetail(Integer id) {
-        Config webGeneralizeConfig = configService.getConfigById(Constants.WEB_GENERALIZE);
-        return JSONObject.parseArray(webGeneralizeConfig.getValue(), WebGeneralize.class).get(id - 1);
-    }
-
-    @Override
-    public List<WebGeneralize> getWebGeneralizeList(WebGeneralize webGeneralize) {
-        return JSONObject.parseArray(configService.getConfigById(Constants.WEB_GENERALIZE).getValue(), WebGeneralize.class).stream()
-                .filter(item->StringUtil.isNotEmptyString(webGeneralize.getWebName()) && webGeneralize.getWebName().equals(item.getWebName()))
-                .collect(toList());
     }
 
     private String getTypeText(String type) {

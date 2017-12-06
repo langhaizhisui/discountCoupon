@@ -1,8 +1,8 @@
 package cn.lhzs.common.aop.log;
 
 /**
- * @author sonic.liu on 2017/7/12.
  * @descp 操作成功或失败枚举
+ * @author ZHX.
  */
 public enum OpResultEnum {
     NO(0), YES(1);

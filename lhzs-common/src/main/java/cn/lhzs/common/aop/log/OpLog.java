@@ -6,8 +6,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * @author zhx on 2017/7/12.
  * @descp 后台操作日志注解
+ * @author ZHX.
  */
 
 @Retention(RetentionPolicy.RUNTIME)

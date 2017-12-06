@@ -13,7 +13,6 @@ import java.util.concurrent.TimeUnit;
  * @Description: ES搜索引擎线程池
  * @author ZHX
  */
-@Component("jestThreadPool")
 public class JestThreadPool implements InitializingBean, DisposableBean {
 
     Logger logger = Logger.getLogger(JestThreadPool.class);

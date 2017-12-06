@@ -28,24 +28,20 @@ public class AdminSearchController {
     @Autowired
     private ShopService shopService;
 
+    @Autowired
     private JestThreadPool jestThreadPool;
 
     @RequestMapping("build/products/index")
     @ResponseBody
     public ResponseResult buildProductsSearchIndex() {
-//        jestThreadPool = (JestThreadPool) SpringContentRegister.getApplicationContext().getBean("jestThreadPool");
-//        jestThreadPool.addTask(() -> {
-            searchService.builderSearchIndex(productService.getAllProduct(), "products", "prod");
-//        });
+        jestThreadPool.addTask(() -> searchService.builderSearchIndex(productService.getAllProduct(), "products", "prod"));
         return generatorSuccessResult();
     }
 
     @RequestMapping("build/shops/index")
     @ResponseBody
     public ResponseResult buildShopsSearchIndex() {
-//        jestThreadPool.addTask(() -> {
-        searchService.builderSearchIndex(shopService.getAllShop(), "shops", "shop");
-//        });
+        jestThreadPool.addTask(() -> searchService.builderSearchIndex(shopService.getAllShop(), "shops", "shop"));
         return generatorSuccessResult();
     }
 

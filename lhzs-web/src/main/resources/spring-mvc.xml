@@ -77,6 +77,9 @@
     <!-- 应用上下文 -->
     <bean id="applicationContextUtil" class="cn.lhzs.util.ApplicationContextUtil"></bean>
 
+    <!-- jest线程池 -->
+    <bean id="jestThreadPool" class="cn.lhzs.common.support.thread.JestThreadPool"></bean>
+
     <!-- shiro -->
     <bean id="shiroFilterFactoryBean" class="cn.lhzs.web.shiro.ShiroPermissionManage" init-method="updateFilter">
         <property name="loginUrl" value="/unLogin"/>

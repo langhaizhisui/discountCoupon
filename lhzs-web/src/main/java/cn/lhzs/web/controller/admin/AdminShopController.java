@@ -27,12 +27,6 @@ public class AdminShopController {
     @Autowired
     public ShopService shopService;
 
-    @RequestMapping("/getList")
-    @ResponseBody
-    public ResponseResult getShopList(@RequestBody Shop shop) {
-        return generatorSuccessResult(new PageInfo(shopService.getShops(shop)));
-    }
-
     @RequestMapping("/getShop")
     @ResponseBody
     public ResponseResult getShop(Long shopId) {

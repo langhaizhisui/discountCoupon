@@ -234,7 +234,7 @@
 <div>
     <div class="nav">
         <div class="nav-logo">
-            <img src="images/logo2.jpg">
+            <img src="../images/logo2.jpg">
             <div>系统管理后台</div>
         </div>
         <ul>
@@ -251,10 +251,10 @@
                 <div class="left-nav-grade1">商品管理</div>
                 <div class="left-nav-grade2">
                     <div class="left-nav-bg prod-operation">
-                        <a href="/prodEnterManage.html">商品录入</a>
+                        <a href="/admin/prodEnterManage.htmle.html">商品录入</a>
                     </div>
                     <div class="left-nav-bg prod-list">
-                        <a href="/manageSystem.html">商品列表</a>
+                        <a href="/admin/manageSystem.html">商品列表</a>
                     </div>
                 </div>
             </div>
@@ -262,7 +262,7 @@
                 <div class="left-nav-grade1">批量管理</div>
                 <div class="left-nav-grade2">
                     <div class="left-nav-bg prod-all">
-                        <a href="/prodBatchManage.html">商品批量管理</a>
+                        <a href="/admin/prodBatchManage.htmle.html">商品批量管理</a>
                     </div>
                 </div>
             </div>
@@ -341,34 +341,32 @@
 
 <div class="load hidden">
     <div class="loading"></div>
-    <img class="loading-img" src="images/loading.gif"/>
+    <img class="loading-img" src="../images/loading.gif"/>
 </div>
 </body>
-<script src="js/jquery.min.js"></script>
-<script src="js/jquery.form.js"></script>
-<script src="js/app.js"></script>
-<script src="js/systemManage.js"></script>
+<script src="../js/jquery.min.js"></script>
+<script src="../js/jquery.form.js"></script>
+<script src="/admin/js/app.js"></script>
+<script src="/admin/js/systemManage.js"></script>
+<script src="/admin/js/paging.js"></script>
 <script>
     $(function () {
         init();
+        bindEvent();
     });
 
     function init() {
         getProduct(1);
-        bindEvent();
     }
 
     function getProduct(page) {
-        var reqData = {};
         var param = {};
         param.page = page;
-        param.pageSize = 20;
-        reqData.reqData = param;
-
-        app.getBgProductList(reqData, function (result) {
+        param.size = 20;
+        app.searchProductList(param, function (result) {
             if (result.code == 200) {
                 var html = '';
-                var data = result.data.prodList;
+                var data = result.data.list;
                 for (var i = 0; i < data.length; i++) {
                     var product = data[i];
                     html += '<div class="content-item">' +
@@ -388,8 +386,8 @@
                 }
                 $(".content-list").html(html);
 
-                var totalPage = result.data.totalPage;
-                var currPage = result.data.page;
+                var totalPage = result.data.pages;
+                var currPage = result.data.pageNum;
 
                 splitPage(totalPage, currPage, ".page-num",
                     function (index) {
@@ -446,7 +444,6 @@
                 return;
             }
             $(".load").removeClass("hidden");
-            var reqData = {};
             var param = {};
             param.prodId = prodId;
             param.category = category;
@@ -456,10 +453,9 @@
             param.createTimeStart = createTimeStart;
             param.createTimeEnd = createTimeEnd;
             param.page = 1;
-            param.pageSize = 20;
-            reqData.reqData = param;
+            param.size = 20;
 
-            app.batchProdDelete(reqData, function (result) {
+            app.batchProdDelete(param, function (result) {
                 $(".load").addClass("hidden");
                 if (result.code == 200) {
                     searchInfo(1);
@@ -490,7 +486,6 @@
         var expirationEnd = $("#expiration-end-input").val();
         var createTimeStart = $("#createtime-start-input").val();
         var createTimeEnd = $("#createtime-end-input").val();
-        var reqData = {};
         var param = {};
         param.prodId = prodId;
         param.category = category;
@@ -500,132 +495,63 @@
         param.createTimeStart = createTimeStart;
         param.createTimeEnd = createTimeEnd;
         param.page = page;
-        param.pageSize = 20;
-        reqData.reqData = param;
+        param.size = 20;
+        app.searchProductList(param, function (result) {
+            if (result.code == 200) {
+                var html = '';
+                var data = result.data.prodList.list;
+                for (var i = 0; i < data.length; i++) {
+                    var product = data[i];
+                    html += '<div class="content-item">' +
+                        '<div class="prod-id">' + product.prodId + '</div>' +
+                        '<div class="prod-title">' + product.name + '</div>' +
+                        '<div class="cata">' + product.category + '</div>' +
+                        '<div class="price">' + product.price + '</div>' +
+                        '<div class="sale-price">' + product.discountPrice + '</div>' +
+                        '<div class="save-price">' + product.savePrice + '</div>' +
+                        '<div class="plate">' + product.platform + '</div>' +
+                        '<div class="expire">' + product.expiration + '</div>' +
+                        '<div class="operation">' +
+                        '<span class="prod-edit"> 编辑 </span>' +
+                        '<span class="prod-delete"> 删除 </span>' +
+                        '</div>' +
+                        '</div>';
+                }
+                $(".content-list").html(html);
 
-        $.ajax({
-            type: 'post',
-            url: "prod/search",
-            dataType: 'json',
-            contentType: "application/json",
-            data: JSON.stringify(reqData),
-            success: function (result) {
-                if (result.code == 200) {
-                    var html = '';
-                    var data = result.data.prodList.list;
-                    for (var i = 0; i < data.length; i++) {
-                        var product = data[i];
-                        html += '<div class="content-item">' +
-                            '<div class="prod-id">' + product.prodId + '</div>' +
-                            '<div class="prod-title">' + product.name + '</div>' +
-                            '<div class="cata">' + product.category + '</div>' +
-                            '<div class="price">' + product.price + '</div>' +
-                            '<div class="sale-price">' + product.discountPrice + '</div>' +
-                            '<div class="save-price">' + product.savePrice + '</div>' +
-                            '<div class="plate">' + product.platform + '</div>' +
-                            '<div class="expire">' + product.expiration + '</div>' +
-                            '<div class="operation">' +
-                            '<span class="prod-edit"> 编辑 </span>' +
-                            '<span class="prod-delete"> 删除 </span>' +
-                            '</div>' +
-                            '</div>';
-                    }
-                    $(".content-list").html(html);
-
-                    var totalPage = result.data.totalPage;
-                    var currPage = result.data.page;
-                    splitPage(totalPage, currPage, ".page-num",
-                        function (index) {
-                            if (index != 1) {
-                                searchInfo(index - 1);
-                            }
-                        }, function (index) {
-                            index = parseInt(index);
-                            if (index != totalPage) {
-                                searchInfo(index + 1);
-                            }
-                        }, function (index) {
-                            searchInfo(index);
-                        });
-
-                    $(".prod-delete").click(function () {
-                        var prodId = $(this).parent().parent().find(".prod-id").text();
-                        var param = {};
-                        param.prodId = prodId;
-
-                        app.deleteProduct(param, function () {
-                            if (result.code == 200) {
-                                searchInfo(page);
-                                alert("删除成功");
-                            }
-                        });
+                var totalPage = result.data.totalPage;
+                var currPage = result.data.page;
+                splitPage(totalPage, currPage, ".page-num",
+                    function (index) {
+                        if (index != 1) {
+                            searchInfo(index - 1);
+                        }
+                    }, function (index) {
+                        index = parseInt(index);
+                        if (index != totalPage) {
+                            searchInfo(index + 1);
+                        }
+                    }, function (index) {
+                        searchInfo(index);
                     });
-                    $(".prod-edit").click(function () {
-                        var prodId = $(this).parent().parent().find(".prod-id").text();
-                        location.href = "/prodEnterManage.html?id=" + prodId;
-                    });
-                }
-            }
-        });
-    }
 
-    function splitPage(totalPage, currPage, node, prePage, nextPage, fixPage) {
-        var pageNum = "";
-        if (totalPage < 10) {
-            pageNum += '<span class="pre-page">上一页</span>';
-            for (var i = 0; i < totalPage; i++) {
-                if ((i + 1) == currPage) {
-                    pageNum += '<span id="curr-page" index="' + (i + 1) + '">' + (i + 1) + '</span>';
-                } else {
-                    pageNum += '<span index="' + (i + 1) + '">' + (i + 1) + '</span>';
-                }
+                $(".prod-delete").click(function () {
+                    var prodId = $(this).parent().parent().find(".prod-id").text();
+                    var param = {};
+                    param.prodId = prodId;
+
+                    app.deleteProduct(param, function () {
+                        if (result.code == 200) {
+                            searchInfo(page);
+                            alert("删除成功");
+                        }
+                    });
+                });
+                $(".prod-edit").click(function () {
+                    var prodId = $(this).parent().parent().find(".prod-id").text();
+                    location.href = "/prodEnterManage.html?id=" + prodId;
+                });
             }
-            pageNum += '<span class="next-page">下一页</span>';
-        } else if (totalPage > 10) {
-            if (currPage < 5) {
-                pageNum += '<span class="pre-page">上一页</span>';
-                for (var i = 0; i < 5; i++) {
-                    if ((i + 1) == currPage) {
-                        pageNum += '<span id="curr-page" index="' + (i + 1) + '">' + (i + 1) + '</span>';
-                    } else {
-                        pageNum += '<span index="' + (i + 1) + '">' + (i + 1) + '</span>';
-                    }
-                }
-                pageNum += '<span>...</span>' +
-                    '<span index="' + totalPage + '">' + totalPage + '</span>' +
-                    '<span class="next-page">下一页</span>';
-            } else if (currPage > totalPage - 5) {
-                pageNum += '<span class="pre-page">上一页</span><span index="1">1</span><span>...</span>';
-                for (var i = totalPage - 5; i < totalPage; i++) {
-                    if ((i + 1) == currPage) {
-                        pageNum += '<span id="curr-page" index="' + (i + 1) + '">' + (i + 1) + '</span>';
-                    } else {
-                        pageNum += '<span index="' + (i + 1) + '">' + (i + 1) + '</span>';
-                    }
-                }
-                pageNum += '<span class="next-page">下一页</span>';
-            } else {
-                pageNum += '<span class="pre-page">上一页</span>' +
-                    '<span index="1">1</span>' +
-                    '<span>...</span>' +
-                    '<span index="' + (currPage - 1) + '">' + (currPage - 1) + '</span>' +
-                    '<span id="curr-page" index="' + currPage + '">' + currPage + '</span>' +
-                    '<span index="' + (currPage + 1) + '">' + (currPage + 1) + '</span>' +
-                    '<span index="' + (currPage + 2) + '">' + (currPage + 2) + '</span>' +
-                    '<span>...</span>' +
-                    '<span index="' + totalPage + '">' + totalPage + '</span>' +
-                    '<span class="next-page">下一页</span>';
-            }
-        }
-        $(node).html(pageNum);
-        $(".page-num span").click(function () {
-            fixPage($(this).attr("index"));
-        });
-        $(".pre-page").click(function () {
-            prePage($("#curr-page").attr("index"));
-        });
-        $(".next-page").click(function () {
-            nextPage($("#curr-page").attr("index"));
         });
     }
 </script>

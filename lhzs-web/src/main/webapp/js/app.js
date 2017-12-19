@@ -8,10 +8,6 @@ var app = {
         var self = this;
         self.ajax("post", "shop/getList", data, callback);
     },
-    getSiteShopList: function (data, callback) {
-        var self = this;
-        self.ajax("post", "shop/getSiteList", data, callback);
-    },
     getHotShop: function (data, callback) {
         var self = this;
         self.ajax("post", "shop/getList", data, callback);
@@ -23,10 +19,6 @@ var app = {
     getProductList: function (data, callback) {
         var self = this;
         self.ajax("post", "prod/getList", data, callback);
-    },
-    getBgProductList: function (data, callback) {
-        var self = this;
-        self.ajax("post", "prod/bac/getList", data, callback);
     },
     getProductDetail: function (data, callback) {
         var self = this;
@@ -40,14 +32,6 @@ var app = {
         var self = this;
         self.ajax("get", "meta/getMeta", data, callback);
     },
-    deleteShop: function (data, callback) {
-        var self = this;
-        self.ajax("get", "shop/delete", data, callback);
-    },
-    deleteProduct: function (data, callback) {
-        var self = this;
-        self.ajax("get", "prod/delete", data, callback);
-    },
     getSelectedNav: function (navId) {
         setTimeout(function () {
             $(".top-nav ul li").removeClass("top-nav-select");
@@ -57,41 +41,9 @@ var app = {
         }, 100);
 
     },
-    addProd: function (data, callback) {
-        var self = this;
-        self.ajax("post", "prod/add", data, callback);
-    },
-    updateProduct: function (data, callback) {
-        var self = this;
-        self.ajax("post", "prod/update", data, callback);
-    },
-    addShop: function (data, callback) {
-        var self = this;
-        self.ajax("post", "shop/add", data, callback);
-    },
-    updateShop: function (data, callback) {
-        var self = this;
-        self.ajax("post", "shop/update", data, callback);
-    },
-    batchProdDelete: function (data, callback) {
-        var self = this;
-        self.ajax("post", "prod/batch/delete", data, callback);
-    },
-    allProdDelete: function (data, callback) {
-        var self = this;
-        self.ajax("post", "prod/all/delete", data, callback);
-    },
-    generatorActicle: function (data, callback) {
-        var self = this;
-        self.ajax("post", "/article/gene/article", data, callback);
-    },
     getArticleDetail: function (data, callback) {
         var self = this;
         self.ajax("post", "article/detail", data, callback);
-    },
-    deleteArticle: function (data, callback) {
-        var self = this;
-        self.ajax("get", "article/delete", data, callback);
     },
     getArticleList: function (data, callback) {
         var self = this;
@@ -105,26 +57,6 @@ var app = {
         var self = this;
         self.ajax("post", "article/webGeneralize/search", data, callback);
     },
-    batchShopDelete: function (data, callback) {
-        var self = this;
-        self.ajax("post", "shop/batch/delete", data, callback);
-    },
-    allShopDelete: function (data, callback) {
-        var self = this;
-        self.ajax("post", "shop/all/delete", data, callback);
-    },
-    addWebGeneralize: function (data, callback) {
-        var self = this;
-        self.ajax("post", "article/webGeneralize/add", data, callback);
-    },
-    deleteWebGeneralize: function (data, callback) {
-        var self = this;
-        self.ajax("get", "article/webGeneralize/delete", data, callback);
-    },
-    updateWebGeneralize: function (data, callback) {
-        var self = this;
-        self.ajax("post", "article/webGeneralize/update", data, callback);
-    },
     getWebGeneralizeDetail: function (data, callback) {
         var self = this;
         self.ajax("get", "article/webGeneralize/detail", data, callback);
@@ -132,14 +64,6 @@ var app = {
     getSlideshowPictureList: function (data, callback) {
         var self = this;
         self.ajax("post", "config/slideshowPicture/list", data, callback);
-    },
-    deleteSlideshowPicture: function (data, callback) {
-        var self = this;
-        self.ajax("get", "config/slideshowPicture/delete", data, callback);
-    },
-    login: function (data, callback) {
-        var self = this;
-        self.ajax("post", "login/login", data, callback);
     },
     "ajax": function (type, url, data, callback) {
         var self = this;
@@ -160,17 +84,7 @@ var app = {
             $.ajax({
                 type: 'get',
                 url: url + param,
-                success: function (result) {
-                    if (result.code == 600) {
-                        location.replace("/login.html");
-                        return;
-                    }
-                    if(result.code==601){
-                        location.replace("/manageSystem.html");
-                        return;
-                    }
-                    return callback(result);
-                }
+                success: callback
             });
         } else {
             $.ajax({
@@ -179,17 +93,7 @@ var app = {
                 dataType: 'json',
                 contentType: "application/json",
                 data: JSON.stringify(data),
-                success: function (result) {
-                    if (result.code == 600) {
-                        location.replace("/login.html");
-                        return;
-                    }
-                    if(result.code==601){
-                        location.replace("/manageSystem.html");
-                        return;
-                    }
-                    return callback(result);
-                }
+                success: callback
             });
         }
     },

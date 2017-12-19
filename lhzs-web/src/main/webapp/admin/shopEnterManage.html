@@ -4,7 +4,7 @@
     <title>后台管理系统</title>
     <meta name="Keywords" content="网店,品牌网店,精选网购,精选旗舰店">
     <meta name="Description" content="精选品牌网店大全，为您推荐精选网店、精选旗舰店、精选品牌网店、精选全面优惠网购等信息。">
-    <link rel="stylesheet" href="css/manage-system.css">
+    <link rel="stylesheet" href="../css/manage-system.css">
     <link rel="shortcut icon" href="/images/favicon.ico"/>
     <link rel="bookmark" href="/images/favicon.ico"/>
     <style>
@@ -139,12 +139,12 @@
 <div>
     <div class="nav">
         <div class="nav-logo">
-            <img src="images/logo2.jpg">
+            <img src="../images/logo2.jpg">
             <div>系统管理后台</div>
         </div>
         <ul>
-            <li id="prod-manage" class="nav-bg"><a>商品管理</a></li>
-            <li id="shop-manage"><a>店铺管理</a></li>
+            <li id="prod-manage"><a>商品管理</a></li>
+            <li id="shop-manage" class="nav-bg"><a>店铺管理</a></li>
             <li id="article-manage"><a>文章管理</a></li>
             <li id="base-set"><a>基础设置</a></li>
         </ul>
@@ -153,13 +153,13 @@
     <div class="center">
         <div class="left-nav clearfix">
             <div>
-                <div class="left-nav-grade1">商品管理</div>
+                <div class="left-nav-grade1">店铺管理</div>
                 <div class="left-nav-grade2">
                     <div class="left-nav-bg prod-operation">
-                        <a href="/prodEnterManage.html">商品录入</a>
+                        <a href="/admin/shopEnterManage.html">店铺录入</a>
                     </div>
                     <div class="left-nav-bg prod-list">
-                        <a href="/manageSystem.html">商品列表</a>
+                        <a href="/admin/shopManage.htmle.html">店铺列表</a>
                     </div>
                 </div>
             </div>
@@ -167,7 +167,7 @@
                 <div class="left-nav-grade1">批量管理</div>
                 <div class="left-nav-grade2">
                     <div class="left-nav-bg prod-all">
-                        <a href="/prodBatchManage.html">商品批量管理</a>
+                        <a href="/admin/shopBatchManage.html">店铺批量管理</a>
                     </div>
                 </div>
             </div>
@@ -177,62 +177,68 @@
             <table class="table">
                 <tbody>
                 <tr>
-                    <td class="table-title">商品名称</td>
+                    <td class="table-title">网店名称</td>
                     <td colspan="3">
-                        <input class="table-input" type="text" name="" id="prod-name" value="">
+                        <input class="table-input" type="text" name="" id="shop-name" value="">
                     </td>
                 <tr>
-                    <td class="table-title">主图链接</td>
+                    <td class="table-title">商城类型</td>
                     <td colspan="3">
-                        <input class="table-input" type="text" name="" id="banner-url" value="">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="table-title">详情页链接</td>
-                    <td colspan="3">
-                        <input class="table-input" type="text" name="" id="detail-url" value="">
+                        <input class="table-input" type="text" name="" id="site" value="">
                     </td>
                 </tr>
                 <tr>
-                    <td class="table-title">类目</td>
+                    <td class="table-title">网店类型</td>
                     <td colspan="3">
-                        <input class="table-input" type="text" name="" id="cata" value="">
+                        <input class="table-input" type="text" name="" id="shop-type" value="">
                     </td>
                 </tr>
                 <tr>
-                    <td class="table-title">原价</td>
+                    <td class="table-title">经营商</td>
                     <td colspan="3">
-                        <input class="table-input" type="text" name="" id="price" value="">
+                        <input class="table-input" type="text" name="" id="sell-name" value="">
                     </td>
                 </tr>
                 <tr>
-                    <td class="table-title">销售价</td>
+                    <td class="table-title">经营品牌</td>
                     <td colspan="3">
-                        <input class="table-input" type="text" name="" id="sale-price" value="">
+                        <input class="table-input" type="text" name="" id="brand-name" value="">
                     </td>
                 </tr>
                 <tr>
-                    <td class="table-title">优惠</td>
+                    <td class="table-title">经营产品</td>
                     <td colspan="3">
-                        <input class="table-input" type="text" name="" id="save-price" value="">
+                        <input class="table-input" type="text" name="" id="sell-prod" value="">
                     </td>
                 </tr>
                 <tr>
-                    <td class="table-title">平台</td>
+                    <td class="table-title">网店链接</td>
                     <td colspan="3">
-                        <input class="table-input" type="text" name="" id="plateform" value="">
+                        <input class="table-input" type="text" name="" id="shop-url" value="">
                     </td>
                 </tr>
                 <tr>
-                    <td class="table-title">商品推广链接</td>
+                    <td class="table-title">网店推广链接</td>
                     <td colspan="3">
-                        <input class="table-input" type="text" name="" id="generalize-url" value="">
+                        <input class="table-input" type="text" name="" id="shop-generalize-url" value="">
                     </td>
                 </tr>
                 <tr>
-                    <td class="table-title">有效期</td>
+                    <td class="table-title">手机链接</td>
                     <td colspan="3">
-                        <input class="table-input" type="text" name="" id="expiration" value="">
+                        <input class="table-input" type="text" name="" id="mobile-url" value="">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="table-title">手机推广链接</td>
+                    <td colspan="3">
+                        <input class="table-input" type="text" name="" id="mobile-generalize-url" value="">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="table-title">网店地址</td>
+                    <td colspan="3">
+                        <input class="table-input" type="text" name="" id="shop-addr" value="">
                     </td>
                 </tr>
                 </tbody>
@@ -244,17 +250,11 @@
         </div>
     </div>
 </div>
-
-<div id="load">
-    <div class="loading hidden"></div>
-    <img class="loading-img hidden" src="images/loading.gif" />
-</div>
-
 </body>
-<script src="js/jquery.min.js"></script>
-<script src="js/jquery.form.js"></script>
-<script src="js/app.js"></script>
-<script src="js/systemManage.js"></script>
+<script src="../js/jquery.min.js"></script>
+<script src="../js/jquery.form.js"></script>
+<script src="/admin/js/app.js"></script>
+<script src="/admin/js/systemManage.js"></script>
 <script>
     var id = getParameter("id");
 
@@ -263,27 +263,28 @@
     });
 
     function init() {
-        getProduct();
+        getShop();
         bindEvent();
     }
 
-    function getProduct() {
+    function getShop() {
         if (id) {
             var param = {};
-            param.prodId = id;
-            app.getProductDetail(param, function (result) {
+            param.shopId = id;
+            app.getShopDetail(param, function (result) {
                 if (result.code == 200) {
                     var data = result.data;
-                    $("#prod-name").val(data.name);
-                    $("#banner-url").val(data.banner);
-                    $("#detail-url").val(data.detail);
-                    $("#cata").val(data.category);
-                    $("#price").val(data.price);
-                    $("#sale-price").val(data.discountPrice);
-                    $("#save-price").val(data.savePrice);
-                    $("#plateform").val(data.platform);
-                    $("#generalize-url").val(data.prodGeneralize);
-                    $("#expiration").val(data.expiration);
+                    $("#shop-name").val(data.webShop);
+                    $("#site").val(data.site);
+                    $("#shop-type").val(data.type);
+                    $("#sell-name").val(data.sellName);
+                    $("#brand-name").val(data.brandName);
+                    $("#sell-prod").val(data.sellProd);
+                    $("#shop-url").val(data.webUrl);
+                    $("#shop-generalize-url").val(data.webGeneralize);
+                    $("#mobile-url").val(data.mobileUrl);
+                    $("#mobile-generalize-url").val(data.mobileGeneralize);
+                    $("#shop-addr").val(data.shopAddr);
                 }
             });
         }
@@ -291,42 +292,44 @@
 
     function bindEvent() {
         $("#save-btn").click(function () {
-            var prodName = $("#prod-name").val();
-            var bannerUrl = $("#banner-url").val();
-            var detailUrl = $("#detail-url").val();
-            var cata = $("#cata").val();
-            var price = $("#price").val();
-            var salePrice = $("#sale-price").val();
-            var savePrice = $("#save-price").val();
-            var plateform = $("#plateform").val();
-            var generalizeUrl = $("#generalize-url").val();
-            var expiration = $("#expiration").val();
+            var shopName = $("#shop-name").val();
+            var site = $("#site").val();
+            var shopType = $("#shop-type").val();
+            var sellName = $("#sell-name").val();
+            var brandName = $("#brand-name").val();
+            var sellProd = $("#sell-prod").val();
+            var shopUrl = $("#shop-url").val();
+            var shopGeneralizeUrl = $("#shop-generalize-url").val();
+            var mobileUrl = $("#mobile-url").val();
+            var mobileGeneralizeUrl = $("#mobile-generalize-url").val();
+            var shopAddr = $("#shop-addr").val();
 
-            if (prodName == "" || bannerUrl == "" || detailUrl == "" || cata == "" || price == "" || salePrice == ""
-                || savePrice == "" || plateform == "" || generalizeUrl == "" || expiration == "") {
-                alert("信息填写不能为空");
-                return;
-            }
+//            if (shopName == "" || site == "" || shopType == "" || sellName == "" || brandName == "" || sellProd == ""
+//                || shopUrl == "" || shopGeneralizeUrl == "" || mobileUrl == "" || mobileGeneralizeUrl == "" || shopAddr == "") {
+//                alert("信息填写不能为空");
+//                return;
+//            }
 
             var param = {};
-            param.name = prodName;
-            param.banner = bannerUrl;
-            param.detail = detailUrl;
-            param.category = cata;
-            param.price = price;
-            param.discountPrice = salePrice;
-            param.savePrice = savePrice;
-            param.platform = plateform;
-            param.prodGeneralize = generalizeUrl;
-            param.expiration = expiration;
+            param.webShop = shopName;
+            param.site = site;
+            param.type = shopType;
+            param.sellName = sellName;
+            param.brandName = brandName;
+            param.sellProd = sellProd;
+            param.webUrl = shopUrl;
+            param.webGeneralize = shopGeneralizeUrl;
+            param.mobileUrl = mobileUrl;
+            param.mobileGeneralize = mobileGeneralizeUrl;
+            param.shopAddr = shopAddr;
 
             if (id) {
-                param.prodId = id;
-                app.updateProduct(param, function () {
+                param.id = id;
+                app.updateShop(param, function () {
                     alert("更新成功");
                 });
             } else {
-                app.addProd(param, function () {
+                app.addShop(param, function () {
                     alert("添加成功");
                 });
             }

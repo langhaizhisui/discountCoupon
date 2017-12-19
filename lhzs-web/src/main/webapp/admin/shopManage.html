@@ -4,7 +4,7 @@
     <title>后台管理系统</title>
     <meta name="Keywords" content="网店,品牌网店,精选网购,精选旗舰店">
     <meta name="Description" content="精选品牌网店大全，为您推荐精选网店、精选旗舰店、精选品牌网店、精选全面优惠网购等信息。">
-    <link rel="stylesheet" href="css/manage-system.css">
+    <link rel="stylesheet" href="../css/manage-system.css">
     <link rel="shortcut icon" href="/images/favicon.ico"/>
     <link rel="bookmark" href="/images/favicon.ico"/>
     <style>
@@ -228,73 +228,102 @@
             cursor: pointer;
             display: inline-block;
         }
-
-        .cata {
-            width: 85px;
-        }
-
-        .price {
-            width: 250px;
-        }
-
-        .operation {
-            width: 87px;
-        }
-
-        .prod-title {
-            width: 390px;
-        }
     </style>
 </head>
 <body>
 <div>
     <div class="nav">
         <div class="nav-logo">
-            <img src="images/logo2.jpg">
+            <img src="../images/logo2.jpg">
             <div>系统管理后台</div>
         </div>
         <ul>
             <li id="prod-manage"><a>商品管理</a></li>
-            <li id="shop-manage"><a>店铺管理</a></li>
+            <li id="shop-manage" class="nav-bg"><a>店铺管理</a></li>
             <li id="article-manage"><a>文章管理</a></li>
-            <li id="base-set" class="nav-bg"><a>基础设置</a></li>
+            <li id="base-set"><a>基础设置</a></li>
         </ul>
     </div>
 
     <div class="center clearfix">
         <div class="left-nav clearfix">
             <div>
-                <div class="left-nav-grade1">首页</div>
+                <div class="left-nav-grade1">店铺管理</div>
                 <div class="left-nav-grade2">
-                    <div class="left-nav-bg">
-                        <a href="/slideShowPictureEnterManage.html">轮播图</a>
+                    <div class="left-nav-bg prod-operation">
+                        <a href="/admin/shopEnterManage.html">店铺录入</a>
                     </div>
-                    <div class="left-nav-bg prod-list prod-operation">
-                        <a href="/slideShowPictureManage.html">轮播图列表</a>
+                    <div class="left-nav-bg prod-list">
+                        <a href="/admin/shopManage.html">店铺列表</a>
                     </div>
                 </div>
             </div>
             <div>
-                <div class="left-nav-grade1">商城推荐</div>
+                <div class="left-nav-grade1">批量管理</div>
                 <div class="left-nav-grade2">
-                    <div class="left-nav-bg">
-                        <a href="/baseSetManage.html">商城列表</a>
-                    </div>
-                    <div class="left-nav-bg">
-                        <a href="/webGeneralizeEnterManage.html">增加商城</a>
+                    <div class="left-nav-bg prod-all">
+                        <a href="/admin/shopBatchManage.html">店铺批量管理</a>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="center-right">
+            <div>
+                <div class="search-line">
+                        <span class="search">
+                            <span class="search-title">网店ID</span>
+                            <span>
+                                <input class="search-input" id="shop-id-input" placeholder="请输入网店ID"/>
+                            </span>
+                        </span>
+                    <span class="search">
+                        <span class="search-title">网店名称</span>
+                        <span>
+                            <input class="search-input" id="shop-name-input" placeholder="请输入网店名称"/>
+                        </span>
+                    </span>
+                    <span class="search">
+                        <span class="search-title">商城类型</span>
+                        <span>
+                            <input class="search-input" id="store-type-input" placeholder="请输入商城类型"/>
+                        </span>
+                    </span>
+                    <span class="search">
+                        <span class="search-title">网店类型</span>
+                        <span>
+                            <input class="search-input" id="shop-type-input" placeholder="请输入网店类型"/>
+                        </span>
+                    </span>
+                </div>
+                <div class="search-line">
+                    <span class="search">
+                            <span class="search-title">创建时间</span>
+                            <span>
+                                <input class="search-input" id="createtime-start-input" placeholder="2017-05-07"/>
+                            </span>
+                            <span>
+                                <input class="search-input" id="createtime-end-input" placeholder="2017-06-08"/>
+                            </span>
+                        </span>
+
+                    <span class="search-btn">查询</span>
+                    <span class="more-delete-btn">批量删除</span>
+                    <span class="all-delete-btn">全部删除</span>
+                </div>
+            </div>
+
             <div class="content">
                 <div class="content-title clearfix">
-                    <div class="prod-id">轮播图ID</div>
-                    <div class="prod-title">图片地址</div>
-                    <div class="cata">权重</div>
-                    <div class="price">轮播图链接</div>
-                    <div class="sale-price">操作</div>
+                    <div class="prod-id">网店ID</div>
+                    <div class="prod-title">网店名称</div>
+                    <div class="cata">商城类型</div>
+                    <div class="price">网店类型</div>
+                    <div class="sale-price">经营商</div>
+                    <div class="save-price">经营品牌</div>
+                    <div class="plate">经营产品</div>
+                    <div class="expire">网店地址</div>
+                    <div class="operation">操作</div>
                 </div>
 
                 <div class="content-list">
@@ -310,34 +339,31 @@
 
 <div class="load hidden">
     <div class="loading"></div>
-    <img class="loading-img" src="images/loading.gif"/>
+    <img class="loading-img" src="../images/loading.gif"/>
 </div>
 </body>
-<script src="js/jquery.min.js"></script>
-<script src="js/jquery.form.js"></script>
-<script src="js/app.js"></script>
-<script src="js/systemManage.js"></script>
+<script src="../js/jquery.min.js"></script>
+<script src="../js/jquery.form.js"></script>
+<script src="/admin/js/app.js"></script>
+<script src="/admin/js/systemManage.js"></script>
+<script src="/admin/js/paging.js"></script>
 <script>
     $(function () {
         init();
     });
 
     function init() {
-        getWebGeneralizeList(1);
+        getShop(1);
         bindEvent();
     }
 
-    function getWebGeneralizeList(page) {
+    function getShop(page) {
         var param = {};
+
         param.page = page;
         param.size = 20;
 
-        var webName = $("#shop-id-input").val();
-        if (webName) {
-            param.webName = webName;
-        }
-
-        app.getSlideshowPictureList(param, function (result) {
+        app.getShopList(param, function (result) {
             if (result.code == 200) {
                 var html = "";
                 var data = result.data.list;
@@ -346,66 +372,66 @@
                     $(".page-num").html("");
                     return;
                 }
-
                 for (var i = 0; i < data.length; i++) {
-                    var item = data[i];
+                    var shop = data[i];
                     html += '<div class="content-item">' +
-                        '<div class="prod-id">' + (i + 1) + '</div>' +
-                        '<div class="prod-title">' + "http://biibuy.com"+item.url + '</div>' +
-                        '<div class="cata">' + item.weight + '</div>' +
-                        '<div class="price">' + item.toUrl + '</div>' +
+                        '<div class="prod-id">' + shop.id + '</div>' +
+                        '<div class="prod-title">' + shop.webShop + '</div>' +
+                        '<div class="cata">' + shop.site + '</div>' +
+                        '<div class="price">' + shop.type + '</div>' +
+                        '<div class="sale-price">' + shop.sellName + '</div>' +
+                        '<div class="save-price">' + shop.brandName + '</div>' +
+                        '<div class="plate">' + shop.sellProd + '</div>' +
+                        '<div class="expire">' + shop.shopAddr + '</div>' +
                         '<div class="operation">' +
-                        /*'<span class="prod-edit"> 编辑 </span>' +*/
+                        '<span class="prod-edit"> 编辑 </span>' +
                         '<span class="prod-delete"> 删除 </span>' +
                         '</div>' +
                         '</div>';
                 }
                 $(".content-list").html(html);
 
-                var totalPage = result.data.pageSize / param.size;
+                var totalPage = result.data.pages;
                 var currPage = result.data.pageNum;
 
                 splitPage(totalPage, currPage, ".page-num",
                     function (index) {
                         if (index != 1) {
-                            getWebGeneralizeList(index - 1);
+                            getShop(index - 1);
                         }
                     }, function (index) {
                         index = parseInt(index);
                         if (index != totalPage) {
-                            getWebGeneralizeList(index + 1);
+                            getShop(index + 1);
                         }
                     }, function (index) {
-                        getWebGeneralizeList(index);
+                        getShop(index);
                     });
 
                 $(".prod-delete").click(function () {
-                    var id = $(this).parent().parent().find(".prod-id").text();
+                    var shopId = $(this).parent().parent().find(".prod-id").text();
                     var param = {};
-                    param.id = id;
-                    app.deleteSlideshowPicture(param, function (result) {
+                    param.shopId = shopId;
+                    app.deleteShop(param, function (result) {
                         if (result.code == 200) {
-                            getWebGeneralizeList(page);
+                            getShop(page);
                             alert("删除成功");
                         }
                     });
                 });
 
-                /*$(".prod-edit").click(function () {
-                    var id = $(this).parent().parent().find(".prod-id").text();
-                    location.href = "/webGeneralizeEnterManage.html?id=" + id;
-                });*/
+                $(".prod-edit").click(function () {
+                    var shopId = $(this).parent().parent().find(".prod-id").text();
+                    location.href = "/shopEnterManage.html?id=" + shopId;
+                });
             }
         });
     }
 
-    function getTitle(title) {
-        return title.length > 15 ? title.substring(0, 30) + "..." : title
-    }
-
     function bindEvent() {
+
         $(".search-btn").click(function () {
-            getWebGeneralizeList(1);
+            searchInfo(1);
         });
 
         $(".more-delete-btn").click(function () {
@@ -423,7 +449,6 @@
 
             $(".load").removeClass("hidden");
 
-            var reqData = {};
             var param = {};
             param.id = shopId;
             param.webShop = shopName;
@@ -432,8 +457,7 @@
             param.createTimeStart = createTimeStart;
             param.createTimeEnd = createTimeEnd;
             param.page = 1;
-            param.pageSize = 20;
-            reqData.reqData = param;
+            param.size = 20;
 
             app.batchShopDelete(reqData, function (result) {
                 $(".load").addClass("hidden");
@@ -473,7 +497,8 @@
         param.createTimeStart = createTimeStart;
         param.createTimeEnd = createTimeEnd;
         param.page = page;
-        param.pageSize = 20;
+        param.size = 20;
+
         $.ajax({
             type: 'post',
             url: "shop/search",
@@ -503,8 +528,8 @@
                     }
                     $(".content-list").html(html);
 
-                    var totalPage = result.data.totalPage;
-                    var currPage = result.data.page;
+                    var totalPage = result.data.pages;
+                    var currPage = result.data.pageNum;
                     splitPage(totalPage, currPage, ".page-num",
                         function (index) {
                             if (index != 1) {
@@ -537,66 +562,6 @@
                     });
                 }
             }
-        });
-    }
-
-    function splitPage(totalPage, currPage, node, prePage, nextPage, fixPage) {
-        var pageNum = "";
-        if (totalPage < 10) {
-            pageNum += '<span class="pre-page">上一页</span>';
-            for (var i = 0; i < totalPage; i++) {
-                if ((i + 1) == currPage) {
-                    pageNum += '<span id="curr-page" index="' + (i + 1) + '">' + (i + 1) + '</span>';
-                } else {
-                    pageNum += '<span index="' + (i + 1) + '">' + (i + 1) + '</span>';
-                }
-            }
-            pageNum += '<span class="next-page">下一页</span>';
-        } else if (totalPage > 10) {
-            if (currPage < 5) {
-                pageNum += '<span class="pre-page">上一页</span>';
-                for (var i = 0; i < 5; i++) {
-                    if ((i + 1) == currPage) {
-                        pageNum += '<span id="curr-page" index="' + (i + 1) + '">' + (i + 1) + '</span>';
-                    } else {
-                        pageNum += '<span index="' + (i + 1) + '">' + (i + 1) + '</span>';
-                    }
-                }
-                pageNum += '<span>...</span>' +
-                    '<span index="' + totalPage + '">' + totalPage + '</span>' +
-                    '<span class="next-page">下一页</span>';
-            } else if (currPage > totalPage - 5) {
-                pageNum += '<span class="pre-page">上一页</span><span index="1">1</span><span>...</span>';
-                for (var i = totalPage - 5; i < totalPage; i++) {
-                    if ((i + 1) == currPage) {
-                        pageNum += '<span id="curr-page" index="' + (i + 1) + '">' + (i + 1) + '</span>';
-                    } else {
-                        pageNum += '<span index="' + (i + 1) + '">' + (i + 1) + '</span>';
-                    }
-                }
-                pageNum += '<span class="next-page">下一页</span>';
-            } else {
-                pageNum += '<span class="pre-page">上一页</span>' +
-                    '<span index="1">1</span>' +
-                    '<span>...</span>' +
-                    '<span index="' + (currPage - 1) + '">' + (currPage - 1) + '</span>' +
-                    '<span id="curr-page" index="' + currPage + '">' + currPage + '</span>' +
-                    '<span index="' + (currPage + 1) + '">' + (currPage + 1) + '</span>' +
-                    '<span index="' + (currPage + 2) + '">' + (currPage + 2) + '</span>' +
-                    '<span>...</span>' +
-                    '<span index="' + totalPage + '">' + totalPage + '</span>' +
-                    '<span class="next-page">下一页</span>';
-            }
-        }
-        $(node).html(pageNum);
-        $(".page-num span").click(function () {
-            fixPage($(this).attr("index"));
-        });
-        $(".pre-page").click(function () {
-            prePage($("#curr-page").attr("index"));
-        });
-        $(".next-page").click(function () {
-            nextPage($("#curr-page").attr("index"));
         });
     }
 </script>

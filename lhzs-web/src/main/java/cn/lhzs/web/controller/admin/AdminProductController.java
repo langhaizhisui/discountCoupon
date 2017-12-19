@@ -34,12 +34,6 @@ public class AdminProductController {
         return generatorSuccessResult(productService.getProductByProdId(prodId));
     }
 
-    @RequestMapping(value = "/getList")
-    @ResponseBody
-    public ResponseResult getProductList(@RequestBody ProductSearchCondition productSearchCondition) {
-        return generatorSuccessResult(new PageInfo(productService.getProdList(productSearchCondition)));
-    }
-
     @OpLog(type = ADD, descp = "增加商品")
     @RequestMapping("/add")
     @ResponseBody

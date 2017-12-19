@@ -4,9 +4,9 @@
     <title>后台管理系统</title>
     <meta name="Keywords" content="网店,品牌网店,精选网购,精选旗舰店">
     <meta name="Description" content="精选品牌网店大全，为您推荐精选网店、精选旗舰店、精选品牌网店、精选全面优惠网购等信息。">
-    <link rel="stylesheet" href="../css/manage-system.css">
-    <link rel="shortcut icon" href="/images/favicon.ico"/>
-    <link rel="bookmark" href="/images/favicon.ico"/>
+    <link rel="stylesheet" href="/admin/css/manage-system.css">
+    <link rel="shortcut icon" href="/admin/images/favicon.ico"/>
+    <link rel="bookmark" href="/admin/images/favicon.ico"/>
     <style>
 
         .nav {
@@ -313,11 +313,11 @@
     <img class="loading-img" src="../images/loading.gif"/>
 </div>
 </body>
-<script src="../js/jquery.min.js"></script>
-<script src="../js/jquery.form.js"></script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.form.js"></script>
 <script src="/admin/js/app.js"></script>
 <script src="/admin/js/systemManage.js"></script>
-<script src="/admin/js/paging.js"></script>
+<script src="/js/paging.js/js/paging.js"></script>
 <script>
     $(function () {
         init();
@@ -473,68 +473,61 @@
         param.createTimeEnd = createTimeEnd;
         param.page = page;
         param.size = 20;
-        $.ajax({
-            type: 'post',
-            url: "shop/search",
-            dataType: 'json',
-            contentType: "application/json",
-            data: JSON.stringify(param),
-            success: function (result) {
-                if (result.code == 200) {
-                    var html = '';
-                    var data = result.data.list;
-                    for (var i = 0; i < data.length; i++) {
-                        var shop = data[i];
-                        html += '<div class="content-item">' +
-                            '<div class="prod-id">' + shop.id + '</div>' +
-                            '<div class="prod-title">' + shop.webShop + '</div>' +
-                            '<div class="cata">' + shop.site + '</div>' +
-                            '<div class="price">' + shop.type + '</div>' +
-                            '<div class="sale-price">' + shop.sellName + '</div>' +
-                            '<div class="save-price">' + shop.brandName + '</div>' +
-                            '<div class="plate">' + shop.sellProd + '</div>' +
-                            '<div class="expire">' + shop.shopAddr + '</div>' +
-                            '<div class="operation">' +
-                            '<span class="prod-edit"> 编辑 </span>' +
-                            '<span class="prod-delete"> 删除 </span>' +
-                            '</div>' +
-                            '</div>';
-                    }
-                    $(".content-list").html(html);
-
-                    var totalPage = result.data.pages;
-                    var currPage = result.data.pageNum;
-                    splitPage(totalPage, currPage, ".page-num",
-                        function (index) {
-                            if (index != 1) {
-                                searchInfo(index - 1);
-                            }
-                        }, function (index) {
-                            index = parseInt(index);
-                            if (index != totalPage) {
-                                searchInfo(index + 1);
-                            }
-                        }, function (index) {
-                            searchInfo(index);
-                        });
-
-                    $(".prod-delete").click(function () {
-                        var shopId = $(this).parent().parent().find(".prod-id").text();
-                        var param = {};
-                        param.shopId = shopId;
-                        app.deleteShop(param, function (result) {
-                            if (result.code == 200) {
-                                getShop(page);
-                                alert("删除成功");
-                            }
-                        });
-                    });
-
-                    $(".prod-edit").click(function () {
-                        var shopId = $(this).parent().parent().find(".prod-id").text();
-                        location.href = "/shopEnterManage.html?id=" + shopId;
-                    });
+        app.searchShopList(param, function (result) {
+            if (result.code == 200) {
+                var html = '';
+                var data = result.data.list;
+                for (var i = 0; i < data.length; i++) {
+                    var shop = data[i];
+                    html += '<div class="content-item">' +
+                        '<div class="prod-id">' + shop.id + '</div>' +
+                        '<div class="prod-title">' + shop.webShop + '</div>' +
+                        '<div class="cata">' + shop.site + '</div>' +
+                        '<div class="price">' + shop.type + '</div>' +
+                        '<div class="sale-price">' + shop.sellName + '</div>' +
+                        '<div class="save-price">' + shop.brandName + '</div>' +
+                        '<div class="plate">' + shop.sellProd + '</div>' +
+                        '<div class="expire">' + shop.shopAddr + '</div>' +
+                        '<div class="operation">' +
+                        '<span class="prod-edit"> 编辑 </span>' +
+                        '<span class="prod-delete"> 删除 </span>' +
+                        '</div>' +
+                        '</div>';
                 }
+                $(".content-list").html(html);
+
+                var totalPage = result.data.pages;
+                var currPage = result.data.pageNum;
+                splitPage(totalPage, currPage, ".page-num",
+                    function (index) {
+                        if (index != 1) {
+                            searchInfo(index - 1);
+                        }
+                    }, function (index) {
+                        index = parseInt(index);
+                        if (index != totalPage) {
+                            searchInfo(index + 1);
+                        }
+                    }, function (index) {
+                        searchInfo(index);
+                    });
+
+                $(".prod-delete").click(function () {
+                    var shopId = $(this).parent().parent().find(".prod-id").text();
+                    var param = {};
+                    param.shopId = shopId;
+                    app.deleteShop(param, function (result) {
+                        if (result.code == 200) {
+                            getShop(page);
+                            alert("删除成功");
+                        }
+                    });
+                });
+
+                $(".prod-edit").click(function () {
+                    var shopId = $(this).parent().parent().find(".prod-id").text();
+                    location.href = "/shopEnterManage.html?id=" + shopId;
+                });
             }
         });
     }

@@ -28,11 +28,11 @@
         })(window, document);
     </script>
 
-    <link rel="stylesheet" href="/css/shopDetail.css">
-    <link rel="stylesheet" href="/css/base.css">
-    <link rel="stylesheet" href="/css/index2.css">
-    <link rel="shortcut icon" href="/images/favicon.ico"/>
-    <link rel="bookmark" href="/images/favicon.ico"/>
+    <link rel="stylesheet" href="/web/css/shopDetail.css">
+    <link rel="stylesheet" href="/web/css/base.css">
+    <link rel="stylesheet" href="/web/css/index2.css">
+    <link rel="shortcut icon" href="/web/images/favicon.ico"/>
+    <link rel="bookmark" href="/web/images/favicon.ico"/>
 </head>
 <body>
 <div class="header"></div>
@@ -69,7 +69,7 @@
 <footer class="footer"></footer>
 </body>
 <script src="/js/jquery.min.js"></script>
-<script src="/js/app.js"></script>
+<script src="/web/js/app.js"></script>
 <script>
     var shopId = getParameter("shopId");
     var shopImg = getParameter("shopImg");
@@ -105,7 +105,6 @@
         app.getShopDetail(param, function (result) {
             if (result.code == 200) {
                 var data = result.data;
-
                 var webGeneralize = data.webGeneralize;
                 if (webGeneralize) {
                     html = '<div class="shop-detail-img">' +
@@ -256,11 +255,11 @@
     function getHotShop(page) {
         var param = {};
         param.page = page;
-        param.pageSize = 8;
+        param.size = 8;
         app.getHotShop(param, function (result) {
             if (result.code == 200) {
                 var html = "";
-                var data = result.data.shopList;
+                var data = result.data.list;
                 for (var i = 0; i < data.length; i++) {
                     var shop = data[i];
                     html += '<div class="shop" index="' + i + '">' +

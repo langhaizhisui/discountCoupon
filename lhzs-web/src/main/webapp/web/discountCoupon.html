@@ -7,11 +7,11 @@
     <meta name="Description"
           content="哔唛网领券购物专区，专注全网商家内部优惠券活动,每日送出大量商家内部优惠券，特价团购福利，提供当季全网最具性价比的包邮产品,精选万人团商品超值好货,超低价好货享疯狂特价促销,让你全面安心享受网上购物乐趣!">
 
-    <link rel="stylesheet" href="/css/discountCoupon.css">
-    <link rel="stylesheet" href="/css/base.css">
-    <link rel="stylesheet" href="/css/index2.css">
-    <link rel="shortcut icon" href="/images/favicon.ico"/>
-    <link rel="bookmark" href="/images/favicon.ico"/>
+    <link rel="stylesheet" href="/web/css/discountCoupon.css">
+    <link rel="stylesheet" href="/web/css/base.css">
+    <link rel="stylesheet" href="/web/css/index2.css">
+    <link rel="shortcut icon" href="/web/images/favicon.ico"/>
+    <link rel="bookmark" href="/web/images/favicon.ico"/>
     <style>
         .moldbaby-subject-img {
             text-align: center;
@@ -66,8 +66,9 @@
 </section>
 <footer class="footer"></footer>
 </body>
-<script src="js/jquery.min.js"></script>
-<script src="js/app.js"></script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/paging.js"></script>
+<script src="/web/js/app.js"></script>
 <script>
     var cataId = getParameter("id");
     var categoryId = null;
@@ -105,76 +106,9 @@
         app.backTop();
     }
 
-    function getShopId(type) {
-        if (type == "G") {
-            return "1";
-        } else if (type == "W") {
-            return "2";
-        } else if (type == "T") {
-            return "3";
-        }
-    }
-    function getShopImage(type) {
-        switch (type) {
-            case "1":
-                return "./images/tm.jpg";
-                break;
-            case "2":
-                return "./images/jd.jpg";
-                break;
-            case "3":
-                return "./images/sn.jpg";
-                break;
-            case "4":
-                return "./images/yhd.jpg";
-                break;
-            case "5":
-                return "./images/dd.jpg";
-                break;
-            case "6":
-                return "./images/gm.jpg";
-                break;
-            case "7":
-                return "./images/tb.jpg";
-                break;
-            default:
-                return "./images/qt.jpg";
-                break;
-        }
-    }
-
-    function getShopType(type) {
-        switch (type) {
-            case "1":
-                return "天猫";
-                break;
-            case "2":
-                return "京东";
-                break;
-            case "3":
-                return "苏宁易购";
-                break;
-            case "4":
-                return "一号店";
-                break;
-            case "5":
-                return "当当网";
-                break;
-            case "6":
-                return "国美";
-                break;
-            case "7":
-                return "淘宝店";
-                break;
-            default:
-                return "";
-                break;
-        }
-    }
-
     function getCatalog() {
-        var reqData = {};
-        app.getCatalog(reqData, function (result) {
+        var param = {};
+        app.getCatalog(param, function (result) {
             if (result.code == 200) {
                 var html = "";
                 var data = result.data;
@@ -203,67 +137,15 @@
         });
     }
 
-    function getMetaId() {
-        switch (cataId) {
-            case "5":
-                return "5";
-                break;
-            /*case "6":
-                return "6";
-                break;*/
-            /*case "7":
-                return "7";
-                break;*/
-            /*case "8":
-                return "8";
-                break;*/
-            /*case "9":
-                return "9";
-                break;*/
-            /*case "10":
-                return "10";
-                break;*/
-            /*case "11":
-                return "11";
-                break;*/
-            /*case "12":
-                return "12";
-                break;*/
-            /*case "13":
-                return "13";
-                break;*/
-            /*case "14":
-                return "14";
-                break;*/
-            case "15":
-                return "15";
-                break;
-            /*case "16":
-                return "16";
-                break;
-            case "17":
-                return "17";
-                break;*/
-        }
-    }
     $(".prod-catalog ul li").click(function () {
         var index = $(this).attr("index");
         location.href="discountCoupon.html?id="+index;
-//        $(".prod-catalog ul li").removeClass("prod-nav-selected");
-//        $(this).addClass("prod-nav-selected");
-//        if (index == "" || index == "0") {
-//            categoryId = "0";
-//        } else {
-//            categoryId = index;
-//        }
-//        getProduct(1);
     });
 
     function getProduct(page) {
-        var reqData = {};
         var param = {};
         param.page = page;
-        param.pageSize = 20;
+        param.size = 20;
 
         if (categoryId == "11") {
             param.category = "数码电器";
@@ -291,12 +173,10 @@
             param.category = "其他"
         }
 
-        reqData.reqData = param;
-
-        app.getProductList(reqData, function (result) {
+        app.getProductList(param, function (result) {
             if (result.code == 200) {
                 var html = '';
-                var data = result.data.prodList;
+                var data = result.data.list;
                 for (var i = 0; i < data.length; i++) {
                     var product = data[i];
                     html += '<div class="moldbaby-subject" index="' + i + '">' +
@@ -316,73 +196,21 @@
                 }
                 $("#dataArea").find(".moldbaby").html(html);
 
-                var totalPage = result.data.totalPage;
-                var currPage = result.data.page;
-                var pageNum = "";
-                if (totalPage < 10) {
-                    pageNum += '<span class="pre-page">上一页</span>';
-                    for (var i = 0; i < totalPage; i++) {
-                        if ((i + 1) == currPage) {
-                            pageNum += '<span id="curr-page" index="' + (i + 1) + '">' + (i + 1) + '</span>';
-                        } else {
-                            pageNum += '<span index="' + (i + 1) + '">' + (i + 1) + '</span>';
+                var totalPage = result.data.pages;
+                var currPage = result.data.pageNum;
+                splitPage(totalPage, currPage, ".page-num",
+                    function (index) {
+                        if (index != 1) {
+                            getShop(index - 1);
                         }
-                    }
-                    pageNum += '<span class="next-page">下一页</span>';
-                } else if (totalPage > 10) {
-                    if (currPage < 5) {
-                        pageNum += '<span class="pre-page">上一页</span>';
-                        for (var i = 0; i < 5; i++) {
-                            if ((i + 1) == currPage) {
-                                pageNum += '<span id="curr-page" index="' + (i + 1) + '">' + (i + 1) + '</span>';
-                            } else {
-                                pageNum += '<span index="' + (i + 1) + '">' + (i + 1) + '</span>';
-                            }
+                    }, function (index) {
+                        index = parseInt(index);
+                        if (index != totalPage) {
+                            getShop(index + 1);
                         }
-                        pageNum += '<span>...</span>' +
-                            '<span index="' + totalPage + '">' + totalPage + '</span>' +
-                            '<span class="next-page">下一页</span>';
-                    } else if (currPage > totalPage - 5) {
-                        pageNum += '<span class="pre-page">上一页</span><span index="1">1</span><span>...</span>';
-                        for (var i = totalPage - 5; i < totalPage; i++) {
-                            if ((i + 1) == currPage) {
-                                pageNum += '<span id="curr-page" index="' + (i + 1) + '">' + (i + 1) + '</span>';
-                            } else {
-                                pageNum += '<span index="' + (i + 1) + '">' + (i + 1) + '</span>';
-                            }
-                        }
-                        pageNum += '<span class="next-page">下一页</span>';
-                    } else {
-                        pageNum += '<span class="pre-page">上一页</span>' +
-                            '<span index="1">1</span>' +
-                            '<span>...</span>' +
-                            '<span index="' + (currPage - 1) + '">' + (currPage - 1) + '</span>' +
-                            '<span id="curr-page" index="' + currPage + '">' + currPage + '</span>' +
-                            '<span index="' + (currPage + 1) + '">' + (currPage + 1) + '</span>' +
-                            '<span index="' + (currPage + 2) + '">' + (currPage + 2) + '</span>' +
-                            '<span>...</span>' +
-                            '<span index="' + totalPage + '">' + totalPage + '</span>' +
-                            '<span class="next-page">下一页</span>';
-                    }
-                }
-                $(".page-num").html(pageNum);
-                $(".page-num span").click(function () {
-                    var index = $(this).attr("index");
-                    getProduct(index);
-                });
-                $(".pre-page").click(function () {
-                    var currPageIndex = $("#curr-page").attr("index");
-                    if (currPageIndex != 1) {
-                        getProduct(currPageIndex - 1);
-                    }
-                })
-                $(".next-page").click(function () {
-                    var currPageIndex = $("#curr-page").attr("index");
-                    currPageIndex = parseInt(currPageIndex);
-                    if (currPageIndex != totalPage) {
-                        getProduct(currPageIndex + 1);
-                    }
-                });
+                    }, function (index) {
+                        getShop(index);
+                    });
 
                 $(".moldbaby-subject").click(function () {
                     var index = $(this).attr("index");

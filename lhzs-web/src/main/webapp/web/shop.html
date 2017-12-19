@@ -6,11 +6,11 @@
     <meta name="Keywords" content="网店,品牌网店,精选网购,精选旗舰店">
     <meta name="Description" content="精选品牌网店大全，为您推荐精选网店、精选旗舰店、精选品牌网店、精选全面优惠网购等信息。">
 
-    <link rel="stylesheet" href="/css/shop.css">
-    <link rel="stylesheet" href="/css/base.css">
-    <link rel="stylesheet" href="/css/index2.css">
-    <link rel="shortcut icon" href="/images/favicon.ico"/>
-    <link rel="bookmark" href="/images/favicon.ico"/>
+    <link rel="stylesheet" href="/web/web/css/shop.css">
+    <link rel="stylesheet" href="/web/web/css/base.css">
+    <link rel="stylesheet" href="/web/web/css/index2.css">
+    <link rel="shortcut icon" href="/web/images/favicon.ico"/>
+    <link rel="bookmark" href="/web/images/favicon.ico"/>
 </head>
 <body>
 <div class="header"></div>
@@ -39,15 +39,14 @@
 </section>
 <footer class="footer"></footer>
 </body>
-<script src="js/jquery.min.js"></script>
-<script src="js/app.js"></script>
+<script src="/js/jquery.min.js"></script>
+<script src="/web/js/app.js"></script>
 <script>
     var id = getParameter("id");
     var categoryId = null;
 
     $(function () {
         init();
-
         setTimeout(function () {
             $(".search-input").bind("keyup", function (even) {
                 if (even.keyCode == "13") {
@@ -145,7 +144,7 @@
         app.getShopList(param, function (result) {
             if (result.code == 200) {
                 var html = "";
-                var data = result.data.shopList;
+                var data = result.data.list;
                 if (data.length == 0) {
                     $(".shop-list").html("");
                     $(".page-num").html("");
@@ -172,89 +171,29 @@
                 }
                 $(".shop-list").html(html);
 
-                var totalPage = result.data.totalPage;
-                var currPage = result.data.page;
-                var pageNum = "";
-                if (totalPage < 10) {
-                    pageNum += '<span class="pre-page">上一页</span>';
-                    for (var i = 0; i < totalPage; i++) {
-                        if ((i + 1) == currPage) {
-                            pageNum += '<span id="curr-page" index="' + (i + 1) + '">' + (i + 1) + '</span>';
-                        } else {
-                            pageNum += '<span index="' + (i + 1) + '">' + (i + 1) + '</span>';
-                        }
-                    }
-                    pageNum += '<span class="next-page">下一页</span>';
-                } else if (totalPage > 10) {
-                    if (currPage < 5) {
-                        pageNum += '<span class="pre-page">上一页</span>';
-                        for (var i = 0; i < 5; i++) {
-                            if ((i + 1) == currPage) {
-                                pageNum += '<span id="curr-page" index="' + (i + 1) + '">' + (i + 1) + '</span>';
-                            } else {
-                                pageNum += '<span index="' + (i + 1) + '">' + (i + 1) + '</span>';
-                            }
-                        }
-                        pageNum += '<span>...</span>' +
-                            '<span index="' + totalPage + '">' + totalPage + '</span>' +
-                            '<span class="next-page">下一页</span>';
-                    } else if (currPage > totalPage - 5) {
-                        pageNum += '<span class="pre-page">上一页</span><span index="1">1</span><span>...</span>';
-                        for (var i = totalPage - 5; i < totalPage; i++) {
-                            if ((i + 1) == currPage) {
-                                pageNum += '<span id="curr-page" index="' + (i + 1) + '">' + (i + 1) + '</span>';
-                            } else {
-                                pageNum += '<span index="' + (i + 1) + '">' + (i + 1) + '</span>';
-                            }
-                        }
-                        pageNum += '<span class="next-page">下一页</span>';
-                    } else {
-                        pageNum += '<span class="pre-page">上一页</span>' +
-                            '<span index="1">1</span>' +
-                            '<span>...</span>' +
-                            '<span index="' + (currPage - 1) + '">' + (currPage - 1) + '</span>' +
-                            '<span id="curr-page" index="' + currPage + '">' + currPage + '</span>' +
-                            '<span index="' + (currPage + 1) + '">' + (currPage + 1) + '</span>' +
-                            '<span index="' + (currPage + 2) + '">' + (currPage + 2) + '</span>' +
-                            '<span>...</span>' +
-                            '<span index="' + totalPage + '">' + totalPage + '</span>' +
-                            '<span class="next-page">下一页</span>';
-                    }
-                }
-            }
-            $(".page-num").html(pageNum);
-            $(".page-num span").click(function () {
-                var index = $(this).attr("index");
-                getShop(index);
-            });
-            $(".pre-page").click(function () {
-                var currPageIndex = $("#curr-page").attr("index");
-                if (currPageIndex != 1) {
-                    getShop(currPageIndex - 1);
-                }
-            })
-            $(".next-page").click(function () {
-                var currPageIndex = $("#curr-page").attr("index");
-                currPageIndex = parseInt(currPageIndex);
-                if (currPageIndex != totalPage) {
-                    getShop(currPageIndex + 1);
-                }
-            });
+                var totalPage = result.data.pages;
+                var currPage = result.data.pageNum;
 
-            $(".shop").click(function () {
-                var index = $(this).attr("index");
-                location.href = "shopDetail.html?shopId=" + data[index].id + "&shopImg=" + id;
-            });
+                splitPage(totalPage, currPage, ".page-num",
+                    function (index) {
+                        if (index != 1) {
+                            getShop(index - 1);
+                        }
+                    }, function (index) {
+                        index = parseInt(index);
+                        if (index != totalPage) {
+                            getShop(index + 1);
+                        }
+                    }, function (index) {
+                        getShop(index);
+                    });
+
+                $(".shop").click(function () {
+                    var index = $(this).attr("index");
+                    location.href = "shopDetail.html?shopId=" + data[index].id + "&shopImg=" + id;
+                });
+            }
         });
-    }
-    function getShopId(type) {
-        if (type == "G") {
-            return "1";
-        } else if (type == "W") {
-            return "2";
-        } else if (type == "T") {
-            return "3";
-        }
     }
 
     function getShopType(type) {

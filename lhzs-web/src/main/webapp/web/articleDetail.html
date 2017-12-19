@@ -6,11 +6,11 @@
     <meta name="Description"
           content="哔唛网领券购物专区，专注全网商家内部优惠券活动,每日送出大量商家内部优惠券，特价团购福利，提供当季全网最具性价比的包邮产品,精选万人团商品超值好货,超低价好货享疯狂特价促销,让你全面安心享受网上购物乐趣!">
 
-    <link rel="stylesheet" href="/css/productDetail.css">
-    <link rel="stylesheet" href="/css/base.css">
-    <link rel="stylesheet" href="/css/index2.css">
-    <link rel="shortcut icon" href="/images/favicon.ico"/>
-    <link rel="bookmark" href="/images/favicon.ico"/>
+    <link rel="stylesheet" href="/web/css/productDetail.css">
+    <link rel="stylesheet" href="/web/css/base.css">
+    <link rel="stylesheet" href="/web/css/index2.css">
+    <link rel="shortcut icon" href="/web/images/favicon.ico"/>
+    <link rel="bookmark" href="/web/images/favicon.ico"/>
     <style>
         .article-catalog {
             font-size: 15px;
@@ -217,8 +217,9 @@
 </section>
 <footer class="footer"></footer>
 </body>
-<script src="js/jquery.min.js"></script>
-<script src="js/app.js"></script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/paging.js"></script>
+<script src="/web/js/app.js"></script>
 <script>
     var prodId = getParameter("prodId");
     var id = getParameter("id");
@@ -241,15 +242,13 @@
             }
         });
 
-        var reqData = {};
         var param = {};
         param.page = 1;
-        param.pageSize = 5;
-        reqData.reqData = param;
-        app.getArticleList(reqData, function (result) {
+        param.size = 5;
+        app.getArticleList(param, function (result) {
             var html = '<div><span class="line"></span>最新文章</div>';
             if (result.code == 200) {
-                var data = result.data.articleList;
+                var data = result.data.list;
                 for (var i = 0; i < data.length; i++) {
                     var item = data[i];
                     html += '<div>--> ' + getTitle(item.title) + '</div>';
@@ -430,15 +429,13 @@
         });
     }
     function getGeneralizeProduct() {
-        var reqData = {};
         var param = {};
         param.page = 1;
-        param.pageSize = 2;
-        reqData.reqData = param;
-        app.getGeneralizeProduct(reqData, function (result) {
+        param.size = 2;
+        app.getGeneralizeProduct(param, function (result) {
             if (result.code == 200) {
                 var html = '';
-                var data = result.data.prodList;
+                var data = result.data.list;
                 for (var i = 0; i < data.length; i++) {
                     var product = data[i];
                     html += '<div class="prod-generalize-item" index="' + i + '">' +
@@ -458,16 +455,14 @@
         });
     }
     function getProduct() {
-        var reqData = {};
         var param = {};
         param.page = 1;
-        param.pageSize = 4;
-        reqData.reqData = param;
+        param.size = 4;
 
-        app.getProductList(reqData, function (result) {
+        app.getProductList(param, function (result) {
             if (result.code == 200) {
                 var html = '';
-                var data = result.data.prodList;
+                var data = result.data.list;
                 for (var i = 0; i < data.length; i++) {
                     var product = data[i];
                     html += '<div class="moldbaby-subject" index="' + i + '">' +
@@ -504,11 +499,11 @@
     function getShop(page) {
         var param = {};
         param.page = page;
-        param.pageSize = 5;
+        param.size = 5;
         app.getShopList(param, function (result) {
             if (result.code == 200) {
                 var html = "";
-                var data = result.data.shopList;
+                var data = result.data.list;
                 if (data.length == 0) {
                     $(".shop-list").html("");
                     return;
